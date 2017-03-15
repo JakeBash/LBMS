@@ -3,6 +3,7 @@
  */
 public class Book
 {
+    private int tempID;
     private int isbn;
     private String title;
     private String author;
@@ -14,6 +15,7 @@ public class Book
 
     public Book(int isbn, String title, String author, String publisher, String publishDate, int pageCount, int quantity)
     {
+        tempID = -1;
         this.isbn = isbn;
         this.title = title;
         this.author = author;
@@ -22,6 +24,16 @@ public class Book
         this.pageCount = pageCount;
         this.numCopies = quantity;
         availableCopies = quantity;
+    }
+
+    public int getTempID()
+    {
+        return tempID;
+    }
+
+    public void setTempID(int id)
+    {
+        tempID = id;
     }
 
     public int getIsbn()
