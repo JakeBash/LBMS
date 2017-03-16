@@ -1,10 +1,12 @@
+package Books;
+
 /**
  * Created by JakeDesktop on 3/13/2017.
  */
 public class Book
 {
     private int tempID;
-    private int isbn;
+    private String isbn;
     private String title;
     private String author;
     private String publisher;
@@ -13,7 +15,7 @@ public class Book
     private int numCopies;
     private int availableCopies;
 
-    public Book(int isbn, String title, String author, String publisher, String publishDate, int pageCount, int quantity)
+    public Book(String isbn, String title, String author, String publisher, String publishDate, int pageCount)
     {
         tempID = -1;
         this.isbn = isbn;
@@ -22,9 +24,12 @@ public class Book
         this.publisher = publisher;
         this.publishDate = publishDate;
         this.pageCount = pageCount;
-        this.numCopies = quantity;
-        availableCopies = quantity;
+        // might not need quantity (See addBooks in BookStorage)
+        //this.numCopies = quantity;
+        //availableCopies = quantity;
     }
+
+
 
     public int getTempID()
     {
@@ -36,7 +41,7 @@ public class Book
         tempID = id;
     }
 
-    public int getIsbn()
+    public String getIsbn()
     {
         return isbn;
     }
