@@ -12,10 +12,10 @@ public class Visit implements java.io.Serializable
 {
     private Date startTime;
     private Date endTime;
-    private String visitorID;
+    private Integer visitorID;
 
     // Default constructor
-    public Visit(Date startTime, String visitorID)
+    public Visit(Date startTime, Integer visitorID)
     {
         this.startTime = startTime;
         this.visitorID = visitorID;
@@ -27,7 +27,7 @@ public class Visit implements java.io.Serializable
         this.endTime = new Date();
     }
 
-    public String getVisitorID()
+    public Integer getVisitorID()
     {
         return this.visitorID;
     }

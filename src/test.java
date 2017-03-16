@@ -22,15 +22,16 @@ public class test
 
     // Test saving and retrieving visitor storage
     private static void testStoreVisitors() {
-        VisitorStorage visitorStorage = new VisitorStorage();
+        // Recover the currently saved visitor storage, if any
+        VisitorStorage visitorStorage = VisitorStorage.deserialize();
 
         // Create a test visitor to register
         Visitor testVisitor = new Visitor("Test", "Visitor", "1234 Test Rd", "6078675309",
                 new ArrayList<>(), new ArrayList<>(), 0);
-        String visitorID = testVisitor.getID();
 
         // Register the visitor
         visitorStorage.registerVisitor(testVisitor);
+        Integer visitorID = testVisitor.getID();
 
         // Save the object
         visitorStorage.serialize();
@@ -51,7 +52,7 @@ public class test
         // Create a test visitor to register
         Visitor testVisitor = new Visitor("Test", "Visitor", "1234 Test Rd", "6078675309",
                 new ArrayList<>(), new ArrayList<>(), 0);
-        String visitorID = testVisitor.getID();
+        Integer visitorID = testVisitor.getID();
 
         // Register the visitor
         visitorStorage.registerVisitor(testVisitor);

@@ -14,7 +14,7 @@ public class Visitor implements java.io.Serializable
     private String lastName;
     private String address;
     private String phoneNumber;
-    private String id;
+    private Integer id;
     private ArrayList<CheckOut> checkedOutBooks;
     private ArrayList<Fine> fines;
     private int balance;
@@ -27,13 +27,17 @@ public class Visitor implements java.io.Serializable
         this.lastName = lastName;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.id = UUID.randomUUID().toString();
+        //this.id = UUID.randomUUID().toString();
         this.checkedOutBooks = checkedOutBooks;
         this.fines = fines;
         this.balance = balance;
     }
 
-    public String getID() {
+    public Integer getID() {
         return this.id;
+    }
+
+    public void setID(Integer id) {
+        this.id = id;
     }
 }

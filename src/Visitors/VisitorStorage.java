@@ -1,6 +1,7 @@
 package Visitors;
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Date;
@@ -17,10 +18,10 @@ import java.util.Date;
 public class VisitorStorage implements java.io.Serializable
 {
     // Registered visitors
-    private HashMap<String, Visitor> visitors;
+    private HashMap<Integer, Visitor> visitors;
 
     // Visits currently taking place in the library
-    private HashMap<String, Visit> activeVisits;
+    private HashMap<Integer, Visit> activeVisits;
 
     // Full history of visits in the library
     private ArrayList<Visit> visitHistory;
@@ -37,20 +38,35 @@ public class VisitorStorage implements java.io.Serializable
     }
 
     // Returns a visitor matching a given ID
-    public Visitor getVisitor(String ID)
+    public Visitor getVisitor(Integer ID)
     {
         return this.visitors.get(ID);
     }
 
     // Registers a new visitor in the system.
     // The visitor is added to the hash and saved to a text file at shutdown.
+    // Registration assigns the registered visitor a unique ID for storage.
     public void registerVisitor(Visitor visitor)
     {
-        this.visitors.put(visitor.getID(), visitor);
+        // Increment the visitor IDs
+        Integer newKey;
+
+        // If this is the first registration, start at 0
+        if (this.visitors.keySet().size() == 0)
+        {
+            newKey = 0;
+        } else {
+            Integer lastKey = Collections.max(this.visitors.keySet());
+            newKey = lastKey + 1;
+        }
+
+        // Set the visitor's id and store
+        visitor.setID(newKey);
+        this.visitors.put(newKey, visitor);
     }
 
     // Begins a visit in the library
-    public void startVisit(String visitorID)
+    public void startVisit(Integer visitorID)
     {
         // Create a new visit and add it to active
         Visit visit = new Visit(new Date(), visitorID);
@@ -58,7 +74,7 @@ public class VisitorStorage implements java.io.Serializable
     }
 
     // Ends a visit in the library
-    public void endVisit(String visitorID)
+    public void endVisit(Integer visitorID)
     {
         // Find the visit for the given visitor ID
         Visit visit = this.activeVisits.get(visitorID);
@@ -129,13 +145,14 @@ public class VisitorStorage implements java.io.Serializable
 
         // Save to file
         try {
-            FileOutputStream fileOut =
-                    new FileOutputStream(file);
+            FileOutputStream fileOut = new FileOutputStream(file);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(this);
             out.close();
             fileOut.close();
-        }catch(IOException i) {
+        }
+        catch(IOException i)
+        {
             i.printStackTrace();
         }
     }
@@ -154,9 +171,18 @@ public class VisitorStorage implements java.io.Serializable
             in.close();
             fileIn.close();
             return visitorStorage;
-        } catch (IOException i) {
+        }
+        catch (EOFException eof)
+        {
+            // Start a fresh storage
+            return new VisitorStorage();
+        }
+        catch (IOException i)
+        {
             i.printStackTrace();
-        } catch (ClassNotFoundException c) {
+        }
+        catch (ClassNotFoundException c)
+        {
             System.out.println("VisitorStorage could not be found");
             c.printStackTrace();
         }
