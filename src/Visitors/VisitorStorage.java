@@ -1,6 +1,5 @@
 package Visitors;
 import java.io.*;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.ArrayList;
 import java.util.HashMap;

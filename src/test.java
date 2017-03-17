@@ -14,7 +14,16 @@ public class test
 {
     public static void main(String[] args)
     {
+        testAddBooks();
 
+        // Test visitor storage
+        testStoreVisitors();
+
+        // Test generating report from visitor data
+        testGenerateVisitorReport();
+
+        // All tests passed!
+        System.out.println("Testing succeeded");
     }
 
     public static void testAddBooks()
@@ -25,19 +34,9 @@ public class test
         Book book3 = new Book("3333333333333", "Test Book Title 3", new ArrayList<String>(Arrays.asList("Example Author 3")), "Example Publisher 4", "2017-3-16", 250);
         ArrayList<Book> purchase = new ArrayList<>(Arrays.asList(book1, book2, book3));
         bStore.addBooks(purchase, 500);
-        for(Book b : bStore.getBooks().values())
-        {
+        for(Book b : bStore.getBooks().values()) {
             System.out.println(b.toString());
-            // Test visitor storage
-            testStoreVisitors();
-
-            // Test generating report from visitor data
-            testGenerateVisitorReport();
-
-            // All tests passed!
-            System.out.println("Testing succeeded");
         }
-
     }
 
     // Test saving and retrieving visitor storage
@@ -87,6 +86,7 @@ public class test
             System.out.println("Sleep was interrupted");
         }
 
+        // End the visit
         visitorStorage.endVisit(visitorID);
 
         // Generate the report
