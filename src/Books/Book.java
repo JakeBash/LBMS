@@ -1,30 +1,37 @@
+package Books;
+
+import java.util.ArrayList;
+
 /**
  * Created by JakeDesktop on 3/13/2017.
  */
 public class Book
 {
     private int tempID;
-    private int isbn;
+    private String isbn;
     private String title;
-    private String author;
+    private ArrayList<String> authors;
     private String publisher;
     private String publishDate;
     private int pageCount;
     private int numCopies;
     private int availableCopies;
 
-    public Book(int isbn, String title, String author, String publisher, String publishDate, int pageCount, int quantity)
+    public Book(String isbn, String title, ArrayList<String> authors, String publisher, String publishDate, int pageCount)
     {
         tempID = -1;
         this.isbn = isbn;
         this.title = title;
-        this.author = author;
+        this.authors = authors;
         this.publisher = publisher;
         this.publishDate = publishDate;
         this.pageCount = pageCount;
-        this.numCopies = quantity;
-        availableCopies = quantity;
+        // might not need quantity (See addBooks in BookStorage)
+        //this.numCopies = quantity;
+        //availableCopies = quantity;
     }
+
+
 
     public int getTempID()
     {
@@ -36,7 +43,7 @@ public class Book
         tempID = id;
     }
 
-    public int getIsbn()
+    public String getIsbn()
     {
         return isbn;
     }
@@ -46,9 +53,9 @@ public class Book
         return title;
     }
 
-    public String getAuthor()
+    public ArrayList<String> getAuthor()
     {
-        return author;
+        return authors;
     }
 
     public String getPublisher()
@@ -74,6 +81,24 @@ public class Book
     public int getAvailableCopies()
     {
         return availableCopies;
+    }
+
+    public String toString()
+    {
+        return this.tempID + "," + this.availableCopies + "," + this.isbn + "," + this.title + "," + authorString() + "," + publisher + "," + publishDate + "," + numCopies;
+    }
+
+    public String authorString()
+    {
+        String authorString = "{";
+        for(String a : authors)
+        {
+            authorString += a;
+            if(authors.size() > 1)
+                authorString += ",";
+        }
+        authorString += "}";
+        return authorString;
     }
 
     public void addCopies(int amt)
