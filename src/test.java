@@ -86,6 +86,7 @@ public class test
             System.out.println("Sleep was interrupted");
         }
 
+        // End the visit
         visitorStorage.endVisit(visitorID);
 
         // Generate the report
