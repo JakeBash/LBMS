@@ -14,7 +14,7 @@ public class test
 {
     public static void main(String[] args)
     {
-        testAddBooks();
+
     }
 
     public static void testAddBooks()
@@ -28,14 +28,16 @@ public class test
         for(Book b : bStore.getBooks().values())
         {
             System.out.println(b.toString());
-        // Test visitor storage
-        testStoreVisitors();
+            // Test visitor storage
+            testStoreVisitors();
 
-        // Test generating report from visitor data
-        testGenerateVisitorReport();
+            // Test generating report from visitor data
+            testGenerateVisitorReport();
 
-        // All tests passed!
-        System.out.println("Testing succeeded");
+            // All tests passed!
+            System.out.println("Testing succeeded");
+        }
+
     }
 
     // Test saving and retrieving visitor storage

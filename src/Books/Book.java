@@ -24,7 +24,7 @@ public class Book
      * Constructor for creating a new Book object.
      *
      * @param isbn - The ISBN for the given book.
-     * @param title -The title for the given book.
+     * @param title - The title for the given book.
      * @param authors - The author(s) for the given book.
      * @param publisher - The published of the given book.
      * @param publishDate - The publish date for the given book.
