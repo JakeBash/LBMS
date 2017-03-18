@@ -1,10 +1,12 @@
 package UIS;
 
-import LBMSCommands.*;
-import java.util.HashMap;
+import LBMSCommands.* ;
+import Library.TimeClock ;
+import Library.Library ;
+import java.util.HashMap ;
 
 // import java.util.ArrayDeque;
-import java.util.ArrayList;
+import java.util.ArrayList ;
 // import java.util.Queue ;
 
 /**
@@ -44,45 +46,45 @@ public class CommandParser
         LBMSCommand command ;
 
         if (cmd.equalsIgnoreCase("advance"))
-            command = new AdvanceTime() ;
+            command = new AdvanceTime() ;   // Needs a timeclock arg, day, hour
 
         else if (cmd.equalsIgnoreCase("arrive"))
-            command = new BeginVisit() ;
+            command = new BeginVisit() ;    // Needs a Library arg, visitorID
 
         else if (cmd.equalsIgnoreCase("borrow"))
-            command = new BorrowBook() ;
+            command = new BorrowBook() ;    // Needs a Library arg
 
         else if (cmd.equalsIgnoreCase("borrowed"))
-            command = new FindBorrowed() ;
+            command = new FindBorrowed() ;  // Needs a Library arg
 
         else if (cmd.equalsIgnoreCase("buy"))
-            command = new PurchaseBook() ;
+            command = new PurchaseBook() ;  // Needs a Library arg
 
         else if (cmd.equalsIgnoreCase("datetime"))
-            command = new GetTime() ;
+            command = new GetTime() ;       // Needs a timeclock arg
         
         else if (cmd.equalsIgnoreCase("depart"))
-            command = new EndVisit() ;
+            command = new EndVisit() ;      // needs a library arg
 
         // This is going to have a sort order possibly
         else if (cmd.equalsIgnoreCase("info"))
-            command = new BookSearch() ;
+            command = new BookSearch() ;    // needs a library arg
 
         else if (cmd.equalsIgnoreCase("pay"))
-            command = new PayFine() ;
+            command = new PayFine() ;       // needs library arg
 
         else if (cmd.equalsIgnoreCase("register"))
-            command = new RegisterVisitor() ;
+            command = new RegisterVisitor() ;   // needs a library arg
 
         else if (cmd.equalsIgnoreCase("report"))
-            command = new GenerateReport() ;
+            command = new GenerateReport() ;    // needs library arg?
 
         else if (cmd.equalsIgnoreCase("return"))
-            command = new ReturnBook() ;
+            command = new ReturnBook() ;        // needs library arg
 
         // This is going to have a sort order possibly
         else if (cmd.equalsIgnoreCase("search"))
-            command = new BookStoreSearch() ;
+            command = new BookStoreSearch() ;   // needs library arg
 
         // Added to make this compile
         else
