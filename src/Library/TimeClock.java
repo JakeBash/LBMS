@@ -2,7 +2,7 @@ package Library;
 
 /**
  *	@author Nikolas Tilley
- * @version 0.1
+ *  @version 0.1
  */
 public class TimeClock
 {
@@ -12,8 +12,8 @@ public class TimeClock
 
 	 public TimeClock()
 	 {
-	     offDay = 0 ;
-        offHour = 0 ;
+         offDay = 0 ;
+         offHour = 0 ;
 	 
 	 }
     
@@ -25,8 +25,8 @@ public class TimeClock
 	  */
 	 public TimeClock(int offDay, int offHour)
 	 {
-        this.offDay = offDay ;
-        this.offHour = offHour ; 
+         this.offDay = offDay ;
+         this.offHour = offHour ; 
 	 }
     
  
@@ -44,6 +44,20 @@ public class TimeClock
     {
         return offHour ;
     }
+
+    /**
+     * Advances the clock forward in Time
+     * the number of days can be between 0 and 7,
+     * the number of hours can be between 0 and 23
+     * 
+     * @param days the number of days to advance
+     * @param hours the number of hours to advance
+     */
+    public void advanceTime(int days, int hours)
+    {
+        offDay += days ;
+        offHour += hours ;
+    }
     
     
     /**
@@ -55,13 +69,9 @@ public class TimeClock
     }
     
     
-    
-    
-    
-    
    public static void main (String [] args) {
        TimeClock time = new TimeClock(2, 4) ;
-       
+
        // Test 1
        if (time.getOffHour() == 4)
            System.out.println("PASSED Test - 1") ;
