@@ -39,7 +39,7 @@ public class Library
      * @param searchCriteria - The search criteria supplied by the user
      * @return An arrayList representing the books that meet the supplied search criteria.
      */
-    public ArrayList<Book> bookSearch(String[] searchCriteria)
+    public ArrayList<Book> bookSearch(String... searchCriteria)
     {
         return this.bookStorage.bookSearch(searchCriteria);
     }
