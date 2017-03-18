@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import Visitors.Visitor;
 import Visitors.VisitorStorage;
+import Library.Library;
 
 /**
  * This is used to test modules of code as they are created.
@@ -16,6 +17,9 @@ import Visitors.VisitorStorage;
  */
 public class test
 {
+    // Library object for executing test commands
+    private static Library library = new Library();
+
     /**
      * Default constructor used to run and execute our created tests.
      */
@@ -84,45 +88,43 @@ public class test
      * Test saving and retrieving visitor storage.
      */
     private static void testStoreVisitors() {
-        // Recover the currently saved visitor storage, if any
-        VisitorStorage visitorStorage = VisitorStorage.deserialize();
+        // Register a new visitor
+        Visitor visitor = library.registerVisitor("Test", "Visitor", "1234 test road", "6078675309");
+        Integer visitorID = visitor.getID();
 
-        // Create a test visitor to register
-        Visitor testVisitor = new Visitor("Test", "Visitor", "1234 Test Rd", "6078675309",
-                new ArrayList<>(), new ArrayList<>(), 0);
+        // Check that visitor was registered successfully
+        if (visitorID == null) {
+            throw new java.lang.Error("Visitor was not registered correctly");
+        }
 
-        // Register the visitor
-        visitorStorage.registerVisitor(testVisitor);
-        Integer visitorID = testVisitor.getID();
+        // Shut down the library, saving the visitor storage
+        library.shutdown();
 
-        // Save the object
-        visitorStorage.serialize();
-
-        // Recover the object from the text file
-        VisitorStorage recovered = VisitorStorage.deserialize();
+        // Start the library back up, recovering the saved storage
+        library = new Library();
 
         // Ensure that registered visitor was saved and retrieved correctly
-        if (recovered.getVisitor(visitorID) == null) {
+        if (library.getVisitor(visitorID) == null) {
             throw new java.lang.Error("Saved visitor could not be retrieved");
         }
+
+        System.out.println("Test store visitors: passed");
     }
 
     /**
      * Test generating partial report from visitor storage.
      */
     private static void testGenerateVisitorReport() {
-        VisitorStorage visitorStorage = new VisitorStorage();
+        // Register a new visitor
+        Visitor visitor = library.registerVisitor("Test", "Visitor", "1234 test road", "6078675309");
+        Integer visitorID = visitor.getID();
 
-        // Create a test visitor to register
-        Visitor testVisitor = new Visitor("Test", "Visitor", "1234 Test Rd", "6078675309",
-                new ArrayList<>(), new ArrayList<>(), 0);
-        Integer visitorID = testVisitor.getID();
-
-        // Register the visitor
-        visitorStorage.registerVisitor(testVisitor);
-
+        // Check that visitor was registered successfully
+        if (visitorID == null) {
+            throw new java.lang.Error("Visitor was not registered correctly");
+        }
         // Start and end a visit at the library
-        visitorStorage.startVisit(visitorID);
+        library.beginVisit(visitorID);
 
         // Sleep to cause a 1 second visit time
         try {
@@ -132,14 +134,16 @@ public class test
         }
 
         // End the visit
-        visitorStorage.endVisit(visitorID);
+        library.endVisit(visitorID);
 
         // Generate the report
-        String visitorReport = visitorStorage.generateReport();
+        String visitorReport = library.generateReport();
 
-        // Check for correct report data
-        if (!visitorReport.equals("1,00:00:01")) {
-            throw new java.lang.Error("Saved visitor could not be retrieved");
+        // Check that report was generated
+        if (visitorReport == null) {
+            throw new java.lang.Error("Failed to generate report data for visitors");
         }
+
+        System.out.println("Visitor report: " + visitorReport);
     }
 }

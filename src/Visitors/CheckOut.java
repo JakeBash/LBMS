@@ -19,6 +19,6 @@ public class CheckOut
         this.book = book;
         this.borrowDate = borrowDate;
         this.dueDate = dueDate;
-        this.returnDate = returnDate;
+        this.returnDate = null;
     }
 }

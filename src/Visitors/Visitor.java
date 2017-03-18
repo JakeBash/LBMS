@@ -20,17 +20,15 @@ public class Visitor implements java.io.Serializable
     private int balance;
 
     // Default constructor
-    public Visitor(String firstName, String lastName, String address, String phoneNumber,
-            ArrayList<CheckOut> checkedOutBooks, ArrayList<Fine> fines, int balance)
+    public Visitor(String firstName, String lastName, String address, String phoneNumber)
     {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        //this.id = UUID.randomUUID().toString();
-        this.checkedOutBooks = checkedOutBooks;
-        this.fines = fines;
-        this.balance = balance;
+        this.checkedOutBooks = new ArrayList<>();
+        this.fines = new ArrayList<>();
+        this.balance = 0;
     }
 
     public Integer getID() {

@@ -36,7 +36,7 @@ public class VisitorStorage implements java.io.Serializable
         this.visitHistory = new ArrayList<>();
     }
 
-    // Returns a visitor matching a given ID
+    // Returns a registered visitor matching a given ID
     public Visitor getVisitor(Integer ID)
     {
         return this.visitors.get(ID);
@@ -45,8 +45,12 @@ public class VisitorStorage implements java.io.Serializable
     // Registers a new visitor in the system.
     // The visitor is added to the hash and saved to a text file at shutdown.
     // Registration assigns the registered visitor a unique ID for storage.
-    public void registerVisitor(Visitor visitor)
+    // Returns the new visitor's ID
+    public Visitor registerVisitor(String firstName, String lastName, String address, String phoneNumber)
     {
+        // Generate the new visitor
+        Visitor visitor = new Visitor(firstName, lastName, address, phoneNumber);
+
         // Increment the visitor IDs
         Integer newKey;
 
@@ -62,6 +66,9 @@ public class VisitorStorage implements java.io.Serializable
         // Set the visitor's id and store
         visitor.setID(newKey);
         this.visitors.put(newKey, visitor);
+
+        // Return the new visitor
+        return visitor;
     }
 
     // Begins a visit in the library
