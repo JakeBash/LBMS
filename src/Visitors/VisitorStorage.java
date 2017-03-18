@@ -1,4 +1,5 @@
 package Visitors;
+
 import java.io.*;
 import java.util.Collections;
 import java.util.ArrayList;
@@ -6,10 +7,8 @@ import java.util.HashMap;
 import java.util.Date;
 
 /**
- * Created by JakeDesktop on 3/13/2017.
- *
- * Represents the library's saved visitors and visits.
- * Provides methods to save, retrieve and query from all visitors and visits in the system.
+ * Represents the library's saved visitors and visits. Provides methods to save, retrieve and query from all visitors
+ * and visits in the system.
  *
  * @author Kyler Freas
  */
@@ -28,7 +27,9 @@ public class VisitorStorage implements java.io.Serializable
     // Data file location
     private static String file = "files/VisitorStorage.ser";
 
-    // Default constructor. Initializes with empty visitor and visit hashes.
+    /**
+     * Default constructor. Initializes with empty visitor and visit hashes.
+     */
     public VisitorStorage()
     {
         this.visitors = new HashMap<>();
@@ -36,16 +37,27 @@ public class VisitorStorage implements java.io.Serializable
         this.visitHistory = new ArrayList<>();
     }
 
-    // Returns a registered visitor matching a given ID
+    /**
+     * Returns a registered visitor matching a given ID.
+     *
+     * @param ID - The ID of the registered visitor.
+     * @return The visitor associated with the supplied ID.
+     */
     public Visitor getVisitor(Integer ID)
     {
         return this.visitors.get(ID);
     }
 
-    // Registers a new visitor in the system.
-    // The visitor is added to the hash and saved to a text file at shutdown.
-    // Registration assigns the registered visitor a unique ID for storage.
-    // Returns the new visitor's ID
+    /**
+     * Registers a new visitor in the system. The visitor is added to the hash and saved to a text file at shutdown.
+     * Registration assigns the registered visitor a unique ID for storage.
+     *
+     * @param firstName - The first name of the visitor to be registered
+     * @param lastName - the last name of the visitor to be registered.
+     * @param address - The address of the visitor to be registered.
+     * @param phoneNumber - The phone number of the visitor to be registered.
+     * @return The newly registered visitor.
+     */
     public Visitor registerVisitor(String firstName, String lastName, String address, String phoneNumber)
     {
         // Generate the new visitor
@@ -58,7 +70,9 @@ public class VisitorStorage implements java.io.Serializable
         if (this.visitors.keySet().size() == 0)
         {
             newKey = 0;
-        } else {
+        }
+        else
+        {
             Integer lastKey = Collections.max(this.visitors.keySet());
             newKey = lastKey + 1;
         }
@@ -71,7 +85,11 @@ public class VisitorStorage implements java.io.Serializable
         return visitor;
     }
 
-    // Begins a visit in the library
+    /**
+     * Begins a visit in the library for a registered visitor.
+     *
+     * @param visitorID - The ID of the registered visitor.
+     */
     public void startVisit(Integer visitorID)
     {
         // Create a new visit and add it to active
@@ -79,7 +97,11 @@ public class VisitorStorage implements java.io.Serializable
         this.activeVisits.put(visitorID, visit);
     }
 
-    // Ends a visit in the library
+    /**
+     * Ends a visit in the library for a currently active visitor.
+     *
+     * @param visitorID - The ID of the currently active visitor.
+     */
     public void endVisit(Integer visitorID)
     {
         // Find the visit for the given visitor ID
@@ -93,15 +115,16 @@ public class VisitorStorage implements java.io.Serializable
         this.visitHistory.add(visit);
     }
 
-    // Returns the visitor data stored, in string format, to be included in
-    // a statistical report.
-    // Data includes:
-    //     Total number of visitors
-    //     Average length of visit
+    /**
+     * Generates the visitor data stored, in string format, to be included in a statistical report.
+     * Data includes: Total number of visitors, Average length of visit
+     *
+     * @return A String representing the applicable Visitor data for a statistical report.
+     */
     public String generateReport()
     {
         // String to hold the report data
-        String reportString = "";
+        String reportString;
 
         // Get total # visitors and visits
         int totalVisitors = this.visitors.keySet().size();
@@ -134,13 +157,15 @@ public class VisitorStorage implements java.io.Serializable
         String averageStay = strHours + ":" + strMinutes + ":" + strSeconds;
 
         // Add data to the report and return
-        reportString = totalVisitors + "," + averageStay;
+        reportString = "Number of Visitors: " + totalVisitors + "\n" + "Length of Average Visit: " + averageStay;
 
         return reportString;
     }
 
-    // Serialize the entire visitor storage and save it to a text file.
-    // Since this only happens at shutdown, all active visits are ended and saved.
+    /**
+     * Serialize the entire visitor storage and save it to a text file. Since this only happens at shutdown, all active
+     * visits are ended and saved.
+     */
     public void serialize()
     {
         // End all active visits
@@ -148,9 +173,9 @@ public class VisitorStorage implements java.io.Serializable
         {
             this.endVisit(visit.getVisitorID());
         }
-
         // Save to file
-        try {
+        try
+        {
             FileOutputStream fileOut = new FileOutputStream(file);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(this);
@@ -163,9 +188,15 @@ public class VisitorStorage implements java.io.Serializable
         }
     }
 
-    // Deserializes a VisitorStorage from the file
-    public static VisitorStorage deserialize() {
-        try {
+    /**
+     * Deserializes a VisitorStorage from the file
+     *
+     * @return An instance of VisitorStorage generated from the previously saved .ser file.
+     */
+    public static VisitorStorage deserialize()
+    {
+        try
+        {
             // Read from the file into input stream
             FileInputStream fileIn = new FileInputStream(file);
             ObjectInputStream in = new ObjectInputStream(fileIn);

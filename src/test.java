@@ -74,7 +74,7 @@ public class test
 
         String[] commInfo = {"app","*","1234567891234","*","*"};
 
-        ArrayList<Book> searchBooks = bStore.get(commInfo);
+        ArrayList<Book> searchBooks = bStore.bookSearch(commInfo);
 
         for(Book b : searchBooks)
         {

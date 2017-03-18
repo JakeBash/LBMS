@@ -79,7 +79,7 @@ public class BookStorage implements java.io.Serializable
      * @param commInput - The user input depicting the desired search information.
      * @return A String ArrayList representing the applicable books for the given command inputs.
      */
-    public ArrayList<Book> get(String ... commInput)
+    public ArrayList<Book> bookSearch(String ... commInput)
     {
         // Counter to keep track of current search criteria being examined
         int step = 1;
@@ -94,6 +94,15 @@ public class BookStorage implements java.io.Serializable
         return searchBooks;
     }
 
+    /**
+     * Helper method for bookSearch(). Creates an ArrayList with the applicable books at each step of the search
+     * criteria process.
+     *
+     * @param step - The current level of search criteria being processed.
+     * @param criteria - The current piece of search criteria being processed.
+     * @param prevSearchBooks - The ArrayList of books that were gathered from the previous search step.
+     * @return An ArrayList representing the applicable books for the current supplied search criteria.
+     */
     private ArrayList<Book> searchStep(int step, String criteria, ArrayList<Book> prevSearchBooks)
     {
         ArrayList<Book> newSearchBooks = new ArrayList<>();
@@ -189,16 +198,12 @@ public class BookStorage implements java.io.Serializable
     {
         String reportString = "";
         int numBooks = 0;
-
         // Get the total number of books owned by the library
         for(Book book : this.books.values())
         {
             numBooks += book.getNumCopies();
         }
-
-        // Get the total number of book purchases in the date range
-        //TODO: Don't know how to do this for a date range. Might have to be done in BookCatalog.
-
+        reportString += "Number of Books: " + numBooks + " ";
         return reportString;
     }
 
@@ -208,23 +213,29 @@ public class BookStorage implements java.io.Serializable
     public void serialize()
     {
         // Save to file
-        try {
-            FileOutputStream fileOut =
-                    new FileOutputStream(file);
+        try
+        {
+            FileOutputStream fileOut = new FileOutputStream(file);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(this);
             out.close();
             fileOut.close();
-        }catch(IOException i) {
+        }
+        catch(IOException i)
+        {
             i.printStackTrace();
         }
     }
 
     /**
-     * Deserializes a BookStorage from the file
+     * Deserializes a BookStorage from the associated file.
+     *
+     * @return An instance of BookStorage generated from the previously saved .ser file.
      */
-    public static BookStorage deserialize() {
-        try {
+    public static BookStorage deserialize()
+    {
+        try
+        {
             // Read from the file into input stream
             FileInputStream fileIn = new FileInputStream(file);
             ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -236,13 +247,16 @@ public class BookStorage implements java.io.Serializable
             in.close();
             fileIn.close();
             return bookStorage;
-        } catch (IOException i) {
+        }
+        catch (IOException i)
+        {
             i.printStackTrace();
-        } catch (ClassNotFoundException c) {
+        }
+        catch (ClassNotFoundException c)
+        {
             System.out.println("BookStorage could not be found");
             c.printStackTrace();
         }
-
         // If an error occurs, return an empty book storage
         return new BookStorage();
     }

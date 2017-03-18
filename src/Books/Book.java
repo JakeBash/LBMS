@@ -148,6 +148,7 @@ public class Book
      */
     public String toString()
     {
+        //TODO: Change this to account for ALL response types.
         return this.tempID + "," + this.availableCopies + "," + this.isbn + "," + this.title + "," + authorString() + "," + publisher + "," + publishDate + "," + numCopies;
     }
 
