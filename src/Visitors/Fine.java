@@ -6,7 +6,7 @@ import java.util.Date;
  *
  * Provides a structure for persisting fines accumulated by library visitors
  *
- * @author Kyler Freas (kmf5285)
+ * @author Kyler Freas
  */
 public class Fine
 {

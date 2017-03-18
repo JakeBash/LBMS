@@ -6,7 +6,7 @@ import java.util.Date;
  *
  * A single visit in the library
  *
- * @author Kyler Freas (kmf5285)
+ * @author Kyler Freas
  */
 public class Visit implements java.io.Serializable
 {

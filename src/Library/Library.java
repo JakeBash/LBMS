@@ -20,34 +20,40 @@ public class Library
 
     // Register a new visitor in the library.
     // Response is the newly registered visitor.
-    public Visitor registerVisitor(String firstName, String lastName, String address, String phoneNumber) {
+    public Visitor registerVisitor(String firstName, String lastName, String address, String phoneNumber)
+    {
         return this.visitorStorage.registerVisitor(firstName, lastName, address, phoneNumber);
     }
 
     // Returns a registered visitor with the given ID
-    public Visitor getVisitor(Integer visitorID) {
+    public Visitor getVisitor(Integer visitorID)
+    {
         return this.visitorStorage.getVisitor(visitorID);
     }
 
     // Begin a visit in the library
-    public void beginVisit(Integer visitorID) {
+    public void beginVisit(Integer visitorID)
+    {
         this.visitorStorage.startVisit(visitorID);
     }
 
     // Ends a visit
-    public void endVisit(Integer visitorID) {
+    public void endVisit(Integer visitorID)
+    {
         this.visitorStorage.endVisit(visitorID);
     }
 
     // Shut down the system, persisting all data created.
     // TODO: Serialize all other entities to be persisted
-    public void shutdown() {
+    public void shutdown()
+    {
         this.visitorStorage.serialize();
     }
 
     // Generates a statistical report of the library
     // TODO: Add in the rest of the report data needed
-    public String generateReport() {
+    public String generateReport()
+    {
         return this.visitorStorage.generateReport();
     }
 

@@ -11,7 +11,7 @@ import java.util.Date;
  * Represents the library's saved visitors and visits.
  * Provides methods to save, retrieve and query from all visitors and visits in the system.
  *
- * @author Kyler Freas (kmf5285)
+ * @author Kyler Freas
  */
 
 public class VisitorStorage implements java.io.Serializable
