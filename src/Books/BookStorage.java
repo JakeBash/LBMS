@@ -21,7 +21,7 @@ public class BookStorage implements java.io.Serializable
     /**
      * Log of book purchases performed by the library. MIGHT ACTUALLY WANT TO BE HELD IN THE BOOK CATALOG CLASS
      */
-    //private ArrayList<Purchase> bookPurchases;
+    private ArrayList<Purchase> bookPurchases;
 
     /**
      * Data file location
@@ -56,21 +56,127 @@ public class BookStorage implements java.io.Serializable
     public void addBooks(ArrayList<Book> purchasedBooks, int quantity)
     {
         // Iterates over the supplied list of books
-        for(int i=0; i<purchasedBooks.size(); i++)
+        for(Book b : purchasedBooks)
         {
-            Book book = purchasedBooks.get(i);
             // Checks if the book exists in the storage already
-            if(this.books.containsKey(book.getIsbn()))
+            if(this.books.containsKey(b.getIsbn()))
             {
                 // If it does, then just add the newly purchased copies
-                this.books.get(book.getIsbn()).addCopies(quantity);
+                this.books.get(b.getIsbn()).addCopies(quantity);
             }
             else
             {
                 // Adds the book to the storage and increments the amount of owned books.
-                this.books.put(book.getIsbn(), book);
-                this.books.get(book.getIsbn()).addCopies(quantity);
+                this.books.put(b.getIsbn(), b);
+                this.books.get(b.getIsbn()).addCopies(quantity);
             }
+        }
+    }
+
+    /**
+     * Given a set of user search criteria, returns the books that meet the supplied criteria.
+     *
+     * @param commInput - The user input depicting the desired search information.
+     * @return A String ArrayList representing the applicable books for the given command inputs.
+     */
+    public ArrayList<Book> get(String ... commInput)
+    {
+        // Counter to keep track of current search criteria being examined
+        int step = 1;
+        // ArrayList of books that meet the current search criteria
+        ArrayList<Book> searchBooks = new ArrayList<>();
+        // Loop to iterate all of the supplied search criteria.
+        for(String criteria : commInput)
+        {
+            searchBooks = searchStep(step, criteria, searchBooks);
+            step++;
+        }
+        return searchBooks;
+    }
+
+    private ArrayList<Book> searchStep(int step, String criteria, ArrayList<Book> prevSearchBooks)
+    {
+        ArrayList<Book> newSearchBooks = new ArrayList<>();
+
+        if(step == 1)
+        {
+            if(criteria.equals("*"))
+            {
+                for (Book b : this.books.values())
+                {
+                    prevSearchBooks.add(b);
+                }
+            }
+            else
+            {
+                for (Book b : this.books.values())
+                {
+                    if(b.getTitle().contains(criteria))
+                    {
+                        prevSearchBooks.add(b);
+                    }
+                }
+            }
+            return prevSearchBooks;
+        }
+        else if(step == 2)
+        {
+            if(criteria.equals("*"))
+            {
+                return prevSearchBooks;
+            }
+            else
+            {
+                for (Book b : prevSearchBooks)
+                {
+                    if(b.getAuthor().contains(criteria))
+                    {
+                        newSearchBooks.add(b);
+                    }
+                }
+            }
+            return newSearchBooks;
+        }
+        else if(step == 3)
+        {
+            if(criteria.equals("*"))
+            {
+                return prevSearchBooks;
+            }
+            else
+            {
+                for (Book b : prevSearchBooks)
+                {
+                    if(b.getIsbn().contains(criteria))
+                    {
+                        newSearchBooks.add(b);
+                    }
+                }
+            }
+            return newSearchBooks;
+        }
+        else if(step == 4)
+        {
+            if(criteria.equals("*"))
+            {
+                return prevSearchBooks;
+            }
+            else
+            {
+                for (Book b : prevSearchBooks)
+                {
+                    if(b.getPublisher().contains(criteria))
+                    {
+                        newSearchBooks.add(b);
+                    }
+                }
+            }
+            return newSearchBooks;
+        }
+        else
+        {
+            //TODO Add Sort Order support
+            return prevSearchBooks;
         }
     }
 
