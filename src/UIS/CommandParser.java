@@ -1,6 +1,7 @@
 package UIS;
 
 import LBMSCommands.*;
+import java.util.HashMap;
 
 // import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -15,7 +16,6 @@ import java.util.ArrayList;
  */
 public class CommandParser
 {
-
     // Queue? a
     private ArrayList<LBMSCommand> commandQueue ;
     // Some kind of reference to our library and time clock or SOEMTHING
@@ -83,6 +83,10 @@ public class CommandParser
         // This is going to have a sort order possibly
         else if (cmd.equalsIgnoreCase("search"))
             command = new BookStoreSearch() ;
+
+        // Added to make this compile
+        else
+            return null ;
 
 
         return command ;

@@ -22,16 +22,16 @@ public class test
     public static void main(String[] args)
     {
         // Test the addition of newly purchased books
-        //testAddBooks();
+        testAddBooks();
 
         // Test internal search functionality for library owned books
         testBookStorageSearch();
 
         // Test visitor storage
-        //testStoreVisitors();
+        testStoreVisitors();
 
         // Test generating report from visitor data
-        //testGenerateVisitorReport();
+        testGenerateVisitorReport();
 
         // All tests passed!
         System.out.println("Testing succeeded");
