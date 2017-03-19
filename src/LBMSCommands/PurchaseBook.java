@@ -1,7 +1,9 @@
 package LBMSCommands;
 
 /**
- * Created by JakeDesktop on 3/13/2017.
+ * @author Nikolas Tilley
+ *
+ * TODO - BookCatalogs have yet to be implmented
  */
 public class PurchaseBook implements LBMSCommand
 {

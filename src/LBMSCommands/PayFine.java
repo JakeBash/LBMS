@@ -1,7 +1,8 @@
 package LBMSCommands;
 
 /**
- * Created by JakeDesktop on 3/13/2017.
+ * @author Nikolas Tilley
+ * TODO - Paying Fines needs to be implemented
  */
 public class PayFine implements LBMSCommand
 {
