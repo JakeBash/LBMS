@@ -263,7 +263,7 @@ public class BookStorage implements java.io.Serializable
         }
         catch (IOException i)
         {
-            i.printStackTrace();
+            //i.printStackTrace();
         }
         catch (ClassNotFoundException c)
         {
