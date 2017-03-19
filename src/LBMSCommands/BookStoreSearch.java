@@ -37,7 +37,7 @@ public class BookStoreSearch implements LBMSCommand
         this.title = title ;
 
         // Auto filled in fields
-        this.authors = "*" ;
+        this.authors = new ArrayList<>();;
         this.isbn = "*" ;
         this.publisher = "*" ;
         // String or SortOrder?
@@ -79,8 +79,7 @@ public class BookStoreSearch implements LBMSCommand
      * @param publisher - The publisher of the desired book(s).
      */
     public BookStoreSearch(Library library, String title,
-                            ArrayList<String> authors, String isbn,
-                            String isbn)
+                            ArrayList<String> authors, String isbn, String isbn2)
     {
         this.library = library ;
         this.title = title ;
@@ -107,7 +106,7 @@ public class BookStoreSearch implements LBMSCommand
      */
     public BookStoreSearch(Library library, String title,
                             ArrayList<String> authors, String isbn,
-                            String isbn, String sortOrder)
+                            String isbn2, String sortOrder)
     {
         this.library = library ;
         this.title = title ;
