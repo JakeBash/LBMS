@@ -3,6 +3,8 @@ package UIS;
 import LBMSCommands.* ;
 import Library.TimeClock ;
 import Library.Library ;
+
+import java.util.Dictionary;
 import java.util.HashMap ;
 
 // import java.util.ArrayDeque;
@@ -22,10 +24,17 @@ public class CommandParser
     private ArrayList<LBMSCommand> commandQueue ;
     // Some kind of reference to our library and time clock or SOEMTHING
     // THIS HAS TO KNOW ABOUT LIBRARY AND CLOCKS AND ETC.
+
+    private HashMap<String,Class<? extends LBMSCommand>> commands;
     
     public CommandParser()
     {
         commandQueue = new ArrayList<LBMSCommand>() ;
+        this.commands = new HashMap<>();
+
+        this.commands.put("advance",AdvanceTime.class);
+        this.commands.put("arrive",BeginVisit.class);
+
     }
 
     public void parseCommands(String s)
@@ -43,8 +52,8 @@ public class CommandParser
      */
     public LBMSCommand createCommand(String cmd, String args)
     {
-        LBMSCommand command ;
-
+        //LBMSCommand command = AdvanceTime();
+        /*
         if (cmd.equalsIgnoreCase("advance"))
             command = new AdvanceTime() ;   // Needs a timeclock arg, day, hour
 
@@ -89,9 +98,25 @@ public class CommandParser
         // Added to make this compile
         else
             return null ;
+        */
 
 
-        return command ;
+        return null ;
+    }
+
+    public void testhm(String cmd){
+
+        try {
+            LBMSCommand cmdd = this.commands.get(cmd).newInstance();
+        }
+        catch(InstantiationException e){
+            e.printStackTrace();
+        }
+        catch (IllegalAccessException e){
+            e.printStackTrace();
+        }
+
+
     }
 
     /**
@@ -124,4 +149,11 @@ public class CommandParser
             executeCommand() ;
     }
 
+    public static void main(String[] args) {
+        CommandParser cp = new CommandParser();
+        Library test = new Library();
+
+        cp.testhm("arrive");
+    }
 }
+
