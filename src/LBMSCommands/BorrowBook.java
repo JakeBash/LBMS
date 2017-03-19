@@ -1,13 +1,38 @@
 package LBMSCommands;
 
+import java.util.ArrayList;
+
+import Library.Library;
+
 /**
- * Created by JakeDesktop on 3/13/2017.
+ * Borrows a book for a visitor; uses the ID of a specific book 
+ * or books returned in the most recent library book search.
+ * 
+ * sig - borrow,visitor ID,{id};
+ * 
+ * @author Nikolas Tilley
  */
 public class BorrowBook implements LBMSCommand
 {
-    public BorrowBook()
-    {
 
+    Library library ;
+    String visitorID ;
+    ArrayList<String> bookID ;
+
+    /**
+     * Constructs a borrow book command
+     * 
+     * @param library - Library that the book will be borrowed from
+     * @param visitorID - is the unique 10-digit ID of the visitor.
+     * @param bookID - is the comma-separated list of IDs for the books
+     *                 to be borrowed by the visitor. 5 at most.
+     */
+    public BorrowBook(Library library, String visitorID,
+                        ArrayList<String> bookID)
+    {
+        this.library = library ;
+        this.visitorID = visitorID ;
+        this.bookID = bookID ;
     }
 
     public void execute()
