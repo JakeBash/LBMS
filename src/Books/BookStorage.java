@@ -246,6 +246,12 @@ public class BookStorage implements java.io.Serializable
             // Read from the file into input stream
             FileInputStream fileIn = new FileInputStream(file);
             ObjectInputStream in = new ObjectInputStream(fileIn);
+            Object o = in.readObject();
+
+            while(o != null){
+                System.out.println(o);
+                o = in.readObject();
+            }
 
             // Initialize storage from data
             BookStorage bookStorage = (BookStorage) in.readObject();
