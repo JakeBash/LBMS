@@ -34,6 +34,7 @@ public class CommandParser
 
         this.commands.put("advance",AdvanceTime.class);
         this.commands.put("arrive",BeginVisit.class);
+        this.commands.put("end",EndVisit.class);
 
     }
 
@@ -108,6 +109,7 @@ public class CommandParser
 
         try {
             LBMSCommand cmdd = this.commands.get(cmd).newInstance();
+            this.commandQueue.add(cmdd);
         }
         catch(InstantiationException e){
             e.printStackTrace();
@@ -153,7 +155,7 @@ public class CommandParser
         CommandParser cp = new CommandParser();
         Library test = new Library();
 
-        cp.testhm("arrive");
+        cp.testhm("end");
     }
 }
 
