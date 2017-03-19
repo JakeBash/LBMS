@@ -15,9 +15,9 @@ import Library.Library;
 public class BorrowBook implements LBMSCommand
 {
 
-    Library library ;
-    String visitorID ;
-    ArrayList<String> bookID ;
+    private Library library ;
+    private int visitorID ;
+    private ArrayList<String> bookID ;
 
     /**
      * Constructs a borrow book command
@@ -27,7 +27,7 @@ public class BorrowBook implements LBMSCommand
      * @param bookID - is the comma-separated list of IDs for the books
      *                 to be borrowed by the visitor. 5 at most.
      */
-    public BorrowBook(Library library, String visitorID,
+    public BorrowBook(Library library, int visitorID,
                         ArrayList<String> bookID)
     {
         this.library = library ;
