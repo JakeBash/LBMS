@@ -16,7 +16,7 @@ public class BorrowBook implements LBMSCommand
 {
 
     private Library library ;
-    private int visitorID ;
+    private Integer visitorID ;  // This may have to be a string that is converted to int in execute...
     private ArrayList<String> bookID ;
 
     /**
@@ -27,7 +27,7 @@ public class BorrowBook implements LBMSCommand
      * @param bookID - is the comma-separated list of IDs for the books
      *                 to be borrowed by the visitor. 5 at most.
      */
-    public BorrowBook(Library library, int visitorID,
+    public BorrowBook(Library library, Integer visitorID,
                         ArrayList<String> bookID)
     {
         this.library = library ;
