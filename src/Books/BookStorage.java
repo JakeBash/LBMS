@@ -76,20 +76,21 @@ public class BookStorage implements java.io.Serializable
     /**
      * Given a set of user search criteria, returns the books that meet the supplied criteria.
      *
-     * @param commInput - The user input depicting the desired search information.
+     * @param title - The title of the desired book(s).
+     * @param authors - The authors of the desired book(s).
+     * @param isbn - The ISBN of the desired book(s)
+     * @param publisher - The publisher of the desired book(s).
+     * @param sortOrder - The sort order to be used when gathering the desired book(s).
      * @return A String ArrayList representing the applicable books for the given command inputs.
      */
-    public ArrayList<Book> bookSearch(String ... commInput)
+    public ArrayList<Book> bookSearch(String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
-        // Counter to keep track of current search criteria being examined
-        int step = 1;
         // ArrayList of books that meet the current search criteria
         ArrayList<Book> searchBooks = new ArrayList<>();
         // Loop to iterate all of the supplied search criteria.
-        for(String criteria : commInput)
+        for(int step=1; step<=5; step++)
         {
-            searchBooks = searchStep(step, criteria, searchBooks);
-            step++;
+            searchBooks = searchStep(step, title, authors, isbn, publisher, sortOrder, searchBooks);
         }
         return searchBooks;
     }
@@ -99,17 +100,21 @@ public class BookStorage implements java.io.Serializable
      * criteria process.
      *
      * @param step - The current level of search criteria being processed.
-     * @param criteria - The current piece of search criteria being processed.
+     * @param title - The title of the desired book(s).
+     * @param authors - The authors of the desired book(s).
+     * @param isbn - The ISBN of the desired book(s)
+     * @param publisher - The publisher of the desired book(s).
+     * @param sortOrder - The sort order to be used when gathering the desired book(s).
      * @param prevSearchBooks - The ArrayList of books that were gathered from the previous search step.
      * @return An ArrayList representing the applicable books for the current supplied search criteria.
      */
-    private ArrayList<Book> searchStep(int step, String criteria, ArrayList<Book> prevSearchBooks)
+    private ArrayList<Book> searchStep(int step, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder, ArrayList<Book> prevSearchBooks)
     {
         ArrayList<Book> newSearchBooks = new ArrayList<>();
 
         if(step == 1)
         {
-            if(criteria.equals("*"))
+            if(title.equals("*"))
             {
                 for (Book b : this.books.values())
                 {
@@ -120,7 +125,7 @@ public class BookStorage implements java.io.Serializable
             {
                 for (Book b : this.books.values())
                 {
-                    if(b.getTitle().contains(criteria))
+                    if(b.getTitle().contains(title))
                     {
                         prevSearchBooks.add(b);
                     }
@@ -130,7 +135,7 @@ public class BookStorage implements java.io.Serializable
         }
         else if(step == 2)
         {
-            if(criteria.equals("*"))
+            if(authors.contains("*"))
             {
                 return prevSearchBooks;
             }
@@ -138,7 +143,9 @@ public class BookStorage implements java.io.Serializable
             {
                 for (Book b : prevSearchBooks)
                 {
-                    if(b.getAuthor().contains(criteria))
+                    // Might not work as we want it. This will return TRUE if the stored book has ALL of the authors
+                    // that the command supplies.
+                    if(b.getAuthor().containsAll(authors))
                     {
                         newSearchBooks.add(b);
                     }
@@ -148,15 +155,15 @@ public class BookStorage implements java.io.Serializable
         }
         else if(step == 3)
         {
-            if(criteria.equals("*"))
+            if(isbn.equals("*"))
             {
                 return prevSearchBooks;
             }
             else
             {
-                for (Book b : prevSearchBooks)
+                for(Book b : prevSearchBooks)
                 {
-                    if(b.getIsbn().contains(criteria))
+                    if(b.getIsbn() == isbn)
                     {
                         newSearchBooks.add(b);
                     }
@@ -166,7 +173,7 @@ public class BookStorage implements java.io.Serializable
         }
         else if(step == 4)
         {
-            if(criteria.equals("*"))
+            if(publisher.equals("*"))
             {
                 return prevSearchBooks;
             }
@@ -174,7 +181,7 @@ public class BookStorage implements java.io.Serializable
             {
                 for (Book b : prevSearchBooks)
                 {
-                    if(b.getPublisher().contains(criteria))
+                    if(b.getPublisher() == publisher)
                     {
                         newSearchBooks.add(b);
                     }

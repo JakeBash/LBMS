@@ -36,12 +36,16 @@ public class Library
     /**
      * Performs a search for books owned by the library.
      *
-     * @param searchCriteria - The search criteria supplied by the user
+     * @param title - The title of the desired book(s).
+     * @param authors - The authors of the desired book(s).
+     * @param isbn - The ISBN of the desired book(s)
+     * @param publisher - The publisher of the desired book(s).
+     * @param sortOrder - The sort order to be used when gathering the desired book(s).
      * @return An arrayList representing the books that meet the supplied search criteria.
      */
-    public ArrayList<Book> bookSearch(String... searchCriteria)
+    public ArrayList<Book> bookSearch(String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
-        return this.bookStorage.bookSearch(searchCriteria);
+        return this.bookStorage.bookSearch(title, authors, isbn, publisher, sortOrder);
     }
 
     /**
