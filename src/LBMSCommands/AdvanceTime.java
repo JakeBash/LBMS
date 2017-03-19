@@ -15,9 +15,9 @@ import Library.TimeClock;
 public class AdvanceTime implements LBMSCommand
 {
 
-    TimeClock clock ;
-    int days ;
-    int hours ;
+    private TimeClock clock ;
+    private int days ;
+    private int hours ;
     public AdvanceTime(TimeClock clock, int days)
     {
         this.clock = clock ;

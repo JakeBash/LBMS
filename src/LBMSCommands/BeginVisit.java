@@ -10,8 +10,8 @@ import Library.Library;
 public class BeginVisit implements LBMSCommand
 {
 
-    Library library ;
-    Integer visitorID ;
+    private Library library ;
+    private Integer visitorID ;
 
     /**
      * Creates a begin BeginVisit Command

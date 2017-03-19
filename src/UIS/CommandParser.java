@@ -111,6 +111,7 @@ public class CommandParser
         {
             LBMSCommand command = commandQueue.remove(0) ;
             command.execute();
+
         }
     }
 
@@ -122,6 +123,5 @@ public class CommandParser
         while (!commandQueue.isEmpty())
             executeCommand() ;
     }
-
 
 }
