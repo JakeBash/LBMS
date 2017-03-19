@@ -58,7 +58,11 @@ public class TimeClock
         offDay += days ;
         offHour += hours ;
     }
-    
+
+    public void getCurrentDateTime()
+    {
+        // TODO - implement clock and how to get time including offsets from advance
+    }
     
     /**
      * Notifies the list of subscribers to check the time

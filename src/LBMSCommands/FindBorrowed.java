@@ -34,6 +34,6 @@ public class FindBorrowed implements LBMSCommand
      */
     public void execute()
     {
-        library.getVisitorCheckedOutBooks(visitorID) ; // TODO This method needs to be implemented in library still
+        library.getVisitorCheckedOutBooks(visitorID) ;
     }
 }
