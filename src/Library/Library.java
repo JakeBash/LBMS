@@ -93,6 +93,24 @@ public class Library
         this.visitorStorage.endVisit(visitorID);
     }
 
+
+    /**
+     * Returns a list of books that a visitor
+     *
+     * @param visitorID - the visitor being queried for their checked out book
+     * @return - an ArrayList that contains between 0 - 5 checked out books
+     */
+    public ArrayList<Book> getVisitorCheckedOutBooks(Integer visitorID)
+    {
+        // TODO - handel null Visitor in visitor storage
+        Visitor visitor = this.visitorStorage.getVisitor(visitorID) ;
+
+        if ( visitor != null )
+            return visitor.getCheckedOutBooks() ;
+        else
+            return null ;
+    }
+
     /**
      * Shut down the system, persisting all data created in flat files.
      */
