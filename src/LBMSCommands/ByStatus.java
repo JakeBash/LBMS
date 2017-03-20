@@ -9,10 +9,7 @@ import java.util.ArrayList;
  */
 public class ByStatus implements SortOrder
 {
-    public ByStatus()
-    {
-
-    }
+    public ByStatus() {}
 
     public void sort(ArrayList<Book> bookList)
     {

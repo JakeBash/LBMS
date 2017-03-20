@@ -9,10 +9,7 @@ import java.util.ArrayList;
  */
 public class ByPublishDate implements SortOrder
 {
-    public ByPublishDate()
-    {
-
-    }
+    public ByPublishDate() {}
 
     public void sort(ArrayList<Book> bookList)
     {

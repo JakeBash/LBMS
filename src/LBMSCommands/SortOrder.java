@@ -9,6 +9,8 @@ import java.util.ArrayList;
  * A user should be able to select the order they want
  * search results returned in.
  *
+ * Sort orders should be aggregated to Searches (the context)
+ *
  * @author Nikolas Tilley
  */
 public interface SortOrder
