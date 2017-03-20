@@ -17,9 +17,9 @@ public class FlatFileBookCatalog implements BookCatalog
 
     public ArrayList<Book> select(String ... a){
         //TODO
-        CSVParser p = new CSVParser(csv);
-        ArrayList<Book> books = p.load();
-        return books;
+        //ArrayList<Book> books = p.load();
+        //return books;
+        return null;
 
     }
 
