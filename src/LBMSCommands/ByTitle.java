@@ -61,23 +61,24 @@ public class ByTitle implements SortOrder
         Book b3 = new Book("2345678901", "bBook", null, "apub",
                 "02-02-2501", 441) ;
 
-        ArrayList<Book> booklist = new ArrayList<Book>() ;
-        booklist.add(b1) ;
-        booklist.add(b2) ;
-        booklist.add(b3) ;
+        ArrayList<Book> bookList = new ArrayList<Book>() ;
+        bookList.add(b1) ;
+        bookList.add(b2) ;
+        bookList.add(b3) ;
 
-        booklist.sort(BookTitleComparator);
+        ByTitle byTitle = new ByTitle() ;
+        byTitle.sort(bookList) ;
 
         // Test 1
-        if (booklist.get(0).equals(b2) &&
-                booklist.get(1).equals(b3) && booklist.get(2).equals(b1))
+        if (bookList.get(0).equals(b2) &&
+                bookList.get(1).equals(b3) && bookList.get(2).equals(b1))
             System.out.println("Test 1 PASSED") ;
         else
         {
             System.out.println("Test 1 FAILED") ;
-            System.out.println("Got: " + booklist.get(0).getTitle() +" Expected: " + b2.getTitle()) ;
-            System.out.println("Got: " + booklist.get(1).getTitle() +" Expected: " + b3.getTitle()) ;
-            System.out.println("Got: " + booklist.get(2).getTitle() +" Expected: " + b1.getTitle()) ;
+            System.out.println("Got: " + bookList.get(0).getTitle() +" Expected: " + b2.getTitle()) ;
+            System.out.println("Got: " + bookList.get(1).getTitle() +" Expected: " + b3.getTitle()) ;
+            System.out.println("Got: " + bookList.get(2).getTitle() +" Expected: " + b1.getTitle()) ;
         }
 
 
