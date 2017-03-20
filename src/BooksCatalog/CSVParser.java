@@ -13,13 +13,19 @@ import Books.Book;
  */
 public class CSVParser
 {
+    /*
+     * It loads the file onto its ArrayList or else
+     * it gets the FileNotFoundException again.
+     */
     public static ArrayList<Book> load(File file) throws FileNotFoundException{
         ArrayList<Book> books = new ArrayList<Book>();
         Scanner s = new Scanner(file);
         Boolean inQuotes = false;
         while(s.hasNext()){
            String line = s.nextLine();
+           Book b = new Book();
            for(char ch: line.toCharArray()){
+
 
            }
         }
