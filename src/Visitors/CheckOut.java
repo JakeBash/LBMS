@@ -4,7 +4,8 @@ import java.util.Date;
 import java.util.Calendar;
 
 /**
- * Created by JakeDesktop on 3/13/2017.
+ * Provides a structure to persist data associated with books checked out
+ * by library visitors.
  *
  * @author Kyler Freas
  */
@@ -15,7 +16,13 @@ public class CheckOut
     private Date dueDate;
     private Date returnDate;
 
-    // Default constructor
+    /**
+     * Default constructor. Requires a book object to link the checkout to.
+     * Due date is initialized to 14 days after the date of initialization
+     * (i.e. two weeks after checkout).
+     *
+     * @param book - book to which this checkout is associated
+     */
     public CheckOut(Book book)
     {
         this.book = book;
@@ -33,7 +40,9 @@ public class CheckOut
         this.returnDate = null;
     }
 
-    // Sets the return date of the checkout
+    /**
+     * Sets the return date of the checkout.
+     */
     public void returnBook()
     {
         this.returnDate = new Date();

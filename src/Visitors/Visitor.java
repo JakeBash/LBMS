@@ -2,7 +2,6 @@ package Visitors;
 
 import java.util.ArrayList;
 import Books.Book;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -21,7 +20,15 @@ public class Visitor implements java.io.Serializable
     private ArrayList<Fine> fines;
     private int balance;
 
-    // Default constructor
+    /**
+     * Default constructor. Checked out books and fines are initialized to empty ArrayLists,
+     * balance is initialized to 0.
+     *
+     * @param firstName - visitor's first name
+     * @param lastName - visitor's last name
+     * @param address - visitor's home address
+     * @param phoneNumber - visitor's phone number
+     */
     public Visitor(String firstName, String lastName, String address, String phoneNumber)
     {
         this.firstName = firstName;
@@ -33,7 +40,11 @@ public class Visitor implements java.io.Serializable
         this.balance = 0;
     }
 
-    // Checks a book out for the visitor
+    /**
+     * Checks a book out for the visitor
+     *
+     * @param books - a list of books being checked out
+     */
     public void checkOutBooks(ArrayList<Book> books)
     {
         //TODO: Figure out where/how to return response
@@ -52,7 +63,11 @@ public class Visitor implements java.io.Serializable
         }
     }
 
-    // Gets a list of the visitor's checked-out books
+    /**
+     * Gets a list of the visitor's checked-out books
+     *
+     * @return ArrayList of visitor's checked-out books
+     */
     public ArrayList<Book> getCheckedOutBooks()
     {
         ArrayList<Book> books = new ArrayList<>();
@@ -65,7 +80,11 @@ public class Visitor implements java.io.Serializable
         return books;
     }
 
-    // Returns books for the visitor
+    /**
+     * Returns the visitor's books to the library
+     *
+     * @param books the books to be returned
+     */
     public void returnBooks(ArrayList<Book> books)
     {
         for (Book book: books)
@@ -87,9 +106,14 @@ public class Visitor implements java.io.Serializable
         }
     }
 
-    // Calculates the fines applied to a returned book transaction.
-    // $10 added for 1 day late, $2 added for each additional week late.
-    // Cannot exceed $30.
+    /**
+     * Calculates the fines applied to a returned book transaction.
+     * $10 added for 1 day late, $2 added for each additional week late.
+     * Cannot exceed $30.
+     *
+     * @param checkout - checkout object for which to calculate fines
+     * @return the amount charged to the visitor
+     */
     private int calculateFine(CheckOut checkout)
     {
         int fineAmount = 0;
