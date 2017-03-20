@@ -48,7 +48,8 @@ public class BookSearch implements LBMSCommand
      * @param authors - The authors of the desired book(s).
      * @param isbn - The ISBN of the desired book(s).
      */
-    public BookSearch(Library library, String title, ArrayList<String> authors, String isbn )
+    public BookSearch(Library library, String title, ArrayList<String> authors,
+                      String isbn )
     {
         this.library = library ;
         this.title = title ;
@@ -69,7 +70,8 @@ public class BookSearch implements LBMSCommand
      * @param isbn - The ISBN of the desired book(s).
      * @param publisher - The publisher of the desired book(s).
      */
-    public BookSearch(Library library, String title, ArrayList<String> authors, String isbn, String publisher)
+    public BookSearch(Library library, String title, ArrayList<String> authors,
+                      String isbn, String publisher)
     {
         this.library = library ;
         this.title = title ;
@@ -91,7 +93,8 @@ public class BookSearch implements LBMSCommand
      * @param publisher - The publisher of the desired book(s).
      * @param sortOrder - The sort order to be used when gathering the desired book(s).
      */
-    public BookSearch(Library library, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
+    public BookSearch(Library library, String title, ArrayList<String> authors,
+                      String isbn, String publisher, String sortOrder)
     {
         this.library = library ;
         this.title = title ;

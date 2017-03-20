@@ -35,6 +35,12 @@ public class BorrowBook implements LBMSCommand
         this.bookID = bookID ;
     }
 
+    // Requires you to have preformed a book search, books must be in memory
+    // TODO - Library.borrowBook(Integer vistorID, ArrayList<String> bookID)
+    // { Library.getVisitor()
+    //
+    // TempBookListFromPrevList.getBook(iD)
+    // -> Visitor.checkOutBooks }
     public void execute()
     {
 

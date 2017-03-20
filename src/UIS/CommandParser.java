@@ -4,6 +4,8 @@ import LBMSCommands.* ;
 import Library.TimeClock ;
 import Library.Library ;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Dictionary;
 import java.util.HashMap ;
 
@@ -38,9 +40,28 @@ public class CommandParser
 
     }
 
-    public void parseCommands(String s)
+    public void parseCommand(String s)
     {
-        
+        ArrayList<Object> args = new ArrayList<Object>(Arrays.asList(s.split(",")));
+
+        /*
+         * This code removes the semicolon from the end of the command
+         */
+        String last = (String)args.get(args.size()-1);
+        last = last.substring(0,last.length()-1);
+        args.set(args.size()-1,last);
+        //end semicolon removal
+
+        String cmd = (String) args.remove(0);
+
+        for(int i = 0; i < args.size(); i++) {
+            if(!((String)args.get(i)).matches("[A-Za-z]+")) {
+                String temp = (String) args.remove(i);
+                args.add(i,Integer.parseInt(temp));
+            }
+        }
+
+        this.createCommand(cmd,args);
 
     }
 
@@ -51,7 +72,7 @@ public class CommandParser
      * @param args the string of arguments that are to be used with the command
      * @return command command to be executed
      */
-    public LBMSCommand createCommand(String cmd, String args)
+    public LBMSCommand createCommand(String cmd, ArrayList args)
     {
         //LBMSCommand command = AdvanceTime();
         /*
@@ -155,7 +176,7 @@ public class CommandParser
         CommandParser cp = new CommandParser();
         Library test = new Library();
 
-        cp.testhm("end");
+        cp.parseCommand("test,13,hella,14;");
     }
 }
 

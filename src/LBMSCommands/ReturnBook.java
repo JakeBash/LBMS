@@ -1,17 +1,33 @@
 package LBMSCommands;
 
+import Library.Library;
+import java.util.ArrayList;
+
 /**
- * Created by JakeDesktop on 3/13/2017.
+ * Returns a book borrowed by a library visitor.
+ *
+ * Command format: return,visitor ID,id[,ids];
+ *
+ * @author Nikolas Tilley
+ *
  */
 public class ReturnBook implements LBMSCommand
 {
-    public ReturnBook()
-    {
+    private Library library ;
+    private String visitorID ;
+    private ArrayList<String> bookID ; // ISBN????!?!?
 
+
+    public ReturnBook(Library library, String visitorID,
+                      ArrayList<String> bookID)
+    {
+        this.library = library ;
+        this.visitorID = visitorID ;
+        this.bookID = bookID ;
     }
 
     public void execute()
     {
-
+        // todo implement returning of books
     }
 }
