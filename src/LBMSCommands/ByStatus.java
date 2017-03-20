@@ -29,7 +29,6 @@ public class ByStatus implements SortOrder
             {
                 bookList.remove(i);
                 i-- ;
-
             }
 
         }
