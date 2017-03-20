@@ -38,7 +38,7 @@ public class CommandParser
 
     }
 
-    public void parseCommands(String s)
+    public void parseCommand(String s)
     {
         
 
