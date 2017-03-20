@@ -5,7 +5,9 @@ import Books.Book;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by JakeDesktop on 3/13/2017.
+ * Represents a visitor to the library.
+ * Provides all state associated with visitors including their personal data, checked out books and
+ * accumulated fines.
  *
  * @author Kyler Freas
  */
@@ -18,7 +20,9 @@ public class Visitor implements java.io.Serializable
     private Integer id;
     private ArrayList<CheckOut> checkedOutBooks;
     private ArrayList<Fine> fines;
-    private int balance;
+    private int balance; // Total outstanding fine amount
+
+    //TODO: Return proper responses for all methods
 
     /**
      * Default constructor. Checked out books and fines are initialized to empty ArrayLists,
@@ -47,8 +51,6 @@ public class Visitor implements java.io.Serializable
      */
     public void checkOutBooks(ArrayList<Book> books)
     {
-        //TODO: Figure out where/how to return response
-
         // Check that this will not exceed max of 5 books
         if (this.checkedOutBooks.size() + books.size() > 5) { return; }
 
@@ -81,7 +83,8 @@ public class Visitor implements java.io.Serializable
     }
 
     /**
-     * Returns the visitor's books to the library
+     * Returns the visitor's books to the library.
+     * Applies any fines associated with books returned late.
      *
      * @param books the books to be returned
      */
@@ -100,6 +103,12 @@ public class Visitor implements java.io.Serializable
 
             // Calculate any fines applied to this book.
             int fineAmount = calculateFine(checkout);
+
+            // Create fine object if necessary
+            if (fineAmount > 0) {
+                this.fines.add(new Fine(fineAmount));
+                this.balance += fineAmount;
+            }
 
             // Put the copy back in the library
             book.addCopies(1);

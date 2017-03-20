@@ -13,9 +13,9 @@ public class Fine
     private int amount;
     private Date datePaid;
 
-    public Fine(int amount, Date datePaid)
+    public Fine(int amount)
     {
         this.amount = amount;
-        this.datePaid = datePaid;
+        this.datePaid = null;
     }
 }
