@@ -1,10 +1,18 @@
 package LBMSCommands;
 
 /**
- * Created by JakeDesktop on 3/13/2017.
+ * Returns a book borrowed by a library visitor.
+ *
+ * Command format: return,visitor ID,id[,ids];
+ *
+ * @author Nikolas Tilley
+ *
  */
 public class ReturnBook implements LBMSCommand
 {
+
+
+
     public ReturnBook()
     {
 
