@@ -68,30 +68,6 @@ public class BookStoreSearch implements LBMSCommand
         this.sortOrder = "none" ;
     }
 
-    /**
-     * Creates a command to search the store for books to buy
-     * Constructs with minimum amount of search criteria
-     * 
-     * @param library - The library that is being searched.
-     * @param title - The title of the desired book(s).
-     * @param authors - The authors of the desired book(s).
-     * @param isbn - The ISBN of the desired book(s).
-     * @param publisher - The publisher of the desired book(s).
-     */
-    public BookStoreSearch(Library library, String title,
-                            ArrayList<String> authors, String isbn, String isbn2)
-    {
-        this.library = library ;
-        this.title = title ;
-        this.authors = authors ;
-        this.isbn = isbn ;
-        this.publisher = publisher ;
-
-        // Auto filled in fields
-        // String or SortOrder?
-        this.sortOrder = "none" ;
-    }
-
 
     /**
      * Creates a command to search the store for books to buy
@@ -105,8 +81,7 @@ public class BookStoreSearch implements LBMSCommand
      * @param sortOrder - The sort order to be used when gathering the desired book(s).
      */
     public BookStoreSearch(Library library, String title,
-                            ArrayList<String> authors, String isbn,
-                            String isbn2, String sortOrder)
+                            ArrayList<String> authors, String isbn, String sortOrder)
     {
         this.library = library ;
         this.title = title ;

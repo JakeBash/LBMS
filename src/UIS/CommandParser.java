@@ -176,7 +176,7 @@ public class CommandParser
         CommandParser cp = new CommandParser();
         Library test = new Library();
 
-        cp.parseCommand("test,13,hella,14");
+        cp.parseCommand("test,13,hella,14;");
     }
 }
 
