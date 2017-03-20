@@ -44,6 +44,14 @@ public class CommandParser
     {
         ArrayList<Object> args = new ArrayList<Object>(Arrays.asList(s.split(",")));
 
+        /*
+         * This code removes the semicolon from the end of the command
+         */
+        String last = (String)args.get(args.size()-1);
+        last = last.substring(0,last.length()-1);
+        args.set(args.size()-1,last);
+        //end semicolon removal
+
         String cmd = (String) args.remove(0);
 
         for(int i = 0; i < args.size(); i++) {
