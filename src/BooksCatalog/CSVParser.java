@@ -16,9 +16,12 @@ public class CSVParser
     public static ArrayList<Book> load(File file) throws FileNotFoundException{
         ArrayList<Book> books = new ArrayList<Book>();
         Scanner s = new Scanner(file);
+        Boolean inQuotes = false;
         while(s.hasNext()){
            String line = s.nextLine();
-           System.out.println(line);
+           for(char ch: line.toCharArray()){
+
+           }
         }
 
         return books;

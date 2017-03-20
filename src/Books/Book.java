@@ -10,7 +10,6 @@ import java.util.ArrayList;
  */
 public class Book
 {
-    private int tempID;
     private String isbn;
     private String title;
     private ArrayList<String> authors;
@@ -32,7 +31,6 @@ public class Book
      */
     public Book(String isbn, String title, ArrayList<String> authors, String publisher, String publishDate, int pageCount)
     {
-        tempID = -1;
         this.isbn = isbn;
         this.title = title;
         this.authors = authors;
@@ -41,25 +39,17 @@ public class Book
         this.pageCount = pageCount;
     }
 
-    /**
-     * Simple getter method for retrieving the temporary ID of a book after a search is performed.
-     *
-     * @return An integer representing the temporary ID for the given book.
-     */
-    public int getTempID()
-    {
-        return tempID;
+    public Book(){
+        this.isbn = "";
+        this.title = "";
+        this.authors = new ArrayList<>();
+        this.publisher = "";
+        this.publishDate = "";
+        this.pageCount = 0;
+
+
     }
 
-    /**
-     * Simple setter method to set the temporary ID for a book after a search is performed.
-     *
-     * @param id - The ID that is to be assigned to the book.
-     */
-    public void setTempID(int id)
-    {
-        tempID = id;
-    }
 
     /**
      * Simple getter method for retrieving the ISBN of a book.
@@ -149,7 +139,7 @@ public class Book
     public String toString()
     {
         //TODO: Change this to account for ALL response types.
-        return this.tempID + "," + this.availableCopies + "," + this.isbn + "," + this.title + "," + authorString() + "," + publisher + "," + publishDate + "," + numCopies;
+        return this.availableCopies + "," + this.isbn + "," + this.title + "," + authorString() + "," + publisher + "," + publishDate + "," + numCopies;
     }
 
     /**
