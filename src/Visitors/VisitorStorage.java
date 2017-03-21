@@ -17,7 +17,7 @@ import java.util.Date;
 public class VisitorStorage implements java.io.Serializable
 {
     // Reference to the library to check the library's time
-    // NOT persisted in storage
+    // Not persisted in storage
     private transient Library library;
 
     // Registered visitors
@@ -35,8 +35,9 @@ public class VisitorStorage implements java.io.Serializable
     /**
      * Default constructor. Initializes with empty visitor and visit hashes.
      */
-    public VisitorStorage()
+    public VisitorStorage(Library library)
     {
+        this.library = library;
         this.visitors = new HashMap<>();
         this.activeVisits = new HashMap<>();
         this.visitHistory = new ArrayList<>();
@@ -213,6 +214,17 @@ public class VisitorStorage implements java.io.Serializable
     }
 
     /**
+     * Sets the library object for this VisitorStorage.
+     * Used upon deserialization to link with Library's TimeClock
+     *
+     * @param library - library object to link with the VisitorStorage
+     */
+    public void setLibrary(Library library)
+    {
+        this.library = library;
+    }
+
+    /**
      * Serialize the entire visitor storage and save it to a text file. Since this only happens at shutdown, all active
      * visits are ended and saved.
      */
@@ -243,7 +255,7 @@ public class VisitorStorage implements java.io.Serializable
      *
      * @return An instance of VisitorStorage generated from the previously saved .ser file.
      */
-    public static VisitorStorage deserialize()
+    public static VisitorStorage deserialize(Library library)
     {
         try
         {
@@ -253,6 +265,7 @@ public class VisitorStorage implements java.io.Serializable
 
             // Initialize storage from data
             VisitorStorage visitorStorage = (VisitorStorage) in.readObject();
+            visitorStorage.setLibrary(library);
 
             // Close the streams and return
             in.close();
@@ -262,7 +275,7 @@ public class VisitorStorage implements java.io.Serializable
         catch (EOFException eof)
         {
             // Start a fresh storage
-            return new VisitorStorage();
+            return new VisitorStorage(library);
         }
         catch (IOException i)
         {
@@ -275,6 +288,6 @@ public class VisitorStorage implements java.io.Serializable
         }
 
         // If an error occurs, return an empty storage
-        return new VisitorStorage();
+        return new VisitorStorage(library);
     }
 }

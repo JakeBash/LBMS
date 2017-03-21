@@ -41,7 +41,10 @@ public class Library extends Observable
     {
         // TODO: Add catalog, purchases
         this.state = "";
-        this.visitorStorage = VisitorStorage.deserialize();
+        
+        // Initialized with reference to self to give access to TimeClock
+        this.visitorStorage = VisitorStorage.deserialize(this);
+
         this.bookStorage = BookStorage.deserialize();
         this.timeClock = TimeClock.deserialize();
         // Have to cancel task and Timer when shutting down
