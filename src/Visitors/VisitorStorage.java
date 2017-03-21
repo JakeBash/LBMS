@@ -102,7 +102,7 @@ public class VisitorStorage implements java.io.Serializable
     {
         //TODO: Need to add the functionality to not allow a new visit of someone already in the library
         // Create a new visit and add it to active
-        Visit visit = new Visit(new Date(), visitorID);
+        Visit visit = new Visit(this.library.getTime(), visitorID);
         this.activeVisits.put(visitorID, visit);
     }
 
@@ -119,7 +119,7 @@ public class VisitorStorage implements java.io.Serializable
         Visit visit = this.activeVisits.get(visitorID);
 
         // Add in end time to visit
-        visit.end();
+        visit.end(this.library.getTime());
 
         // Move from active visits to visit history
         this.activeVisits.remove(visit.getVisitorID());

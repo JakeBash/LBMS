@@ -16,10 +16,10 @@ public class UnpaidFine implements java.io.Serializable
      *
      * @param amount - amount charged due to the fine
      */
-    public UnpaidFine(int amount)
+    public UnpaidFine(int amount, Date dateAccumulated)
     {
         this.amount = amount;
-        this.dateAccumulated = new Date();
+        this.dateAccumulated = dateAccumulated;
     }
 
     /**

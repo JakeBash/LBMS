@@ -25,9 +25,9 @@ public class Visit implements java.io.Serializable
     /**
      * Sets the end time of the visit. Called by the Library when a visit should end.
      */
-    public void end()
+    public void end(Date endTime)
     {
-        this.endTime = new Date();
+        this.endTime = endTime;
     }
 
     /**

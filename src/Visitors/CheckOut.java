@@ -24,10 +24,10 @@ public class CheckOut
      *
      * @param book - book to which this checkout is associated
      */
-    public CheckOut(Book book)
+    public CheckOut(Book book, Date borrowDate)
     {
         this.book = book;
-        this.borrowDate = new Date();
+        this.borrowDate = borrowDate;
 
         // Number of days before fines are applied (2 weeks)
         int daysUntilDue = 14;
@@ -44,9 +44,9 @@ public class CheckOut
     /**
      * Sets the return date of the checkout.
      */
-    public void returnBook()
+    public void returnBook(Date returnDate)
     {
-        this.returnDate = new Date();
+        this.returnDate = returnDate;
     }
 
     /**

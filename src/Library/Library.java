@@ -41,7 +41,7 @@ public class Library extends Observable
     {
         // TODO: Add catalog, purchases
         this.state = "";
-        
+
         // Initialized with reference to self to give access to TimeClock
         this.visitorStorage = VisitorStorage.deserialize(this);
 
@@ -112,7 +112,7 @@ public class Library extends Observable
     {
         //TODO: Need to add a case when the visitor being registered already exists (Duplicate)
         Visitor newVis = visitorStorage.registerVisitor(firstName, lastName, address, phoneNumber);
-        this.state = "register," + newVis.getID() + "," + new Date().toString();
+        this.state = "register," + newVis.getID() + "," + this.getTime().toString();
         notifyObservers();
     }
 

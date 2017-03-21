@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import Books.Book;
 import java.util.concurrent.TimeUnit;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Represents a visitor to the library. Provides all state associated with visitors including their personal data,
@@ -105,7 +106,7 @@ public class Visitor implements java.io.Serializable
      *
      * @param books - An arrayList representing the books to be returned.
      */
-    public void returnBooks(ArrayList<Book> books)
+    public void returnBooks(ArrayList<Book> books, Date dateReturned)
     {
         for (Book book: books)
         {
@@ -127,7 +128,7 @@ public class Visitor implements java.io.Serializable
             // Create fine object if necessary
             if (fineAmount > 0)
             {
-                this.unpaidFines.add(new UnpaidFine(fineAmount));
+                this.unpaidFines.add(new UnpaidFine(fineAmount, dateReturned));
                 this.balance += fineAmount;
             }
 
@@ -141,10 +142,10 @@ public class Visitor implements java.io.Serializable
      *
      * @param amount - amount to pay toward fines
      */
-    public void payFine(int amount)
+    public void payFine(int amount, Date datePaid)
     {
         this.balance -= amount;
-        this.paidFines.add(new PaidFine(amount));
+        this.paidFines.add(new PaidFine(amount, datePaid));
     }
 
     /**

@@ -16,10 +16,10 @@ public class PaidFine implements java.io.Serializable
      *
      * @param amount - amount charged due to the fine
      */
-    public PaidFine(int amount)
+    public PaidFine(int amount, Date datePaid)
     {
         this.amount = amount;
-        this.datePaid = new Date();
+        this.datePaid = datePaid;
     }
 
     /**
