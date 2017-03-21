@@ -1,29 +1,29 @@
 package LBMSCommands;
 
-import Library.TimeClock;
+import Library.Library;
 
 
 /**
- * Advances the clock forward in Time. The number of days can be between 0 and 7, and the number of hours can be between
+ * Advances the library forward in Time. The number of days can be between 0 and 7, and the number of hours can be between
  * 0 and 23
  * 
  * @author Nikolas Tilley
  */
 public class AdvanceTime implements LBMSCommand
 {
-    private TimeClock clock;
+    private Library library;
     private int days;
     private int hours;
 
     /**
      * Description
      *
-     * @param clock
+     * @param library
      * @param days
      */
-    public AdvanceTime(TimeClock clock, int days)
+    public AdvanceTime(Library library, int days)
     {
-        this.clock = clock;
+        this.library = library;
         this.days = days;
         this.hours = 0;
     }
@@ -31,13 +31,13 @@ public class AdvanceTime implements LBMSCommand
     /**
      * Description
      *
-     * @param clock
+     * @param library
      * @param days
      * @param hours
      */
-    public AdvanceTime(TimeClock clock, int days, int hours)
+    public AdvanceTime(Library library, int days, int hours)
     {
-        this.clock = clock;
+        this.library = library;
         this.days = days;
         this.hours = hours;
     }
@@ -47,6 +47,6 @@ public class AdvanceTime implements LBMSCommand
      */
     public void execute()
     {
-        clock.advanceTime(days, hours);
+        library.advanceTime(days, hours);
     }
 }
