@@ -31,9 +31,9 @@ public class Visit implements java.io.Serializable
     }
 
     /**
-     * Description
+     * Getter for visitor's id field
      *
-     * @return
+     * @return visitor's id field
      */
     public Integer getVisitorID()
     {
@@ -41,9 +41,9 @@ public class Visit implements java.io.Serializable
     }
 
     /**
-     * Description
+     * Getter for visit's start time
      *
-     * @return
+     * @return visit's start time
      */
     public Date getStartTime()
     {
@@ -51,9 +51,9 @@ public class Visit implements java.io.Serializable
     }
 
     /**
-     * Description
+     * Getter for visit's end time
      *
-     * @return
+     * @return visit's end time
      */
     public Date getEndTime()
     {

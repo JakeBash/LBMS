@@ -130,7 +130,10 @@ public class Library
     {
         //TODO: Add in the rest of the report data needed
         LocalDate localDate = LocalDate.now();
-        String report = DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate) + "\n" + this.bookStorage.generateReport() + "\n" + this.visitorStorage.generateReport() + "\n";
+        String report = DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate) + "\n"
+                + this.bookStorage.generateReport() + "\n"
+                + this.visitorStorage.generateReport() + "\n";
+
         return report;
     }
 

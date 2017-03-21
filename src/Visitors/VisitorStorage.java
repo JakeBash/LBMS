@@ -116,6 +116,38 @@ public class VisitorStorage implements java.io.Serializable
     }
 
     /**
+     * Gets the total outstanding balance of visitor fines
+     *
+     * @return total fine amount
+     */
+    private int getTotalUnpaidFines() {
+        //TODO: Take into account number of days to include in report. Currently returning total since beginning of time
+        int totalBalance = 0;
+        for (Visitor visitor: this.visitors.values())
+        {
+            totalBalance += visitor.getBalance();
+        }
+
+        return totalBalance;
+    }
+
+    /**
+     * Gets the total amount of fines paid by visitors
+     *
+     * @return total paid fine amount
+     */
+    private int getTotalPaidFines() {
+        //TODO: Take into account number of days to include in report. Currently returning total since beginning of time
+        int totalBalance = 0;
+        for (Visitor visitor: this.visitors.values())
+        {
+            totalBalance += visitor.getFinesPaid();
+        }
+
+        return totalBalance;
+    }
+
+    /**
      * Generates the visitor data stored, in string format, to be included in a statistical report.
      * Data includes: Total number of visitors, Average length of visit
      *
@@ -155,8 +187,17 @@ public class VisitorStorage implements java.io.Serializable
 
         String averageStay = strHours + ":" + strMinutes + ":" + strSeconds;
 
+        // Get total fines collected
+        String totalFinesPaid = String.valueOf(this.getTotalPaidFines());
+
+        // Get total outstanding fines
+        String totalFinesOutstanding = String.valueOf(this.getTotalUnpaidFines());
+
         // Add data to the report and return
-        reportString = "Number of Visitors: " + totalVisitors + "\n" + "Length of Average Visit: " + averageStay;
+        reportString = "Number of Visitors: " + totalVisitors + "\n"
+                + "Length of Average Visit: " + averageStay + "\n"
+                + "Fines Collected: " + totalFinesPaid + "\n"
+                + "Fines Outstanding: " + totalFinesOutstanding;
 
         return reportString;
     }
