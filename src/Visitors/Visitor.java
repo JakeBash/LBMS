@@ -22,13 +22,15 @@ public class Visitor implements java.io.Serializable
     private ArrayList<CheckOut> checkedOutBooks;
     private ArrayList<UnpaidFine> unpaidFines;
     private ArrayList<PaidFine> paidFines;
+    private Date registeredDate;
     private int balance;
 
     //TODO: Return proper responses for all methods
 
     /**
      * Default constructor. Checked out books and fines are initialized to empty ArrayLists,
-     * balance is initialized to 0.
+     * balance is initialized to 0. Registered date is initialized to nothing since visitor
+     * has not yet been registered.
      *
      * @param firstName - visitor's first name
      * @param lastName - visitor's last name
@@ -44,7 +46,21 @@ public class Visitor implements java.io.Serializable
         this.checkedOutBooks = new ArrayList<>();
         this.unpaidFines = new ArrayList<>();
         this.paidFines = new ArrayList<>();
+        this.registeredDate = null;
         this.balance = 0;
+    }
+
+    /**
+     * Registers the visitor in the library.
+     * Sets the visitor's id and registered date.
+     *
+     * @param id - visitor's assigned id
+     * @param registeredDate - date of registration
+     */
+    public void register(Integer id, Date registeredDate)
+    {
+        this.id = id;
+        this.registeredDate = registeredDate;
     }
 
     /**
@@ -274,6 +290,16 @@ public class Visitor implements java.io.Serializable
     public int getBalance()
     {
         return this.balance;
+    }
+
+    /**
+     * Getter for visitor's registered date
+     *
+     * @return visitor's registered date
+     */
+    public Date getRegisteredDate()
+    {
+        return this.registeredDate;
     }
 
     /**
