@@ -4,17 +4,20 @@ import Responses.Response;
 
 public class LibraryError implements Response{
 
+    private Object obj;
+
+    private LBMSCommand command;
+
+    private String action;
 
 
-    public LibraryError() {
-
+    public LibraryError(cmd,object,act) {
+        this.command = cmd;
+        this.obj = object;
+        this.action = act;
     }
 
     public toString() {
-
-    }
-
-    public static void main(String[] args) {
-        System.out.println("Hello");
+        return "ERROR: Unsuccessful " + this.action + " of " + this.obj.toString();
     }
 }
