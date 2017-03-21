@@ -8,6 +8,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * The Library class serves as the "brain" of the LBMS system so-to-say. Interactions between the library's internal
  * storage of visitors and books is facilitated within this class.
@@ -23,6 +26,10 @@ public class Library
     private VisitorStorage visitorStorage;
     private BookStorage bookStorage;
 
+    private TimeClock timeClock ;
+    private CheckTimeTask checkTimeTask ;
+    private Timer timer ;
+
     /**
      * Initializes visitor and book storage from existing files.
      */
@@ -31,6 +38,16 @@ public class Library
         // TODO: Add catalog, purchases, state
         this.visitorStorage = VisitorStorage.deserialize();
         this.bookStorage = BookStorage.deserialize();
+
+
+        // TODO Needs to read from file the days and hours advanced
+        this.timeClock = new TimeClock() ;
+
+        // Have to cancel task and Timer when shutting down
+        this.timer = new Timer("Task Timer") ;
+        this.checkTimeTask = new CheckTimeTask(this) ;
+        timer.schedule(checkTimeTask, 0, 15000);
+
     }
 
     /**
@@ -135,4 +152,46 @@ public class Library
     }
 
     //TODO: Add remaining commands
+    public void checkTime()
+    {
+        System.out.println("The time is: " + timeClock.getTime()) ;
+        // Logic to tell library to change state
+    }
+
+
+
+    // FOR TESTING
+    public static void main(String [] args)
+    {
+        Library lib = new Library() ;
+    }
+
+
+}
+
+/**
+ * A runnable class that tells the library to
+ * check the time
+ */
+class CheckTimeTask extends TimerTask
+{
+    private Library library ;
+
+    /**
+     * @param library - the library that is checking the time ;
+     */
+    public CheckTimeTask(Library library)
+    {
+        this.library = library ;
+    }
+
+    /**
+     * Tells the library to checkTime when the Thread is created
+     *
+     */
+    public void run()
+    {
+        library.checkTime() ;
+    }
+
 }

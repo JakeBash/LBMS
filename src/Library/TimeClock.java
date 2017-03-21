@@ -1,5 +1,9 @@
 package Library;
 
+import java.util.Calendar;
+import java.util.Date;
+// Todo DateFormat
+
 /**
  * Description
  *
@@ -8,27 +12,24 @@ package Library;
  */
 public class TimeClock
 {
-    private int offDay ;
-    private int offHour ;
-    // Need a list of Observers to notify... or one observers
+    private int daysAdvanced ;
+    private int hoursAdvanced ;
 
 	 public TimeClock()
 	 {
-         offDay = 0 ;
-         offHour = 0 ;
-	 
+         daysAdvanced = 0 ;
+         hoursAdvanced = 0 ;
 	 }
     
     /**
      *
-     *
-     * @param offDay the number of days offset fromt the current date
-     * @param offHour the number of hours offset from the current time
-	  */
-	 public TimeClock(int offDay, int offHour)
+     * @param daysAdvanced the number of days offset fromt the current date
+     * @param hoursAdvanced the number of hours offset from the current time
+     */
+	 public TimeClock(int daysAdvanced, int hoursAdvanced)
 	 {
-         this.offDay = offDay ;
-         this.offHour = offHour ; 
+         this.daysAdvanced = daysAdvanced ;
+         this.hoursAdvanced = hoursAdvanced ;
 	 }
     
  
@@ -36,15 +37,20 @@ public class TimeClock
     // Get offset number of days
     public int getOffDay()
     {
-        return offDay ;
+        return daysAdvanced ;
     }
-    
+
     
     // Add Hours to offset
     // Get offset number of hours
     public int getOffHour()
     {
-        return offHour ;
+        return hoursAdvanced ;
+    }
+
+    public String getTime()
+    {
+        return Calendar.getInstance().getTime().toString() ;
     }
 
     /**
@@ -57,8 +63,8 @@ public class TimeClock
      */
     public void advanceTime(int days, int hours)
     {
-        offDay += days ;
-        offHour += hours ;
+        daysAdvanced += days ;
+        hoursAdvanced += hours ;
     }
 
     public void getCurrentDateTime()
