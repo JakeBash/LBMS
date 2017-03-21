@@ -3,6 +3,7 @@ package Library;
 import Books.*;
 import UIS.PTUI;
 import Sort.*;
+import Visitors.CheckOut;
 import Visitors.VisitorStorage;
 import Visitors.Visitor;
 import java.time.LocalDate;
@@ -33,22 +34,19 @@ public class Library extends Observable
     private Timer timer;
 
     /**
-     * Initializes visitor and book storage from existing files.
+     * Initializes all required persistent state from existing files.
      */
     public Library()
     {
         // TODO: Add catalog, purchases, state
+        this.state = "";
         this.visitorStorage = VisitorStorage.deserialize();
         this.bookStorage = BookStorage.deserialize();
-        this.state = "";
-
         this.timeClock = TimeClock.deserialize();
-
         // Have to cancel task and Timer when shutting down
         this.timer = new Timer("Task Timer");
         this.checkTimeTask = new CheckTimeTask(this);
         timer.schedule(checkTimeTask, 0, 15000);
-
     }
 
     /**
@@ -91,7 +89,7 @@ public class Library extends Observable
     }
 
     /**
-     * Registers a new visitor in the library. The response is the newly registered visitor.
+     * Registers a new visitor in the library.
      *
      * @param firstName - The first name of the visitor to be registered
      * @param lastName - the last name of the visitor to be registered.
@@ -99,9 +97,12 @@ public class Library extends Observable
      * @param phoneNumber - The phone number of the visitor to be registered.
      * @return The newly registered visitor.
      */
-    public Visitor registerVisitor(String firstName, String lastName, String address, String phoneNumber)
+    public void registerVisitor(String firstName, String lastName, String address, String phoneNumber)
     {
-        return this.visitorStorage.registerVisitor(firstName, lastName, address, phoneNumber);
+        //TODO: Need to add a case when the visitor being registered already exists (Duplicate)
+        Visitor newVis = visitorStorage.registerVisitor(firstName, lastName, address, phoneNumber);
+        this.state = "register," + newVis.getID() + "," + new Date().toString();
+        notifyObservers();
     }
 
     /**
@@ -112,16 +113,18 @@ public class Library extends Observable
      */
     public Visitor getVisitor(Integer visitorID)
     {
+        //TODO: Do we need this???
         return this.visitorStorage.getVisitor(visitorID);
     }
 
     /**
-     * Begin a visit in the library for a registered visitor.
+     * Begins a visit in the library for a registered visitor.
      *
      * @param visitorID - The ID of the visitor that is starting their visit.
      */
     public void beginVisit(Integer visitorID)
     {
+        //TODO: Need to add a case when the visitor starting their visit ins't already in the library (Duplicate)
         this.visitorStorage.startVisit(visitorID);
     }
 
@@ -132,25 +135,37 @@ public class Library extends Observable
      */
     public void endVisit(Integer visitorID)
     {
+        //TODO: Need to add a case when the visitor ID supplied doesn't match up to any active visits.
         this.visitorStorage.endVisit(visitorID);
     }
 
 
     /**
-     * Returns a list of books that a visitor
+     * Retrieves a list of books currently checked out for a registered visitor.
      *
-     * @param visitorID - the visitor being queried for their checked out book
-     * @return - an ArrayList that contains between 0 - 5 checked out books
+     * @param visitorID - The visitor being queried for their checked out books.
      */
-    public ArrayList<Book> getVisitorCheckedOutBooks(Integer visitorID)
+    public void getVisitorCheckedOutBooks(Integer visitorID)
     {
-        // TODO - handel null Visitor in visitor storage
         Visitor visitor = this.visitorStorage.getVisitor(visitorID);
+        String response = "borrowed,";
 
-        if ( visitor != null )
-            return visitor.getCheckedOutBooks();
+        if (visitor != null)
+        {
+            ArrayList<CheckOut> checkouts = visitor.getCheckOut();
+            response += checkouts.size() + "\n";
+            for (CheckOut c : checkouts)
+            {
+                response += c.getBook().toString("fBorrow") + c.getBorrowDate() + "\n";
+            }
+        }
         else
-            return null;
+        {
+            response += visitorID;
+        }
+
+        this.state = response;
+        notifyObservers();
     }
 
     /**
@@ -172,6 +187,7 @@ public class Library extends Observable
     public String generateReport()
     {
         //TODO: Add in the rest of the report data needed
+        //TODO: Create observer response for this when completed.
         LocalDate localDate = LocalDate.now();
         String report = DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate) + "\n"
                 + this.bookStorage.generateReport() + "\n"
@@ -183,8 +199,7 @@ public class Library extends Observable
     //TODO: Add remaining commands
 
     /**
-     * Checks the time of the Time Clock
-     * Changes the state of the library depending on the time
+     * Checks the time of the Time Clock. Changes the state of the library depending on the time.
      */
     public void checkTime()
     {
@@ -194,7 +209,8 @@ public class Library extends Observable
 
     /**
      * Gets the time of the system in a Date object
-     * @return the timeclocks current time
+     *
+     * @return The Time Clock's current time.
      */
     public Date getTime()
     {
@@ -202,40 +218,43 @@ public class Library extends Observable
     }
 
     /**
-     * Method to advance the time of the library
+     * Method to advance the time of the library.
      *
-     * @param days the number of days to advance
-     * @param hours the number of hours to advance
+     * @param days the number of days to advance.
+     * @param hours the number of hours to advance.
      */
     public void advanceTime(int days, int hours)
     {
         timeClock.advanceTime(days, hours);
     }
 
-
+    /**
+     * Description
+     *
+     * @return
+     */
     public String getState()
     {
         return this.state;
     }
 
-    // FOR TESTING
     public static void main(String [] args)
     {
+        //TODO: Remove later
         Library lib = new Library();
     }
-
-
 }
 
 /**
- * A runnable class that tells the library to
- * check the time
+ * A runnable class that tells the library to check the time.
  */
 class CheckTimeTask extends TimerTask
 {
     private Library library;
 
     /**
+     * Description
+     *
      * @param library - the library that is checking the time;
      */
     public CheckTimeTask(Library library)
@@ -245,11 +264,9 @@ class CheckTimeTask extends TimerTask
 
     /**
      * Tells the library to checkTime when the Thread is created
-     *
      */
     public void run()
     {
         library.checkTime();
     }
-
 }

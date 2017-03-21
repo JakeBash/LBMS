@@ -91,6 +91,16 @@ public class Visitor implements java.io.Serializable
     }
 
     /**
+     * Gets a list of the visitor's CheckOut objects.
+     *
+     * @return An ArrayList representing the visitor's CheckOut objects.
+     */
+    public ArrayList<CheckOut> getCheckOut()
+    {
+        return this.checkedOutBooks;
+    }
+
+    /**
      * Returns the visitor's books to the library. Applies any fines associated with books returned late.
      *
      * @param books - An arrayList representing the books to be returned.

@@ -189,7 +189,6 @@ public class BookStorage implements java.io.Serializable
         }
         else
         {
-            //TODO: Add Sort Order support
             return prevSearchBooks;
         }
     }
