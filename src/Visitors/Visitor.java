@@ -3,6 +3,7 @@ package Visitors;
 import java.util.ArrayList;
 import Books.Book;
 import java.util.concurrent.TimeUnit;
+import java.util.Calendar;
 
 /**
  * Represents a visitor to the library. Provides all state associated with visitors including their personal data,
@@ -18,7 +19,8 @@ public class Visitor implements java.io.Serializable
     private String phoneNumber;
     private Integer id;
     private ArrayList<CheckOut> checkedOutBooks;
-    private ArrayList<Fine> fines;
+    private ArrayList<UnpaidFine> unpaidFines;
+    private ArrayList<PaidFine> paidFines;
     private int balance;
 
     //TODO: Return proper responses for all methods
@@ -39,7 +41,8 @@ public class Visitor implements java.io.Serializable
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.checkedOutBooks = new ArrayList<>();
-        this.fines = new ArrayList<>();
+        this.unpaidFines = new ArrayList<>();
+        this.paidFines = new ArrayList<>();
         this.balance = 0;
     }
 
@@ -114,13 +117,24 @@ public class Visitor implements java.io.Serializable
             // Create fine object if necessary
             if (fineAmount > 0)
             {
-                this.fines.add(new Fine(fineAmount));
+                this.unpaidFines.add(new UnpaidFine(fineAmount));
                 this.balance += fineAmount;
             }
 
             // Put the copy back in the library
             book.addCopies(1);
         }
+    }
+
+    /**
+     * Pays a given amount toward the visitor's fine balance
+     *
+     * @param amount - amount to pay toward fines
+     */
+    public void payFine(int amount)
+    {
+        this.balance -= amount;
+        this.paidFines.add(new PaidFine(amount));
     }
 
     /**
@@ -143,9 +157,63 @@ public class Visitor implements java.io.Serializable
     }
 
     /**
-     * Description
+     * Gets a total of fines paid by the visitor within a given number of days in the past
      *
-     * @return
+     * @param days - number of days of data to return
+     * @return total amount of fines paid by the visitor in the last [days] number of days
+     */
+    public int getFinesPaid()
+    {
+        //TODO: Take into account number of days to include in report. Currently returning total since beginning of time
+        /*
+        // Apply date offset
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, -days);
+        */
+
+        // Calculate total fines paid by visitor in date range
+        int totalFines = 0;
+        for (PaidFine fine: this.paidFines)
+        {
+            /*
+            if (fine.getDatePaid().after(calendar.getTime()))
+            {*/
+                totalFines += fine.getAmount();
+            //}
+        }
+
+        return totalFines;
+    }
+
+    /**
+     * Gets a total of outstanding fines by the visitor within a given number of days in the past
+     *
+     * @param days - number of days of data to return
+     * @return total amount of fines paid by the visitor in the last [days] number of days
+     */
+    public int getFinesUnpaid(int days)
+    {
+        // Apply date offset
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, -days);
+
+        // Calculate total fines paid by visitor in date range
+        int totalFines = 0;
+        for (UnpaidFine fine: this.unpaidFines)
+        {
+            if (fine.getDateAccumulated().after(calendar.getTime()))
+            {
+                totalFines += fine.getAmount();
+            }
+        }
+
+        return totalFines;
+    }
+
+    /**
+     * Getter for visitor's id field
+     *
+     * @return visitor's id field
      */
     public Integer getID()
     {
@@ -153,12 +221,23 @@ public class Visitor implements java.io.Serializable
     }
 
     /**
-     * Description
+     * Getter for visitor's balance field
      *
-     * @param id -
+     * @return visitor's balance field
+     */
+    public int getBalance()
+    {
+        return this.balance;
+    }
+
+    /**
+     * Setter for visitor's id field
+     *
+     * @param id - visitor's new id
      */
     public void setID(Integer id)
     {
         this.id = id;
     }
+
 }

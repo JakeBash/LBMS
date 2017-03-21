@@ -50,9 +50,9 @@ public class CheckOut
     }
 
     /**
-     * Description
+     * Getter for checked out book
      *
-     * @return
+     * @return checked out book
      */
     public Book getBook()
     {
@@ -60,9 +60,9 @@ public class CheckOut
     }
 
     /**
-     * Description
+     * Getter for checked out book's due date
      *
-     * @return
+     * @return checked out book's due date
      */
     public Date getDueDate()
     {
@@ -70,9 +70,9 @@ public class CheckOut
     }
 
     /**
-     * Description
+     * Getter for checked out book's return date
      *
-     * @return
+     * @return checked out book's return date
      */
     public Date getReturnDate()
     {
