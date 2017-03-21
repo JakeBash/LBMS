@@ -164,6 +164,8 @@ public class Book
         {
             if(authors.size() > 1 && i > 0)
                 authorString += ",";
+            authorString += a;
+            i++;
         }
         authorString += "}";
         return authorString;

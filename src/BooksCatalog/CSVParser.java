@@ -89,7 +89,7 @@ public class CSVParser
             books.add(new Book(isbn, title, authors, publisher, publishDate, pageCount));
         }
 
-        System.out.println(books.get(0));
+        System.out.println(books);
         return books;
 
 
@@ -100,7 +100,7 @@ public class CSVParser
     * Main method for testing.
      */
     public static void main(String[] args){
-        File file = new File("files/books2.txt");
+        File file = new File("files/books.txt");
         try {
             load(file);
         }
