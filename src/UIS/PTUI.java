@@ -1,10 +1,13 @@
 package UIS;
 
+import Library.Library;
 import UIS.CommandParser;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * This class handles the input of user commands and represents the "view" of our LBMS application. The accepting and
@@ -12,10 +15,11 @@ import java.util.ArrayList;
  *
  * @author Kyle Kaniecki
  */
-public class PTUI
+public class PTUI implements Observer
 {
     private CommandParser commandparser;
     private BufferedReader reader;
+    private Library lib;
 
     /**
      * Description
@@ -24,6 +28,8 @@ public class PTUI
     {
         this.commandparser = new CommandParser();
         this.reader = new BufferedReader(new InputStreamReader(System.in));
+        this.lib = new Library();
+        this.lib.addObserver(this);
     }
 
     /**
@@ -61,5 +67,10 @@ public class PTUI
         {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
+
     }
 }

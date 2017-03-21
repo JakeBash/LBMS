@@ -2,11 +2,13 @@ package Library;
 
 import Books.BookStorage;
 import Books.Book;
+import UIS.PTUI;
 import Visitors.VisitorStorage;
 import Visitors.Visitor;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Observable;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -21,10 +23,14 @@ import java.util.TimerTask;
  * @author Tyler Reimold
  * @author Kyle Kaniecki
  */
-public class Library
-{
+public class Library extends Observable {
     private VisitorStorage visitorStorage;
     private BookStorage bookStorage;
+
+    /**
+     * The state of the library that will be displayed by the view
+     */
+    private String state;
 
     private TimeClock timeClock ;
     private CheckTimeTask checkTimeTask ;

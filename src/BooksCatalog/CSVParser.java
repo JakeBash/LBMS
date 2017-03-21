@@ -88,8 +88,6 @@ public class CSVParser
             pageCount = Integer.parseInt(temp);
             books.add(new Book(isbn, title, authors, publisher, publishDate, pageCount));
         }
-
-        System.out.println(books);
         return books;
 
 

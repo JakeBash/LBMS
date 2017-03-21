@@ -1,7 +1,9 @@
 package BooksCatalog;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 import Books.Book;
 
 /**
@@ -9,16 +11,23 @@ import Books.Book;
  *
  * @author Tyler Reimold
  */
-public class FlatFileBookCatalog implements BookCatalog
+public class FlatFileBookCatalog
 {
     private File csv;
+    private List<Book> books;
 
     /**
      *
      */
-    public FlatFileBookCatalog()
+    public FlatFileBookCatalog(File file)
     {
-
+        this.csv = file;
+        try {
+            books = CSVParser.load(file);
+        }
+        catch(FileNotFoundException error){
+            System.out.println("File not found");
+        }
     }
 
     /**
