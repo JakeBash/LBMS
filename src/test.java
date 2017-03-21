@@ -72,13 +72,13 @@ public class test
 
         bStore.addBooks(purchase, 500);
 
-        ArrayList<Book> searchBooks = bStore.bookSearch("apple", new ArrayList<String>(Arrays.asList("Example Author 1")), "1111111111111", "Example Publisher 4", "*");
+        //ArrayList<Book> searchBooks = bStore.bookSearch("apple", new ArrayList<String>(Arrays.asList("Example Author 1")), "1111111111111", "Example Publisher 4", "*");
 
-        for(Book b : searchBooks)
-        {
+        //for(Book b : searchBooks)
+        //{
             //TODO: Might want to make a helper string for book search result format, also if there are no matching results, nothing is printed.
-            System.out.println("info," + searchBooks.size() + b.toString("bSearch"));
-        }
+            //System.out.println("info," + searchBooks.size() + b.toString("bSearch"));
+        //}
     }
 
     /**

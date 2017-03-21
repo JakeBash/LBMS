@@ -16,7 +16,6 @@ public class BookSearch implements LBMSCommand
     private ArrayList<String> authors;
     private String isbn;
     private String publisher;
-    // This may not be a String but a SortOrder
     private String sortOrder;
     // ?????????? we should probably pass in a string of authors and parse by , here to
     // not over complicate the command parser
@@ -35,7 +34,6 @@ public class BookSearch implements LBMSCommand
         this.authors = authors;
         this.isbn = "*";
         this.publisher = "*";
-        // String or SortOrder?
         this.sortOrder = "none";
     }
 
@@ -55,7 +53,6 @@ public class BookSearch implements LBMSCommand
         this.authors = authors;
         this.isbn = isbn;
         this.publisher = "*";
-        // String or SortOrder?
         this.sortOrder = "none";
     }
 
@@ -76,7 +73,6 @@ public class BookSearch implements LBMSCommand
         this.authors = authors;
         this.isbn = isbn;
         this.publisher = publisher;
-        // String or SortOrder?
         this.sortOrder = "none";
     }
 
@@ -98,7 +94,6 @@ public class BookSearch implements LBMSCommand
         this.authors = authors;
         this.isbn = isbn;
         this.publisher = publisher;
-        // String or SortOrder?
         this.sortOrder = sortOrder;
     }
 
@@ -108,6 +103,5 @@ public class BookSearch implements LBMSCommand
     public void execute()
     {
         this.library.bookSearch(this.title, this.authors, this.isbn, this.publisher, this.sortOrder);
-        // sort results? or pass in search?
     }
 }

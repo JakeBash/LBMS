@@ -80,17 +80,16 @@ public class BookStorage implements java.io.Serializable
      * @param authors - The authors of the desired book(s).
      * @param isbn - The ISBN of the desired book(s)
      * @param publisher - The publisher of the desired book(s).
-     * @param sortOrder - The sort order to be used when gathering the desired book(s).
      * @return A String ArrayList representing the applicable books for the given command inputs.
      */
-    public ArrayList<Book> bookSearch(String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
+    public ArrayList<Book> bookSearch(String title, ArrayList<String> authors, String isbn, String publisher)
     {
         // ArrayList of books that meet the current search criteria
         ArrayList<Book> searchBooks = new ArrayList<>();
         // Loop to iterate all of the supplied search criteria.
         for(int step=1; step<=5; step++)
         {
-            searchBooks = searchStep(step, title, authors, isbn, publisher, sortOrder, searchBooks);
+            searchBooks = searchStep(step, title, authors, isbn, publisher, searchBooks);
         }
         return searchBooks;
     }
@@ -104,11 +103,10 @@ public class BookStorage implements java.io.Serializable
      * @param authors - The authors of the desired book(s).
      * @param isbn - The ISBN of the desired book(s)
      * @param publisher - The publisher of the desired book(s).
-     * @param sortOrder - The sort order to be used when gathering the desired book(s).
      * @param prevSearchBooks - The ArrayList of books that were gathered from the previous search step.
      * @return An ArrayList representing the applicable books for the current supplied search criteria.
      */
-    private ArrayList<Book> searchStep(int step, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder, ArrayList<Book> prevSearchBooks)
+    private ArrayList<Book> searchStep(int step, String title, ArrayList<String> authors, String isbn, String publisher, ArrayList<Book> prevSearchBooks)
     {
         ArrayList<Book> newSearchBooks = new ArrayList<>();
 

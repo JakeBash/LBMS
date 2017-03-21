@@ -1,15 +1,14 @@
 package Library;
 
-import Books.BookStorage;
-import Books.Book;
+import Books.*;
 import UIS.PTUI;
+import Sort.*;
 import Visitors.VisitorStorage;
 import Visitors.Visitor;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Observable;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -23,18 +22,14 @@ import java.util.TimerTask;
  * @author Tyler Reimold
  * @author Kyle Kaniecki
  */
-public class Library extends Observable {
+public class Library extends Observable
+{
     private VisitorStorage visitorStorage;
     private BookStorage bookStorage;
-
-    /**
-     * The state of the library that will be displayed by the view
-     */
     private String state;
-
-    private TimeClock timeClock ;
-    private CheckTimeTask checkTimeTask ;
-    private Timer timer ;
+    private TimeClock timeClock;
+    private CheckTimeTask checkTimeTask;
+    private Timer timer;
 
     /**
      * Initializes visitor and book storage from existing files.
@@ -47,11 +42,11 @@ public class Library extends Observable {
 
 
         // TODO Needs to read from file the days and hours advanced
-        this.timeClock = new TimeClock() ;
+        this.timeClock = new TimeClock();
 
         // Have to cancel task and Timer when shutting down
-        this.timer = new Timer("Task Timer") ;
-        this.checkTimeTask = new CheckTimeTask(this) ;
+        this.timer = new Timer("Task Timer");
+        this.checkTimeTask = new CheckTimeTask(this);
         timer.schedule(checkTimeTask, 0, 15000);
 
     }
@@ -64,11 +59,35 @@ public class Library extends Observable {
      * @param isbn - The ISBN of the desired book(s)
      * @param publisher - The publisher of the desired book(s).
      * @param sortOrder - The sort order to be used when gathering the desired book(s).
-     * @return An arrayList representing the books that meet the supplied search criteria.
      */
-    public ArrayList<Book> bookSearch(String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
+    public void bookSearch(String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
-        return this.bookStorage.bookSearch(title, authors, isbn, publisher, sortOrder);
+        ArrayList<Book> searchRes = this.bookStorage.bookSearch(title, authors, isbn, publisher);
+        String response = "info," + searchRes.size() + "\n";
+
+        if (sortOrder.equals("title"))
+        {
+            ByTitle bt = new ByTitle();
+            bt.sort(searchRes);
+        }
+        else if (sortOrder.equals("publish-date"))
+        {
+            ByPublishDate bpd = new ByPublishDate();
+            bpd.sort(searchRes);
+        }
+        else if (sortOrder.equals("book-status"))
+        {
+            ByStatus bs = new ByStatus();
+            bs.sort(searchRes);
+        }
+
+        for(Book b : searchRes)
+        {
+            response += b.toString("bSearch") + "\n";
+        }
+
+        this.state = response;
+        notifyObservers();
     }
 
     /**
@@ -126,12 +145,12 @@ public class Library extends Observable {
     public ArrayList<Book> getVisitorCheckedOutBooks(Integer visitorID)
     {
         // TODO - handel null Visitor in visitor storage
-        Visitor visitor = this.visitorStorage.getVisitor(visitorID) ;
+        Visitor visitor = this.visitorStorage.getVisitor(visitorID);
 
         if ( visitor != null )
-            return visitor.getCheckedOutBooks() ;
+            return visitor.getCheckedOutBooks();
         else
-            return null ;
+            return null;
     }
 
     /**
@@ -163,7 +182,7 @@ public class Library extends Observable {
     //TODO: Add remaining commands
     public void checkTime()
     {
-        System.out.println("The time is: " + timeClock.getCurrentDateTime()) ;
+        System.out.println("The time is: " + timeClock.getCurrentDateTime());
         // Logic to tell library to change state
     }
 
@@ -172,7 +191,7 @@ public class Library extends Observable {
     // FOR TESTING
     public static void main(String [] args)
     {
-        Library lib = new Library() ;
+        Library lib = new Library();
     }
 
 
@@ -184,14 +203,14 @@ public class Library extends Observable {
  */
 class CheckTimeTask extends TimerTask
 {
-    private Library library ;
+    private Library library;
 
     /**
-     * @param library - the library that is checking the time ;
+     * @param library - the library that is checking the time;
      */
     public CheckTimeTask(Library library)
     {
-        this.library = library ;
+        this.library = library;
     }
 
     /**
@@ -200,7 +219,7 @@ class CheckTimeTask extends TimerTask
      */
     public void run()
     {
-        library.checkTime() ;
+        library.checkTime();
     }
 
 }

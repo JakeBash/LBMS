@@ -134,7 +134,7 @@ public class Book
     {
         if(comm.equals("bSearch"))
             //TODO: On the requests page, the last CSV section is not explained at all
-            return this.availableCopies + "," + this.isbn + ",\"" + this.title + "\"," + authorString() + "," + this.publisher + "," + this.publishDate;
+            return this.availableCopies + "," + this.isbn + ",\"" + this.title + "\"," + authorString() + "," + this.publisher + "," + this.publishDate + "," + this.pageCount;
         else if(comm.equals("fBorrow"))
             return this.tempID + "," + this.isbn + ",\"" + this.title + ",";
         else if(comm.equals("sSearch"))
