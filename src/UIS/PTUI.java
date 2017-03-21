@@ -71,6 +71,7 @@ public class PTUI implements Observer
 
     @Override
     public void update(Observable observable, Object o) {
+        System.out.println(this.lib.getState());
 
     }
 }

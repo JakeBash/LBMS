@@ -25,17 +25,19 @@ public class CommandParser
     // Some kind of reference to our library and time clock or SOEMTHING
     // THIS HAS TO KNOW ABOUT LIBRARY AND CLOCKS AND ETC.
     private HashMap<String,Class<? extends LBMSCommand>> commands;
+    private Library lib;
 
     /**
      * Description
      */
-    public CommandParser()
+    public CommandParser(Library lib)
     {
         commandQueue = new ArrayList<LBMSCommand>();
         this.commands = new HashMap<>();
         this.commands.put("advance",AdvanceTime.class);
         this.commands.put("arrive",BeginVisit.class);
         this.commands.put("end",EndVisit.class);
+        this.lib = lib;
     }
 
     /**
@@ -178,12 +180,5 @@ public class CommandParser
             executeCommand();
     }
 
-    public static void main(String[] args)
-    {
-        //TODO: Remove later
-        CommandParser cp = new CommandParser();
-        Library test = new Library();
-        cp.parseCommand("test,13,hella,14;");
-    }
 }
 
