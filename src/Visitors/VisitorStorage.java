@@ -138,7 +138,6 @@ public class VisitorStorage implements java.io.Serializable
         {
             Date start = visit.getStartTime();
             Date end = visit.getEndTime();
-
             totalTime += end.getTime() - start.getTime();
         }
 

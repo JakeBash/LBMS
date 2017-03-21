@@ -1,4 +1,5 @@
 package Visitors;
+
 import Books.Book;
 import java.util.Date;
 import java.util.Calendar;
@@ -48,16 +49,31 @@ public class CheckOut
         this.returnDate = new Date();
     }
 
+    /**
+     * Description
+     *
+     * @return
+     */
     public Book getBook()
     {
         return this.book;
     }
 
+    /**
+     * Description
+     *
+     * @return
+     */
     public Date getDueDate()
     {
         return this.returnDate;
     }
 
+    /**
+     * Description
+     *
+     * @return
+     */
     public Date getReturnDate()
     {
         return this.returnDate;

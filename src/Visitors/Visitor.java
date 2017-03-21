@@ -5,9 +5,8 @@ import Books.Book;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Represents a visitor to the library.
- * Provides all state associated with visitors including their personal data, checked out books and
- * accumulated fines.
+ * Represents a visitor to the library. Provides all state associated with visitors including their personal data,
+ * checked out books and accumulated fines.
  *
  * @author Kyler Freas
  */
@@ -20,7 +19,7 @@ public class Visitor implements java.io.Serializable
     private Integer id;
     private ArrayList<CheckOut> checkedOutBooks;
     private ArrayList<Fine> fines;
-    private int balance; // Total outstanding fine amount
+    private int balance;
 
     //TODO: Return proper responses for all methods
 
@@ -45,17 +44,23 @@ public class Visitor implements java.io.Serializable
     }
 
     /**
-     * Checks a book out for the visitor
+     * Checks out a book for a registered visitor.
      *
-     * @param books - a list of books being checked out
+     * @param books - A list of books to be checked out.
      */
     public void checkOutBooks(ArrayList<Book> books)
     {
         // Check that this will not exceed max of 5 books
-        if (this.checkedOutBooks.size() + books.size() > 5) { return; }
+        if (this.checkedOutBooks.size() + books.size() > 5)
+        {
+            return;
+        }
 
         // Check that visitor does not have outstanding fines
-        if (this.balance > 0) { return; }
+        if (this.balance > 0)
+        {
+            return;
+        }
 
         // Create the CheckOut objects for each book
         for (Book book: books)
@@ -66,27 +71,26 @@ public class Visitor implements java.io.Serializable
     }
 
     /**
-     * Gets a list of the visitor's checked-out books
+     * Gets a list of the visitor's currently checked-out books.
      *
-     * @return ArrayList of visitor's checked-out books
+     * @return An ArrayList representing the visitor's currently checked-out books.
      */
     public ArrayList<Book> getCheckedOutBooks()
     {
         ArrayList<Book> books = new ArrayList<>();
 
         // Pull books out of each checkout object
-        for (CheckOut checkout: this.checkedOutBooks) {
+        for (CheckOut checkout: this.checkedOutBooks)
+        {
             books.add(checkout.getBook());
         }
-
         return books;
     }
 
     /**
-     * Returns the visitor's books to the library.
-     * Applies any fines associated with books returned late.
+     * Returns the visitor's books to the library. Applies any fines associated with books returned late.
      *
-     * @param books the books to be returned
+     * @param books - An arrayList representing the books to be returned.
      */
     public void returnBooks(ArrayList<Book> books)
     {
@@ -96,7 +100,10 @@ public class Visitor implements java.io.Serializable
             ArrayList<Book> checkedOut = this.getCheckedOutBooks();
 
             // Check that visitor has the book
-            if (!checkedOut.contains(book)) { continue; }
+            if (!checkedOut.contains(book))
+            {
+                continue;
+            }
 
             CheckOut checkout = this.checkedOutBooks.get(checkedOut.indexOf(book));
             checkout.returnBook();
@@ -105,7 +112,8 @@ public class Visitor implements java.io.Serializable
             int fineAmount = calculateFine(checkout);
 
             // Create fine object if necessary
-            if (fineAmount > 0) {
+            if (fineAmount > 0)
+            {
                 this.fines.add(new Fine(fineAmount));
                 this.balance += fineAmount;
             }
@@ -116,32 +124,39 @@ public class Visitor implements java.io.Serializable
     }
 
     /**
-     * Calculates the fines applied to a returned book transaction.
-     * $10 added for 1 day late, $2 added for each additional week late.
-     * Cannot exceed $30.
+     * Calculates the fines applied to a returned book transaction. $10 is added to the fine for 1 day late, and $2 is
+     * added for each additional week late. A fine cannot exceed $30.
      *
-     * @param checkout - checkout object for which to calculate fines
-     * @return the amount charged to the visitor
+     * @param checkout - A Checkout object used to calculate fines.
+     * @return An integer representing the amount charged to the visitor.
      */
     private int calculateFine(CheckOut checkout)
     {
         int fineAmount = 0;
         long days = checkout.getReturnDate().getTime() - checkout.getDueDate().getTime();
         days = TimeUnit.MILLISECONDS.toDays(days);
-
         if (days >= 1)
         {
             fineAmount = Integer.min(10 + (int) (2 * (days / 7)), 30);
         }
-
         return fineAmount;
     }
 
+    /**
+     * Description
+     *
+     * @return
+     */
     public Integer getID()
     {
         return this.id;
     }
 
+    /**
+     * Description
+     *
+     * @param id -
+     */
     public void setID(Integer id)
     {
         this.id = id;

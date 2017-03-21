@@ -1,16 +1,14 @@
 package BooksCatalog;
 
 import Books.Book;
-import java.io.File;
 import java.util.ArrayList;
 
 /**
- * Created by JakeDesktop on 3/13/2017.
+ * Description
+ *
+ * @author Tyler Reimold
  */
 public interface BookCatalog
 {
-
-    ArrayList<Book> select(String ... a);
-
 
 }

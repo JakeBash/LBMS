@@ -1,9 +1,8 @@
 package Visitors;
+
 import java.util.Date;
 
 /**
- * Created by JakeDesktop on 3/13/2017.
- *
  * A single visit in the library
  *
  * @author Kyler Freas
@@ -31,16 +30,31 @@ public class Visit implements java.io.Serializable
         this.endTime = new Date();
     }
 
+    /**
+     * Description
+     *
+     * @return
+     */
     public Integer getVisitorID()
     {
         return this.visitorID;
     }
 
+    /**
+     * Description
+     *
+     * @return
+     */
     public Date getStartTime()
     {
         return this.startTime;
     }
 
+    /**
+     * Description
+     *
+     * @return
+     */
     public Date getEndTime()
     {
         return this.endTime;

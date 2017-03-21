@@ -2,8 +2,6 @@ package Visitors;
 import java.util.Date;
 
 /**
- * Created by JakeDesktop on 3/13/2017.
- *
  * Provides a structure for persisting fines accumulated by library visitors
  *
  * @author Kyler Freas
@@ -13,6 +11,11 @@ public class Fine
     private int amount;
     private Date datePaid;
 
+    /**
+     * Description
+     *
+     * @param amount
+     */
     public Fine(int amount)
     {
         this.amount = amount;

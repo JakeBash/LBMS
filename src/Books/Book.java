@@ -39,17 +39,18 @@ public class Book
         this.pageCount = pageCount;
     }
 
-    public Book(){
+    /**
+     * Constructor for creating a new Book object.
+     */
+    public Book()
+    {
         this.isbn = "";
         this.title = "";
         this.authors = new ArrayList<>();
         this.publisher = "";
         this.publishDate = "";
         this.pageCount = 0;
-
-
     }
-
 
     /**
      * Simple getter method for retrieving the ISBN of a book.
@@ -149,12 +150,14 @@ public class Book
      */
     public String authorString()
     {
+        int i = 0;
         String authorString = "{";
         for(String a : authors)
         {
-            authorString += a;
-            if(authors.size() > 1)
+            if(authors.size() > 1 && i > 0)
                 authorString += ",";
+            authorString += a;
+            i++;
         }
         authorString += "}";
         return authorString;

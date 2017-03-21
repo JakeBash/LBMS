@@ -1,8 +1,10 @@
 package Library;
 
 /**
- *	@author Nikolas Tilley
- *  @version 0.1
+ * Description
+ *
+ * @author Nikolas Tilley
+ * @version 0.1
  */
 public class TimeClock
 {
