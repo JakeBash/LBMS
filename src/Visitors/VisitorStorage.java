@@ -1,5 +1,6 @@
 package Visitors;
 
+import Library.Library;
 import java.io.*;
 import java.util.Collections;
 import java.util.ArrayList;
@@ -15,6 +16,10 @@ import java.util.Date;
 
 public class VisitorStorage implements java.io.Serializable
 {
+    // Reference to the library to check the library's time
+    // NOT persisted in storage
+    private transient Library library;
+
     // Registered visitors
     private HashMap<Integer, Visitor> visitors;
 
