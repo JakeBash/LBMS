@@ -55,7 +55,7 @@ public class TimeClock
      */
     public Date getCurrentDateTime()
     {
-        Calendar c = Calendar.getInstance() ;
+        Calendar c = Calendar.getInstance();
         c.add(c.DAY_OF_WEEK, dayOffset);
         c.add(c.HOUR_OF_DAY, hourOffset);
         return c.getTime();
@@ -71,8 +71,8 @@ public class TimeClock
      */
     public void advanceTime(int days, int hours)
     {
-        dayOffset += days ;
-        hourOffset += hours ;
+        dayOffset += days;
+        hourOffset += hours;
     }
 
 
@@ -81,26 +81,26 @@ public class TimeClock
     public static void main(String[] args)
     {
         TimeClock time = new TimeClock(2, 4);
-        //TimeClock time = new TimeClock() ;
+        //TimeClock time = new TimeClock();
 
         // Test 1
         if (time.getOffHour() == 4)
-            System.out.println("PASSED Test - 1") ;
+            System.out.println("PASSED Test - 1");
         else
-            System.out.println("FAILED Test - 1: Expected 4, got " + time.getOffHour()) ;
+            System.out.println("FAILED Test - 1: Expected 4, got " + time.getOffHour());
 
         // Test 2
         time.advanceTime(1, 0);
         if (time.getOffDay() == 3)
-            System.out.println("PASSED Test - 2") ;
+            System.out.println("PASSED Test - 2");
         else
-            System.out.println("FAILED Test - 2: Expected 3, got " + time.getOffDay()) ;
+            System.out.println("FAILED Test - 2: Expected 3, got " + time.getOffDay());
 
         if (time.getCurrentDateTime().compareTo(Calendar.getInstance().getTime()) > 0)
-            System.out.println("PASSED Test - 3") ;
+            System.out.println("PASSED Test - 3");
         else
             System.out.println("FAILED Test - 3: Expected our calendar with time advanced" +
-                    "\nto be greater than the current time, got : " + time.getCurrentDateTime()) ;
+                    "\nto be greater than the current time, got : " + time.getCurrentDateTime());
 
     }
 
