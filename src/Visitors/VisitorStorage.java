@@ -205,7 +205,7 @@ public class VisitorStorage implements java.io.Serializable
 
         // Add data to the report and return
         reportString = "Number of Visitors: " + totalVisitors + "\n"
-                + "Length of Average Visit: " + averageStay + "\n"
+                + "Average Length of Visit: " + averageStay + "\n"
                 + "Fines Collected: " + totalFinesPaid + "\n"
                 + "Fines Outstanding: " + totalFinesOutstanding;
 
