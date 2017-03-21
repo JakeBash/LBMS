@@ -40,7 +40,7 @@ public class Library extends Observable
         // TODO: Add catalog, purchases, state
         this.visitorStorage = VisitorStorage.deserialize();
         this.bookStorage = BookStorage.deserialize();
-
+        this.state = "";
 
         // TODO Needs to read from file the days and hours advanced
         this.timeClock = new TimeClock();
@@ -186,7 +186,11 @@ public class Library extends Observable
         System.out.println("The time is: " + timeClock.getCurrentDateTime());
         // Logic to tell library to change state
     }
+
     
+    public String getState(){
+        return this.state;
+    }
 
     // FOR TESTING
     public static void main(String [] args)
