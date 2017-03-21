@@ -29,6 +29,6 @@ public class GetTime implements LBMSCommand
      */
     public void execute()
     {
-        library.checkTime();
+        library.getTime();
     }
 }
