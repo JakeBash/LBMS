@@ -133,7 +133,7 @@ public class Library extends Observable
     public void beginVisit(Integer visitorID)
     {
         //TODO: Need to add a case when the visitor starting their visit ins't already in the library (Duplicate)
-        this.visitorStorage.startVisit(visitorID);
+        this.currentState.stateBeginVisit(visitorID, this.visitorStorage);
     }
 
     /**
