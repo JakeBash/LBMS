@@ -113,11 +113,34 @@ public class TimeClock implements java.io.Serializable
         else
             System.out.println("FAILED Test - 2: Expected 3, got " + time.getOffDay());
 
+        // Test 3
         if (time.getCurrentDateTime().compareTo(Calendar.getInstance().getTime()) > 0)
             System.out.println("PASSED Test - 3");
         else
             System.out.println("FAILED Test - 3: Expected our calendar with time advanced" +
                     "\nto be greater than the current time, got : " + time.getCurrentDateTime());
+
+        /**
+         * CAREFUL OF TESTING THIS! MIGHT OVER WRITE IMPORTANT DATA
+        // Test Serialization of Time
+        time.serialize();
+
+        TimeClock serClock = TimeClock.deserialize() ;
+        // Test 4
+        if (serClock.getOffHour() == 4)
+            System.out.println("PASSED Test - 4");
+        else
+            System.out.println("FAILED Test - 4: Expected 4, got " + deserialize().getOffHour());
+        // Test 5
+        if (serClock.getOffDay() == 3)
+            System.out.println("PASSED Test - 5");
+        else
+            System.out.println("FAILED Test - 5: Expected 3, got " + serClock.getOffDay());
+
+        System.out.println("REMEMBER TO DELETE SER AFTER TEST");
+        */
+
+
 
     }
 
