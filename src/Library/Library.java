@@ -154,7 +154,7 @@ public class Library
     //TODO: Add remaining commands
     public void checkTime()
     {
-        System.out.println("The time is: " + timeClock.getTime()) ;
+        System.out.println("The time is: " + timeClock.getCurrentDateTime()) ;
         // Logic to tell library to change state
     }
 

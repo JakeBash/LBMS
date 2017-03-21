@@ -12,84 +12,70 @@ import java.util.Date;
  */
 public class TimeClock
 {
-    private int daysAdvanced ;
-    private int hoursAdvanced ;
+    private int dayOffset;
+    private int hourOffset;
 
-	 public TimeClock()
-	 {
-         daysAdvanced = 0 ;
-         hoursAdvanced = 0 ;
-	 }
-    
+    public TimeClock()
+    {
+        dayOffset = 0;
+        hourOffset = 0;
+    }
+
     /**
-     *
-     * @param daysAdvanced the number of days offset fromt the current date
-     * @param hoursAdvanced the number of hours offset from the current time
+     * @param dayOffset  the number of days offset fromt the current date
+     * @param hourOffset the number of hours offset from the current time
      */
-	 public TimeClock(int daysAdvanced, int hoursAdvanced)
-	 {
-         this.daysAdvanced = daysAdvanced ;
-         this.hoursAdvanced = hoursAdvanced ;
-	 }
-    
- 
-    // Add Days to offset
+    public TimeClock(int dayOffset, int hourOffset)
+    {
+        this.dayOffset = dayOffset;
+        this.hourOffset = hourOffset;
+    }
+
     // Get offset number of days
     public int getOffDay()
     {
-        return daysAdvanced ;
+        return dayOffset;
     }
 
-    
-    // Add Hours to offset
     // Get offset number of hours
     public int getOffHour()
     {
-        return hoursAdvanced ;
+        return hourOffset;
     }
 
-    public String getTime()
+    public Date getCurrentDateTime()
     {
-        return Calendar.getInstance().getTime().toString() ;
+        Calendar c = Calendar.getInstance() ;
+        c.add(c.DAY_OF_WEEK, dayOffset);
+        c.add(c.HOUR_OF_DAY, hourOffset);
+        return c.getTime();
     }
 
     /**
      * Advances the clock forward in Time
      * the number of days can be between 0 and 7,
      * the number of hours can be between 0 and 23
-     * 
-     * @param days the number of days to advance
+     *
+     * @param days  the number of days to advance
      * @param hours the number of hours to advance
      */
     public void advanceTime(int days, int hours)
     {
-        daysAdvanced += days ;
-        hoursAdvanced += hours ;
+        dayOffset += days;
+        hourOffset += hours;
     }
 
-    public void getCurrentDateTime()
-    {
-        // TODO - implement clock and how to get time including offsets from advance
-    }
-    
-    /**
-     * Notifies the list of subscribers to check the time
-     *
-     */
-    public void Notify()
-    {
-    }
-    
-    
-   public static void main (String [] args) {
-       TimeClock time = new TimeClock(2, 4) ;
+    public static void main(String[] args) {
+        TimeClock time = new TimeClock(2, 4);
 
-       // Test 1
-       if (time.getOffHour() == 4)
-           System.out.println("PASSED Test - 1") ;
-       else
-           System.out.println("FAILED Test - 1: Expected 4, got " + time.getOffHour()) ;
-   
-   }
-    
+        // Test 1
+        if (time.getOffHour() == 4)
+            System.out.println("PASSED Test - 1");
+        else
+            System.out.println("FAILED Test - 1: Expected 4, got " + time.getOffHour());
+
+
+
+    }
+
 }
