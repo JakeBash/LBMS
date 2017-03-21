@@ -42,8 +42,7 @@ public class Library extends Observable
         this.bookStorage = BookStorage.deserialize();
         this.state = "";
 
-        // TODO Needs to read from file the days and hours advanced
-        this.timeClock = new TimeClock();
+        this.timeClock = TimeClock.deserialize();
 
         // Have to cancel task and Timer when shutting down
         this.timer = new Timer("Task Timer");
@@ -160,6 +159,7 @@ public class Library extends Observable
     public void shutdown()
     {
         //TODO: Serialize all other entities to be persisted
+        this.timeClock.serialize();
         this.visitorStorage.serialize();
         this.bookStorage.serialize();
     }

@@ -26,7 +26,7 @@ public class PTUI implements Observer
      */
     public PTUI()
     {
-        this.commandparser = new CommandParser();
+        this.commandparser = new CommandParser(lib);
         this.reader = new BufferedReader(new InputStreamReader(System.in));
         this.lib = new Library();
         this.lib.addObserver(this);

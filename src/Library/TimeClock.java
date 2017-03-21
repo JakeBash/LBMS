@@ -1,5 +1,7 @@
 package Library;
 
+import java.io.*;
+
 import java.util.Calendar;
 import java.util.Date;
 // Todo DateFormat
@@ -10,10 +12,13 @@ import java.util.Date;
  * @author Nikolas Tilley
  * @version 0.1
  */
-public class TimeClock
+public class TimeClock implements java.io.Serializable
 {
     private int dayOffset;
     private int hourOffset;
+
+    // Data file location
+    private static String file = "files/TimeClock.ser";
 
     public TimeClock()
     {
@@ -116,4 +121,63 @@ public class TimeClock
 
     }
 
+    /**
+     * Serialize the time clock and save it to a text file at library shutdown
+     */
+    public void serialize()
+    {
+        // Save to file
+        try
+        {
+            FileOutputStream fileOut = new FileOutputStream(file);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(this);
+            out.close();
+            fileOut.close();
+        }
+        catch(IOException i)
+        {
+            i.printStackTrace();
+        }
+    }
+
+    /**
+     * Deserializes a TimeClock from the file
+     *
+     * @return An instance of VisitorStorage generated from the previously saved .ser file.
+     */
+    public static TimeClock deserialize()
+    {
+        try
+        {
+            // Read from the file into input stream
+            FileInputStream fileIn = new FileInputStream(file);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+
+            // Initialize storage from data
+            TimeClock timeClock = (TimeClock) in.readObject();
+
+            // Close the streams and return
+            in.close();
+            fileIn.close();
+            return timeClock;
+        }
+        catch (EOFException eof)
+        {
+            // Start a fresh storage
+            return new TimeClock();
+        }
+        catch (IOException i)
+        {
+            i.printStackTrace();
+        }
+        catch (ClassNotFoundException c)
+        {
+            System.out.println("TimeClock could not be found");
+            c.printStackTrace();
+        }
+
+        // If an error occurs, return an empty storage
+        return new TimeClock();
+    }
 }
