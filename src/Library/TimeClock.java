@@ -62,6 +62,18 @@ public class TimeClock
     }
 
     /**
+     * Gets the date in calendar format
+     */
+    public Calendar getCalendarDate()
+    {
+        Calendar c = Calendar.getInstance();
+        c.add(c.DAY_OF_WEEK, dayOffset);
+        c.add(c.HOUR_OF_DAY, hourOffset);
+        return c;
+
+    }
+
+    /**
      * Advances the clock forward in Time
      * the number of days can be between 0 and 7,
      * the number of hours can be between 0 and 23

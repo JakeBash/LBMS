@@ -188,7 +188,7 @@ public class Library extends Observable
      */
     public void checkTime()
     {
-        System.out.println("The time is: " + timeClock.getCurrentDateTime());
+        System.out.println("The time is: " + timeClock.getCalendarDate());
         // Logic to tell library to change state
     }
 
