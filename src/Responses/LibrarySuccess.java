@@ -1,4 +1,3 @@
-
 package Responses;
 
 import LBMSCommands.*;

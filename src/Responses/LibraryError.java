@@ -1,6 +1,6 @@
 package Responses;
 
-import Responses.Response;
+import LBMSCommands.*;
 
 public class LibraryError implements Response{
 
