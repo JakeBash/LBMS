@@ -181,14 +181,40 @@ public class Library extends Observable
     }
 
     //TODO: Add remaining commands
+
+    /**
+     * Checks the time of the Time Clock
+     * Changes the state of the library depending on the time
+     */
     public void checkTime()
     {
         System.out.println("The time is: " + timeClock.getCurrentDateTime());
         // Logic to tell library to change state
     }
 
-    
-    public String getState(){
+    /**
+     * Gets the time of the system in a Date object
+     * @return the timeclocks current time
+     */
+    public Date getTime()
+    {
+        return timeClock.getCurrentDateTime();
+    }
+
+    /**
+     * Method to advance the time of the library
+     *
+     * @param days the number of days to advance
+     * @param hours the number of hours to advance
+     */
+    public void advanceTime(int days, int hours)
+    {
+        timeClock.advanceTime(days, hours);
+    }
+
+
+    public String getState()
+    {
         return this.state;
     }
 
