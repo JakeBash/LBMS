@@ -293,6 +293,16 @@ public class Visitor implements java.io.Serializable
     }
 
     /**
+     * Getter for visitor's registered date
+     *
+     * @return visitor's registered date
+     */
+    public Date getRegisteredDate()
+    {
+        return this.registeredDate;
+    }
+
+    /**
      * Setter for visitor's id field
      *
      * @param id - visitor's new id
