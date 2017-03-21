@@ -86,8 +86,8 @@ public class test
      */
     private static void testStoreVisitors() {
         // Register a new visitor
-        Visitor visitor = library.registerVisitor("Test", "Visitor", "1234 test road", "6078675309");
-        Integer visitorID = visitor.getID();
+        library.registerVisitor("Test", "Visitor", "1234 test road", "6078675309");
+        Integer visitorID = library.getVisitor(0).getID();
 
         // Check that visitor was registered successfully
         if (visitorID == null) {
@@ -113,8 +113,8 @@ public class test
      */
     private static void testGenerateVisitorReport() {
         // Register a new visitor
-        Visitor visitor = library.registerVisitor("Test", "Visitor", "1234 test road", "6078675309");
-        Integer visitorID = visitor.getID();
+        library.registerVisitor("Test", "Visitor", "1234 test road", "6078675309");
+        Integer visitorID = library.getVisitor(0).getID();
 
         // Check that visitor was registered successfully
         if (visitorID == null) {
