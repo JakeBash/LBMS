@@ -87,8 +87,8 @@ public class VisitorStorage implements java.io.Serializable
             newKey = lastKey + 1;
         }
 
-        // Set the visitor's id and store
-        visitor.setID(newKey);
+        // Set the visitor's id, registered date and store
+        visitor.register(newKey, this.library.getTime());
         this.visitors.put(newKey, visitor);
 
         // Return the new visitor
