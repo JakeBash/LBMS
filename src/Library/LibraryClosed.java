@@ -5,7 +5,7 @@ package Library;
  *
  * @author
  */
-public class LibraryClosed
+public class LibraryClosed implements LibraryState
 {
     public LibraryClosed()
     {

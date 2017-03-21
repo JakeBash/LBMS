@@ -120,6 +120,8 @@ public class TimeClock implements java.io.Serializable
             System.out.println("FAILED Test - 3: Expected our calendar with time advanced" +
                     "\nto be greater than the current time, got : " + time.getCurrentDateTime());
 
+
+
         /**
          * CAREFUL OF TESTING THIS! MIGHT OVER WRITE IMPORTANT DATA
         // Test Serialization of Time

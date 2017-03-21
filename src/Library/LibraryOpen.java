@@ -5,7 +5,7 @@ package Library;
  *
  * @author
  */
-public class LibraryOpen
+public class LibraryOpen implements LibraryState
 {
     public LibraryOpen()
     {

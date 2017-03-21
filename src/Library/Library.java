@@ -8,11 +8,7 @@ import Visitors.VisitorStorage;
 import Visitors.Visitor;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Observable;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 /**
  * The Library class serves as the "brain" of the LBMS system so-to-say. Interactions between the library's internal
@@ -26,19 +22,24 @@ import java.util.TimerTask;
  */
 public class Library extends Observable
 {
+    private final int OPEN = 0 ;
+    private final int CLOSED = 1 ;
+
     private VisitorStorage visitorStorage;
     private BookStorage bookStorage;
     private String state;
     private TimeClock timeClock;
     private CheckTimeTask checkTimeTask;
     private Timer timer;
+    private LibraryState currentState ;
+    private ArrayList<LibraryState> stateList ;
 
     /**
      * Initializes all required persistent state from existing files.
      */
     public Library()
     {
-        // TODO: Add catalog, purchases, state
+        // TODO: Add catalog, purchases
         this.state = "";
         this.visitorStorage = VisitorStorage.deserialize();
         this.bookStorage = BookStorage.deserialize();
@@ -47,6 +48,13 @@ public class Library extends Observable
         this.timer = new Timer("Task Timer");
         this.checkTimeTask = new CheckTimeTask(this);
         timer.schedule(checkTimeTask, 0, 15000);
+
+        // Init library states
+        this.stateList = new ArrayList<LibraryState>();
+        this.stateList.add(new LibraryOpen());
+        this.stateList.add(new LibraryClosed());
+        this.currentState = this.stateList.get(0);
+
     }
 
     /**
@@ -203,8 +211,24 @@ public class Library extends Observable
      */
     public void checkTime()
     {
-        System.out.println("The time is: " + timeClock.getCalendarDate());
-        // Logic to tell library to change state
+        int hour = timeClock.getCalendarDate().get(Calendar.HOUR_OF_DAY) ;
+
+        if((hour < 8 || hour >= 19) && (this.currentState == stateList.get(OPEN)))
+            close();
+        else if ((hour >= 8 && hour < 19) && (this.currentState == stateList.get(CLOSED)))
+            open();
+        else
+            ; // Do nothing
+    }
+
+    public void close()
+    {
+        // end all current Visits
+        this.currentState = stateList.get(CLOSED);
+    }
+    public void open()
+    {
+        this.currentState = stateList.get(OPEN);
     }
 
     /**
@@ -225,6 +249,8 @@ public class Library extends Observable
      */
     public void advanceTime(int days, int hours)
     {
+        // if you advance thorugh closing time, need to close visits
+
         timeClock.advanceTime(days, hours);
     }
 
