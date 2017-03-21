@@ -66,13 +66,12 @@ public class VisitorStorage implements java.io.Serializable
      */
     public Visitor registerVisitor(String firstName, String lastName, String address, String phoneNumber)
     {
-        //TODO: Add a way to not allow the registering of someone with the same info as someone already registered in the library. Need this for output
-
         // Generate the new visitor
         Visitor visitor = new Visitor(firstName, lastName, address, phoneNumber);
 
-        // Check if visitor is already registered
-        if (this.visitors.values().contains(visitor)) { return null; }
+        // Check if visitor is already registered.
+        // Registration is aborted if visitor already exists.
+        if (this.visitors.containsValue(visitor)) { return null; }
 
         // Increment the visitor IDs
         Integer newKey;
@@ -104,6 +103,9 @@ public class VisitorStorage implements java.io.Serializable
     public void startVisit(Integer visitorID)
     {
         //TODO: Need to add the functionality to not allow a new visit of someone already in the library
+        // Check if visitor is already visiting the library
+        if (this.activeVisits.containsKey(visitorID)) { return; }
+
         // Create a new visit and add it to active
         Visit visit = new Visit(this.library.getTime(), visitorID);
         this.activeVisits.put(visitorID, visit);
@@ -117,6 +119,9 @@ public class VisitorStorage implements java.io.Serializable
     public void endVisit(Integer visitorID)
     {
         //TODO: Need to add the functionality for trying to end a visit for a visitor ID that doesn't exist/isn't currently at the library.
+
+        // Check that visitor is actually visiting
+        if (!this.activeVisits.containsKey(visitorID)) { return; }
 
         // Find the visit for the given visitor ID
         Visit visit = this.activeVisits.get(visitorID);
@@ -169,6 +174,8 @@ public class VisitorStorage implements java.io.Serializable
      */
     public String generateReport()
     {
+        //TODO: Take into account number of days to include in report. Currently returning total since beginning of time
+
         // String to hold the report data
         String reportString;
 

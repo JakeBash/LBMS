@@ -243,7 +243,7 @@ public class Visitor implements java.io.Serializable
         // Typecast visitor to Visitor so that we can compare data members
         Visitor visitor = (Visitor) visitorO;
 
-        // Compare the data members and return accordingly
+        // Compare first and last names
         return visitor.getFirstName().equals(this.firstName)
                 && visitor.getLastName().equals(this.lastName);
     }
@@ -285,5 +285,4 @@ public class Visitor implements java.io.Serializable
     {
         this.id = id;
     }
-
 }
