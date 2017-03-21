@@ -1,6 +1,6 @@
 package LBMSCommands;
 
-import Library.TimeClock;
+import Library.Library;
 
 /**
  * Displays the current date and time in the simulation. This should include any days that have been added to the
@@ -12,16 +12,16 @@ import Library.TimeClock;
  */
 public class GetTime implements LBMSCommand
 {
-    private TimeClock timeClock;
+    private Library library;
 
     /**
      *  Creates a new GetTime command object.
      *
-     * @param timeClock - The clock keeping track of the date and time.
+     * @param library - The clock keeping track of the date and time.
      */
-    public GetTime(TimeClock timeClock)
+    public GetTime(Library library)
     {
-        this.timeClock = timeClock;
+        this.library = library;
     }
 
     /**
@@ -29,6 +29,6 @@ public class GetTime implements LBMSCommand
      */
     public void execute()
     {
-        timeClock.getCurrentDateTime();
+        library.checkTime();
     }
 }
