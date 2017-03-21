@@ -222,6 +222,41 @@ public class Visitor implements java.io.Serializable
     }
 
     /**
+     * Override equals method to check for duplicate registered visitors
+     *
+     * @param visitorO - visitor to compare
+     * @return whether the visitors are equal
+     */
+    @Override
+    public boolean equals(Object visitorO) {
+
+        // If the visitor is compared with itself then return true
+        if (visitorO == this) {
+            return true;
+        }
+
+        // Check if instance of visitor
+        if (!(visitorO instanceof Visitor)) {
+            return false;
+        }
+
+        // Typecast visitor to Visitor so that we can compare data members
+        Visitor visitor = (Visitor) visitorO;
+
+        // Compare the data members and return accordingly
+        return visitor.getFirstName().equals(this.firstName)
+                && visitor.getLastName().equals(this.lastName);
+    }
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    /**
      * Getter for visitor's id field
      *
      * @return visitor's id field

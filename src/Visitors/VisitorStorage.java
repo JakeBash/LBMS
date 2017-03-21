@@ -71,6 +71,9 @@ public class VisitorStorage implements java.io.Serializable
         // Generate the new visitor
         Visitor visitor = new Visitor(firstName, lastName, address, phoneNumber);
 
+        // Check if visitor is already registered
+        if (this.visitors.values().contains(visitor)) { return null; }
+
         // Increment the visitor IDs
         Integer newKey;
 
