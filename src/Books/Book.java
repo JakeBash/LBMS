@@ -1,6 +1,7 @@
 package Books;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class handles all of the responsibilities of a single book in the library. Action such as adding more copies of
@@ -13,7 +14,7 @@ public class Book
     private int tempID;
     private String isbn;
     private String title;
-    private ArrayList<String> authors;
+    private List<String> authors;
     private String publisher;
     private String publishDate;
     private int pageCount;
@@ -30,8 +31,9 @@ public class Book
      * @param publishDate - The publish date for the given book.
      * @param pageCount - The page count for the given book.
      */
-    public Book(String isbn, String title, ArrayList<String> authors, String publisher, String publishDate, int pageCount)
+    public Book(String isbn, String title, List<String> authors, String publisher, String publishDate, int pageCount)
     {
+
         this.isbn = isbn;
         this.title = title;
         this.authors = authors;
@@ -40,18 +42,7 @@ public class Book
         this.pageCount = pageCount;
     }
 
-    /**
-     * Constructor for creating a new Book object.
-     */
-    public Book()
-    {
-        this.isbn = "";
-        this.title = "";
-        this.authors = new ArrayList<>();
-        this.publisher = "";
-        this.publishDate = "";
-        this.pageCount = 0;
-    }
+
 
     /**
      * Simple getter method for retrieving the ISBN of a book.
@@ -78,7 +69,7 @@ public class Book
      *
      * @return An String representing the author of the given book.
      */
-    public ArrayList<String> getAuthor()
+    public List<String> getAuthor()
     {
         return authors;
     }
@@ -154,6 +145,12 @@ public class Book
             return "Invalid toString() identifier.";
     }
 
+
+    public String toString()
+    {
+        return this.availableCopies + "," + this.isbn + "," + this.title + "," + authorString() + "," + publisher + "," + publishDate + "," + numCopies;
+    }
+
     /**
      * Helper method used to format the authors of a book, as detailed by the project requirements.
      *
@@ -167,8 +164,6 @@ public class Book
         {
             if(authors.size() > 1 && i > 0)
                 authorString += ",";
-            authorString += a;
-            i++;
         }
         authorString += "}";
         return authorString;
