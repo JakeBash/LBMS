@@ -253,7 +253,7 @@ public class Library extends Observable
         // if you advance thorugh closing time, need to close visits
         // TODO - handle if you advance time past closing or more than one day
         // TODO - only take numbers 0-7 for days and 0-23 for hours
-
+        // TODO - Must generate reports after each advance
         timeClock.advanceTime(days, hours);
     }
 
