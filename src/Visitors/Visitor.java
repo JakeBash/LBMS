@@ -52,7 +52,7 @@ public class Visitor implements java.io.Serializable
      *
      * @param books - A list of books to be checked out.
      */
-    public void checkOutBooks(ArrayList<Book> books)
+    public void checkOutBooks(ArrayList<Book> books, Date checkoutDate)
     {
         // Check that this will not exceed max of 5 books
         if (this.checkedOutBooks.size() + books.size() > 5)
@@ -70,7 +70,7 @@ public class Visitor implements java.io.Serializable
         for (Book book: books)
         {
             book.checkout();
-            this.checkedOutBooks.add(new CheckOut(book));
+            this.checkedOutBooks.add(new CheckOut(book, checkoutDate));
         }
     }
 
@@ -120,7 +120,7 @@ public class Visitor implements java.io.Serializable
             }
 
             CheckOut checkout = this.checkedOutBooks.get(checkedOut.indexOf(book));
-            checkout.returnBook();
+            checkout.returnBook(dateReturned);
 
             // Calculate any fines applied to this book.
             int fineAmount = calculateFine(checkout);
