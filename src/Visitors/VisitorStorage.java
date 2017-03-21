@@ -60,6 +60,8 @@ public class VisitorStorage implements java.io.Serializable
      */
     public Visitor registerVisitor(String firstName, String lastName, String address, String phoneNumber)
     {
+        //TODO: Add a way to not allow the registering of someone with the same info as someone already registered in the library. Need this for output
+
         // Generate the new visitor
         Visitor visitor = new Visitor(firstName, lastName, address, phoneNumber);
 
@@ -92,6 +94,7 @@ public class VisitorStorage implements java.io.Serializable
      */
     public void startVisit(Integer visitorID)
     {
+        //TODO: Need to add the functionality to not allow a new visit of someone already in the library
         // Create a new visit and add it to active
         Visit visit = new Visit(new Date(), visitorID);
         this.activeVisits.put(visitorID, visit);
@@ -104,6 +107,8 @@ public class VisitorStorage implements java.io.Serializable
      */
     public void endVisit(Integer visitorID)
     {
+        //TODO: Need to add the functionality for trying to end a visit for a visitor ID that doesn't exist/isn't currently at the library.
+
         // Find the visit for the given visitor ID
         Visit visit = this.activeVisits.get(visitorID);
 

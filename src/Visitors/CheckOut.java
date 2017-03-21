@@ -60,6 +60,16 @@ public class CheckOut
     }
 
     /**
+     * Getter for the date on which the book(s) were checked out.
+     *
+     * @return The date on which the book(s) were checked out.
+     */
+    public Date getBorrowDate()
+    {
+        return this.borrowDate;
+    }
+
+    /**
      * Getter for checked out book's due date
      *
      * @return checked out book's due date
