@@ -4,7 +4,6 @@ import java.io.*;
 
 import java.util.Calendar;
 import java.util.Date;
-// Todo DateFormat
 
 /**
  * Description
@@ -75,7 +74,6 @@ public class TimeClock implements java.io.Serializable
         c.add(c.DAY_OF_WEEK, dayOffset);
         c.add(c.HOUR_OF_DAY, hourOffset);
         return c;
-
     }
 
     /**

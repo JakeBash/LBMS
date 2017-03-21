@@ -15,14 +15,14 @@ public class LibraryOpen implements LibraryState
 
     }
 
-    public void stateBeginVisit(Integer visitorID, VisitorStorage visitorStorage)
+    public String stateBeginVisit(Integer visitorID, VisitorStorage visitorStorage)
     {
         visitorStorage.startVisit(visitorID);
     }
 
-    public void stateCheckOutBook()
+    public String stateCheckOutBook()
     {
-
+        
     }
 
 
