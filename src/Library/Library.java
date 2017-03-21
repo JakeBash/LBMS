@@ -27,7 +27,7 @@ public class Library extends Observable
 
     private VisitorStorage visitorStorage;
     private BookStorage bookStorage;
-    private String state;
+    private String status;
     private TimeClock timeClock;
     private CheckTimeTask checkTimeTask;
     private Timer timer;
@@ -40,7 +40,7 @@ public class Library extends Observable
     public Library()
     {
         // TODO: Add catalog, purchases
-        this.state = "";
+        this.status = "";
 
         // Initialized with reference to self to give access to TimeClock
         this.visitorStorage = VisitorStorage.deserialize(this);
@@ -95,7 +95,7 @@ public class Library extends Observable
             response += b.toString("bSearch") + "\n";
         }
 
-        this.state = response;
+        this.status = response;
         notifyObservers();
     }
 
@@ -112,7 +112,7 @@ public class Library extends Observable
     {
         //TODO: Need to add a case when the visitor being registered already exists (Duplicate)
         Visitor newVis = visitorStorage.registerVisitor(firstName, lastName, address, phoneNumber);
-        this.state = "register," + newVis.getID() + "," + this.getTime().toString();
+        this.status = "register," + newVis.getID() + "," + this.getTime().toString();
         notifyObservers();
     }
 
@@ -175,7 +175,7 @@ public class Library extends Observable
             response += visitorID;
         }
 
-        this.state = response;
+        this.status = response;
         notifyObservers();
     }
 
@@ -265,9 +265,9 @@ public class Library extends Observable
      *
      * @return
      */
-    public String getState()
+    public String getstatus()
     {
-        return this.state;
+        return this.status;
     }
 
     public static void main(String [] args)
