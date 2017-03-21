@@ -221,6 +221,7 @@ public class Library extends Observable
             ; // Do nothing
     }
 
+    // TODO - implment closing the library
     public void close()
     {
         // end all current Visits
@@ -250,6 +251,8 @@ public class Library extends Observable
     public void advanceTime(int days, int hours)
     {
         // if you advance thorugh closing time, need to close visits
+        // TODO - handle if you advance time past closing or more than one day
+        // TODO - only take numbers 0-7 for days and 0-23 for hours
 
         timeClock.advanceTime(days, hours);
     }
