@@ -1,11 +1,17 @@
 package Library;
 
+import Visitors.VisitorStorage;
+
 /**
- * Description
+ * An interface that gives state dependent methods a common signautre but
+ * delegates implementation to the concrete classes
  *
- * @author
+ * @author Nikolas Tilley
  */
 public interface LibraryState
 {
+
+    public void stateBeginVisit(Integer visitorID, VisitorStorage visitorStorage) ;
+    public void stateCheckOutBook() ;
 
 }
