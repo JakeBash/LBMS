@@ -2,6 +2,8 @@ package UIS;
 
 import Library.Library;
 import UIS.CommandParser;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -39,8 +41,15 @@ public class PTUI implements Observer
      */
     public void getCommand() throws IOException
     {
-        this.commandparser.parseCommand(reader.readLine());
+        System.out.println("test");
+        try {
+            this.commandparser.parseCommand(reader.readLine());
+        }
+        catch(IOException io) {
+            System.out.println("Incorrect input");
+        }
     }
+
 
     /**
      * Description
@@ -71,7 +80,7 @@ public class PTUI implements Observer
 
     @Override
     public void update(Observable observable, Object o) {
-        System.out.println(this.lib.getState());
+        System.out.println(this.lib.getStatus());
 
     }
 }

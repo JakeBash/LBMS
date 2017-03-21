@@ -265,7 +265,7 @@ public class Library extends Observable
      *
      * @return
      */
-    public String getstatus()
+    public String getStatus()
     {
         return this.status;
     }
