@@ -10,6 +10,7 @@ import java.util.ArrayList;
  */
 public class Book
 {
+    private int tempID;
     private String isbn;
     private String title;
     private ArrayList<String> authors;
@@ -135,12 +136,22 @@ public class Book
     /**
      * Takes the information of a given book object and turns it into an output-ready format.
      *
+     * @param comm - A string representing the command invoking the toString() call.
      * @return An output-ready string representation of the given book object.
      */
-    public String toString()
+    public String toString(String comm)
     {
-        //TODO: Change this to account for ALL response types.
-        return this.availableCopies + "," + this.isbn + "," + this.title + "," + authorString() + "," + publisher + "," + publishDate + "," + numCopies;
+        if(comm.equals("bSearch"))
+            //TODO: On the requests page, the last CSV section is not explained at all
+            return this.availableCopies + "," + this.isbn + ",\"" + this.title + "\"," + authorString() + "," + this.publisher + "," + this.publishDate;
+        else if(comm.equals("fBorrow"))
+            return this.tempID + "," + this.isbn + ",\"" + this.title + ",";
+        else if(comm.equals("sSearch"))
+            return this.tempID + "," + this.isbn + ",\"" + this.title + "\"," + authorString() + "," + this.publishDate;
+        else if(comm.equals("bPurchase"))
+            return this.isbn + ",\"" +this.title + "\"," + authorString() + "," + this.publishDate + ",";
+        else
+            return "Invalid toString() identifier.";
     }
 
     /**
