@@ -11,10 +11,14 @@ public class LibraryError implements Response{
     private String action;
 
 
-    public LibraryError(cmd,object,act) {
+    public LibraryError(LBMSCommand cmd,Object object,String act) {
         this.command = cmd;
         this.obj = object;
         this.action = act;
+    }
+
+    public getCommand() {
+        return this.command;
     }
 
     public toString() {

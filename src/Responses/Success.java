@@ -11,7 +11,7 @@ public class LibrarySuccess {
 
     private String action;
 
-    public LibrarySuccess(cmd,object,act) {
+    public LibrarySuccess(LBMSCommand cmd,Object object,String act) {
         this.command = cmd;
         this.obj = object;
         this.action = act;
