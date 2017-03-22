@@ -1,6 +1,7 @@
 package Visitors;
 
 import Library.Library;
+import Books.Book;
 import java.io.*;
 import java.util.*;
 
@@ -171,6 +172,17 @@ public class VisitorStorage implements java.io.Serializable
         if (amount < 0 || amount > visitor.getBalance()) { return; }
 
         visitor.payFine(amount, this.library.getTime());
+    }
+
+    /**
+     * Returns a list of books for a given visitor
+     *
+     * @param visitorID - id of visitor returning books
+     * @param books - books to be returned
+     */
+    public void returnBooks(Long visitorID, ArrayList<Book> books) {
+        Visitor visitor = this.getVisitor(visitorID);
+        visitor.returnBooks(books, this.library.getTime());
     }
 
     /**

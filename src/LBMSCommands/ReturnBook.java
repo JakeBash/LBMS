@@ -8,11 +8,12 @@ import java.util.ArrayList;
  * Command format: return,visitor ID,id[,ids];
  *
  * @author Nikolas Tilley
+ * @author Kyler Freas
  */
 public class ReturnBook implements LBMSCommand
 {
     private Library library;
-    private String visitorID;
+    private Long visitorID;
     private ArrayList<String> bookID; // ISBN????!?!?
 
     /**
@@ -22,7 +23,7 @@ public class ReturnBook implements LBMSCommand
      * @param visitorID
      * @param bookID
      */
-    public ReturnBook(Library library, String visitorID, ArrayList<String> bookID)
+    public ReturnBook(Library library, Long visitorID, ArrayList<String> bookID)
     {
         this.library = library;
         this.visitorID = visitorID;
@@ -34,6 +35,6 @@ public class ReturnBook implements LBMSCommand
      */
     public void execute()
     {
-        //TODO: Implement returning of books
+        this.library.returnBooks(this.visitorID, this.bookID);
     }
 }
