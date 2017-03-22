@@ -165,21 +165,21 @@ public class CommandParser
                     this.addCommand(command);
                 }
                 else if (args.size() == 3){
-                    //command = new BookSearch(library,args.get(0),(ArrayList<String>) args.get(1),(String)args.get(2));
-                    //this.addCommand(command);
+                    command = new BookSearch(library,(String)args.get(0),(ArrayList<String>) args.get(1),(String)args.get(2));
+                    this.addCommand(command);
                 }
                 else if(args.size() == 4){
-                    //command = new BookSearch(library,args.get(0),(ArrayList<String>) args.get(1),(String)args.get(2),(String)args.get(3));
-                    //this.addCommand(command);
+                    command = new BookSearch(library,(String)args.get(0),(ArrayList<String>) args.get(1),(String)args.get(2),(String)args.get(3));
+                    this.addCommand(command);
                 }
                 else if(args.size() == 5){
-                    /*command = new BookSearch(library,
+                    command = new BookSearch(library,
                             (String)args.get(0),
                             (ArrayList<String>) args.get(1),
                             (String)args.get(2),
                             (String)args.get(3),
                             (String)args.get(4));
-                    this.addCommand(command);*/
+                    this.addCommand(command);
                 }
 
                 break;
@@ -249,6 +249,10 @@ public class CommandParser
                     this.addCommand(command);
                 }
                 break;
+
+            case "shutdown":
+                library.shutdown();
+                System.exit(0);
 
             default:
                 break;
