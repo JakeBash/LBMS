@@ -11,12 +11,12 @@ public class Visit implements java.io.Serializable
 {
     private Calendar startDateTime;
     private Calendar endDateTime;
-    private Integer visitorID;
+    private Long visitorID;
 
     /**
      * Default constructor. Initializes with start time and visitor ID.
      */
-    public Visit(Calendar startTime, Integer visitorID)
+    public Visit(Calendar startTime, Long visitorID)
     {
         this.startDateTime = startTime;
         this.visitorID = visitorID;
@@ -35,7 +35,7 @@ public class Visit implements java.io.Serializable
      *
      * @return visitor's id field
      */
-    public Integer getVisitorID()
+    public Long getVisitorID()
     {
         return this.visitorID;
     }

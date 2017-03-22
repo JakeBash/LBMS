@@ -18,10 +18,10 @@ public class VisitorStorage implements java.io.Serializable
     private transient Library library;
 
     // Registered visitors
-    private HashMap<Integer, Visitor> visitors;
+    private HashMap<Long, Visitor> visitors;
 
     // Visits currently taking place in the library
-    private HashMap<Integer, Visit> activeVisits;
+    private HashMap<Long, Visit> activeVisits;
 
     // Full history of visits in the library
     private ArrayList<Visit> visitHistory;
@@ -46,7 +46,7 @@ public class VisitorStorage implements java.io.Serializable
      * @param ID - The ID of the registered visitor.
      * @return The visitor associated with the supplied ID.
      */
-    public Visitor getVisitor(Integer ID)
+    public Visitor getVisitor(Long ID)
     {
         return this.visitors.get(ID);
     }
@@ -70,19 +70,8 @@ public class VisitorStorage implements java.io.Serializable
         // Registration is aborted if visitor already exists.
         if (this.visitors.containsValue(visitor)) { return null; }
 
-        // Increment the visitor IDs
-        Integer newKey;
-
-        // If this is the first registration, start at 0
-        if (this.visitors.keySet().size() == 0)
-        {
-            newKey = 0;
-        }
-        else
-        {
-            Integer lastKey = Collections.max(this.visitors.keySet());
-            newKey = lastKey + 1;
-        }
+        // Generate a random visitor ID
+        Long newKey = (long)(Math.random()*100000 + 3333300000L);
 
         // Set the visitor's id, registered date and store
         visitor.register(newKey, this.library.getTime());
@@ -98,7 +87,7 @@ public class VisitorStorage implements java.io.Serializable
      * @param visitorID - The ID of the registered visitor.
      * @return The newly created visit.
      */
-    public Visit startVisit(Integer visitorID)
+    public Visit startVisit(Long visitorID)
     {
         // Check if visitor is already visiting the library
         if (this.activeVisits.containsKey(visitorID))
@@ -118,7 +107,7 @@ public class VisitorStorage implements java.io.Serializable
      * @param visitorID - The ID of the currently active visitor.
      * @return The visit that has just been ended.
      */
-    public Visit endVisit(Integer visitorID)
+    public Visit endVisit(Long visitorID)
     {
         // Check that visitor is actually visiting
         if (!this.activeVisits.containsKey(visitorID))
@@ -171,7 +160,7 @@ public class VisitorStorage implements java.io.Serializable
         return totalBalance;
     }
 
-    public void payFine(Integer visitorID, int amount)
+    public void payFine(Long visitorID, int amount)
     {
         Visitor visitor = this.getVisitor(visitorID);
 

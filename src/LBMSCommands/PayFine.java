@@ -11,7 +11,7 @@ import Library.Library;
 public class PayFine implements LBMSCommand
 {
     private Library library;
-    private Integer visitorID;
+    private Long visitorID;
     private int amount;
 
     /**
@@ -21,7 +21,7 @@ public class PayFine implements LBMSCommand
      * @param visitorID - visitor who is paying the fine
      * @param amount - amount to pay
      */
-    public PayFine(Library library, Integer visitorID, int amount)
+    public PayFine(Library library, Long visitorID, int amount)
     {
         this.library = library;
         this.visitorID = visitorID;

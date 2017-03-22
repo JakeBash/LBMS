@@ -17,7 +17,7 @@ public class Visitor implements java.io.Serializable
     private String lastName;
     private String address;
     private String phoneNumber;
-    private Integer id;
+    private Long id;
     private ArrayList<CheckOut> checkedOutBooks;
     private ArrayList<UnpaidFine> unpaidFines;
     private ArrayList<PaidFine> paidFines;
@@ -56,7 +56,7 @@ public class Visitor implements java.io.Serializable
      * @param id - visitor's assigned id
      * @param registeredDate - date of registration
      */
-    public void register(Integer id, Calendar registeredDate)
+    public void register(Long id, Calendar registeredDate)
     {
         this.id = id;
         this.registeredDate = registeredDate;
@@ -276,7 +276,7 @@ public class Visitor implements java.io.Serializable
      *
      * @return visitor's id field
      */
-    public Integer getID()
+    public Long getID()
     {
         return this.id;
     }
@@ -306,7 +306,7 @@ public class Visitor implements java.io.Serializable
      *
      * @param id - visitor's new id
      */
-    public void setID(Integer id)
+    public void setID(Long id)
     {
         this.id = id;
     }

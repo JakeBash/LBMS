@@ -136,7 +136,7 @@ public class Library extends Observable
      *
      * @param visitorID - The ID of the visitor that is starting their visit.
      */
-    public void beginVisit(Integer visitorID)
+    public void beginVisit(Long visitorID)
     {
         this.currentState.stateBeginVisit(visitorID, this.visitorStorage);
     }
@@ -146,7 +146,7 @@ public class Library extends Observable
      *
      * @param visitorID - The ID of the visitor currently at the library.
      */
-    public void endVisit(Integer visitorID)
+    public void endVisit(Long visitorID)
     {
         Visit visit = this.visitorStorage.endVisit(visitorID);
 
@@ -177,7 +177,7 @@ public class Library extends Observable
      *
      * @param visitorID - The visitor being queried for their checked out books.
      */
-    public void getVisitorCheckedOutBooks(Integer visitorID)
+    public void getVisitorCheckedOutBooks(Long visitorID)
     {
         Visitor visitor = this.visitorStorage.getVisitor(visitorID);
         String response = "borrowed,";
@@ -206,7 +206,7 @@ public class Library extends Observable
      * @param visitorID - id of visitor paying the fine
      * @param amount - amount to pay
      */
-    public void payFine(Integer visitorID, int amount)
+    public void payFine(Long visitorID, int amount)
     {
         this.visitorStorage.payFine(visitorID, amount);
     }

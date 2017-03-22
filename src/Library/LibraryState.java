@@ -11,7 +11,7 @@ import Visitors.VisitorStorage;
 public interface LibraryState
 {
 
-    public String stateBeginVisit(Integer visitorID, VisitorStorage visitorStorage) ;
+    public String stateBeginVisit(Long visitorID, VisitorStorage visitorStorage) ;
     public String stateCheckOutBook() ;
 
 }

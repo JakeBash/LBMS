@@ -101,21 +101,21 @@ public class CommandParser
 
             case "arrive":
                 if (args.size() == 1) {
-                    command = new BeginVisit(library,(Integer) args.get(0));
+                    command = new BeginVisit(library,(Long) args.get(0));
                     this.addCommand(command);
                 }
                 break;
 
             case "borrow":
                 if(args.size() == 2) {
-                    command = new BorrowBook(library, (Integer) args.get(0), (ArrayList<String>) args.get(1));
+                    command = new BorrowBook(library, (Long) args.get(0), (ArrayList<String>) args.get(1));
                     this.addCommand(command);
                 }
                 break;
 
             case "borrowed":
                 if (args.size() == 1) {
-                    command = new FindBorrowed(library, (Integer) args.get(0));
+                    command = new FindBorrowed(library, (Long) args.get(0));
                     this.addCommand(command);
                 }
                 break;
@@ -136,7 +136,7 @@ public class CommandParser
 
             case "depart":
                 if (args.size() == 1){
-                    command = new EndVisit(library,(Integer)args.get(0));
+                    command = new EndVisit(library,(Long)args.get(0));
                 }
                 break;
 
@@ -164,7 +164,7 @@ public class CommandParser
             case "pay":
                 if (args.size() == 1){
                     command = new PayFine(library,
-                            (Integer)args.get(0),
+                            (Long)args.get(0),
                             (int)args.get(1));
                     this.addCommand(command);
                 }

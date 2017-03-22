@@ -15,7 +15,7 @@ public class LibraryClosed implements LibraryState
 
     }
 
-    public String stateBeginVisit(Integer visitorID, VisitorStorage visitorStorage)
+    public String stateBeginVisit(Long visitorID, VisitorStorage visitorStorage)
     {
         // TODO Need to update the observed string or something that this didnt happen
         return "The Library is closed from 19:00 to 8:00 - Cannot Begin Visit" ;

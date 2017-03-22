@@ -10,7 +10,7 @@ import Library.Library;
 public class BeginVisit implements LBMSCommand
 {
     private Library library;
-    private Integer visitorID;
+    private Long visitorID;
 
     /**
      * Creates a BeginVisit command object.
@@ -18,7 +18,7 @@ public class BeginVisit implements LBMSCommand
      * @param library, the library the visitor is visiting.
      * @param visitorID, the ID of the visitor who is attempting to visit.
      */
-    public BeginVisit(Library library, Integer visitorID)
+    public BeginVisit(Library library, Long visitorID)
     {
         this.library = library;
         this.visitorID = visitorID;

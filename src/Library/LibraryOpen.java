@@ -16,7 +16,7 @@ public class LibraryOpen implements LibraryState
 
     }
 
-    public String stateBeginVisit(Integer visitorID, VisitorStorage visitorStorage)
+    public String stateBeginVisit(Long visitorID, VisitorStorage visitorStorage)
     {
         String response = "arrive,";
 

@@ -11,7 +11,7 @@ import Library.Library;
 public class FindBorrowed implements LBMSCommand
 {
     private Library library;
-    private Integer visitorID;
+    private Long visitorID;
 
     /**
      * A command that asks the library to find a visitors checked out books.
@@ -19,7 +19,7 @@ public class FindBorrowed implements LBMSCommand
      * @param library - A library that has books checked out by visitors.
      * @param visitorID - The visitor that is being queried for checked out books.
      */
-    public FindBorrowed(Library library, Integer visitorID)
+    public FindBorrowed(Library library, Long visitorID)
     {
         this.library = library;
         this.visitorID = visitorID;
