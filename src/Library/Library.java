@@ -297,6 +297,14 @@ public class Library extends Observable
             timeClock.advanceTime(days, hours);
             updateStatus("advance,success;" );
         }
+        else if (days < 0 || days > 7)
+        {
+            updateStatus("advance,invalid-number-of-days," + days +";" );
+        }
+        else if (hours < 0 || hours > 23)
+        {
+            updateStatus("advance,invalid-number-of-hours," + hours +";" );
+        }
 
     }
 
