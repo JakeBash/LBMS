@@ -2,6 +2,7 @@ package BooksCatalog;
 
 import Books.Book;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -12,4 +13,6 @@ import java.util.List;
 public interface BookCatalog
 {
     ArrayList<Book> bookSearch(String title, ArrayList<String> authors, String isbn, String publisher);
+
+    ArrayList<Book> getLastSearch();
 }

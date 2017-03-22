@@ -2,6 +2,7 @@ package BooksCatalog;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import Books.Book;
@@ -13,6 +14,7 @@ import Books.Book;
  */
 public class FlatFileBookCatalog implements BookCatalog {
     private List<Book> books;
+    private ArrayList<Book> lastsearch;
 
     /**
      * Constructor of
@@ -23,6 +25,10 @@ public class FlatFileBookCatalog implements BookCatalog {
         } catch (FileNotFoundException error) {
             System.out.println("File not found");
         }
+    }
+
+    public ArrayList<Book> getLastSearch(){
+        return lastsearch;
     }
 
     /**
@@ -40,6 +46,7 @@ public class FlatFileBookCatalog implements BookCatalog {
         // Loop to iterate all of the supplied search criteria.
         for (int step = 1; step <= 5; step++) {
             searchBooks = searchStep(step, title, authors, isbn, publisher, searchBooks);
+            lastsearch = searchBooks;
         }
         return searchBooks;
     }
@@ -155,6 +162,7 @@ public class FlatFileBookCatalog implements BookCatalog {
         ArrayList<String> authors = new ArrayList<>();
         authors.add("*");
         System.out.println(meme.bookSearch("*",authors,"*","*"));
+        System.out.println(meme.getLastSearch());
 
 
     }
