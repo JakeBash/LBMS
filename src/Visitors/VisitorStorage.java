@@ -253,16 +253,24 @@ public class VisitorStorage implements java.io.Serializable
     }
 
     /**
+     * Ends all active visits. Visits are automatically put into visit history
+     */
+    public void endAllVisits()
+    {
+        for (Visit visit : this.activeVisits.values())
+        {
+            this.endVisit(visit.getVisitorID());
+        }
+    }
+    /**
      * Serialize the entire visitor storage and save it to a text file. Since this only happens at shutdown, all active
      * visits are ended and saved.
      */
     public void serialize()
     {
         // End all active visits
-        for (Visit visit : this.activeVisits.values())
-        {
-            this.endVisit(visit.getVisitorID());
-        }
+        this.endAllVisits();
+
         // Save to file
         try
         {
