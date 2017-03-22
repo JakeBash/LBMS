@@ -166,7 +166,7 @@ public class Book
 
     public String toString()
     {
-        return this.availableCopies + "," + this.isbn + "," + this.title + "," + authorString() + "," + publisher + "," + publishDate + "," + numCopies;
+        return this.tempID + ", " + this.availableCopies + "," + this.isbn + "," + this.title + "," + authorString() + "," + publisher + "," + publishDate + "," + numCopies;
     }
 
     /**
