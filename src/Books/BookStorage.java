@@ -47,6 +47,16 @@ public class BookStorage implements java.io.Serializable
     }
 
     /**
+     * Simple getter method for retrieving the last search of the library's internal storage.
+     *
+     * @return The last search performed on the internal storage.
+     */
+    public ArrayList<Book> getLastSearch()
+    {
+        return this.lastSearch;
+    }
+
+    /**
      * Given a list of purchased books and the associated quantity of purchased books, they are added to the book
      * storage. If the book already exists in the storage, the amount of copies owned by the library is increased.
      *
