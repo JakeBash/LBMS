@@ -22,7 +22,7 @@ public class LibraryOpen implements LibraryState
         String response = "arrive,";
         if (visit != null)
         {
-            response += visitorID + "," + visit.
+            response += visitorID + "," + visit.getFormattedDate(visit.getStartDateTime()) + "," + visit.getFormattedTime(visit.getStartDateTime()) + ";";
         }
         else
         {

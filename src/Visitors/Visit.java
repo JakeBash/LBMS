@@ -60,4 +60,24 @@ public class Visit implements java.io.Serializable
     {
         return this.endDateTime;
     }
+
+    /**
+     * Formats the current date in the form YYYY/MM/DD
+     *
+     * @return a String with the  formatted date
+     */
+    public String getFormattedDate(Calendar datetime)
+    {
+        return datetime.get(Calendar.YEAR) + "/" + datetime.get(Calendar.MONTH) + "/" + datetime.get(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
+     * Formats the current time in the form HH:MM:SS
+     *
+     * @return a String with the formatted time
+     */
+    public String getFormattedTime(Calendar datetime)
+    {
+        return datetime.get(Calendar.HOUR_OF_DAY) + ":" + datetime.get(Calendar.MINUTE) + ":" + datetime.get(Calendar.SECOND);
+    }
 }

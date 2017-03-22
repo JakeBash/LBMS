@@ -22,7 +22,7 @@ public class Visitor implements java.io.Serializable
     private ArrayList<CheckOut> checkedOutBooks;
     private ArrayList<UnpaidFine> unpaidFines;
     private ArrayList<PaidFine> paidFines;
-    private Date registeredDate;
+    private Calendar registeredDate;
     private int balance;
 
     //TODO: Return proper responses for all methods
@@ -57,7 +57,7 @@ public class Visitor implements java.io.Serializable
      * @param id - visitor's assigned id
      * @param registeredDate - date of registration
      */
-    public void register(Integer id, Date registeredDate)
+    public void register(Integer id, Calendar registeredDate)
     {
         this.id = id;
         this.registeredDate = registeredDate;
