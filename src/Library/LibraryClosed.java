@@ -1,12 +1,29 @@
 package Library;
 
+import Visitors.VisitorStorage;
+
 /**
- * Created by JakeDesktop on 3/13/2017.
+ * Implements how state dependent commands are executed when the library
+ * is Closed
+ *
+ * @author Nikolas Tilley
  */
-public class LibraryClosed
+public class LibraryClosed implements LibraryState
 {
     public LibraryClosed()
     {
 
     }
+
+    public String stateBeginVisit(Integer visitorID, VisitorStorage visitorStorage)
+    {
+        // TODO Need to update the observed string or something that this didnt happen
+        return "The Library is closed from 19:00 to 8:00 - Cannot Begin Visit" ;
+    }
+
+    public String stateCheckOutBook()
+    {
+        return "The Library is closed from 19:00 to 8:00 - Cannot Checkout Book" ;
+    }
+
 }

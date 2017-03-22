@@ -1,6 +1,7 @@
 package Books;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class handles all of the responsibilities of a single book in the library. Action such as adding more copies of
@@ -10,9 +11,10 @@ import java.util.ArrayList;
  */
 public class Book
 {
+    private int tempID;
     private String isbn;
     private String title;
-    private ArrayList<String> authors;
+    private List<String> authors;
     private String publisher;
     private String publishDate;
     private int pageCount;
@@ -29,8 +31,9 @@ public class Book
      * @param publishDate - The publish date for the given book.
      * @param pageCount - The page count for the given book.
      */
-    public Book(String isbn, String title, ArrayList<String> authors, String publisher, String publishDate, int pageCount)
+    public Book(String isbn, String title, List<String> authors, String publisher, String publishDate, int pageCount)
     {
+
         this.isbn = isbn;
         this.title = title;
         this.authors = authors;
@@ -39,16 +42,6 @@ public class Book
         this.pageCount = pageCount;
     }
 
-    public Book(){
-        this.isbn = "";
-        this.title = "";
-        this.authors = new ArrayList<>();
-        this.publisher = "";
-        this.publishDate = "";
-        this.pageCount = 0;
-
-
-    }
 
 
     /**
@@ -76,7 +69,7 @@ public class Book
      *
      * @return An String representing the author of the given book.
      */
-    public ArrayList<String> getAuthor()
+    public List<String> getAuthor()
     {
         return authors;
     }
@@ -134,11 +127,27 @@ public class Book
     /**
      * Takes the information of a given book object and turns it into an output-ready format.
      *
+     * @param comm - A string representing the command invoking the toString() call.
      * @return An output-ready string representation of the given book object.
      */
+    public String toString(String comm)
+    {
+        if(comm.equals("bSearch"))
+            //TODO: On the requests page, the last CSV section is not explained at all
+            return this.availableCopies + "," + this.isbn + ",\"" + this.title + "\"," + authorString() + "," + this.publisher + "," + this.publishDate + "," + this.pageCount;
+        else if(comm.equals("fBorrow"))
+            return this.tempID + "," + this.isbn + ",\"" + this.title + ",";
+        else if(comm.equals("sSearch"))
+            return this.tempID + "," + this.isbn + ",\"" + this.title + "\"," + authorString() + "," + this.publishDate;
+        else if(comm.equals("bPurchase"))
+            return this.isbn + ",\"" +this.title + "\"," + authorString() + "," + this.publishDate + ",";
+        else
+            return "Invalid toString() identifier.";
+    }
+
+
     public String toString()
     {
-        //TODO: Change this to account for ALL response types.
         return this.availableCopies + "," + this.isbn + "," + this.title + "," + authorString() + "," + publisher + "," + publishDate + "," + numCopies;
     }
 
@@ -149,12 +158,14 @@ public class Book
      */
     public String authorString()
     {
+        int i = 0;
         String authorString = "{";
         for(String a : authors)
         {
-            authorString += a;
-            if(authors.size() > 1)
+            if(authors.size() > 1 && i > 0)
                 authorString += ",";
+            authorString += a;
+            i++;
         }
         authorString += "}";
         return authorString;

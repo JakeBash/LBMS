@@ -25,7 +25,7 @@ public class CommandParser
     // THIS HAS TO KNOW ABOUT LIBRARY AND CLOCKS AND ETC.
 
     private Library library;
-    
+
     public CommandParser(Library lib)
     {
         commandQueue = new ArrayList<LBMSCommand>() ;
@@ -33,6 +33,11 @@ public class CommandParser
 
     }
 
+    /**
+     * Description
+     *
+     * @param s -
+     */
     public void parseCommand(String s)
     {
         ArrayList<Object> args = new ArrayList<Object>(Arrays.asList(s.split(",")));
@@ -53,17 +58,15 @@ public class CommandParser
                 args.add(i,Integer.parseInt(temp));
             }
         }
-
         this.createCommand(cmd,args);
-
     }
 
     /**
-     * Depending on the keyword chosen by the user, a command must be created
+     * Depending on the keyword chosen by the user, a command must be created.
      * 
-     * @param cmd the string that the user uses to identify the Command
-     * @param args the string of arguments that are to be used with the command
-     * @return command command to be executed
+     * @param cmd the string that the user uses to identify the Command.
+     * @param args the string of arguments that are to be used with the command.
+     *
      */
     public void createCommand(String cmd, ArrayList args) {
 
@@ -146,7 +149,7 @@ public class CommandParser
 
             case "pay":
                 if (args.size() == 1){
-                    command = new PayFine();
+                    //command = new PayFine();
                 }
                 break;
 
@@ -170,8 +173,8 @@ public class CommandParser
 
             case "return":
                 if(args.size() == 2){
-                    command = new GenerateReport(library,(Integer) args.get(0),(ArrayList<String> args.get(1)));
-                    this.addCommand(command);
+                    //command = new GenerateReport(library,(Integer) args.get(0),(ArrayList<String>) args.get(1));
+                    //this.addCommand(command);
                 }
                 break;
 
@@ -213,40 +216,34 @@ public class CommandParser
     }
 
     /**
-     *  @param command the command to be added to the commandQueue
+     *  @param command - The command to be added to the commandQueue.
      */
     public void addCommand(LBMSCommand command)
     {
-        commandQueue.add(command) ;
+        commandQueue.add(command);
     }
 
     /**
-     * Executes a single command on the queue
+     * Executes a single command on the queue.
      */
     public void executeCommand() 
     {
         if (!commandQueue.isEmpty())
         {
-            LBMSCommand command = commandQueue.remove(0) ;
+            LBMSCommand command = commandQueue.remove(0);
             command.execute();
 
         }
     }
 
     /**
-     * Executes all the commands on the command queue
+     * Executes all the commands on the command queue.
      */
     public void executeAllCommands()
     {
         while (!commandQueue.isEmpty())
-            executeCommand() ;
+            executeCommand();
     }
 
-    public static void main(String[] args) {
-        CommandParser cp = new CommandParser();
-        Library test = new Library();
-
-        cp.parseCommand("test,13,hella,14;");
-    }
 }
 

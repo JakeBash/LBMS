@@ -1,35 +1,34 @@
 package LBMSCommands;
 
-import Library.TimeClock;
+import Library.Library;
 
 /**
- * Displays the current date and time in the simulation.
- * This should include any days that have been added to the calendar
- * using the command to advance time.
+ * Displays the current date and time in the simulation. This should include any days that have been added to the
+ * calendar using the command to advance time.
  *
- * command format: datetime;
+ * Command format: datetime;
  *
  * @author Nikolas Tilley
  */
 public class GetTime implements LBMSCommand
 {
-    private TimeClock timeClock ;
+    private Library library;
 
     /**
-     *  Creates a new GetTime command object
+     *  Creates a new GetTime command object.
      *
-     * @param timeClock the clock keeping track of the date and time
+     * @param library - The clock keeping track of the date and time.
      */
-    public GetTime(TimeClock timeClock)
+    public GetTime(Library library)
     {
-        this.timeClock = timeClock ;
+        this.library = library;
     }
 
     /**
-     * Executes the GetTime command
+     * Executes the GetTime command on the library.
      */
     public void execute()
     {
-        timeClock.getCurrentDateTime() ;
+        library.getFormattedDateTime();
     }
 }

@@ -1,9 +1,8 @@
 package Visitors;
+
 import java.util.Date;
 
 /**
- * Created by JakeDesktop on 3/13/2017.
- *
  * A single visit in the library
  *
  * @author Kyler Freas
@@ -14,29 +13,48 @@ public class Visit implements java.io.Serializable
     private Date endTime;
     private Integer visitorID;
 
-    // Default constructor
+    /**
+     * Default constructor. Initializes with start time and visitor ID.
+     */
     public Visit(Date startTime, Integer visitorID)
     {
         this.startTime = startTime;
         this.visitorID = visitorID;
     }
 
-    // Sets the end time of the visit
-    public void end()
+    /**
+     * Sets the end time of the visit. Called by the Library when a visit should end.
+     */
+    public void end(Date endTime)
     {
-        this.endTime = new Date();
+        this.endTime = endTime;
     }
 
+    /**
+     * Getter for visitor's id field
+     *
+     * @return visitor's id field
+     */
     public Integer getVisitorID()
     {
         return this.visitorID;
     }
 
+    /**
+     * Getter for visit's start time
+     *
+     * @return visit's start time
+     */
     public Date getStartTime()
     {
         return this.startTime;
     }
 
+    /**
+     * Getter for visit's end time
+     *
+     * @return visit's end time
+     */
     public Date getEndTime()
     {
         return this.endTime;

@@ -31,10 +31,10 @@ public class test
         testBookStorageSearch();
 
         // Test visitor storage
-        testStoreVisitors();
+        //testStoreVisitors();
 
         // Test generating report from visitor data
-        testGenerateVisitorReport();
+        //testGenerateVisitorReport();
 
         // All tests passed!
         System.out.println("Testing succeeded");
@@ -72,17 +72,13 @@ public class test
 
         bStore.addBooks(purchase, 500);
 
-        String[] commInfo = {"app","*","1234567891234","*","*"};
-        //TODO
-        /*
-        ArrayList<Book> searchBooks = bStore.bookSearch(commInfo);
+        //ArrayList<Book> searchBooks = bStore.bookSearch("apple", new ArrayList<String>(Arrays.asList("Example Author 1")), "1111111111111", "Example Publisher 4", "*");
 
-        for(Book b : searchBooks)
-        {
+        //for(Book b : searchBooks)
+        //{
             //TODO: Might want to make a helper string for book search result format, also if there are no matching results, nothing is printed.
-            System.out.println("info," + searchBooks.size() + "," + b.getAvailableCopies() + "," + b.getIsbn() + "," + b.getTitle() + "," + b.authorString() + "," + b.getPublisher() + "," + b.getPublishDate() + "," + b.getPageCount());
-        }
-        */
+            //System.out.println("info," + searchBooks.size() + b.toString("bSearch"));
+        //}
     }
 
     /**
@@ -90,8 +86,8 @@ public class test
      */
     private static void testStoreVisitors() {
         // Register a new visitor
-        Visitor visitor = library.registerVisitor("Test", "Visitor", "1234 test road", "6078675309");
-        Integer visitorID = visitor.getID();
+        library.registerVisitor("Test", "Visitor", "1234 test road", "6078675309");
+        Integer visitorID = library.getVisitor(0).getID();
 
         // Check that visitor was registered successfully
         if (visitorID == null) {
@@ -117,8 +113,8 @@ public class test
      */
     private static void testGenerateVisitorReport() {
         // Register a new visitor
-        Visitor visitor = library.registerVisitor("Test", "Visitor", "1234 test road", "6078675309");
-        Integer visitorID = visitor.getID();
+        library.registerVisitor("Test", "Visitor2", "1234 test road", "6078675309");
+        Integer visitorID = library.getVisitor(0).getID();
 
         // Check that visitor was registered successfully
         if (visitorID == null) {

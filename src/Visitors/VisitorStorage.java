@@ -1,5 +1,6 @@
 package Visitors;
 
+import Library.Library;
 import java.io.*;
 import java.util.Collections;
 import java.util.ArrayList;
@@ -15,6 +16,10 @@ import java.util.Date;
 
 public class VisitorStorage implements java.io.Serializable
 {
+    // Reference to the library to check the library's time
+    // Not persisted in storage
+    private transient Library library;
+
     // Registered visitors
     private HashMap<Integer, Visitor> visitors;
 
@@ -30,8 +35,9 @@ public class VisitorStorage implements java.io.Serializable
     /**
      * Default constructor. Initializes with empty visitor and visit hashes.
      */
-    public VisitorStorage()
+    public VisitorStorage(Library library)
     {
+        this.library = library;
         this.visitors = new HashMap<>();
         this.activeVisits = new HashMap<>();
         this.visitHistory = new ArrayList<>();
@@ -63,6 +69,10 @@ public class VisitorStorage implements java.io.Serializable
         // Generate the new visitor
         Visitor visitor = new Visitor(firstName, lastName, address, phoneNumber);
 
+        // Check if visitor is already registered.
+        // Registration is aborted if visitor already exists.
+        if (this.visitors.containsValue(visitor)) { return null; }
+
         // Increment the visitor IDs
         Integer newKey;
 
@@ -77,8 +87,8 @@ public class VisitorStorage implements java.io.Serializable
             newKey = lastKey + 1;
         }
 
-        // Set the visitor's id and store
-        visitor.setID(newKey);
+        // Set the visitor's id, registered date and store
+        visitor.register(newKey, this.library.getTime());
         this.visitors.put(newKey, visitor);
 
         // Return the new visitor
@@ -92,8 +102,12 @@ public class VisitorStorage implements java.io.Serializable
      */
     public void startVisit(Integer visitorID)
     {
+        //TODO: Need to add the functionality to not allow a new visit of someone already in the library
+        // Check if visitor is already visiting the library
+        if (this.activeVisits.containsKey(visitorID)) { return; }
+
         // Create a new visit and add it to active
-        Visit visit = new Visit(new Date(), visitorID);
+        Visit visit = new Visit(this.library.getTime(), visitorID);
         this.activeVisits.put(visitorID, visit);
     }
 
@@ -104,15 +118,65 @@ public class VisitorStorage implements java.io.Serializable
      */
     public void endVisit(Integer visitorID)
     {
+        //TODO: Need to add the functionality for trying to end a visit for a visitor ID that doesn't exist/isn't currently at the library.
+
+        // Check that visitor is actually visiting
+        if (!this.activeVisits.containsKey(visitorID)) { return; }
+
         // Find the visit for the given visitor ID
         Visit visit = this.activeVisits.get(visitorID);
 
         // Add in end time to visit
-        visit.end();
+        visit.end(this.library.getTime());
 
         // Move from active visits to visit history
         this.activeVisits.remove(visit.getVisitorID());
         this.visitHistory.add(visit);
+    }
+
+    /**
+     * Gets the total outstanding balance of visitor fines
+     *
+     * @return total fine amount
+     */
+    private int getTotalUnpaidFines() {
+        //TODO: Take into account number of days to include in report. Currently returning total since beginning of time
+        int totalBalance = 0;
+        for (Visitor visitor: this.visitors.values())
+        {
+            totalBalance += visitor.getBalance();
+        }
+
+        return totalBalance;
+    }
+
+    /**
+     * Gets the total amount of fines paid by visitors
+     *
+     * @return total paid fine amount
+     */
+    private int getTotalPaidFines() {
+        //TODO: Take into account number of days to include in report. Currently returning total since beginning of time
+        int totalBalance = 0;
+        for (Visitor visitor: this.visitors.values())
+        {
+            totalBalance += visitor.getFinesPaid();
+        }
+
+        return totalBalance;
+    }
+
+    public void payFine(Integer visitorID, int amount)
+    {
+        Visitor visitor = this.getVisitor(visitorID);
+
+        // Check for invalid visitor ID
+        if (visitor == null) { return; }
+
+        // Check for invalid amount
+        if (amount < 0 || amount > visitor.getBalance()) { return; }
+
+        visitor.payFine(amount, this.library.getTime());
     }
 
     /**
@@ -123,6 +187,8 @@ public class VisitorStorage implements java.io.Serializable
      */
     public String generateReport()
     {
+        //TODO: Take into account number of days to include in report. Currently returning total since beginning of time
+
         // String to hold the report data
         String reportString;
 
@@ -138,7 +204,6 @@ public class VisitorStorage implements java.io.Serializable
         {
             Date start = visit.getStartTime();
             Date end = visit.getEndTime();
-
             totalTime += end.getTime() - start.getTime();
         }
 
@@ -156,10 +221,30 @@ public class VisitorStorage implements java.io.Serializable
 
         String averageStay = strHours + ":" + strMinutes + ":" + strSeconds;
 
+        // Get total fines collected
+        String totalFinesPaid = String.valueOf(this.getTotalPaidFines());
+
+        // Get total outstanding fines
+        String totalFinesOutstanding = String.valueOf(this.getTotalUnpaidFines());
+
         // Add data to the report and return
-        reportString = "Number of Visitors: " + totalVisitors + "\n" + "Length of Average Visit: " + averageStay;
+        reportString = "Number of Visitors: " + totalVisitors + "\n"
+                + "Average Length of Visit: " + averageStay + "\n"
+                + "Fines Collected: " + totalFinesPaid + "\n"
+                + "Fines Outstanding: " + totalFinesOutstanding;
 
         return reportString;
+    }
+
+    /**
+     * Sets the library object for this VisitorStorage.
+     * Used upon deserialization to link with Library's TimeClock
+     *
+     * @param library - library object to link with the VisitorStorage
+     */
+    public void setLibrary(Library library)
+    {
+        this.library = library;
     }
 
     /**
@@ -193,7 +278,7 @@ public class VisitorStorage implements java.io.Serializable
      *
      * @return An instance of VisitorStorage generated from the previously saved .ser file.
      */
-    public static VisitorStorage deserialize()
+    public static VisitorStorage deserialize(Library library)
     {
         try
         {
@@ -203,6 +288,7 @@ public class VisitorStorage implements java.io.Serializable
 
             // Initialize storage from data
             VisitorStorage visitorStorage = (VisitorStorage) in.readObject();
+            visitorStorage.setLibrary(library);
 
             // Close the streams and return
             in.close();
@@ -212,7 +298,7 @@ public class VisitorStorage implements java.io.Serializable
         catch (EOFException eof)
         {
             // Start a fresh storage
-            return new VisitorStorage();
+            return new VisitorStorage(library);
         }
         catch (IOException i)
         {
@@ -225,6 +311,6 @@ public class VisitorStorage implements java.io.Serializable
         }
 
         // If an error occurs, return an empty storage
-        return new VisitorStorage();
+        return new VisitorStorage(library);
     }
 }

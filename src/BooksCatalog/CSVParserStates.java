@@ -1,7 +1,11 @@
 package BooksCatalog;
 
 /**
- * Created by JakeDesktop on 3/13/2017.
+ * Description
+ *
+ * @author Tyler Reimold
  */
-public interface CSVParserStates {
+public interface CSVParserStates
+{
+
 }
