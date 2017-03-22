@@ -2,6 +2,7 @@ package Books;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 /**
@@ -13,6 +14,10 @@ import java.util.HashMap;
  */
 public class BookStorage implements java.io.Serializable
 {
+    /**
+     * Record of purchases
+     */
+    private ArrayList<Purchase> purchases;
     /**
      * Owned books that are currently stored in the library.
      */
@@ -63,8 +68,9 @@ public class BookStorage implements java.io.Serializable
      * @param purchasedBooks - An ArrayList representing the most recent purchase from the BookCatalog.
      * @param quantity - The amount of book copies purchased in the most recent transaction.
      */
-    public void addBooks(ArrayList<Book> purchasedBooks, int quantity)
+    public void addBooks(ArrayList<Book> purchasedBooks, int quantity, Calendar date)
     {
+        this.purchases.add(new Purchase(purchasedBooks, quantity, date));
         // Iterates over the supplied list of books
         for(Book b : purchasedBooks)
         {

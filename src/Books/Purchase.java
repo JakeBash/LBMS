@@ -1,6 +1,7 @@
 package Books;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -13,7 +14,7 @@ public class Purchase
     //TODO: Decide where this belongs, and even if it is required.
     private int quantity;
     private ArrayList<Book> purchasedBooks;
-    private Date purchaseDate;
+    private Calendar purchaseDate;
 
     /**
      * Default constructor for the creation of a book purchase.
@@ -22,7 +23,7 @@ public class Purchase
      * @param quantity - The amount of copies that were purchased for each book
      * @param purchaseDate - The date on which the books were purchased.
      */
-    public Purchase(ArrayList<Book> purchasedBooks, int quantity, Date purchaseDate)
+    public Purchase(ArrayList<Book> purchasedBooks, int quantity, Calendar purchaseDate)
     {
         this.purchasedBooks = purchasedBooks;
         this.quantity = quantity;
