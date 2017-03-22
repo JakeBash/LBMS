@@ -1,0 +1,30 @@
+package Responses;
+
+import LBMSCommands.*;
+import Responses.Response;
+
+public class LibrarySuccess {
+
+    private Object obj;
+
+    private LBMSCommand command;
+
+    private String action;
+
+    public LibrarySuccess(LBMSCommand cmd,Object object,String act) {
+        this.command = cmd;
+        this.obj = object;
+        this.action = act;
+
+    }
+
+    /**
+     * This function returns the response of a successful LBMS command
+     * An example is LibrarySuccess(Arrive,Visitor,"arrival")
+     * This object will then return "Successful arrival of <John Doe or whatever>"
+     * @return String
+     */
+    public String toString() {
+        return "Successful " + this.action + " of " + this.obj.toString();
+    }
+}
