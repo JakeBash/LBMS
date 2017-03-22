@@ -167,6 +167,7 @@ public class Library extends Observable
         updateStatus(response);
     }
 
+
     public void borrowBooks(ArrayList<Integer> bkID,Long vID) {
 
         Visitor currentV = visitorStorage.getVisitor(vID);
@@ -181,6 +182,25 @@ public class Library extends Observable
             }
         }
         currentV.checkOutBooks(books,this.getTime());
+    }
+
+    /**
+     * Description
+     */
+    public void purchaseBooks(int quantity, ArrayList<Integer> ids)
+    {
+        ArrayList<Book> purchasedBooks = this.bookCatalog.purchase(quantity, ids);
+
+        bookStorage.addBooks(purchasedBooks, quantity);
+
+        String response = "buy,success\n";
+
+        for (Book b : purchasedBooks)
+        {
+            response += b.toString("bPurchase") + ";\n";
+        }
+
+        updateStatus(response);
     }
 
     /**
@@ -285,7 +305,6 @@ public class Library extends Observable
     {
         this.visitorStorage.payFine(visitorID, amount);
     }
-    
 
     /**
      * Generates a statistical report of the library
@@ -300,8 +319,6 @@ public class Library extends Observable
                 + this.visitorStorage.generateReport() + "\n");
 
     }
-
-    //TODO: Add remaining commands
 
     /**
      * Checks the time of the Time Clock. Changes the state of the library depending on the time.
