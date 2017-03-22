@@ -207,7 +207,7 @@ public class CommandParser
                 break;
 
             case "report":
-                if(args.size() == 1)
+                if(args.size() == 0)
                 {
                     command = new GenerateReport(library);
                     this.addCommand(command);
