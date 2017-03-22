@@ -336,7 +336,7 @@ public class Library extends Observable
      */
     public void close()
     {
-        // end all current Visits
+        this.visitorStorage.endAllVisits();
         this.currentState = stateList.get(CLOSED);
     }
 
