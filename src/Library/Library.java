@@ -390,6 +390,19 @@ public class Library extends Observable
 
     }
 
+    public void returnBooks(Long visitorID, ArrayList<String> isbns)
+    {
+        ArrayList<Book> books = new ArrayList<>();
+        for (Book book: this.bookStorage.getBooks().values())
+        {
+            if (isbns.contains(book.getIsbn()))
+            {
+                books.add(book);
+            }
+        }
+        this.visitorStorage.returnBooks(visitorID, books);
+    }
+
     /**
      * Description
      *

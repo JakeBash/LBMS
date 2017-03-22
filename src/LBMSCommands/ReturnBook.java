@@ -8,12 +8,13 @@ import java.util.ArrayList;
  * Command format: return,visitor ID,id[,ids];
  *
  * @author Nikolas Tilley
+ * @author Kyler Freas
  */
 public class ReturnBook implements LBMSCommand
 {
     private Library library;
-    private String visitorID;
-    private ArrayList<String> bookID;
+    private Long visitorID;
+    private ArrayList<String> bookID; // ISBN????!?!?
 
     /**
      * Creates a ReturnBook command, which will return a book for a registered visitor.
@@ -22,7 +23,7 @@ public class ReturnBook implements LBMSCommand
      * @param visitorID - The ID of the visitor that is returning the book.
      * @param bookID - The temporary ID of the book that is to be returned.
      */
-    public ReturnBook(Library library, String visitorID, ArrayList<String> bookID)
+    public ReturnBook(Library library, Long visitorID, ArrayList<String> bookID)
     {
         this.library = library;
         this.visitorID = visitorID;
@@ -34,6 +35,6 @@ public class ReturnBook implements LBMSCommand
      */
     public void execute()
     {
-        //TODO: Implement returning of books
+        this.library.returnBooks(this.visitorID, this.bookID);
     }
 }
