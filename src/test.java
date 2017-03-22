@@ -30,12 +30,6 @@ public class test
         // Test internal search functionality for library owned books
         testBookStorageSearch();
 
-        // Test visitor storage
-        //testStoreVisitors();
-
-        // Test generating report from visitor data
-        //testGenerateVisitorReport();
-
         // All tests passed!
         System.out.println("Testing succeeded");
     }
@@ -79,63 +73,5 @@ public class test
             //TODO: Might want to make a helper string for book search result format, also if there are no matching results, nothing is printed.
             //System.out.println("info," + searchBooks.size() + b.toString("bSearch"));
         //}
-    }
-
-    /**
-     * Test saving and retrieving visitor storage.
-     */
-    private static void testStoreVisitors() {
-        // Register a new visitor
-        library.registerVisitor("Test", "Visitor", "1234 test road", "6078675309");
-        Integer visitorID = library.getVisitor(0).getID();
-
-        // Check that visitor was registered successfully
-        if (visitorID == null) {
-            throw new java.lang.Error("Visitor was not registered correctly");
-        }
-
-        // Shut down the library, saving the visitor storage
-        library.shutdown();
-
-        // Start the library back up, recovering the saved storage
-        library = new Library();
-
-        // Ensure that registered visitor was saved and retrieved correctly
-        if (library.getVisitor(visitorID) == null) {
-            throw new java.lang.Error("Saved visitor could not be retrieved");
-        }
-
-        System.out.println("Test store visitors: passed");
-    }
-
-    /**
-     * Test generating partial report from visitor storage.
-     */
-    private static void testGenerateVisitorReport() {
-        // Register a new visitor
-        library.registerVisitor("Test", "Visitor2", "1234 test road", "6078675309");
-        Integer visitorID = library.getVisitor(0).getID();
-
-        // Check that visitor was registered successfully
-        if (visitorID == null) {
-            throw new java.lang.Error("Visitor was not registered correctly");
-        }
-        // Start and end a visit at the library
-        library.beginVisit(visitorID);
-
-        // Sleep to cause a 1 second visit time
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException interrupted) {
-            System.out.println("Sleep was interrupted");
-        }
-
-        // End the visit
-        library.endVisit(visitorID);
-
-        // Generate the report
-        // String visitorReport = library.generateReport();
-        String visitorReport = "";
-
     }
 }
