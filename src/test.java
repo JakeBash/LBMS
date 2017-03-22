@@ -134,13 +134,6 @@ public class test
         library.endVisit(visitorID);
 
         // Generate the report
-        String visitorReport = library.generateReport();
 
-        // Check that report was generated
-        if (visitorReport == null) {
-            throw new java.lang.Error("Failed to generate report data for visitors");
-        }
-
-        System.out.println("Visitor report: " + visitorReport);
     }
 }

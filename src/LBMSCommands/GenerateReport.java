@@ -9,7 +9,7 @@ import Library.Library;
  */
 public class GenerateReport implements LBMSCommand
 {
-    //TODO: GenerateReport commands
+    private Library library;
 
 
     /**
@@ -17,7 +17,7 @@ public class GenerateReport implements LBMSCommand
      */
     public GenerateReport(Library lib)
     {
-
+        this.library = lib;
     }
 
     /**
@@ -25,6 +25,6 @@ public class GenerateReport implements LBMSCommand
      */
     public void execute()
     {
-
+        this.library.generateReport();
     }
 }
