@@ -235,6 +235,12 @@ public class Library extends Observable
         this.currentState = stateList.get(OPEN);
     }
 
+    public void getFormattedDateTime()
+    {
+        this.status = "datetime," + timeClock.getFormattedDateTime() ;
+        notifyObservers();
+    }
+
     /**
      * Gets the time of the system in a Date object
      *
