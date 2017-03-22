@@ -1,20 +1,31 @@
 package LBMSCommands;
 
+import Library.Library;
+
 /**
  * Description
  *
  * @author Nikolas Tilley
+ * @author Kyler Freas
  */
 public class PayFine implements LBMSCommand
 {
-    //TODO: Paying Fines needs to be implemented
+    private Library library;
+    private Integer visitorID;
+    private int amount;
 
     /**
-     * Description
+     * Initialize the command with required parameters
+     *
+     * @param library - library object with data
+     * @param visitorID - visitor who is paying the fine
+     * @param amount - amount to pay
      */
-    public PayFine()
+    public PayFine(Library library, Integer visitorID, int amount)
     {
-
+        this.library = library;
+        this.visitorID = visitorID;
+        this.amount = amount;
     }
 
     /**
@@ -22,6 +33,6 @@ public class PayFine implements LBMSCommand
      */
     public void execute()
     {
-
+        library.payFine(this.visitorID, this.amount);
     }
 }

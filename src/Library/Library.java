@@ -92,7 +92,7 @@ public class Library extends Observable
 
         for(Book b : searchRes)
         {
-            response += b.toString("bSearch") + "\n";
+            response += b.toString("bSearch") + "\n;";
         }
 
         this.status = response;
@@ -110,9 +110,15 @@ public class Library extends Observable
      */
     public void registerVisitor(String firstName, String lastName, String address, String phoneNumber)
     {
-        //TODO: Need to add a case when the visitor being registered already exists (Duplicate)
         Visitor newVis = visitorStorage.registerVisitor(firstName, lastName, address, phoneNumber);
-        this.status = "register," + newVis.getID() + "," + this.getTime().toString();
+        if (newVis != null)
+        {
+            this.status = "register," + newVis.getID() + "," + this.getTime().toString() + ";";
+        }
+        else
+        {
+            this.status = "register,duplicate;";
+        }
         notifyObservers();
     }
 
@@ -177,6 +183,17 @@ public class Library extends Observable
 
         this.status = response;
         notifyObservers();
+    }
+
+    /**
+     * Pay a given amount toward a visitor's fine
+     *
+     * @param visitorID - id of visitor paying the fine
+     * @param amount - amount to pay
+     */
+    public void payFine(Integer visitorID, int amount)
+    {
+        this.visitorStorage.payFine(visitorID, amount);
     }
 
     /**
