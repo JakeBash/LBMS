@@ -116,13 +116,15 @@ public class VisitorStorage implements java.io.Serializable
      * Ends a visit in the library for a currently active visitor.
      *
      * @param visitorID - The ID of the currently active visitor.
+     * @return The visit that has just been ended.
      */
-    public void endVisit(Integer visitorID)
+    public Visit endVisit(Integer visitorID)
     {
-        //TODO: Need to add the functionality for trying to end a visit for a visitor ID that doesn't exist/isn't currently at the library.
-
         // Check that visitor is actually visiting
-        if (!this.activeVisits.containsKey(visitorID)) { return; }
+        if (!this.activeVisits.containsKey(visitorID))
+        {
+            return null;
+        }
 
         // Find the visit for the given visitor ID
         Visit visit = this.activeVisits.get(visitorID);
@@ -133,6 +135,8 @@ public class VisitorStorage implements java.io.Serializable
         // Move from active visits to visit history
         this.activeVisits.remove(visit.getVisitorID());
         this.visitHistory.add(visit);
+
+        return visit;
     }
 
     /**
