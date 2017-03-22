@@ -73,9 +73,9 @@ public class CommandParser
 
             case "advance":
                 if (args.size() == 1) {
-                    command = new AdvanceTime((TimeClock) args.get(0), (int) args.get(1));
+                    command = new AdvanceTime(library,(int) args.get(0));
                 } else if (args.size() == 2) {
-                    command = new AdvanceTime((TimeClock) args.get(0), (int) args.get(1), (int) args.get(2));
+                    command = new AdvanceTime(library, (int) args.get(0), (int) args.get(1));
                 }
                 else {
                     break;
@@ -91,15 +91,15 @@ public class CommandParser
                 break;
 
             case "borrow":
-                if(args.size() == 3) {
-                    command = new BorrowBook(library, (Integer) args.get(1), (ArrayList<String>) args.get(2));
+                if(args.size() == 2) {
+                    command = new BorrowBook(library, (Integer) args.get(0), (ArrayList<String>) args.get(1));
                     this.addCommand(command);
                 }
                 break;
 
             case "borrowed":
                 if (args.size() == 1) {
-                    command = new FindBorrowed(library, (Integer) args.get(1));
+                    command = new FindBorrowed(library, (Integer) args.get(0));
                     this.addCommand(command);
                 }
                 break;
