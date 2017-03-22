@@ -26,10 +26,13 @@ public class CommandParser
 
     private Library library;
 
+    private boolean execute;
+
     public CommandParser(Library lib)
     {
         commandQueue = new ArrayList<LBMSCommand>() ;
         library = lib;
+        execute = false;
 
     }
 
@@ -46,8 +49,12 @@ public class CommandParser
          * This code removes the semicolon from the end of the command
          */
         String last = (String)args.get(args.size()-1);
-        last = last.substring(0,last.length()-1);
-        args.set(args.size()-1,last);
+        if(last.contains(";")){
+            last = last.substring(0,last.length()-1);
+            args.set(args.size()-1,last);
+            this.execute = true;
+        }
+
         //end semicolon removal
 
         String cmd = (String) args.remove(0);
@@ -59,6 +66,9 @@ public class CommandParser
             }
         }
         this.createCommand(cmd,args);
+        if(execute){
+            this.executeAllCommands();
+        }
     }
 
     /**
@@ -116,7 +126,8 @@ public class CommandParser
 
             case "datetime":
                 if (args.size() == 0){
-                    //command = new GetTime();
+                    command = new GetTime(library);
+                    this.addCommand(command);
                 }
                 break;
 
