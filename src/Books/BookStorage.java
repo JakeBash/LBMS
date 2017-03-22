@@ -14,17 +14,17 @@ import java.util.HashMap;
 public class BookStorage implements java.io.Serializable
 {
     /**
-     * Owned books that are currently stored in the library
+     * Owned books that are currently stored in the library.
      */
     private HashMap<String, Book> books;
 
     /**
-     * Log of book purchases performed by the library. MIGHT ACTUALLY WANT TO BE HELD IN THE BOOK CATALOG CLASS
+     * The results of the last book search performed.
      */
-    private ArrayList<Purchase> bookPurchases;
+    private ArrayList<Book> lastSearch;
 
     /**
-     * Data file location
+     * Data file location.
      */
     private static String file = "files/BookStorage.ser";
 
@@ -37,7 +37,7 @@ public class BookStorage implements java.io.Serializable
     }
 
     /**
-     * Simple getter method for external retrieval of the libraries' book storage
+     * Simple getter method for external retrieval of the libraries' book storage.
      *
      * @return A HashMap representing the current book storage of the library
      */
@@ -50,8 +50,8 @@ public class BookStorage implements java.io.Serializable
      * Given a list of purchased books and the associated quantity of purchased books, they are added to the book
      * storage. If the book already exists in the storage, the amount of copies owned by the library is increased.
      *
-     * @param purchasedBooks - An ArrayList representing the most recent purchase from the BookCatalog
-     * @param quantity - The amount of book copies purchased in the most recent transaction
+     * @param purchasedBooks - An ArrayList representing the most recent purchase from the BookCatalog.
+     * @param quantity - The amount of book copies purchased in the most recent transaction.
      */
     public void addBooks(ArrayList<Book> purchasedBooks, int quantity)
     {
@@ -78,7 +78,7 @@ public class BookStorage implements java.io.Serializable
      *
      * @param title - The title of the desired book(s).
      * @param authors - The authors of the desired book(s).
-     * @param isbn - The ISBN of the desired book(s)
+     * @param isbn - The ISBN of the desired book(s).
      * @param publisher - The publisher of the desired book(s).
      * @return A String ArrayList representing the applicable books for the given command inputs.
      */
@@ -91,6 +91,8 @@ public class BookStorage implements java.io.Serializable
         {
             searchBooks = searchStep(step, title, authors, isbn, publisher, searchBooks);
         }
+
+        lastSearch = searchBooks;
         return searchBooks;
     }
 
@@ -109,6 +111,7 @@ public class BookStorage implements java.io.Serializable
     private ArrayList<Book> searchStep(int step, String title, ArrayList<String> authors, String isbn, String publisher, ArrayList<Book> prevSearchBooks)
     {
         ArrayList<Book> newSearchBooks = new ArrayList<>();
+        int tempID = 1;
 
         if(step == 1)
         {
@@ -116,6 +119,7 @@ public class BookStorage implements java.io.Serializable
             {
                 for (Book b : this.books.values())
                 {
+                    b.setTempID(tempID++);
                     prevSearchBooks.add(b);
                 }
             }
@@ -125,6 +129,7 @@ public class BookStorage implements java.io.Serializable
                 {
                     if(b.getTitle().contains(title))
                     {
+                        b.setTempID(tempID++);
                         prevSearchBooks.add(b);
                     }
                 }
@@ -145,6 +150,7 @@ public class BookStorage implements java.io.Serializable
                     // that the command supplies.
                     if(b.getAuthor().containsAll(authors))
                     {
+                        b.setTempID(tempID++);
                         newSearchBooks.add(b);
                     }
                 }
@@ -163,6 +169,7 @@ public class BookStorage implements java.io.Serializable
                 {
                     if(b.getIsbn() == isbn)
                     {
+                        b.setTempID(tempID++);
                         newSearchBooks.add(b);
                     }
                 }
@@ -181,6 +188,7 @@ public class BookStorage implements java.io.Serializable
                 {
                     if(b.getPublisher() == publisher)
                     {
+                        b.setTempID(tempID++);
                         newSearchBooks.add(b);
                     }
                 }

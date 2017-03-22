@@ -42,7 +42,25 @@ public class Book
         this.pageCount = pageCount;
     }
 
+    /**
+     * Simple getter method for retrieving the temporary id of a given book.
+     *
+     * @return The temporary id of the given book.
+     */
+    public int getTempID()
+    {
+        return this.tempID;
+    }
 
+    /**
+     * Sets a book's temporary id for use in search commands.
+     *
+     * @param id - The new temporary id for the given book.
+     */
+    public void setTempID(int id)
+    {
+        this.tempID = id;
+    }
 
     /**
      * Simple getter method for retrieving the ISBN of a book.

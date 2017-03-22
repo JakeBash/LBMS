@@ -53,6 +53,8 @@ public class CommandParser
             last = last.substring(0,last.length()-1);
             args.set(args.size()-1,last);
             this.execute = true;
+        } else {
+            this.execute = false;
         }
 
         //end semicolon removal
@@ -180,8 +182,9 @@ public class CommandParser
                 break;
 
             case "report":
+                //TODO change this to take number of days
                 if(args.size() == 1){
-                    command = new GenerateReport();
+                    command = new GenerateReport(library);
                     this.addCommand(command);
                 }
                 break;

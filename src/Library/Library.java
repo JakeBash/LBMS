@@ -4,6 +4,7 @@ import Books.*;
 import UIS.PTUI;
 import Sort.*;
 import Visitors.CheckOut;
+import Visitors.Visit;
 import Visitors.VisitorStorage;
 import Visitors.Visitor;
 import java.time.LocalDate;
@@ -72,7 +73,7 @@ public class Library extends Observable
     public void bookSearch(String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
         ArrayList<Book> searchRes = this.bookStorage.bookSearch(title, authors, isbn, publisher);
-        String response = "info," + searchRes.size() + "\n";
+        String response = "info,";
 
         if (sortOrder.equals("title"))
         {
@@ -89,7 +90,15 @@ public class Library extends Observable
             ByStatus bs = new ByStatus();
             bs.sort(searchRes);
         }
+        else
+        {
+            response += "invalid-sort-order;";
+            this.status = response;
+            notifyObservers();
+            return;
+        }
 
+        response += searchRes.size() + "\n";
         for(Book b : searchRes)
         {
             response += b.toString("bSearch") + "\n;";
@@ -113,7 +122,7 @@ public class Library extends Observable
         Visitor newVis = visitorStorage.registerVisitor(firstName, lastName, address, phoneNumber);
         if (newVis != null)
         {
-            this.status = "register," + newVis.getID() + "," + this.getTime().toString() + ";";
+            this.status = "register," + newVis.getID() + "," + this.timeClock.getFormattedDate() + ";";
         }
         else
         {
@@ -123,25 +132,12 @@ public class Library extends Observable
     }
 
     /**
-     * Getter method for retrieving a registered library visitor
-     *
-     * @param visitorID - The ID of the desired visitor.
-     * @return The desired visitor
-     */
-    public Visitor getVisitor(Integer visitorID)
-    {
-        //TODO: Do we need this???
-        return this.visitorStorage.getVisitor(visitorID);
-    }
-
-    /**
      * Begins a visit in the library for a registered visitor.
      *
      * @param visitorID - The ID of the visitor that is starting their visit.
      */
     public void beginVisit(Integer visitorID)
     {
-        //TODO: Need to add a case when the visitor starting their visit ins't already in the library (Duplicate)
         this.currentState.stateBeginVisit(visitorID, this.visitorStorage);
     }
 
@@ -152,10 +148,29 @@ public class Library extends Observable
      */
     public void endVisit(Integer visitorID)
     {
-        //TODO: Need to add a case when the visitor ID supplied doesn't match up to any active visits.
-        this.visitorStorage.endVisit(visitorID);
-    }
+        Visit visit = this.visitorStorage.endVisit(visitorID);
 
+        String response = "depart,";
+
+        if(visitorStorage.getVisitor(visitorID) == null)
+        {
+            this.status = response + "invalid-id;";
+            notifyObservers();
+            return;
+        }
+        else if (visit != null)
+        {
+            response += visitorID + "," + visit.getFormattedDate(visit.getEndDateTime()) + "," + visit.getFormattedTime(visit.getEndDateTime()) + ";";
+            this.status = response;
+        }
+        else
+        {
+            response += "duplicate;";
+            this.status = response;
+        }
+
+        notifyObservers();
+    }
 
     /**
      * Retrieves a list of books currently checked out for a registered visitor.
@@ -210,18 +225,15 @@ public class Library extends Observable
     /**
      * Generates a statistical report of the library
      *
-     * @return A String representing the statistical report for the library.
      */
-    public String generateReport()
+    public void generateReport()
     {
         //TODO: Add in the rest of the report data needed
-        //TODO: Create observer response for this when completed.
         LocalDate localDate = LocalDate.now();
-        String report = DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate) + "\n"
+        updateStatus(DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate) + "\n"
                 + this.bookStorage.generateReport() + "\n"
-                + this.visitorStorage.generateReport() + "\n";
+                + this.visitorStorage.generateReport() + "\n");
 
-        return report;
     }
 
     //TODO: Add remaining commands
@@ -283,8 +295,7 @@ public class Library extends Observable
         if ((days >= 0 && days <= 7) && (hours >= 0 && hours <= 23))
         {
             timeClock.advanceTime(days, hours);
-            this.status = "advance,success;" ;
-            notifyObservers();
+            updateStatus("advance,success;" );
         }
 
     }
