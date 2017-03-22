@@ -1,6 +1,8 @@
 package Library;
 
 import Books.*;
+import BooksCatalog.BookCatalog;
+import BooksCatalog.FlatFileBookCatalog;
 import UIS.PTUI;
 import Sort.*;
 import Visitors.CheckOut;
@@ -10,6 +12,7 @@ import Visitors.Visitor;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.io.File;
 
 /**
  * The Library class serves as the "brain" of the LBMS system so-to-say. Interactions between the library's internal
@@ -28,6 +31,7 @@ public class Library extends Observable
 
     private VisitorStorage visitorStorage;
     private BookStorage bookStorage;
+    private BookCatalog bookCatalog;
     private String status;
     private TimeClock timeClock;
     private CheckTimeTask checkTimeTask;
@@ -47,6 +51,7 @@ public class Library extends Observable
         this.visitorStorage = VisitorStorage.deserialize(this);
 
         this.bookStorage = BookStorage.deserialize();
+        this.bookCatalog = new FlatFileBookCatalog(new File("files/books.txt"));
         this.timeClock = TimeClock.deserialize();
         // Have to cancel task and Timer when shutting down
         this.timer = new Timer("Task Timer");
@@ -73,6 +78,52 @@ public class Library extends Observable
     public void bookSearch(String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
         ArrayList<Book> searchRes = this.bookStorage.bookSearch(title, authors, isbn, publisher);
+        String response = "info,";
+
+        if (sortOrder.equals("title"))
+        {
+            ByTitle bt = new ByTitle();
+            bt.sort(searchRes);
+        }
+        else if (sortOrder.equals("publish-date"))
+        {
+            ByPublishDate bpd = new ByPublishDate();
+            bpd.sort(searchRes);
+        }
+        else if (sortOrder.equals("book-status"))
+        {
+            ByStatus bs = new ByStatus();
+            bs.sort(searchRes);
+        }
+        else
+        {
+            response += "invalid-sort-order;";
+            updateStatus(response);
+            return;
+        }
+
+        response += searchRes.size() + "\n";
+        for(Book b : searchRes)
+        {
+            response += b.toString("bSearch") + "\n;";
+        }
+
+        updateStatus(response);
+    }
+
+
+    /**
+     * Performs a search for books in the bookstore
+     *
+     * @param title - The title of the desired book(s).
+     * @param authors - The authors of the desired book(s).
+     * @param isbn - The ISBN of the desired book(s)
+     * @param publisher - The publisher of the desired book(s).
+     * @param sortOrder - The sort order to be used when gathering the desired book(s).
+     */
+    public void bookStoreSearch(String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
+    {
+        ArrayList<Book> searchRes = this.bookCatalog.bookSearch(title, authors, isbn, publisher);
         String response = "info,";
 
         if (sortOrder.equals("title"))

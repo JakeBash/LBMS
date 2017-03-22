@@ -110,6 +110,6 @@ public class BookStoreSearch implements LBMSCommand
      */
     public void execute()
     {
-        
+        this.library.bookStoreSearch(this.title, this.authors, this.isbn, this.publisher, this.sortOrder);
     }
 }
