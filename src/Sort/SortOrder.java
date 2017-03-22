@@ -11,5 +11,10 @@ import java.util.ArrayList;
  */
 public interface SortOrder
 {
+    /**
+     * Sorts a list of books using a pre-determined method.
+     *
+     * @param bookList - The list of books to be sorted.
+     */
     public void sort(ArrayList<Book> bookList);
 }

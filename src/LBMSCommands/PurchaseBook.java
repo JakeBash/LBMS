@@ -1,16 +1,14 @@
 package LBMSCommands;
 
 /**
- * Description
+ * Purchases a subset of the books returned from a previous search of the Book Catalog.
  *
  * @author Nikolas Tilley
  */
 public class PurchaseBook implements LBMSCommand
 {
-    //TODO: BookCatalogs have yet to be implemented
-
     /**
-     *
+     * Creates a PurchaseBook command to purchase a subset of the books returned from a previous search.
      */
     public PurchaseBook()
     {

@@ -15,10 +15,7 @@ public class BookStoreSearch implements LBMSCommand
     private ArrayList<String> authors;
     private String isbn;
     private String publisher;
-    // This may not be a String but a SortOrder
     private String sortOrder;
-    // ?????????? we should probably pass in a string of authors and parse by , here to
-    // not over complicate the command parser
 
     /**
      * Creates a command to search the book store for books to buy. Constructs with the minimum amount of search criteria
@@ -31,14 +28,11 @@ public class BookStoreSearch implements LBMSCommand
     {
         this.library = library;
         this.title = title;
-        // Auto filled in fields
         this.authors = new ArrayList<>();
         this.isbn = "*";
         this.publisher = "*";
-        // String or SortOrder?
         this.sortOrder = "none";
     }
-
 
     /**
      * Creates a command to search the book store for books to buy. Constructs with additional criteria from the
@@ -55,9 +49,7 @@ public class BookStoreSearch implements LBMSCommand
         this.title = title;
         this.authors = authors;
         this.isbn = isbn;
-        // Auto filled in fields
         this.publisher = "*";
-        // String or SortOrder?
         this.sortOrder = "none";
     }
 
@@ -78,10 +70,8 @@ public class BookStoreSearch implements LBMSCommand
         this.authors = authors;
         this.isbn = isbn;
         this.publisher = publisher;
-        // String or SortOrder?
         this.sortOrder = "none";
     }
-
 
     /**
      * Creates a command to search the book store for books to buy. Constructs with additional criteria from the
@@ -101,7 +91,6 @@ public class BookStoreSearch implements LBMSCommand
         this.authors = authors;
         this.isbn = isbn;
         this.publisher = publisher;
-        // String or SortOrder?
         this.sortOrder = sortOrder;
     }
 

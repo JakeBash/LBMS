@@ -18,7 +18,7 @@ public class RegisterVisitor implements LBMSCommand
     private String phoneNumber;
 
     /**
-     * Description
+     * Creates a RegisterVisitor command the registers a new visitor with the LBMS system.
      *
      * @param library - The library the visitor is registering with.
      * @param firstName - the first name of the visitor.

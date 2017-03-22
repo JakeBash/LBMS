@@ -5,14 +5,14 @@ import Library.Library;
 
 /**
  * Borrows a book for a visitor; uses the ID of a specific book or books returned in the most recent library book search.
- * sig - borrow,visitor ID,{id};
+ * Signature - borrow,visitor ID,{id};
  * 
  * @author Nikolas Tilley
  */
 public class BorrowBook implements LBMSCommand
 {
     private Library library;
-    private Long visitorID;  // This may have to be a string that is converted to int in execute...
+    private Long visitorID;
     private ArrayList<Integer> bookID;
 
     /**
@@ -28,13 +28,6 @@ public class BorrowBook implements LBMSCommand
         this.visitorID = visitorID;
         this.bookID = bookID;
     }
-
-    // Requires you to have preformed a book search, books must be in memory
-    // TODO - Library.borrowBook(Integer vistorID, ArrayList<String> bookID)
-    // { Library.getVisitor()
-    //
-    // TempBookListFromPrevList.getBook(iD)
-    // -> Visitor.checkOutBooks }
 
     /**
      * Executes the BorrowBook command on the library.

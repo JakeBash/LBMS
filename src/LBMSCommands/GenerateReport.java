@@ -3,17 +3,16 @@ package LBMSCommands;
 import Library.Library;
 
 /**
- * Description
+ * Generates a report of library statistics.
  *
- * @author
+ * @author Nikolas Tilley
  */
 public class GenerateReport implements LBMSCommand
 {
     private Library library;
 
-
     /**
-     * Description
+     * Creates a command to generate a statistical report for the library.
      */
     public GenerateReport(Library lib)
     {

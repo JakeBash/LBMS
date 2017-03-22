@@ -11,6 +11,9 @@ import java.util.Comparator;
  */
 public class ByStatus implements SortOrder
 {
+    /**
+     * Default constructor.
+     */
     public ByStatus() {}
 
     /**
@@ -37,12 +40,12 @@ public class ByStatus implements SortOrder
     private static Comparator<Book> BookStatusComparator = new Comparator<Book>()
     {
         /**
-         * Description
+         * Compares two books by their amount of available copies remaining (status).
          *
-         * @param b1 - A book to compare
-         * @param b2 - Another book to compare
-         * @return a negative, zero, or a positive integer if b1's available copies
-         * is numerically less than, equal to, or greater than b2's available copies
+         * @param b1 - A book to compare.
+         * @param b2 - Another book to compare.
+         * @return A negative, zero, or a positive integer if b1's available copies is numerically less than, equal to,
+         * or greater than b2's available copies.
          */
         @Override
         public int compare(Book b1, Book b2)
@@ -54,9 +57,9 @@ public class ByStatus implements SortOrder
     };
 
 
-
-
-    // Testing compare methods
+    /**
+     * Main method for testing.
+     */
     public static void main(String [] args)
     {
         Book b1 = new Book("0123456789","cBook", null, "apub",

@@ -56,7 +56,7 @@ public class VisitorStorage implements java.io.Serializable
      * Registration assigns the registered visitor a unique ID for storage.
      *
      * @param firstName - The first name of the visitor to be registered
-     * @param lastName - the last name of the visitor to be registered.
+     * @param lastName - The last name of the visitor to be registered.
      * @param address - The address of the visitor to be registered.
      * @param phoneNumber - The phone number of the visitor to be registered.
      * @return The newly registered visitor.
@@ -129,11 +129,12 @@ public class VisitorStorage implements java.io.Serializable
     }
 
     /**
-     * Gets the total outstanding balance of visitor fines
+     * Gets the total outstanding balance of visitor fines.
      *
-     * @return total fine amount
+     * @return The total fine amount.
      */
-    private int getTotalUnpaidFines() {
+    private int getTotalUnpaidFines()
+    {
         //TODO: Take into account number of days to include in report. Currently returning total since beginning of time
         int totalBalance = 0;
         for (Visitor visitor: this.visitors.values())
@@ -145,11 +146,12 @@ public class VisitorStorage implements java.io.Serializable
     }
 
     /**
-     * Gets the total amount of fines paid by visitors
+     * Gets the total amount of fines paid by visitors.
      *
-     * @return total paid fine amount
+     * @return The total paid fine amount.
      */
-    private int getTotalPaidFines() {
+    private int getTotalPaidFines()
+    {
         //TODO: Take into account number of days to include in report. Currently returning total since beginning of time
         int totalBalance = 0;
         for (Visitor visitor: this.visitors.values())
@@ -160,6 +162,12 @@ public class VisitorStorage implements java.io.Serializable
         return totalBalance;
     }
 
+    /**
+     * Pays the fine associated with a registered visitor.
+     *
+     * @param visitorID - The ID of the visitor.
+     * @param amount - The amount of the fine that is being paid.
+     */
     public void payFine(Long visitorID, int amount)
     {
         Visitor visitor = this.getVisitor(visitorID);
@@ -175,7 +183,7 @@ public class VisitorStorage implements java.io.Serializable
 
     /**
      * Generates the visitor data stored, in string format, to be included in a statistical report.
-     * Data includes: Total number of visitors, Average length of visit
+     * Data includes: Total number of visitors, Average length of visit.
      *
      * @return A String representing the applicable Visitor data for a statistical report.
      */
@@ -232,9 +240,9 @@ public class VisitorStorage implements java.io.Serializable
 
     /**
      * Sets the library object for this VisitorStorage.
-     * Used upon deserialization to link with Library's TimeClock
+     * Used upon deserialization to link with Library's TimeClock.
      *
-     * @param library - library object to link with the VisitorStorage
+     * @param library - Library object to link with the VisitorStorage.
      */
     public void setLibrary(Library library)
     {
@@ -242,7 +250,7 @@ public class VisitorStorage implements java.io.Serializable
     }
 
     /**
-     * Ends all active visits. Visits are automatically put into visit history
+     * Ends all active visits. Visits are automatically put into visit history.
      */
     public void endAllVisits()
     {
@@ -276,7 +284,7 @@ public class VisitorStorage implements java.io.Serializable
     }
 
     /**
-     * Deserializes a VisitorStorage from the file
+     * Deserializes a VisitorStorage from the file.
      *
      * @return An instance of VisitorStorage generated from the previously saved .ser file.
      */

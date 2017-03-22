@@ -1,6 +1,5 @@
 package Books;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,7 +32,6 @@ public class Book
      */
     public Book(String isbn, String title, List<String> authors, String publisher, String publishDate, int pageCount)
     {
-
         this.isbn = isbn;
         this.title = title;
         this.authors = authors;
@@ -165,7 +163,7 @@ public class Book
     /**
      * Helper method used to format the authors of a book, as detailed by the project requirements.
      *
-     * @return The formatted string of the author(s) for a given book
+     * @return The formatted string of the author(s) for a given book.
      */
     public String authorString()
     {

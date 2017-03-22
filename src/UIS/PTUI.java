@@ -1,13 +1,9 @@
 package UIS;
 
 import Library.Library;
-import UIS.CommandParser;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -24,11 +20,10 @@ public class PTUI implements Observer
     private Library lib;
 
     /**
-     * Description
+     * Creates a new PTUI that accepts input from the user.
      */
     public PTUI()
     {
-
         this.reader = new BufferedReader(new InputStreamReader(System.in));
         this.lib = new Library();
         this.lib.addObserver(this);
@@ -36,35 +31,35 @@ public class PTUI implements Observer
     }
 
     /**
-     * Description
+     * Gets keyboard input from the user.
      *
      * @throws IOException
      */
     public void getCommand() throws IOException
     {
         System.out.println("test");
-        try {
+        try
+        {
             this.commandparser.parseCommand(reader.readLine());
         }
-        catch(IOException io) {
+        catch(IOException io)
+        {
             System.out.println("Incorrect input");
         }
     }
 
-
     /**
-     * Description
-     *
-     * @return
+     * Updates the status variable which displays command output from completed commands to the user.
      */
-    public String getOutput()
+    @Override
+    public void update(Observable observable, Object o)
     {
-        //TODO
-        //ArrayList<> output = this.commandparser.executeAllCommands();
-        //return output;
-        return "";
+        System.out.println(this.lib.getStatus());
     }
 
+    /**
+     * Main method for testing.
+     */
     public static void main(String[] args)
     {
         //TODO: Remove later
@@ -77,10 +72,5 @@ public class PTUI implements Observer
         {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void update(Observable observable, Object o) {
-        System.out.println(this.lib.getStatus());
     }
 }
