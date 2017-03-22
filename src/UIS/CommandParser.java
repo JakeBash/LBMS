@@ -108,7 +108,11 @@ public class CommandParser
 
             case "borrow":
                 if(args.size() == 2) {
-                    command = new BorrowBook(library, (Long) args.get(0), (ArrayList<String>) args.get(1));
+                    ArrayList<Integer> bookids = new ArrayList<>();
+                    for(int i = 1; i < args.size(); i ++){
+                        bookids.add((Integer)args.get(i));
+                    }
+                    command = new BorrowBook(library, (Long) args.get(0),bookids);
                     this.addCommand(command);
                 }
                 break;
@@ -137,18 +141,23 @@ public class CommandParser
             case "depart":
                 if (args.size() == 1){
                     command = new EndVisit(library,(Long)args.get(0));
+                    this.addCommand(command);
+
                 }
                 break;
 
             case "info":
                 if (args.size() == 2){
                     command = new BookSearch(library,(String)args.get(0),(ArrayList<String>)args.get(1));
+                    this.addCommand(command);
                 }
                 else if (args.size() == 3){
                     command = new BookSearch(library,(String)args.get(0),(ArrayList<String>) args.get(1),(String)args.get(2));
+                    this.addCommand(command);
                 }
                 else if(args.size() == 4){
                     command = new BookSearch(library,(String)args.get(0),(ArrayList<String>) args.get(1),(String)args.get(2),(String)args.get(3));
+                    this.addCommand(command);
                 }
                 else if(args.size() == 5){
                     command = new BookSearch(library,
@@ -157,6 +166,7 @@ public class CommandParser
                             (String)args.get(2),
                             (String)args.get(3),
                             (String)args.get(4));
+                    this.addCommand(command);
                 }
 
                 break;

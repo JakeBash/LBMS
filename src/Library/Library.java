@@ -9,6 +9,8 @@ import Visitors.CheckOut;
 import Visitors.Visit;
 import Visitors.VisitorStorage;
 import Visitors.Visitor;
+
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -163,6 +165,22 @@ public class Library extends Observable
         }
 
         updateStatus(response);
+    }
+
+    public void borrowBooks(ArrayList<Integer> bkID,Long vID) {
+
+        Visitor currentV = visitorStorage.getVisitor(vID);
+        ArrayList<Book> books = new ArrayList<>();
+
+        for(Integer id : bkID) {
+            for (Book bk : bookStorage.getLastSearch()) {
+                if (bk.getTempID() == id) {
+                    books.add(bk);
+                    break;
+                }
+            }
+        }
+        currentV.checkOutBooks(books,this.getTime());
     }
 
     /**
