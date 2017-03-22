@@ -37,7 +37,7 @@ public class PTUI implements Observer
      */
     public void getCommand() throws IOException
     {
-        System.out.println("test");
+        System.out.println("Enter Command");
         try
         {
             this.commandparser.parseCommand(reader.readLine());
