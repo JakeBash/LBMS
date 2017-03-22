@@ -1,6 +1,7 @@
 package Responses;
 
 import LBMSCommands.*;
+import Responses.Response;
 
 public class LibrarySuccess {
 
@@ -20,7 +21,7 @@ public class LibrarySuccess {
     /**
      * This function returns the response of a successful LBMS command
      * An example is LibrarySuccess(Arrive,Visitor,"arrival")
-     * This object will then return "Successful arrival of Visitor"
+     * This object will then return "Successful arrival of <John Doe or whatever>"
      * @return String
      */
     public String toString() {

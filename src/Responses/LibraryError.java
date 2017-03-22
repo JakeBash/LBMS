@@ -17,11 +17,11 @@ public class LibraryError implements Response{
         this.action = act;
     }
 
-    public getCommand() {
+    public LBMSCommand getCommand() {
         return this.command;
     }
 
-    public toString() {
+    public String toString() {
         return "ERROR: Unsuccessful " + this.action + " of " + this.obj.toString();
     }
 }

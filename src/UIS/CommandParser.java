@@ -4,14 +4,11 @@ import LBMSCommands.* ;
 import Library.TimeClock ;
 import Library.Library ;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Dictionary;
-import java.util.HashMap ;
 
-// import java.util.ArrayDeque;
+
 import java.util.ArrayList ;
-// import java.util.Queue ;
+
 
 /**
  * Parses user input and from that, creates commands. These
@@ -26,17 +23,10 @@ public class CommandParser
     private ArrayList<LBMSCommand> commandQueue ;
     // Some kind of reference to our library and time clock or SOEMTHING
     // THIS HAS TO KNOW ABOUT LIBRARY AND CLOCKS AND ETC.
-
-    private HashMap<String,Class<? extends LBMSCommand>> commands;
     
     public CommandParser()
     {
         commandQueue = new ArrayList<LBMSCommand>() ;
-        this.commands = new HashMap<>();
-
-        this.commands.put("advance",AdvanceTime.class);
-        this.commands.put("arrive",BeginVisit.class);
-        this.commands.put("end",EndVisit.class);
 
     }
 
@@ -72,74 +62,151 @@ public class CommandParser
      * @param args the string of arguments that are to be used with the command
      * @return command command to be executed
      */
-    public LBMSCommand createCommand(String cmd, ArrayList args)
-    {
-        //LBMSCommand command = AdvanceTime();
-        /*
-        if (cmd.equalsIgnoreCase("advance"))
-            command = new AdvanceTime() ;   // Needs a timeclock arg, day, hour
+    public void createCommand(String cmd, ArrayList args) {
 
-        else if (cmd.equalsIgnoreCase("arrive"))
-            command = new BeginVisit() ;    // Needs a Library arg, visitorID
+        LBMSCommand command;
 
-        else if (cmd.equalsIgnoreCase("borrow"))
-            command = new BorrowBook() ;    // Needs a Library arg
+        switch (cmd) {
 
-        else if (cmd.equalsIgnoreCase("borrowed"))
-            command = new FindBorrowed() ;  // Needs a Library arg
+            case "advance":
+                if (args.size() == 1) {
+                    command = new AdvanceTime((TimeClock) args.get(0), (int) args.get(1));
+                } else if (args.size() == 2) {
+                    command = new AdvanceTime((TimeClock) args.get(0), (int) args.get(1), (int) args.get(2));
+                }
+                else {
+                    break;
+                }
+                this.addCommand(command);
+                break;
 
-        else if (cmd.equalsIgnoreCase("buy"))
-            command = new PurchaseBook() ;  // Needs a Library arg
+            case "arrive":
+                if (args.size() == 1) {
+                    command = new BeginVisit((Library) args.get(0),(Integer) args.get(0));
+                    this.addCommand(command);
+                }
+                break;
 
-        else if (cmd.equalsIgnoreCase("datetime"))
-            command = new GetTime() ;       // Needs a timeclock arg
-        
-        else if (cmd.equalsIgnoreCase("depart"))
-            command = new EndVisit() ;      // needs a library arg
+            case "borrow":
+                if(args.size() == 3) {
+                    command = new BorrowBook((Library) args.get(0), (Integer) args.get(1), (ArrayList<String>) args.get(2));
+                    this.addCommand(command);
+                }
+                break;
 
-        // This is going to have a sort order possibly
-        else if (cmd.equalsIgnoreCase("info"))
-            command = new BookSearch() ;    // needs a library arg
+            case "borrowed":
+                if (args.size() == 1) {
+                    command = new FindBorrowed((Library) args.get(0), (Integer) args.get(1));
+                    this.addCommand(command);
+                }
+                break;
 
-        else if (cmd.equalsIgnoreCase("pay"))
-            command = new PayFine() ;       // needs library arg
+            case "buy":
+                //TODO
+                if (args.size() >= 2){
+                    command = new PurchaseBook();
+                }
+                break;
 
-        else if (cmd.equalsIgnoreCase("register"))
-            command = new RegisterVisitor() ;   // needs a library arg
+            case "datetime":
+                if (args.size() == 0){
+                    //command = new GetTime();
+                }
+                break;
 
-        else if (cmd.equalsIgnoreCase("report"))
-            command = new GenerateReport() ;    // needs library arg?
+            case "depart":
+                if (args.size() == 1){
+                    //command = new EndVisit((Library) library,(Integer)args.get(0));
+                }
+                break;
 
-        else if (cmd.equalsIgnoreCase("return"))
-            command = new ReturnBook() ;        // needs library arg
+            case "info":
+                if (args.size() == 2){
+                    //command = new BookSearch(library,(String)args.get(0),(ArrayList<String>)args.get(1));
+                }
+                else if (args.size() == 3){
+                    //command = new BookSearch(library,(String)args.get(0),(ArrayList<String>) args.get(1),(String)args.get(2));
+                }
+                else if(args.size() == 4){
+                    command = new BookSearch(library,(String)args.get(0),(ArrayList<String>) args.get(1),(String)args.get(2),(String)args.get(3));
+                }
+                else if(args.size() == 5){
+                    command = new BookSearch(library,
+                            (String)args.get(0),
+                            (ArrayList<String>) args.get(1),
+                            (String)args.get(2),
+                            (String)args.get(3),
+                            (String)args.get(4));
+                }
 
-        // This is going to have a sort order possibly
-        else if (cmd.equalsIgnoreCase("search"))
-            command = new BookStoreSearch() ;   // needs library arg
+                break;
 
-        // Added to make this compile
-        else
-            return null ;
-        */
+            case "pay":
+                if (args.size() == 1){
+                    command = new PayFine();
+                }
+                break;
 
+            case "register":
+                if(args.size() == 4){
+                    command = new RegisterVisitor(library,
+                            (String)args.get(0),
+                            (String)args.get(1),
+                            (String)args.get(2),
+                            (String)args.get(3));
+                    this.addCommand(command);
+                }
+                break;
 
-        return null ;
-    }
+            case "report":
+                if(args.size() == 1){
+                    command = new GenerateReport();
+                    this.addCommand(command);
+                }
+                break;
 
-    public void testhm(String cmd){
+            case "return":
+                if(args.size() == 2){
+                    command = new GenerateReport(library,(Integer) args.get(0),(ArrayList<String> args.get(1)));
+                    this.addCommand(command);
+                }
+                break;
 
-        try {
-            LBMSCommand cmdd = this.commands.get(cmd).newInstance();
-            this.commandQueue.add(cmdd);
+            case "search":
+                if(args.size() == 1){
+                    command = new BookStoreSearch(library,(String) args.get(0));
+                    this.addCommand(command);
+                }
+                else if (args.size() == 3){
+                    command = new BookStoreSearch(library,
+                            (String) args.get(0),
+                            (ArrayList<String>)args.get(1),
+                            (String) args.get(2));
+                    this.addCommand(command);
+                }
+                else if (args.size() == 4){
+                    command = new BookStoreSearch(library,
+                            (String) args.get(0),
+                            (ArrayList<String>)args.get(1),
+                            (String) args.get(2),
+                            (String)args.get(3));
+                    this.addCommand(command);
+                }
+                else if(args.size() == 5){
+                    command = new BookStoreSearch(library,
+                            (String) args.get(0),
+                            (ArrayList<String>)args.get(1),
+                            (String) args.get(2),
+                            (String)args.get(3),
+                            (String)args.get(4));
+                    this.addCommand(command);
+                }
+                break;
+
+            default:
+                break;
+
         }
-        catch(InstantiationException e){
-            e.printStackTrace();
-        }
-        catch (IllegalAccessException e){
-            e.printStackTrace();
-        }
-
-
     }
 
     /**
