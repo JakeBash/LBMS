@@ -180,7 +180,7 @@ public class CommandParser
 
             case "report":
                 if(args.size() == 1){
-                    command = new GenerateReport();
+                    command = new GenerateReport(library);
                     this.addCommand(command);
                 }
                 break;
