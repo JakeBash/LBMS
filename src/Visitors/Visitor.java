@@ -84,8 +84,10 @@ public class Visitor implements java.io.Serializable
         // Create the CheckOut objects for each book
         for (Book book: books)
         {
-            book.checkout();
-            this.checkedOutBooks.add(new CheckOut(book, checkoutDate));
+            if (book.checkout())
+            {
+                this.checkedOutBooks.add(new CheckOut(book, checkoutDate));
+            }
         }
     }
 
