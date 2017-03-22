@@ -181,6 +181,7 @@ public class CommandParser
                 break;
 
             case "report":
+                //TODO change this to take number of days
                 if(args.size() == 1){
                     command = new GenerateReport(library);
                     this.addCommand(command);

@@ -137,11 +137,5 @@ public class test
         // String visitorReport = library.generateReport();
         String visitorReport = "";
 
-        // Check that report was generated
-        if (visitorReport == null) {
-            throw new java.lang.Error("Failed to generate report data for visitors");
-        }
-
-        System.out.println("Visitor report: " + visitorReport);
     }
 }
