@@ -9,6 +9,8 @@ import Visitors.CheckOut;
 import Visitors.Visit;
 import Visitors.VisitorStorage;
 import Visitors.Visitor;
+
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -95,6 +97,10 @@ public class Library extends Observable
             ByStatus bs = new ByStatus();
             bs.sort(searchRes);
         }
+        else if(sortOrder.equals("none"))
+        {
+            ;
+        }
         else
         {
             response += "invalid-sort-order;";
@@ -105,7 +111,7 @@ public class Library extends Observable
         response += searchRes.size() + "\n";
         for(Book b : searchRes)
         {
-            response += b.toString("bSearch") + "\n;";
+            response += b.toString("bSearch") + ";\n";
         }
 
         updateStatus(response);
@@ -141,6 +147,10 @@ public class Library extends Observable
             ByStatus bs = new ByStatus();
             bs.sort(searchRes);
         }
+        else if(sortOrder.equals("none"))
+        {
+            ;
+        }
         else
         {
             response += "invalid-sort-order;";
@@ -151,10 +161,26 @@ public class Library extends Observable
         response += searchRes.size() + "\n";
         for(Book b : searchRes)
         {
-            response += b.toString("bSearch") + "\n;";
+            response += b.toString("bSearch") + ";\n";
         }
 
         updateStatus(response);
+    }
+
+    public void borrowBooks(ArrayList<Integer> bkID,Long vID) {
+
+        Visitor currentV = visitorStorage.getVisitor(vID);
+        ArrayList<Book> books = new ArrayList<>();
+
+        for(Integer id : bkID) {
+            for (Book bk : bookStorage.getLastSearch()) {
+                if (bk.getTempID() == id) {
+                    books.add(bk);
+                    break;
+                }
+            }
+        }
+        currentV.checkOutBooks(books,this.getTime());
     }
 
     /**
@@ -350,7 +376,7 @@ public class Library extends Observable
         {
             timeClock.advanceTime(days, hours);
             visitorStorage.endAllVisits();
-            generateReport();
+            //generateReport();
             updateStatus("advance,success;" );
         }
         else if (days < 0 || days > 7)
