@@ -3,7 +3,7 @@ package LBMSCommands;
 import Library.Library;
 
 /**
- * Description
+ * Pays the library an amount toward a visitor's accumulated fines
  *
  * @author Nikolas Tilley
  * @author Kyler Freas
