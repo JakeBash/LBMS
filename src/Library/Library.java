@@ -195,7 +195,7 @@ public class Library extends Observable
     {
         ArrayList<Book> purchasedBooks = this.bookCatalog.purchase(quantity, ids);
 
-        bookStorage.addBooks(purchasedBooks, quantity);
+        bookStorage.addBooks(purchasedBooks, quantity, getTime());
 
         String response = "buy,success\n";
 
