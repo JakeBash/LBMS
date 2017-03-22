@@ -1,5 +1,8 @@
 package LBMSCommands;
 
+import Library.Library;
+import java.util.ArrayList;
+
 /**
  * Description
  *
@@ -8,13 +11,18 @@ package LBMSCommands;
 public class PurchaseBook implements LBMSCommand
 {
     //TODO: BookCatalogs have yet to be implemented
+    private Library library;
+    private int quantity;
+    private ArrayList<Integer> ids;
 
     /**
      *
      */
-    public PurchaseBook()
+    public PurchaseBook(Library library, int quantity, ArrayList<Integer> ids)
     {
-
+        this.library = library;
+        this.quantity = quantity;
+        this.ids = ids;
     }
 
     /**
@@ -22,6 +30,6 @@ public class PurchaseBook implements LBMSCommand
      */
     public void execute()
     {
-
+        library.purchaseBooks(this.quantity, this.ids);
     }
 }
