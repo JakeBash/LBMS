@@ -6,6 +6,7 @@ import Library.Library;
  * Description
  *
  * @author Nikolas Tilley
+ * @author Kyler Freas
  */
 public class PayFine implements LBMSCommand
 {
