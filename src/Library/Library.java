@@ -111,7 +111,7 @@ public class Library extends Observable
         response += searchRes.size() + "\n";
         for(Book b : searchRes)
         {
-            response += b.toString("bSearch") + "\n;";
+            response += b.toString("bSearch") + ";\n";
         }
 
         updateStatus(response);
@@ -161,7 +161,7 @@ public class Library extends Observable
         response += searchRes.size() + "\n";
         for(Book b : searchRes)
         {
-            response += b.toString("bSearch") + "\n;";
+            response += b.toString("bSearch") + ";\n";
         }
 
         updateStatus(response);
