@@ -3,14 +3,11 @@ package Library;
 import Books.*;
 import BooksCatalog.BookCatalog;
 import BooksCatalog.FlatFileBookCatalog;
-import UIS.PTUI;
 import Sort.*;
 import Visitors.CheckOut;
 import Visitors.Visit;
 import Visitors.VisitorStorage;
 import Visitors.Visitor;
-
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -391,6 +388,19 @@ public class Library extends Observable
             updateStatus("advance,invalid-number-of-hours," + hours +";" );
         }
 
+    }
+
+    public void returnBooks(Long visitorID, ArrayList<String> isbns)
+    {
+        ArrayList<Book> books = new ArrayList<>();
+        for (Book book: this.bookStorage.getBooks().values())
+        {
+            if (isbns.contains(book.getIsbn()))
+            {
+                books.add(book);
+            }
+        }
+        this.visitorStorage.returnBooks(visitorID, books);
     }
 
     /**

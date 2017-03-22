@@ -10,23 +10,32 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * Implements how state dependent commands are executed when the library
- * is Open
+ * Implements how state dependent commands are executed when the library is open.
  *
  * @author Nikolas Tilley
  */
 public class LibraryOpen implements LibraryState
 {
+    /**
+     * Constructor for the open library state.
+     */
     public LibraryOpen()
     {
 
     }
 
+    /**
+     * Starts a visit for a registered user at the library.
+     *
+     * @param visitorID - The ID of the visitor who is starting their visit.
+     * @param visitorStorage - The storage of visitors that is being accessed.
+     * @return A String representing the output that will displayed to the user.
+     */
     public String stateBeginVisit(Long visitorID, VisitorStorage visitorStorage)
     {
         String response = "arrive,";
 
-        if( visitorStorage.getVisitor(visitorID) == null )
+        if(visitorStorage.getVisitor(visitorID) == null)
             return response + "invalid-id;";
 
         Visit visit = visitorStorage.startVisit(visitorID);
@@ -39,19 +48,25 @@ public class LibraryOpen implements LibraryState
         {
             response += "duplicate;";
         }
-
         return response;
     }
 
-    public String stateCheckOutBook(ArrayList<String> bkID,Long vID, VisitorStorage visitorStorage, TimeClock timeClock,
-    BookStorage bookStorage)
+    /**
+     * Checks out a book for a registered visitor at the library.
+     *
+     * @return A String representing the output that will displayed to the user.
+     */
+    public String stateCheckOutBook(ArrayList<String> bkID,Long vID, VisitorStorage visitorStorage, TimeClock timeClock, BookStorage bookStorage)
     {
         Visitor currentV = visitorStorage.getVisitor(vID);
         ArrayList<Book> books = new ArrayList<>();
 
-        for(String id : bkID) {
-            for (Book bk : bookStorage.getLastSearch()) {
-                if (bk.getIsbn().compareTo(id) == 0) {
+        for(String id : bkID)
+        {
+            for (Book bk : bookStorage.getLastSearch())
+            {
+                if (bk.getIsbn().compareTo(id) == 0)
+                {
                     books.add(bk);
                     break;
                 }
@@ -64,6 +79,4 @@ public class LibraryOpen implements LibraryState
         return "borrow," + c.get(Calendar.YEAR) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.DAY_OF_MONTH)
                 + ";" ;
     }
-
-
 }

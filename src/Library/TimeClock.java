@@ -1,12 +1,12 @@
 package Library;
 
 import java.io.*;
-
 import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Description
+ * The time clock keeps track of when the library should be open or closed as well as handling the advancing of time for
+ * use in testing of the entire system.
  *
  * @author Nikolas Tilley
  * @author Kyler Freas
@@ -15,10 +15,12 @@ public class TimeClock implements java.io.Serializable
 {
     private int dayOffset;
     private int hourOffset;
-
     // Data file location
     private static String file = "files/TimeClock.ser";
 
+    /**
+     * Creates a Time clock with no offsets applied.
+     */
     public TimeClock()
     {
         dayOffset = 0;
@@ -26,8 +28,10 @@ public class TimeClock implements java.io.Serializable
     }
 
     /**
-     * @param dayOffset  the number of days offset fromt the current date
-     * @param hourOffset the number of hours offset from the current time
+     * Creates a TimeClock with offsets for advancements of time.
+     *
+     * @param dayOffset - The number of days offset from the current date.
+     * @param hourOffset - The number of hours offset from the current time.
      */
     public TimeClock(int dayOffset, int hourOffset)
     {
@@ -36,8 +40,9 @@ public class TimeClock implements java.io.Serializable
     }
 
     /**
-     * Gets the number of offset days
-     * @return the number of days the calendar has been advanced for simulations
+     * Gets the number of offset days.
+     *
+     * @return The number of days the calendar has been advanced for simulations.
      */
     public int getOffDay()
     {
@@ -45,8 +50,9 @@ public class TimeClock implements java.io.Serializable
     }
 
     /**
-     * Gets the number of offset hours
-     * @return the number of hours the calendar has been advanced for simulations
+     * Gets the number of offset hours.
+     *
+     * @return The number of hours the calendar has been advanced for simulations.
      */
     public int getOffHour()
     {
@@ -54,8 +60,9 @@ public class TimeClock implements java.io.Serializable
     }
 
     /**
-     * Gets the date and time for the instance the method is invoked
-     * @return a Date object that accounts for the the day and hour offsets
+     * Gets the date and time for the instance the method is invoked.
+     *
+     * @return A Date object that accounts for the the day and hour offsets.
      */
     public Date getCurrentDateTime()
     {
@@ -66,7 +73,9 @@ public class TimeClock implements java.io.Serializable
     }
 
     /**
-     * Gets the date in calendar format
+     * Gets the date in calendar format.
+     *
+     * @return A Calendar representing the day of the week and hour of the day.
      */
     public Calendar getCalendarDate()
     {
@@ -77,9 +86,9 @@ public class TimeClock implements java.io.Serializable
     }
 
     /**
-     * Formats the current date in the form YYYY/MM/DD
+     * Formats the current date in the form YYYY/MM/DD.
      *
-     * @return a String with the  formatted date
+     * @return A String representing the formatted date.
      */
     public String getFormattedDate()
     {
@@ -88,9 +97,9 @@ public class TimeClock implements java.io.Serializable
     }
 
     /**
-     * Formats the current time in the form HH:MM:SS
+     * Formats the current time in the form HH:MM:SS.
      *
-     * @return a String with the formatted time
+     * @return A String representing the formatted time.
      */
     public String getFormattedTime()
     {
@@ -99,9 +108,9 @@ public class TimeClock implements java.io.Serializable
     }
 
     /**
-     * Formats the current date and time in the form YYYY/MM/DD,HH:MM:SS
+     * Formats the current date and time in the form YYYY/MM/DD,HH:MM:SS.
      *
-     * @return a String with the formatted date and time
+     * @return A String representing the formatted date and time.
      */
     public String getFormattedDateTime()
     {
@@ -110,14 +119,12 @@ public class TimeClock implements java.io.Serializable
                 c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
     }
 
-
     /**
-     * Advances the clock forward in Time
-     * the number of days can be between 0 and 7,
-     * the number of hours can be between 0 and 23
+     * Advances the clock forward in Time. The number of days can be between 0 and 7, and the number of hours can be
+     * between 0 and 23.
      *
-     * @param days  the number of days to advance
-     * @param hours the number of hours to advance
+     * @param days - The number of days to advance.
+     * @param hours - The number of hours to advance.
      */
     public void advanceTime(int days, int hours)
     {
@@ -125,9 +132,8 @@ public class TimeClock implements java.io.Serializable
         hourOffset += hours;
     }
 
-
     /**
-     * Serialize the time clock and save it to a text file at library shutdown
+     * Serialize the time clock and save it to a text file at library shutdown.
      */
     public void serialize()
     {
@@ -147,7 +153,7 @@ public class TimeClock implements java.io.Serializable
     }
 
     /**
-     * Deserializes a TimeClock from the file
+     * Deserializes a TimeClock from the file.
      *
      * @return An instance of VisitorStorage generated from the previously saved .ser file.
      */
@@ -188,8 +194,7 @@ public class TimeClock implements java.io.Serializable
 
 
     /**
-     *
-     * Unit Tests for TimeClock
+     * Main method for testing.
      */
     public static void main(String[] args)
     {
@@ -241,5 +246,4 @@ public class TimeClock implements java.io.Serializable
         System.out.println("REMEMBER TO DELETE SER AFTER TEST");
         */
     }
-
 }

@@ -11,6 +11,9 @@ import java.util.Comparator;
  */
 public class ByTitle implements SortOrder
 {
+    /**
+     * Default constructor.
+     */
     public ByTitle() {}
 
     /**
@@ -24,18 +27,18 @@ public class ByTitle implements SortOrder
     }
 
     /**
-     * Implements a Comparator that compares books by title.
-     * Sorts the list in ascending order. Numbers first, followed by alphabetically.
+     * Implements a Comparator that compares books by title. Sorts the list in ascending order. Numbers first, followed
+     * by alphabetically.
      */
     private static Comparator<Book> BookTitleComparator = new Comparator<Book>()
     {
         /**
-         * Description
+         * Compares two books by their titles.
          *
          * @param b1 - A book to compare.
          * @param b2 - Another book to compare.
-         * @return a negative, zero, or a positive integer if b1's title is alphanumerically less than, equal to,
-         * or greater than b2's title.
+         * @return A negative, zero, or a positive integer if b1's title is alphanumerically less than, equal to, or
+         * greater than b2's title.
          */
         @Override
         public int compare(Book b1, Book b2)
@@ -46,6 +49,9 @@ public class ByTitle implements SortOrder
         }
     };
 
+    /**
+     * Main method for testing.
+     */
     public static void main(String [] args)
     {
         //TODO: Remove later

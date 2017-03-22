@@ -15,8 +15,8 @@ public class BeginVisit implements LBMSCommand
     /**
      * Creates a BeginVisit command object.
      * 
-     * @param library, the library the visitor is visiting.
-     * @param visitorID, the ID of the visitor who is attempting to visit.
+     * @param library - The library the visitor is visiting.
+     * @param visitorID - The ID of the visitor who is attempting to visit.
      */
     public BeginVisit(Library library, Long visitorID)
     {
@@ -25,7 +25,7 @@ public class BeginVisit implements LBMSCommand
     }
 
     /**
-     * Executes the BeginVisit command on the library
+     * Executes the BeginVisit command on the library.
      */
     public void execute()
     {

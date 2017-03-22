@@ -4,19 +4,18 @@ import Library.Library;
 import java.util.ArrayList;
 
 /**
- * Description
+ * Purchases a subset of the books returned from a previous search of the Book Catalog.
  *
  * @author Nikolas Tilley
  */
 public class PurchaseBook implements LBMSCommand
 {
-    //TODO: BookCatalogs have yet to be implemented
     private Library library;
     private int quantity;
     private ArrayList<Integer> ids;
 
     /**
-     *
+     * Creates a PurchaseBook command to purchase a subset of the books returned from a previous search.
      */
     public PurchaseBook(Library library, int quantity, ArrayList<Integer> ids)
     {

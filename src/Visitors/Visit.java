@@ -3,7 +3,7 @@ package Visitors;
 import java.util.Calendar;
 
 /**
- * A single visit in the library
+ * A single visit in the library.
  *
  * @author Kyler Freas
  */
@@ -31,9 +31,9 @@ public class Visit implements java.io.Serializable
     }
 
     /**
-     * Getter for visitor's id field
+     * Getter for the visitor's ID field.
      *
-     * @return visitor's id field
+     * @return The visitor's ID field.
      */
     public Long getVisitorID()
     {
@@ -41,9 +41,9 @@ public class Visit implements java.io.Serializable
     }
 
     /**
-     * Getter for visit's start time
+     * Getter for the visit's start time.
      *
-     * @return visit's start time
+     * @return The visit's start time.
      */
     public Calendar getStartDateTime()
     {
@@ -51,9 +51,9 @@ public class Visit implements java.io.Serializable
     }
 
     /**
-     * Getter for visit's end time
+     * Getter for the visit's end time.
      *
-     * @return visit's end time
+     * @return The visit's end time.
      */
     public Calendar getEndDateTime()
     {
@@ -61,9 +61,9 @@ public class Visit implements java.io.Serializable
     }
 
     /**
-     * Formats the current date in the form YYYY/MM/DD
+     * Formats the current date in the form YYYY/MM/DD.
      *
-     * @return a String with the  formatted date
+     * @return A String with the formatted date.
      */
     public String getFormattedDate(Calendar datetime)
     {
@@ -71,9 +71,9 @@ public class Visit implements java.io.Serializable
     }
 
     /**
-     * Formats the current time in the form HH:MM:SS
+     * Formats the current time in the form HH:MM:SS.
      *
-     * @return a String with the formatted time
+     * @return A String with the formatted time.
      */
     public String getFormattedTime(Calendar datetime)
     {
