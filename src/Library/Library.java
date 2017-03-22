@@ -210,18 +210,15 @@ public class Library extends Observable
     /**
      * Generates a statistical report of the library
      *
-     * @return A String representing the statistical report for the library.
      */
-    public String generateReport()
+    public void generateReport()
     {
         //TODO: Add in the rest of the report data needed
-        //TODO: Create observer response for this when completed.
         LocalDate localDate = LocalDate.now();
-        String report = DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate) + "\n"
+        updateStatus(DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate) + "\n"
                 + this.bookStorage.generateReport() + "\n"
-                + this.visitorStorage.generateReport() + "\n";
+                + this.visitorStorage.generateReport() + "\n");
 
-        return report;
     }
 
     //TODO: Add remaining commands
@@ -283,8 +280,7 @@ public class Library extends Observable
         if ((days >= 0 && days <= 7) && (hours >= 0 && hours <= 23))
         {
             timeClock.advanceTime(days, hours);
-            this.status = "advance,success;" ;
-            notifyObservers();
+            updateStatus("advance,success;" );
         }
 
     }

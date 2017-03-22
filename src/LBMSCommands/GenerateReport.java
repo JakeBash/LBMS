@@ -1,5 +1,7 @@
 package LBMSCommands;
 
+import Library.Library;
+
 /**
  * Description
  *
@@ -9,10 +11,11 @@ public class GenerateReport implements LBMSCommand
 {
     //TODO: GenerateReport commands
 
+
     /**
      * Description
      */
-    public GenerateReport()
+    public GenerateReport(Library lib)
     {
 
     }
