@@ -151,7 +151,6 @@ public class Book
     public String toString(String comm)
     {
         if(comm.equals("bSearch"))
-            //TODO: On the requests page, the last CSV section is not explained at all
             return this.availableCopies + "," + this.isbn + ",\"" + this.title + "\"," + authorString() + "," + this.publisher + "," + this.publishDate + "," + this.pageCount;
         else if(comm.equals("fBorrow"))
             return this.tempID + "," + this.isbn + ",\"" + this.title + ",";
@@ -161,12 +160,6 @@ public class Book
             return this.isbn + ",\"" +this.title + "\"," + authorString() + "," + this.publishDate + ",";
         else
             return "Invalid toString() identifier.";
-    }
-
-
-    public String toString()
-    {
-        return this.tempID + ", " + this.availableCopies + "," + this.isbn + "," + this.title + "," + authorString() + "," + publisher + "," + publishDate + "," + numCopies;
     }
 
     /**
