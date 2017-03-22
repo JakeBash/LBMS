@@ -261,6 +261,17 @@ public class Library extends Observable
     }
 
     /**
+     * Shut down the system, persisting all data created in flat files.
+     */
+    public void shutdown()
+    {
+        //TODO: Serialize all other entities to be persisted
+        this.timeClock.serialize();
+        this.visitorStorage.serialize();
+        this.bookStorage.serialize();
+    }
+
+    /**
      * Generates a statistical report of the library
      *
      */
@@ -273,6 +284,8 @@ public class Library extends Observable
                 + this.visitorStorage.generateReport() + "\n");
 
     }
+
+    //TODO: Add remaining commands
 
     /**
      * Checks the time of the Time Clock. Changes the state of the library depending on the time.
