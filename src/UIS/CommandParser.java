@@ -82,21 +82,21 @@ public class CommandParser
 
             case "arrive":
                 if (args.size() == 1) {
-                    command = new BeginVisit((Library) args.get(0),(Integer) args.get(0));
+                    command = new BeginVisit(library,(Integer) args.get(0));
                     this.addCommand(command);
                 }
                 break;
 
             case "borrow":
                 if(args.size() == 3) {
-                    command = new BorrowBook((Library) args.get(0), (Integer) args.get(1), (ArrayList<String>) args.get(2));
+                    command = new BorrowBook(library, (Integer) args.get(1), (ArrayList<String>) args.get(2));
                     this.addCommand(command);
                 }
                 break;
 
             case "borrowed":
                 if (args.size() == 1) {
-                    command = new FindBorrowed((Library) args.get(0), (Integer) args.get(1));
+                    command = new FindBorrowed(library, (Integer) args.get(1));
                     this.addCommand(command);
                 }
                 break;
@@ -116,16 +116,16 @@ public class CommandParser
 
             case "depart":
                 if (args.size() == 1){
-                    //command = new EndVisit((Library) library,(Integer)args.get(0));
+                    command = new EndVisit(library,(Integer)args.get(0));
                 }
                 break;
 
             case "info":
                 if (args.size() == 2){
-                    //command = new BookSearch(library,(String)args.get(0),(ArrayList<String>)args.get(1));
+                    command = new BookSearch(library,(String)args.get(0),(ArrayList<String>)args.get(1));
                 }
                 else if (args.size() == 3){
-                    //command = new BookSearch(library,(String)args.get(0),(ArrayList<String>) args.get(1),(String)args.get(2));
+                    command = new BookSearch(library,(String)args.get(0),(ArrayList<String>) args.get(1),(String)args.get(2));
                 }
                 else if(args.size() == 4){
                     command = new BookSearch(library,(String)args.get(0),(ArrayList<String>) args.get(1),(String)args.get(2),(String)args.get(3));
