@@ -215,10 +215,14 @@ public class CommandParser
                 break;
 
             case "return":
-                if(args.size() == 2)
+                if(args.size() >= 2)
                 {
-                    //command = new GenerateReport(library,(Integer) args.get(0),(ArrayList<String>) args.get(1));
-                    //this.addCommand(command);
+                    ArrayList<String> ids = new ArrayList<>();
+                    for(int i = 1; i < args.size(); i++){
+                        ids.add((String)args.get(i));
+                    }
+                    command = new ReturnBook(library,Long.parseLong((String)args.get(0)),ids);
+                    this.addCommand(command);
                 }
                 break;
 
