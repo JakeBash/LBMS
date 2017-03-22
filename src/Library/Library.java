@@ -161,21 +161,25 @@ public class Library extends Observable
         response += searchRes.size() + "\n";
         for(Book b : searchRes)
         {
-            response += b.toString("bSearch") + ";\n";
+            response += b.toString("sSearch") + ";\n";
         }
 
         updateStatus(response);
     }
 
-
-    public void borrowBooks(ArrayList<Integer> bkID,Long vID) {
+    /**
+     * This method borrows books for a specified visitor
+     * @param bkID An ArrayList of Book ISBNs
+     * @param vID A Visitor ID
+     */
+    public void borrowBooks(ArrayList<String> bkID,Long vID) {
 
         Visitor currentV = visitorStorage.getVisitor(vID);
         ArrayList<Book> books = new ArrayList<>();
 
-        for(Integer id : bkID) {
+        for(String id : bkID) {
             for (Book bk : bookStorage.getLastSearch()) {
-                if (bk.getTempID() == id) {
+                if (bk.getIsbn().compareTo(id) == 0) {
                     books.add(bk);
                     break;
                 }

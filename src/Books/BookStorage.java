@@ -288,4 +288,5 @@ public class BookStorage implements java.io.Serializable
         // If an error occurs, return an empty book storage
         return new BookStorage();
     }
+
 }
