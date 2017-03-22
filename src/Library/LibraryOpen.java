@@ -18,11 +18,17 @@ public class LibraryOpen implements LibraryState
     public String stateBeginVisit(Integer visitorID, VisitorStorage visitorStorage)
     {
         visitorStorage.startVisit(visitorID);
+
+        // Todo - return the correct repsonse
+
+        return "" ;
     }
 
     public String stateCheckOutBook()
     {
-        
+        // Todo return the correct response
+
+        return "" ;
     }
 
 
