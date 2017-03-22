@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author Jake Bashaw
  */
-public class Book
+public class Book implements java.io.Serializable
 {
     private int tempID;
     private String isbn;
