@@ -202,6 +202,9 @@ public class VisitorStorage implements java.io.Serializable
         int totalVisitors = this.visitors.keySet().size();
         int totalVisits = this.visitHistory.size();
 
+        // Prevent division by 0
+        if (totalVisits == 0) { totalVisits = 1; }
+
         // Calculate the average length of stay
         // Total visit time (milliseconds)
         long totalTime = 0;
