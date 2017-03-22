@@ -285,17 +285,7 @@ public class Library extends Observable
     {
         this.visitorStorage.payFine(visitorID, amount);
     }
-
-    /**
-     * Shut down the system, persisting all data created in flat files.
-     */
-    public void shutdown()
-    {
-        //TODO: Serialize all other entities to be persisted
-        this.timeClock.serialize();
-        this.visitorStorage.serialize();
-        this.bookStorage.serialize();
-    }
+    
 
     /**
      * Generates a statistical report of the library
