@@ -2,7 +2,6 @@ package BooksCatalog;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import Books.Book;
@@ -12,36 +11,49 @@ import Books.Book;
  *
  * @author Tyler Reimold
  */
-public class FlatFileBookCatalog implements BookCatalog {
+public class FlatFileBookCatalog implements BookCatalog
+{
     private List<Book> books;
     private ArrayList<Book> lastsearch;
 
     /**
-     * Constructor of
+     * Constructor for the FlatFileBookCatalog. Attempts to load a .txt file containing the Book Catalog.
      */
-    public FlatFileBookCatalog(File file) {
-        try {
+    public FlatFileBookCatalog(File file)
+    {
+        try
+        {
             books = CSVParser.load(file);
-        } catch (FileNotFoundException error) {
+        }
+        catch (FileNotFoundException error)
+        {
             System.out.println("File not found");
         }
     }
 
-    /*
-     * Get the most recent search from a client
+    /**
+     * Getter method to retrieve the most recent search of the Book Catalog.
+     *
+     * @return An ArrayList representing the most recent search of the Book Catalog.
      */
-    public ArrayList<Book> getLastSearch(){
+    public ArrayList<Book> getLastSearch()
+    {
         return lastsearch;
     }
 
 
-    /*
-     * Returns the books to be purchased by the library.
+    /**
+     * Initiates a purchase of books that were contained in the last Book Catalog search.
+     *
+     * @return An ArrayList representing the books that are being purchased.
      */
-    public ArrayList<Book> purchase(int quantity, ArrayList<Integer> ids){
-        ArrayList<Book> purchases = new ArrayList<Book>();
-        for(Book book : getLastSearch()){
-            if(ids.contains(book.getTempID())){
+    public ArrayList<Book> purchase(int quantity, ArrayList<Integer> ids)
+    {
+        ArrayList<Book> purchases = new ArrayList<>();
+        for(Book book : getLastSearch())
+        {
+            if(ids.contains(book.getTempID()))
+            {
                 purchases.add(book);
             }
         }
@@ -51,17 +63,19 @@ public class FlatFileBookCatalog implements BookCatalog {
     /**
      * Given a set of user search criteria, returns the books that meet the supplied criteria.
      *
-     * @param title     - The title of the desired book(s).
-     * @param authors   - The authors of the desired book(s).
-     * @param isbn      - The ISBN of the desired book(s)
+     * @param title - The title of the desired book(s).
+     * @param authors - The authors of the desired book(s).
+     * @param isbn - The ISBN of the desired book(s)
      * @param publisher - The publisher of the desired book(s).
      * @return A String ArrayList representing the applicable books for the given command inputs.
      */
-    public ArrayList<Book> bookSearch(String title, ArrayList<String> authors, String isbn, String publisher) {
-        // ArrayList of books that meet the current search criteria
+    public ArrayList<Book> bookSearch(String title, ArrayList<String> authors, String isbn, String publisher)
+    {
+        // ArrayList of books that meet the current search criteria.
         ArrayList<Book> searchBooks = new ArrayList<>();
         // Loop to iterate all of the supplied search criteria.
-        for (int step = 1; step <= 5; step++) {
+        for (int step = 1; step <= 5; step++)
+        {
             searchBooks = searchStep(step, title, authors, isbn, publisher, searchBooks);
             lastsearch = searchBooks;
         }
@@ -72,16 +86,16 @@ public class FlatFileBookCatalog implements BookCatalog {
      * Helper method for bookSearch(). Creates an ArrayList with the applicable books at each step of the search
      * criteria process.
      *
-     * @param step            - The current level of search criteria being processed.
-     * @param title           - The title of the desired book(s).
-     * @param authors         - The authors of the desired book(s).
-     * @param isbn            - The ISBN of the desired book(s)
-     * @param publisher       - The publisher of the desired book(s).
+     * @param step - The current level of search criteria being processed.
+     * @param title - The title of the desired book(s).
+     * @param authors - The authors of the desired book(s).
+     * @param isbn - The ISBN of the desired book(s)
+     * @param publisher - The publisher of the desired book(s).
      * @param prevSearchBooks - The ArrayList of books that were gathered from the previous search step.
      * @return An ArrayList representing the applicable books for the current supplied search criteria.
      */
-    private ArrayList<Book> searchStep(int step, String title, ArrayList<String> authors, String isbn, String publisher,
-                                       ArrayList<Book> prevSearchBooks) {
+    private ArrayList<Book> searchStep(int step, String title, ArrayList<String> authors, String isbn, String publisher, ArrayList<Book> prevSearchBooks)
+    {
         ArrayList<Book> newSearchBooks = new ArrayList<>();
         int tempID = 1;
 
@@ -173,14 +187,15 @@ public class FlatFileBookCatalog implements BookCatalog {
         }
     }
 
-
-    public static void main(String[] args) {
+    /**
+     * Main method for testing.
+     */
+    public static void main(String[] args)
+    {
         BookCatalog meme = new FlatFileBookCatalog(new File("files/books.txt"));
         ArrayList<String> authors = new ArrayList<>();
         authors.add("*");
         System.out.println(meme.bookSearch("*",authors,"*","*"));
         System.out.println(meme.getLastSearch());
-
-
     }
 }

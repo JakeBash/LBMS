@@ -3,7 +3,7 @@ package LBMSCommands;
 import Library.Library;
 
 /**
- * Pays the library an amount toward a visitor's accumulated fines
+ * Pays the library an amount toward a visitor's accumulated fines.
  *
  * @author Nikolas Tilley
  * @author Kyler Freas
@@ -15,11 +15,11 @@ public class PayFine implements LBMSCommand
     private int amount;
 
     /**
-     * Initialize the command with required parameters
+     * Initialize the PayFine command with required parameters.
      *
-     * @param library - library object with data
-     * @param visitorID - visitor who is paying the fine
-     * @param amount - amount to pay
+     * @param library - Library object with data.
+     * @param visitorID - The visitor who is paying the fine.
+     * @param amount - The amount to be paid.
      */
     public PayFine(Library library, Long visitorID, int amount)
     {

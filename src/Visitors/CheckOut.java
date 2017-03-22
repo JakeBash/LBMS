@@ -4,8 +4,7 @@ import Books.Book;
 import java.util.Calendar;
 
 /**
- * Provides a structure to persist data associated with books checked out
- * by library visitors.
+ * Provides a structure to persist data associated with books checked out by library visitors.
  *
  * @author Kyler Freas
  */
@@ -21,7 +20,7 @@ public class CheckOut implements java.io.Serializable
      * Due date is initialized to 14 days after the date of initialization
      * (i.e. two weeks after checkout).
      *
-     * @param book - book to which this checkout is associated
+     * @param book - Book to which this checkout is associated
      */
     public CheckOut(Book book, Calendar borrowDate)
     {
@@ -49,9 +48,9 @@ public class CheckOut implements java.io.Serializable
     }
 
     /**
-     * Getter for checked out book
+     * Getter for checked out book.
      *
-     * @return checked out book
+     * @return The checked out book.
      */
     public Book getBook()
     {
@@ -69,9 +68,9 @@ public class CheckOut implements java.io.Serializable
     }
 
     /**
-     * Getter for checked out book's due date
+     * Getter for a checked out book's due date.
      *
-     * @return checked out book's due date
+     * @return The checked out book's due date.
      */
     public Calendar getDueDate()
     {
@@ -79,9 +78,9 @@ public class CheckOut implements java.io.Serializable
     }
 
     /**
-     * Getter for checked out book's return date
+     * Getter for checked out book's return date.
      *
-     * @return checked out book's return date
+     * @return The checked out book's return date.
      */
     public Calendar getReturnDate()
     {

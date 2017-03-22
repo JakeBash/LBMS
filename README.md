@@ -20,4 +20,5 @@ will be implemented in a later release
 also be implemented in a later release
 * It wasn't listed as a required command but Shutdown is a thing
     - the command is "shutdown;"
+    - This hevily relies on Java's Serializable
 * Partial commands Should work.

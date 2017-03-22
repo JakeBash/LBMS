@@ -1,45 +1,38 @@
 package UIS;
 
-import LBMSCommands.* ;
-import Library.TimeClock ;
-import Library.Library ;
-
+import LBMSCommands.*;
+import Library.Library;
 import java.util.Arrays;
-
-
-import java.util.ArrayList ;
-
+import java.util.ArrayList;
 
 /**
- * Parses user input and from that, creates commands. These
- * commands are added to a command queue to be executed.
- * 
- * @version 1
+ * Parses user input and from that, creates commands. These commands are added to a command queue to be executed.
+ *
  * @author Nikolas Tilley
+ * @author Kyle Kaniecki
  */
 public class CommandParser
 {
-    // Queue? a
-    private ArrayList<LBMSCommand> commandQueue ;
-    // Some kind of reference to our library and time clock or SOEMTHING
-    // THIS HAS TO KNOW ABOUT LIBRARY AND CLOCKS AND ETC.
-
+    private ArrayList<LBMSCommand> commandQueue;
     private Library library;
-
     private boolean execute;
 
+    /**
+     * Creates a new CommandParser to be used with the parsing of user entered commands.
+     *
+     * @param lib - The library that is being acted upon.
+     */
     public CommandParser(Library lib)
     {
-        commandQueue = new ArrayList<LBMSCommand>() ;
+        commandQueue = new ArrayList<LBMSCommand>();
         library = lib;
         execute = false;
-
     }
 
     /**
-     * Description
+     * Parses the command entered by the user.
      *
-     * @param s -
+     * @param s - The command that was entered by the user.
      */
     public void parseCommand(String s)
     {
@@ -60,9 +53,12 @@ public class CommandParser
         //end semicolon removal
 
         ArrayList<String> authors = new ArrayList<>();
-        for(int i = 0; i < args.size(); i++){
-            if(((String)args.get(i)).contains("{")){
-                if(((String)args.get(i)).contains("}")){
+        for(int i = 0; i < args.size(); i++)
+        {
+            if(((String)args.get(i)).contains("{"))
+            {
+                if(((String)args.get(i)).contains("}"))
+                {
                     String first = (String) args.remove(i);
                     authors.add(first.substring(1,first.length()-1));
                     args.add(i,authors);
@@ -70,7 +66,8 @@ public class CommandParser
                 }
                 String first = (String) args.remove(i);
                 authors.add(first.substring(1,first.length()));
-                while(!((String)args.get(i)).contains("}")){
+                while(!((String)args.get(i)).contains("}"))
+                {
                     authors.add((String)args.remove(i));
                 }
                 first = (String)args.remove(i);
@@ -80,9 +77,9 @@ public class CommandParser
         }
 
         String cmd = (String) args.remove(0);
-
         this.createCommand(cmd,args);
-        if(execute){
+        if(execute)
+        {
             this.executeAllCommands();
         }
     }
@@ -90,30 +87,34 @@ public class CommandParser
     /**
      * Depending on the keyword chosen by the user, a command must be created.
      * 
-     * @param cmd the string that the user uses to identify the Command.
-     * @param args the string of arguments that are to be used with the command.
+     * @param cmd - The string that the user uses to identify the Command.
+     * @param args - The string of arguments that are to be used with the command.
      *
      */
-    public void createCommand(String cmd, ArrayList args) {
-
+    public void createCommand(String cmd, ArrayList args)
+    {
         LBMSCommand command;
-
-        switch (cmd) {
-
+        switch (cmd)
+        {
             case "advance":
-                if (args.size() == 1) {
+                if (args.size() == 1)
+                {
                     command = new AdvanceTime(library,Integer.parseInt((String)args.get(0)));
-                } else if (args.size() == 2) {
+                }
+                else if (args.size() == 2)
+                {
                     command = new AdvanceTime(library, Integer.parseInt((String)args.get(0)), Integer.parseInt((String)args.get(1)));
                 }
-                else {
+                else
+                {
                     break;
                 }
                 this.addCommand(command);
                 break;
 
             case "arrive":
-                if (args.size() == 1) {
+                if (args.size() == 1)
+                {
                     command = new BeginVisit(library,Long.parseLong((String)args.get(0)));
                     this.addCommand(command);
                 }
@@ -127,7 +128,8 @@ public class CommandParser
                 break;
 
             case "borrowed":
-                if (args.size() == 1) {
+                if (args.size() == 1)
+                {
                     command = new FindBorrowed(library, Long.parseLong((String)args.get(0)));
                     this.addCommand(command);
                 }
@@ -145,17 +147,18 @@ public class CommandParser
                 break;
 
             case "datetime":
-                if (args.size() == 0){
+                if (args.size() == 0)
+                {
                     command = new GetTime(library);
                     this.addCommand(command);
                 }
                 break;
 
             case "depart":
-                if (args.size() == 1){
+                if (args.size() == 1)
+                {
                     command = new EndVisit(library,Long.parseLong((String)args.get(0)));
                     this.addCommand(command);
-
                 }
                 break;
 
@@ -181,20 +184,19 @@ public class CommandParser
                             (String)args.get(4));
                     this.addCommand(command);
                 }
-
                 break;
 
             case "pay":
-                if (args.size() == 1){
-                    command = new PayFine(library,
-                            Long.parseLong((String)args.get(0)),
-                            Integer.parseInt((String)args.get(1)));
+                if (args.size() == 1)
+                {
+                    command = new PayFine(library, Long.parseLong((String)args.get(0)), Integer.parseInt((String)args.get(1)));
                     this.addCommand(command);
                 }
                 break;
 
             case "register":
-                if(args.size() == 4){
+                if(args.size() == 4)
+                {
                     command = new RegisterVisitor(library,
                             (String)args.get(0),
                             (String)args.get(1),
@@ -205,33 +207,37 @@ public class CommandParser
                 break;
 
             case "report":
-                //TODO change this to take number of days
-                if(args.size() == 1){
+                if(args.size() == 1)
+                {
                     command = new GenerateReport(library);
                     this.addCommand(command);
                 }
                 break;
 
             case "return":
-                if(args.size() == 2){
+                if(args.size() == 2)
+                {
                     //command = new GenerateReport(library,(Integer) args.get(0),(ArrayList<String>) args.get(1));
                     //this.addCommand(command);
                 }
                 break;
 
             case "search":
-                if(args.size() == 1){
+                if(args.size() == 1)
+                {
                     command = new BookStoreSearch(library,(String) args.get(0));
                     this.addCommand(command);
                 }
-                else if (args.size() == 3){
+                else if (args.size() == 3)
+                {
                     command = new BookStoreSearch(library,
                             (String)args.get(0),
                             (ArrayList<String>)args.get(1),
                             (String)args.get(2));
                     this.addCommand(command);
                 }
-                else if (args.size() == 4){
+                else if (args.size() == 4)
+                {
                     command = new BookStoreSearch(library,
                             (String) args.get(0),
                             (ArrayList<String>)args.get(1),
@@ -239,7 +245,8 @@ public class CommandParser
                             (String)args.get(3));
                     this.addCommand(command);
                 }
-                else if(args.size() == 5){
+                else if(args.size() == 5)
+                {
                     command = new BookStoreSearch(library,
                             (String) args.get(0),
                             (ArrayList<String>)args.get(1),
@@ -256,11 +263,12 @@ public class CommandParser
 
             default:
                 break;
-
         }
     }
 
     /**
+     * Adds a command to the command queue.
+     *
      *  @param command - The command to be added to the commandQueue.
      */
     public void addCommand(LBMSCommand command)
@@ -277,7 +285,6 @@ public class CommandParser
         {
             LBMSCommand command = commandQueue.remove(0);
             command.execute();
-
         }
     }
 
@@ -289,7 +296,4 @@ public class CommandParser
         while (!commandQueue.isEmpty())
             executeCommand();
     }
-
-
 }
-

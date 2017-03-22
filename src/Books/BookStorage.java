@@ -29,12 +29,12 @@ public class BookStorage implements java.io.Serializable
     private ArrayList<Book> lastSearch;
 
     /**
-     * Data file location.
+     * Data file location for the serialization of the Library's storage.
      */
     private static String file = "files/BookStorage.ser";
 
     /**
-     * Default constructor. Initializes with an empty book storage HashMap.
+     * Constructor for BookStorage. Initializes a new Book Storage with an empty book storage HashMap.
      */
     public BookStorage()
     {
@@ -45,7 +45,7 @@ public class BookStorage implements java.io.Serializable
     /**
      * Simple getter method for external retrieval of the libraries' book storage.
      *
-     * @return A HashMap representing the current book storage of the library
+     * @return A HashMap representing the current book storage of the library.
      */
     public HashMap<String, Book> getBooks()
     {
@@ -120,7 +120,7 @@ public class BookStorage implements java.io.Serializable
      * @param step - The current level of search criteria being processed.
      * @param title - The title of the desired book(s).
      * @param authors - The authors of the desired book(s).
-     * @param isbn - The ISBN of the desired book(s)
+     * @param isbn - The ISBN of the desired book(s).
      * @param publisher - The publisher of the desired book(s).
      * @param prevSearchBooks - The ArrayList of books that were gathered from the previous search step.
      * @return An ArrayList representing the applicable books for the current supplied search criteria.

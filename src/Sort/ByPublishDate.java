@@ -11,22 +11,29 @@ import java.util.Comparator;
  */
 public class ByPublishDate implements SortOrder
 {
+    /**
+     * Default constructor.
+     */
     public ByPublishDate() {}
 
+    /**
+     * Sorts the list of books by publish date.
+     *
+     * @param bookList - The list of books to be sorted.
+     */
     public void sort(ArrayList<Book> bookList)
     {
         bookList.sort(BookDateComparator);
     }
 
-
     /**
-     * Implements a Comparator that compares books by publish date. Sorts the list in descending order.
-     * Newest published books are first.
+     * Implements a Comparator that compares books by publish date. Sorts the list in descending order. Newest published
+     * books are first.
      */
     private static Comparator<Book> BookDateComparator = new Comparator<Book>()
     {
         /**
-         * Description
+         * Compares the publish dates of two books for use in sorting.
          *
          * @param b1 - A book to compare.
          * @param b2 - Another book to compare.
@@ -42,7 +49,9 @@ public class ByPublishDate implements SortOrder
         }
     };
 
-
+    /**
+     * Main method for testing.
+     */
     public static void main(String [] args)
     {
         //TODO: Remove later

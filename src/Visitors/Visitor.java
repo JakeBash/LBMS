@@ -24,17 +24,14 @@ public class Visitor implements java.io.Serializable
     private Calendar registeredDate;
     private int balance;
 
-    //TODO: Return proper responses for all methods
-
     /**
-     * Default constructor. Checked out books and fines are initialized to empty ArrayLists,
-     * balance is initialized to 0. Registered date is initialized to nothing since visitor
-     * has not yet been registered.
+     * Default constructor. Checked out books and fines are initialized to empty ArrayLists, balance is initialized to
+     * 0. Registered date is initialized to nothing since visitor has not yet been registered.
      *
-     * @param firstName - visitor's first name
-     * @param lastName - visitor's last name
-     * @param address - visitor's home address
-     * @param phoneNumber - visitor's phone number
+     * @param firstName - The visitor's first name.
+     * @param lastName - The visitor's last name.
+     * @param address - The visitor's home address.
+     * @param phoneNumber - The visitor's phone number.
      */
     public Visitor(String firstName, String lastName, String address, String phoneNumber)
     {
@@ -50,11 +47,10 @@ public class Visitor implements java.io.Serializable
     }
 
     /**
-     * Registers the visitor in the library.
-     * Sets the visitor's id and registered date.
+     * Registers the visitor in the library. Sets the visitor's id and registered date.
      *
-     * @param id - visitor's assigned id
-     * @param registeredDate - date of registration
+     * @param id - The visitor's assigned ID.
+     * @param registeredDate - The date of registration.
      */
     public void register(Long id, Calendar registeredDate)
     {
@@ -156,9 +152,9 @@ public class Visitor implements java.io.Serializable
     }
 
     /**
-     * Pays a given amount toward the visitor's fine balance
+     * Pays a given amount toward the visitor's fine balance.
      *
-     * @param amount - amount to pay toward fines
+     * @param amount - The amount to pay toward fines.
      */
     public void payFine(int amount, Calendar datePaid)
     {
@@ -186,10 +182,9 @@ public class Visitor implements java.io.Serializable
     }
 
     /**
-     * Gets a total of fines paid by the visitor within a given number of days in the past
+     * Gets a total of fines paid by the visitor within a given number of days in the past.
      *
-     * @param days - number of days of data to return
-     * @return total amount of fines paid by the visitor in the last [days] number of days
+     * @return The total amount of fines paid by the visitor in the last [days] number of days.
      */
     public int getFinesPaid()
     {
@@ -215,10 +210,10 @@ public class Visitor implements java.io.Serializable
     }
 
     /**
-     * Gets a total of outstanding fines by the visitor within a given number of days in the past
+     * Gets a total of outstanding fines by the visitor within a given number of days in the past.
      *
-     * @param days - number of days of data to return
-     * @return total amount of fines paid by the visitor in the last [days] number of days
+     * @param days - The number of days of data to return.
+     * @return The total amount of fines paid by the visitor in the last [days] number of days.
      */
     public int getFinesUnpaid(int days)
     {
@@ -240,21 +235,23 @@ public class Visitor implements java.io.Serializable
     }
 
     /**
-     * Override equals method to check for duplicate registered visitors
+     * Override equals method to check for duplicate registered visitors.
      *
-     * @param visitorO - visitor to compare
-     * @return whether the visitors are equal
+     * @param visitorO - The visitor to compare.
+     * @return The equality of the two visitors.
      */
     @Override
-    public boolean equals(Object visitorO) {
-
+    public boolean equals(Object visitorO)
+    {
         // If the visitor is compared with itself then return true
-        if (visitorO == this) {
+        if (visitorO == this)
+        {
             return true;
         }
 
         // Check if instance of visitor
-        if (!(visitorO instanceof Visitor)) {
+        if (!(visitorO instanceof Visitor))
+        {
             return false;
         }
 
@@ -266,18 +263,30 @@ public class Visitor implements java.io.Serializable
                 && visitor.getLastName().equals(this.lastName);
     }
 
-    public String getFirstName() {
+    /**
+     * Simple getter for retrieving the first name of the visitor.
+     *
+     * @return The first name of the visitor.
+     */
+    public String getFirstName()
+    {
         return this.firstName;
     }
 
-    public String getLastName() {
+    /**
+     * Simple getter for retrieving the last name of the visitor.
+     *
+     * @return The last name of the visitor.
+     */
+    public String getLastName()
+    {
         return this.lastName;
     }
 
     /**
-     * Getter for visitor's id field
+     * Simple getter for retrieving the visitor's ID.
      *
-     * @return visitor's id field
+     * @return The Visitor's ID.
      */
     public Long getID()
     {
@@ -285,9 +294,9 @@ public class Visitor implements java.io.Serializable
     }
 
     /**
-     * Getter for visitor's balance field
+     * Simple getter for retrieving the visitor's balance.
      *
-     * @return visitor's balance field
+     * @return The visitor's balance.
      */
     public int getBalance()
     {
@@ -295,9 +304,9 @@ public class Visitor implements java.io.Serializable
     }
 
     /**
-     * Getter for visitor's registered date
+     * Simple getter for retrieving the visitor's registered date.
      *
-     * @return visitor's registered date
+     * @return The visitor's registered date.
      */
     public Calendar getRegisteredDate()
     {
@@ -305,9 +314,9 @@ public class Visitor implements java.io.Serializable
     }
 
     /**
-     * Setter for visitor's id field
+     * Simple setter for setting the visitor's ID.
      *
-     * @param id - visitor's new id
+     * @param id - The visitor's new ID.
      */
     public void setID(Long id)
     {

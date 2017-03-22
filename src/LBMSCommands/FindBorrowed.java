@@ -14,7 +14,7 @@ public class FindBorrowed implements LBMSCommand
     private Long visitorID;
 
     /**
-     * A command that asks the library to find a visitors checked out books.
+     * A command that asks the library to find a visitor's checked out books.
      *
      * @param library - A library that has books checked out by visitors.
      * @param visitorID - The visitor that is being queried for checked out books.

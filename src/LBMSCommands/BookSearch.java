@@ -17,8 +17,6 @@ public class BookSearch implements LBMSCommand
     private String isbn;
     private String publisher;
     private String sortOrder;
-    // ?????????? we should probably pass in a string of authors and parse by , here to
-    // not over complicate the command parser
 
    /**
     * Creates a command to search the library for book(s) with the minimum amount of criteria required.
@@ -98,7 +96,7 @@ public class BookSearch implements LBMSCommand
     }
 
     /**
-     * Executes the BookSearch command on the library
+     * Executes the BookSearch command on the library.
      */
     public void execute()
     {
