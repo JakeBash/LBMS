@@ -18,8 +18,13 @@ public class LibraryOpen implements LibraryState
 
     public String stateBeginVisit(Integer visitorID, VisitorStorage visitorStorage)
     {
-        Visit visit = visitorStorage.startVisit(visitorID);
         String response = "arrive,";
+
+        if( visitorStorage.getVisitor(visitorID) == null )
+            return response + "invalid-id;";
+
+        Visit visit = visitorStorage.startVisit(visitorID);
+
         if (visit != null)
         {
             response += visitorID + "," + visit.getFormattedDate(visit.getStartDateTime()) + "," + visit.getFormattedTime(visit.getStartDateTime()) + ";";
