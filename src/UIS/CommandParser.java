@@ -60,8 +60,9 @@ public class CommandParser
         String cmd = (String) args.remove(0);
 
         for(int i = 0; i < args.size(); i++) {
-            if(!((String)args.get(i)).matches("[A-Za-z]+")) {
-                String temp = (String) args.remove(i);
+            String temp = (String)args.get(i);
+            if(temp.matches("[0-9]+") && temp.length() < 4 ) {
+                temp = (String) args.remove(i);
                 args.add(i,Integer.parseInt(temp));
             }
         }
@@ -173,7 +174,7 @@ public class CommandParser
                             (String)args.get(0),
                             (String)args.get(1),
                             (String)args.get(2),
-                            (String)args.get(3));
+                            args.get(3).toString());
                     this.addCommand(command);
                 }
                 break;
