@@ -1,5 +1,6 @@
 package Visitors;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -9,25 +10,25 @@ import java.util.Date;
  */
 public class Visit implements java.io.Serializable
 {
-    private Date startTime;
-    private Date endTime;
+    private Calendar startDateTime;
+    private Calendar endDateTime;
     private Integer visitorID;
 
     /**
      * Default constructor. Initializes with start time and visitor ID.
      */
-    public Visit(Date startTime, Integer visitorID)
+    public Visit(Calendar startTime, Integer visitorID)
     {
-        this.startTime = startTime;
+        this.startDateTime = startTime;
         this.visitorID = visitorID;
     }
 
     /**
      * Sets the end time of the visit. Called by the Library when a visit should end.
      */
-    public void end(Date endTime)
+    public void end(Calendar endTime)
     {
-        this.endTime = endTime;
+        this.endDateTime = endTime;
     }
 
     /**
@@ -45,9 +46,9 @@ public class Visit implements java.io.Serializable
      *
      * @return visit's start time
      */
-    public Date getStartTime()
+    public Calendar getStartDateTime()
     {
-        return this.startTime;
+        return this.startDateTime;
     }
 
     /**
@@ -55,8 +56,8 @@ public class Visit implements java.io.Serializable
      *
      * @return visit's end time
      */
-    public Date getEndTime()
+    public Calendar getEndDateTime()
     {
-        return this.endTime;
+        return this.endDateTime;
     }
 }

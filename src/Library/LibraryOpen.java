@@ -1,5 +1,6 @@
 package Library;
 
+import Visitors.Visit;
 import Visitors.VisitorStorage;
 
 /**
@@ -17,11 +18,18 @@ public class LibraryOpen implements LibraryState
 
     public String stateBeginVisit(Integer visitorID, VisitorStorage visitorStorage)
     {
-        visitorStorage.startVisit(visitorID);
+        Visit visit = visitorStorage.startVisit(visitorID);
+        String response = "arrive,";
+        if (visit != null)
+        {
+            response += visitorID + "," + visit.
+        }
+        else
+        {
+            response += "duplicate;";
+        }
 
-        // Todo - return the correct repsonse
-
-        return "" ;
+        return response;
     }
 
     public String stateCheckOutBook()

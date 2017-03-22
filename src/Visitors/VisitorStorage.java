@@ -99,16 +99,20 @@ public class VisitorStorage implements java.io.Serializable
      * Begins a visit in the library for a registered visitor.
      *
      * @param visitorID - The ID of the registered visitor.
+     * @return The newly created visit.
      */
-    public void startVisit(Integer visitorID)
+    public Visit startVisit(Integer visitorID)
     {
-        //TODO: Need to add the functionality to not allow a new visit of someone already in the library
         // Check if visitor is already visiting the library
-        if (this.activeVisits.containsKey(visitorID)) { return; }
+        if (this.activeVisits.containsKey(visitorID))
+        {
+            return null;
+        }
 
         // Create a new visit and add it to active
         Visit visit = new Visit(this.library.getTime(), visitorID);
         this.activeVisits.put(visitorID, visit);
+        return visit;
     }
 
     /**
