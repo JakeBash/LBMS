@@ -268,12 +268,6 @@ public class BookStorage implements java.io.Serializable
             // Read from the file into input stream
             FileInputStream fileIn = new FileInputStream(file);
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            Object o = in.readObject();
-
-            while(o != null){
-                System.out.println(o);
-                o = in.readObject();
-            }
 
             // Initialize storage from data
             BookStorage bookStorage = (BookStorage) in.readObject();
@@ -282,6 +276,11 @@ public class BookStorage implements java.io.Serializable
             in.close();
             fileIn.close();
             return bookStorage;
+        }
+        catch (EOFException eof)
+        {
+            // Start a fresh storage
+            return new BookStorage();
         }
         catch (IOException i)
         {
@@ -292,8 +291,8 @@ public class BookStorage implements java.io.Serializable
             System.out.println("BookStorage could not be found");
             c.printStackTrace();
         }
-        // If an error occurs, return an empty book storage
+
+        // If an error occurs, return an empty storage
         return new BookStorage();
     }
-
 }
