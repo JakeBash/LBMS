@@ -9,7 +9,7 @@ import java.util.Calendar;
  *
  * @author Kyler Freas
  */
-public class CheckOut
+public class CheckOut implements java.io.Serializable
 {
     private Book book;
     private Calendar borrowDate;
