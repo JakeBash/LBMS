@@ -93,8 +93,7 @@ public class Library extends Observable
         else
         {
             response += "invalid-sort-order;";
-            this.status = response;
-            notifyObservers();
+            updateStatus(response);
             return;
         }
 
@@ -104,8 +103,7 @@ public class Library extends Observable
             response += b.toString("bSearch") + "\n;";
         }
 
-        this.status = response;
-        notifyObservers();
+        updateStatus(response);
     }
 
     /**
@@ -120,15 +118,18 @@ public class Library extends Observable
     public void registerVisitor(String firstName, String lastName, String address, String phoneNumber)
     {
         Visitor newVis = visitorStorage.registerVisitor(firstName, lastName, address, phoneNumber);
+        String response = "register,";
+
         if (newVis != null)
         {
-            this.status = "register," + newVis.getID() + "," + this.timeClock.getFormattedDate() + ";";
+            response += newVis.getID() + "," + this.timeClock.getFormattedDate() + ";";
         }
         else
         {
-            this.status = "register,duplicate;";
+            response += "duplicate;";
         }
-        notifyObservers();
+
+        updateStatus(response);
     }
 
     /**
@@ -138,7 +139,8 @@ public class Library extends Observable
      */
     public void beginVisit(Integer visitorID)
     {
-        this.currentState.stateBeginVisit(visitorID, this.visitorStorage);
+        String response = currentState.stateBeginVisit(visitorID, this.visitorStorage);
+        updateStatus(response);
     }
 
     /**
@@ -154,22 +156,19 @@ public class Library extends Observable
 
         if(visitorStorage.getVisitor(visitorID) == null)
         {
-            this.status = response + "invalid-id;";
-            notifyObservers();
+            updateStatus(response + "invalid-id;");
             return;
         }
         else if (visit != null)
         {
             response += visitorID + "," + visit.getFormattedDate(visit.getEndDateTime()) + "," + visit.getFormattedTime(visit.getEndDateTime()) + ";";
-            this.status = response;
         }
         else
         {
             response += "duplicate;";
-            this.status = response;
         }
 
-        notifyObservers();
+        updateStatus(response);
     }
 
     /**
@@ -196,8 +195,7 @@ public class Library extends Observable
             response += visitorID;
         }
 
-        this.status = response;
-        notifyObservers();
+        updateStatus(response);
     }
 
     /**
@@ -209,17 +207,6 @@ public class Library extends Observable
     public void payFine(Integer visitorID, int amount)
     {
         this.visitorStorage.payFine(visitorID, amount);
-    }
-
-    /**
-     * Shut down the system, persisting all data created in flat files.
-     */
-    public void shutdown()
-    {
-        //TODO: Serialize all other entities to be persisted
-        this.timeClock.serialize();
-        this.visitorStorage.serialize();
-        this.bookStorage.serialize();
     }
 
     /**
@@ -236,8 +223,6 @@ public class Library extends Observable
 
     }
 
-    //TODO: Add remaining commands
-
     /**
      * Checks the time of the Time Clock. Changes the state of the library depending on the time.
      */
@@ -253,17 +238,26 @@ public class Library extends Observable
             ; // Do nothing
     }
 
-    // TODO - implment closing the library
+    /**
+     * Description
+     */
     public void close()
     {
         // end all current Visits
         this.currentState = stateList.get(CLOSED);
     }
+
+    /**
+     * Description
+     */
     public void open()
     {
         this.currentState = stateList.get(OPEN);
     }
 
+    /**
+     * Description
+     */
     public void getFormattedDateTime()
     {
         updateStatus("datetime," + timeClock.getFormattedDateTime() + ";" );
@@ -297,7 +291,6 @@ public class Library extends Observable
             timeClock.advanceTime(days, hours);
             updateStatus("advance,success;" );
         }
-
     }
 
     /**
@@ -310,13 +303,24 @@ public class Library extends Observable
         return this.status;
     }
 
-    /*
+    /**
      * Updates the status string of the model and notifies any observers.
      */
     public void updateStatus(String status){
         this.status = status;
         this.setChanged();
         this.notifyObservers();
+    }
+
+    /**
+     * Shut down the system, persisting all data created in flat files.
+     */
+    public void shutdown()
+    {
+        //TODO: Serialize all other entities to be persisted
+        this.timeClock.serialize();
+        this.visitorStorage.serialize();
+        this.bookStorage.serialize();
     }
 
     public static void main(String [] args)
