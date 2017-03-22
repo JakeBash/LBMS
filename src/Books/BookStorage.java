@@ -39,6 +39,7 @@ public class BookStorage implements java.io.Serializable
     public BookStorage()
     {
         this.books = new HashMap<>();
+        this.purchases = new ArrayList<>();
     }
 
     /**
