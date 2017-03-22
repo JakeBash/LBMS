@@ -174,18 +174,10 @@ public class Library extends Observable
      */
     public void borrowBooks(ArrayList<String> bkID,Long vID) {
 
-        Visitor currentV = visitorStorage.getVisitor(vID);
-        ArrayList<Book> books = new ArrayList<>();
+        String str = this.currentState.stateCheckOutBook(bkID, vID, this.visitorStorage,
+                this.timeClock, this.bookStorage);
 
-        for(String id : bkID) {
-            for (Book bk : bookStorage.getLastSearch()) {
-                if (bk.getIsbn().compareTo(id) == 0) {
-                    books.add(bk);
-                    break;
-                }
-            }
-        }
-        currentV.checkOutBooks(books,this.getTime());
+        updateStatus(str);
     }
 
     /**

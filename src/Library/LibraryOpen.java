@@ -1,7 +1,13 @@
 package Library;
 
+import Books.Book;
+import Books.BookStorage;
 import Visitors.Visit;
+import Visitors.Visitor;
 import Visitors.VisitorStorage;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Implements how state dependent commands are executed when the library
@@ -37,11 +43,26 @@ public class LibraryOpen implements LibraryState
         return response;
     }
 
-    public String stateCheckOutBook()
+    public String stateCheckOutBook(ArrayList<String> bkID,Long vID, VisitorStorage visitorStorage, TimeClock timeClock,
+    BookStorage bookStorage)
     {
-        // Todo return the correct response
+        Visitor currentV = visitorStorage.getVisitor(vID);
+        ArrayList<Book> books = new ArrayList<>();
 
-        return "" ;
+        for(String id : bkID) {
+            for (Book bk : bookStorage.getLastSearch()) {
+                if (bk.getIsbn().compareTo(id) == 0) {
+                    books.add(bk);
+                    break;
+                }
+            }
+        }
+        currentV.checkOutBooks(books,timeClock.getCalendarDate());
+
+        Calendar c = timeClock.getCalendarDate();
+        c.add(Calendar.DAY_OF_WEEK, 7);
+        return "borrow," + c.get(Calendar.YEAR) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.DAY_OF_MONTH)
+                + ";" ;
     }
 
 
