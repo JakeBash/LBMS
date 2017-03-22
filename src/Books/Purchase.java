@@ -9,7 +9,7 @@ import java.util.Date;
  *
  * @author Jake Bashaw
  */
-public class Purchase
+public class Purchase implements java.io.Serializable
 {
     //TODO: Decide where this belongs, and even if it is required.
     private int quantity;
