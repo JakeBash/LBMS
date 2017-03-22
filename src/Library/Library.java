@@ -180,6 +180,17 @@ public class Library extends Observable
     }
 
     /**
+     * Pay a given amount toward a visitor's fine
+     *
+     * @param visitorID - id of visitor paying the fine
+     * @param amount - amount to pay
+     */
+    public void payFine(Integer visitorID, int amount)
+    {
+        this.visitorStorage.payFine(visitorID, amount);
+    }
+
+    /**
      * Shut down the system, persisting all data created in flat files.
      */
     public void shutdown()

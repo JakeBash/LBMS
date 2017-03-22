@@ -166,6 +166,19 @@ public class VisitorStorage implements java.io.Serializable
         return totalBalance;
     }
 
+    public void payFine(Integer visitorID, int amount)
+    {
+        Visitor visitor = this.getVisitor(visitorID);
+
+        // Check for invalid visitor ID
+        if (visitor == null) { return; }
+
+        // Check for invalid amount
+        if (amount < 0 || amount > visitor.getBalance()) { return; }
+
+        visitor.payFine(amount, this.library.getTime());
+    }
+
     /**
      * Generates the visitor data stored, in string format, to be included in a statistical report.
      * Data includes: Total number of visitors, Average length of visit
