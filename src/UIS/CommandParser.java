@@ -53,6 +53,8 @@ public class CommandParser
             last = last.substring(0,last.length()-1);
             args.set(args.size()-1,last);
             this.execute = true;
+        } else {
+            this.execute = false;
         }
 
         //end semicolon removal
