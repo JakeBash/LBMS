@@ -363,7 +363,7 @@ public class Library extends Observable
         {
             timeClock.advanceTime(days, hours);
             visitorStorage.endAllVisits();
-            generateReport();
+            //generateReport();
             updateStatus("advance,success;" );
         }
         else if (days < 0 || days > 7)

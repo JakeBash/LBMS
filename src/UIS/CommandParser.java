@@ -43,12 +43,32 @@ public class CommandParser
      */
     public void parseCommand(String s)
     {
-        ArrayList<Object> args = new ArrayList<Object>(Arrays.asList(s.split(",")));
+        ArrayList<Object> args = new ArrayList<>(Arrays.asList(s.split(",")));
+
+        ArrayList<String> authors = new ArrayList<>();
+        for(int i = 0; i < args.size(); i++){
+            if(((String)args.get(i)).contains("{")){
+                if(((String)args.get(i)).contains("}")){
+                    String first = (String) args.remove(i);
+                    authors.add(first.substring(1,first.length()-1));
+                    args.add(i,authors);
+                    continue;
+                }
+                String first = (String) args.remove(i);
+                authors.add(first.substring(1,first.length()));
+                while(!((String)args.get(i)).contains("}")){
+                    authors.add((String)args.remove(i));
+                }
+                first = (String)args.remove(i);
+                authors.add(first.substring(0,first.length()-1));
+                args.add(i,authors);
+            }
+        }
 
         /*
          * This code removes the semicolon from the end of the command
          */
-        String last = (String)args.get(args.size()-1);
+        String last = (String) args.get(args.size()-1);
         if(last.contains(";")){
             last = last.substring(0,last.length()-1);
             args.set(args.size()-1,last);
@@ -61,13 +81,6 @@ public class CommandParser
 
         String cmd = (String) args.remove(0);
 
-        for(int i = 0; i < args.size(); i++) {
-            String temp = (String)args.get(i);
-            if(temp.matches("[0-9]+") && temp.length() < 4 ) {
-                temp = (String) args.remove(i);
-                args.add(i,Integer.parseInt(temp));
-            }
-        }
         this.createCommand(cmd,args);
         if(execute){
             this.executeAllCommands();
@@ -89,9 +102,9 @@ public class CommandParser
 
             case "advance":
                 if (args.size() == 1) {
-                    command = new AdvanceTime(library,(int) args.get(0));
+                    command = new AdvanceTime(library,Integer.parseInt((String)args.get(0)));
                 } else if (args.size() == 2) {
-                    command = new AdvanceTime(library, (int) args.get(0), (int) args.get(1));
+                    command = new AdvanceTime(library, Integer.parseInt((String)args.get(0)), Integer.parseInt((String)args.get(1)));
                 }
                 else {
                     break;
@@ -101,7 +114,7 @@ public class CommandParser
 
             case "arrive":
                 if (args.size() == 1) {
-                    command = new BeginVisit(library,(Long) args.get(0));
+                    command = new BeginVisit(library,Long.parseLong((String)args.get(0)));
                     this.addCommand(command);
                 }
                 break;
@@ -110,16 +123,16 @@ public class CommandParser
                 if(args.size() == 2) {
                     ArrayList<Integer> bookids = new ArrayList<>();
                     for(int i = 1; i < args.size(); i ++){
-                        bookids.add((Integer)args.get(i));
+                        bookids.add(Integer.parseInt((String)args.get(i)));
                     }
-                    command = new BorrowBook(library, (Long) args.get(0),bookids);
+                    command = new BorrowBook(library, Long.parseLong((String)args.get(0)),bookids);
                     this.addCommand(command);
                 }
                 break;
 
             case "borrowed":
                 if (args.size() == 1) {
-                    command = new FindBorrowed(library, (Long) args.get(0));
+                    command = new FindBorrowed(library, Long.parseLong((String)args.get(0)));
                     this.addCommand(command);
                 }
                 break;
@@ -140,7 +153,7 @@ public class CommandParser
 
             case "depart":
                 if (args.size() == 1){
-                    command = new EndVisit(library,(Long)args.get(0));
+                    command = new EndVisit(library,Long.parseLong((String)args.get(0)));
                     this.addCommand(command);
 
                 }
@@ -148,25 +161,25 @@ public class CommandParser
 
             case "info":
                 if (args.size() == 2){
-                    command = new BookSearch(library,(String)args.get(0),(ArrayList<String>)args.get(1));
-                    this.addCommand(command);
+                    //command = new BookSearch(library,args.get(0),(ArrayList<String>)args.get(1));
+                    //this.addCommand(command);
                 }
                 else if (args.size() == 3){
-                    command = new BookSearch(library,(String)args.get(0),(ArrayList<String>) args.get(1),(String)args.get(2));
-                    this.addCommand(command);
+                    //command = new BookSearch(library,args.get(0),(ArrayList<String>) args.get(1),(String)args.get(2));
+                    //this.addCommand(command);
                 }
                 else if(args.size() == 4){
-                    command = new BookSearch(library,(String)args.get(0),(ArrayList<String>) args.get(1),(String)args.get(2),(String)args.get(3));
-                    this.addCommand(command);
+                    //command = new BookSearch(library,args.get(0),(ArrayList<String>) args.get(1),(String)args.get(2),(String)args.get(3));
+                    //this.addCommand(command);
                 }
                 else if(args.size() == 5){
-                    command = new BookSearch(library,
+                    /*command = new BookSearch(library,
                             (String)args.get(0),
                             (ArrayList<String>) args.get(1),
                             (String)args.get(2),
                             (String)args.get(3),
                             (String)args.get(4));
-                    this.addCommand(command);
+                    this.addCommand(command);*/
                 }
 
                 break;
@@ -174,8 +187,8 @@ public class CommandParser
             case "pay":
                 if (args.size() == 1){
                     command = new PayFine(library,
-                            (Long)args.get(0),
-                            (int)args.get(1));
+                            Long.parseLong((String)args.get(0)),
+                            Integer.parseInt((String)args.get(1)));
                     this.addCommand(command);
                 }
                 break;
@@ -186,7 +199,7 @@ public class CommandParser
                             (String)args.get(0),
                             (String)args.get(1),
                             (String)args.get(2),
-                            args.get(3).toString());
+                            (String)args.get(3));
                     this.addCommand(command);
                 }
                 break;
@@ -213,9 +226,9 @@ public class CommandParser
                 }
                 else if (args.size() == 3){
                     command = new BookStoreSearch(library,
-                            (String) args.get(0),
+                            (String)args.get(0),
                             (ArrayList<String>)args.get(1),
-                            (String) args.get(2));
+                            (String)args.get(2));
                     this.addCommand(command);
                 }
                 else if (args.size() == 4){
