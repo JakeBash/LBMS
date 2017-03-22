@@ -148,6 +148,9 @@ public class Visitor implements java.io.Serializable
 
             // Put the copy back in the library
             book.addCopies(1);
+
+            // Remove the checkout
+            this.checkedOutBooks.remove(checkout);
         }
     }
 
