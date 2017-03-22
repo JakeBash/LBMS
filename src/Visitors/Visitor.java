@@ -68,7 +68,7 @@ public class Visitor implements java.io.Serializable
      *
      * @param books - A list of books to be checked out.
      */
-    public void checkOutBooks(ArrayList<Book> books, Date checkoutDate)
+    public void checkOutBooks(ArrayList<Book> books, Calendar checkoutDate)
     {
         // Check that this will not exceed max of 5 books
         if (this.checkedOutBooks.size() + books.size() > 5)
@@ -122,7 +122,7 @@ public class Visitor implements java.io.Serializable
      *
      * @param books - An arrayList representing the books to be returned.
      */
-    public void returnBooks(ArrayList<Book> books, Date dateReturned)
+    public void returnBooks(ArrayList<Book> books, Calendar dateReturned)
     {
         for (Book book: books)
         {
@@ -158,7 +158,7 @@ public class Visitor implements java.io.Serializable
      *
      * @param amount - amount to pay toward fines
      */
-    public void payFine(int amount, Date datePaid)
+    public void payFine(int amount, Calendar datePaid)
     {
         this.balance -= amount;
         this.paidFines.add(new PaidFine(amount, datePaid));
@@ -174,7 +174,7 @@ public class Visitor implements java.io.Serializable
     private int calculateFine(CheckOut checkout)
     {
         int fineAmount = 0;
-        long days = checkout.getReturnDate().getTime() - checkout.getDueDate().getTime();
+        long days = checkout.getReturnDate().getTimeInMillis() - checkout.getDueDate().getTimeInMillis();
         days = TimeUnit.MILLISECONDS.toDays(days);
         if (days >= 1)
         {
@@ -297,7 +297,7 @@ public class Visitor implements java.io.Serializable
      *
      * @return visitor's registered date
      */
-    public Date getRegisteredDate()
+    public Calendar getRegisteredDate()
     {
         return this.registeredDate;
     }

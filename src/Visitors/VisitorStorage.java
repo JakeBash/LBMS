@@ -2,10 +2,7 @@ package Visitors;
 
 import Library.Library;
 import java.io.*;
-import java.util.Collections;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Date;
+import java.util.*;
 
 /**
  * Represents the library's saved visitors and visits. Provides methods to save, retrieve and query from all visitors
@@ -206,9 +203,9 @@ public class VisitorStorage implements java.io.Serializable
 
         for (Visit visit : this.visitHistory)
         {
-            Date start = visit.getStartTime();
-            Date end = visit.getEndTime();
-            totalTime += end.getTime() - start.getTime();
+            Calendar start = visit.getStartDateTime();
+            Calendar end = visit.getEndDateTime();
+            totalTime += end.getTimeInMillis() - start.getTimeInMillis();
         }
 
         // Average length of stay, in milliseconds

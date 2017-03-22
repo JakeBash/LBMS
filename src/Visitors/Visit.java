@@ -1,7 +1,6 @@
 package Visitors;
 
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * A single visit in the library

@@ -1,5 +1,5 @@
 package Visitors;
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  * Provides a structure for persisting fines accumulated by library visitors
@@ -9,14 +9,14 @@ import java.util.Date;
 public class UnpaidFine implements java.io.Serializable
 {
     private int amount;
-    private Date dateAccumulated;
+    private Calendar dateAccumulated;
 
     /**
      * Default constructor. Date is initialized to current date.
      *
      * @param amount - amount charged due to the fine
      */
-    public UnpaidFine(int amount, Date dateAccumulated)
+    public UnpaidFine(int amount, Calendar dateAccumulated)
     {
         this.amount = amount;
         this.dateAccumulated = dateAccumulated;
@@ -27,7 +27,7 @@ public class UnpaidFine implements java.io.Serializable
      *
      * @return fine's paid date
      */
-    public Date getDateAccumulated()
+    public Calendar getDateAccumulated()
     {
         return this.dateAccumulated;
     }

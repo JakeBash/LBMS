@@ -1,6 +1,6 @@
 package Visitors;
 
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  * Provides a structure for persisting fines paid by library visitors
@@ -9,14 +9,14 @@ import java.util.Date;
 public class PaidFine implements java.io.Serializable
 {
     private int amount;
-    private Date datePaid;
+    private Calendar datePaid;
 
     /**
      * Default constructor. Date is initialized to current date.
      *
      * @param amount - amount charged due to the fine
      */
-    public PaidFine(int amount, Date datePaid)
+    public PaidFine(int amount, Calendar datePaid)
     {
         this.amount = amount;
         this.datePaid = datePaid;
@@ -27,7 +27,7 @@ public class PaidFine implements java.io.Serializable
      *
      * @return fine's paid date
      */
-    public Date getDatePaid()
+    public Calendar getDatePaid()
     {
         return this.datePaid;
     }

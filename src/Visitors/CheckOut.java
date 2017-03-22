@@ -1,7 +1,6 @@
 package Visitors;
 
 import Books.Book;
-import java.util.Date;
 import java.util.Calendar;
 
 /**
@@ -13,9 +12,9 @@ import java.util.Calendar;
 public class CheckOut
 {
     private Book book;
-    private Date borrowDate;
-    private Date dueDate;
-    private Date returnDate;
+    private Calendar borrowDate;
+    private Calendar dueDate;
+    private Calendar returnDate;
 
     /**
      * Default constructor. Requires a book object to link the checkout to.
@@ -24,7 +23,7 @@ public class CheckOut
      *
      * @param book - book to which this checkout is associated
      */
-    public CheckOut(Book book, Date borrowDate)
+    public CheckOut(Book book, Calendar borrowDate)
     {
         this.book = book;
         this.borrowDate = borrowDate;
@@ -34,17 +33,17 @@ public class CheckOut
 
         // Calculate the due date
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(borrowDate);
+        calendar.setTime(borrowDate.getTime());
         calendar.add(Calendar.DAY_OF_YEAR, daysUntilDue);
 
-        this.dueDate = calendar.getTime();
+        this.dueDate = calendar;
         this.returnDate = null;
     }
 
     /**
      * Sets the return date of the checkout.
      */
-    public void returnBook(Date returnDate)
+    public void returnBook(Calendar returnDate)
     {
         this.returnDate = returnDate;
     }
@@ -64,7 +63,7 @@ public class CheckOut
      *
      * @return The date on which the book(s) were checked out.
      */
-    public Date getBorrowDate()
+    public Calendar getBorrowDate()
     {
         return this.borrowDate;
     }
@@ -74,7 +73,7 @@ public class CheckOut
      *
      * @return checked out book's due date
      */
-    public Date getDueDate()
+    public Calendar getDueDate()
     {
         return this.returnDate;
     }
@@ -84,7 +83,7 @@ public class CheckOut
      *
      * @return checked out book's return date
      */
-    public Date getReturnDate()
+    public Calendar getReturnDate()
     {
         return this.returnDate;
     }
