@@ -206,4 +206,32 @@ public class Book implements java.io.Serializable
         else
             return false;
     }
+
+    /**
+     * Override equals method to check for duplicate books.
+     *
+     * @param bookO - The book to compare.
+     * @return The equality of the two books.
+     */
+    @Override
+    public boolean equals(Object bookO)
+    {
+        // If the book is compared with itself then return true
+        if (bookO == this)
+        {
+            return true;
+        }
+
+        // Check if instance of visitor
+        if (!(bookO instanceof Book))
+        {
+            return false;
+        }
+
+        // Typecast visitor to Visitor so that we can compare data members
+        Book book = (Book) bookO;
+
+        // Compare first and last names
+        return book.getIsbn().equals(this.getIsbn());
+    }
 }
