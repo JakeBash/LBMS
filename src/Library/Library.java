@@ -145,6 +145,10 @@ public class Library extends Observable
             ByStatus bs = new ByStatus();
             bs.sort(searchRes);
         }
+        else if(sortOrder.equals("none"))
+        {
+            ;
+        }
         else
         {
             response += "invalid-sort-order;";
