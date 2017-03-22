@@ -20,5 +20,9 @@ will be implemented in a later release
 also be implemented in a later release
 * It wasn't listed as a required command but Shutdown is a thing
     - the command is "shutdown;"
-    - This hevily relies on Java's Serializable
+    - This heavily relies on Java's Serializable
 * Partial commands Should work.
+* Time is checked by the library every 15 or so seconds, so there may be
+some time between when the library time is advance to when you can start
+using the expected methods
+* Serializing is sketchy at best
