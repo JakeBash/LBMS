@@ -254,8 +254,7 @@ public class Library extends Observable
 
     public void getFormattedDateTime()
     {
-        this.status = "datetime," + timeClock.getFormattedDateTime() + ";" ;
-        notifyObservers();
+        updateStatus("datetime," + timeClock.getFormattedDateTime() + ";" );
     }
 
     /**
@@ -298,6 +297,15 @@ public class Library extends Observable
     public String getStatus()
     {
         return this.status;
+    }
+
+    /*
+     * Updates the status string of the model and notifies any observers.
+     */
+    public void updateStatus(String status){
+        this.status = status;
+        this.setChanged();
+        this.notifyObservers();
     }
 
     public static void main(String [] args)
