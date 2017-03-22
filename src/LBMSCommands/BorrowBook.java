@@ -13,7 +13,7 @@ public class BorrowBook implements LBMSCommand
 {
     private Library library;
     private Long visitorID;
-    private ArrayList<Integer> bookID;
+    private ArrayList<String> bookID;
 
     /**
      * Constructs a borrow book command object.
@@ -22,7 +22,7 @@ public class BorrowBook implements LBMSCommand
      * @param visitorID - The unique 10-digit ID of the visitor.
      * @param bookID - The comma-separated list of IDs for the books to be borrowed by the visitor. 5 at most.
      */
-    public BorrowBook(Library library, Long visitorID, ArrayList<Integer> bookID)
+    public BorrowBook(Library library, Long visitorID, ArrayList<String> bookID)
     {
         this.library = library;
         this.visitorID = visitorID;

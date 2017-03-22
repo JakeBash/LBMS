@@ -1,6 +1,7 @@
 package Books;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -9,11 +10,11 @@ import java.util.Date;
  *
  * @author Jake Bashaw
  */
-public class Purchase
+public class Purchase implements java.io.Serializable
 {
     private int quantity;
     private ArrayList<Book> purchasedBooks;
-    private Date purchaseDate;
+    private Calendar purchaseDate;
 
     /**
      * Constructor for the creation of a book purchase.
@@ -22,7 +23,7 @@ public class Purchase
      * @param quantity - The amount of copies that were purchased for each book
      * @param purchaseDate - The date on which the books were purchased.
      */
-    public Purchase(ArrayList<Book> purchasedBooks, int quantity, Date purchaseDate)
+    public Purchase(ArrayList<Book> purchasedBooks, int quantity, Calendar purchaseDate)
     {
         this.purchasedBooks = purchasedBooks;
         this.quantity = quantity;

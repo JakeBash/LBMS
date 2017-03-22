@@ -1,5 +1,8 @@
 package LBMSCommands;
 
+import Library.Library;
+import java.util.ArrayList;
+
 /**
  * Purchases a subset of the books returned from a previous search of the Book Catalog.
  *
@@ -7,12 +10,18 @@ package LBMSCommands;
  */
 public class PurchaseBook implements LBMSCommand
 {
+    private Library library;
+    private int quantity;
+    private ArrayList<Integer> ids;
+
     /**
      * Creates a PurchaseBook command to purchase a subset of the books returned from a previous search.
      */
-    public PurchaseBook()
+    public PurchaseBook(Library library, int quantity, ArrayList<Integer> ids)
     {
-
+        this.library = library;
+        this.quantity = quantity;
+        this.ids = ids;
     }
 
     /**
@@ -20,6 +29,6 @@ public class PurchaseBook implements LBMSCommand
      */
     public void execute()
     {
-
+        library.purchaseBooks(this.quantity, this.ids);
     }
 }

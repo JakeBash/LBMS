@@ -158,27 +158,23 @@ public class Library extends Observable
         response += searchRes.size() + "\n";
         for(Book b : searchRes)
         {
-            response += b.toString("bSearch") + ";\n";
+            response += b.toString("sSearch") + ";\n";
         }
 
         updateStatus(response);
     }
 
+    /**
+     * This method borrows books for a specified visitor
+     * @param bkID An ArrayList of Book ISBNs
+     * @param vID A Visitor ID
+     */
+    public void borrowBooks(ArrayList<String> bkID,Long vID) {
 
-    public void borrowBooks(ArrayList<Integer> bkID,Long vID) {
+        String str = this.currentState.stateCheckOutBook(bkID, vID, this.visitorStorage,
+                this.timeClock, this.bookStorage);
 
-        Visitor currentV = visitorStorage.getVisitor(vID);
-        ArrayList<Book> books = new ArrayList<>();
-
-        for(Integer id : bkID) {
-            for (Book bk : bookStorage.getLastSearch()) {
-                if (bk.getTempID() == id) {
-                    books.add(bk);
-                    break;
-                }
-            }
-        }
-        currentV.checkOutBooks(books,this.getTime());
+        updateStatus(str);
     }
 
     /**
@@ -188,13 +184,13 @@ public class Library extends Observable
     {
         ArrayList<Book> purchasedBooks = this.bookCatalog.purchase(quantity, ids);
 
-        bookStorage.addBooks(purchasedBooks, quantity);
+        bookStorage.addBooks(purchasedBooks, quantity, this.getTime());
 
         String response = "buy,success\n";
 
         for (Book b : purchasedBooks)
         {
-            response += b.toString("bPurchase") + ";\n";
+            response += b.toString("bPurchase") + quantity +";\n";
         }
 
         updateStatus(response);

@@ -37,6 +37,21 @@ public class CommandParser
     public void parseCommand(String s)
     {
         ArrayList<Object> args = new ArrayList<>(Arrays.asList(s.split(",")));
+
+        /*
+         * This code removes the semicolon from the end of the command
+         */
+        String last = (String) args.get(args.size()-1);
+        if(last.contains(";")){
+            last = last.substring(0,last.length()-1);
+            args.set(args.size()-1,last);
+            this.execute = true;
+        } else {
+            this.execute = false;
+        }
+
+        //end semicolon removal
+
         ArrayList<String> authors = new ArrayList<>();
         for(int i = 0; i < args.size(); i++)
         {
@@ -60,19 +75,7 @@ public class CommandParser
                 args.add(i,authors);
             }
         }
-        // This code removes the semicolon from the end of the command.
-        String last = (String) args.get(args.size()-1);
-        if(last.contains(";"))
-        {
-            last = last.substring(0,last.length()-1);
-            args.set(args.size()-1,last);
-            this.execute = true;
-        }
-        else
-        {
-            this.execute = false;
-        }
-        // End of semicolon removal.
+
         String cmd = (String) args.remove(0);
         this.createCommand(cmd,args);
         if(execute)
@@ -118,14 +121,8 @@ public class CommandParser
                 break;
 
             case "borrow":
-                if(args.size() == 2)
-                {
-                    ArrayList<Integer> bookids = new ArrayList<>();
-                    for(int i = 1; i < args.size(); i ++)
-                    {
-                        bookids.add(Integer.parseInt((String)args.get(i)));
-                    }
-                    command = new BorrowBook(library, Long.parseLong((String)args.get(0)),bookids);
+                if(args.size() == 2) {
+                    command = new BorrowBook(library, Long.parseLong((String)args.get(0)),(ArrayList<String>)args.get(1));
                     this.addCommand(command);
                 }
                 break;
@@ -139,9 +136,13 @@ public class CommandParser
                 break;
 
             case "buy":
-                if (args.size() >= 2)
-                {
-                    command = new PurchaseBook();
+                if (args.size() >= 2){
+                    ArrayList<Integer> ids = new ArrayList<>();
+                    for(int i = 1; i < args.size(); i++){
+                        ids.add(Integer.parseInt((String)args.get(i)));
+                    }
+                    command = new PurchaseBook(library,Integer.parseInt((String)args.get(0)),ids);
+                    this.addCommand(command);
                 }
                 break;
 
@@ -162,30 +163,26 @@ public class CommandParser
                 break;
 
             case "info":
-                if (args.size() == 2)
-                {
-                    //command = new BookSearch(library,args.get(0),(ArrayList<String>)args.get(1));
-                    //this.addCommand(command);
+                if (args.size() == 2){
+                    command = new BookSearch(library,(String)args.get(0),(ArrayList<String>)args.get(1));
+                    this.addCommand(command);
                 }
-                else if (args.size() == 3)
-                {
-                    //command = new BookSearch(library,args.get(0),(ArrayList<String>) args.get(1),(String)args.get(2));
-                    //this.addCommand(command);
+                else if (args.size() == 3){
+                    command = new BookSearch(library,(String)args.get(0),(ArrayList<String>) args.get(1),(String)args.get(2));
+                    this.addCommand(command);
                 }
-                else if(args.size() == 4)
-                {
-                    //command = new BookSearch(library,args.get(0),(ArrayList<String>) args.get(1),(String)args.get(2),(String)args.get(3));
-                    //this.addCommand(command);
+                else if(args.size() == 4){
+                    command = new BookSearch(library,(String)args.get(0),(ArrayList<String>) args.get(1),(String)args.get(2),(String)args.get(3));
+                    this.addCommand(command);
                 }
-                else if(args.size() == 5)
-                {
-                    /*command = new BookSearch(library,
+                else if(args.size() == 5){
+                    command = new BookSearch(library,
                             (String)args.get(0),
                             (ArrayList<String>) args.get(1),
                             (String)args.get(2),
                             (String)args.get(3),
                             (String)args.get(4));
-                    this.addCommand(command);*/
+                    this.addCommand(command);
                 }
                 break;
 
@@ -259,6 +256,10 @@ public class CommandParser
                     this.addCommand(command);
                 }
                 break;
+
+            case "shutdown":
+                library.shutdown();
+                System.exit(0);
 
             default:
                 break;

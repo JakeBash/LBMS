@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.Scanner;
 import Books.Book;
 
-
 /**
  * The CSV Parser handles loading in the books from the books.txt file, into local storage. The stored catalog can later
  * be used to purchase new books for the library.
