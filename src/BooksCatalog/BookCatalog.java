@@ -11,5 +11,5 @@ import java.util.List;
  */
 public interface BookCatalog
 {
-    ArrayList<Book> select(String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder);
+    ArrayList<Book> bookSearch(String title, ArrayList<String> authors, String isbn, String publisher);
 }
