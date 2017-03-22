@@ -27,8 +27,25 @@ public class FlatFileBookCatalog implements BookCatalog {
         }
     }
 
+    /*
+     * Get the most recent search from a client
+     */
     public ArrayList<Book> getLastSearch(){
         return lastsearch;
+    }
+
+
+    /*
+     * Returns the books to be purchased by the library.
+     */
+    public ArrayList<Book> purchase(int quantity, ArrayList<Integer> ids){
+        ArrayList<Book> purchases = new ArrayList<Book>();
+        for(Book book : getLastSearch()){
+            if(ids.contains(book.getTempID())){
+                purchases.add(book);
+            }
+        }
+        return purchases;
     }
 
     /**

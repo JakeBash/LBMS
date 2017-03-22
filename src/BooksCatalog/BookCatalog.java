@@ -15,4 +15,6 @@ public interface BookCatalog
     ArrayList<Book> bookSearch(String title, ArrayList<String> authors, String isbn, String publisher);
 
     ArrayList<Book> getLastSearch();
+
+    ArrayList<Book> purchase(int quantity, ArrayList<Integer> ids);
 }
