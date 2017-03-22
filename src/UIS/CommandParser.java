@@ -23,10 +23,13 @@ public class CommandParser
     private ArrayList<LBMSCommand> commandQueue ;
     // Some kind of reference to our library and time clock or SOEMTHING
     // THIS HAS TO KNOW ABOUT LIBRARY AND CLOCKS AND ETC.
+
+    private Library library;
     
-    public CommandParser()
+    public CommandParser(Library lib)
     {
         commandQueue = new ArrayList<LBMSCommand>() ;
+        library = lib;
 
     }
 
