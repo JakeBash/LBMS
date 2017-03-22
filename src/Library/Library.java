@@ -263,9 +263,9 @@ public class Library extends Observable
      *
      * @return The Time Clock's current time.
      */
-    public Date getTime()
+    public Calendar getTime()
     {
-        return timeClock.getCurrentDateTime();
+        return timeClock.getCalendarDate();
     }
 
     /**
