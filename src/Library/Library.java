@@ -281,14 +281,12 @@ public class Library extends Observable
      */
     public void advanceTime(int days, int hours)
     {
-        // if you advance thorugh closing time, need to close visits
-        // TODO - handle if you advance time past closing or more than one day
-        // TODO - only take numbers 0-7 for days and 0-23 for hours
-        // TODO - Must generate reports after each advance
 
         if ((days >= 0 && days <= 7) && (hours >= 0 && hours <= 23))
         {
             timeClock.advanceTime(days, hours);
+            visitorStorage.endAllVisits();
+            generateReport();
             updateStatus("advance,success;" );
         }
         else if (days < 0 || days > 7)
