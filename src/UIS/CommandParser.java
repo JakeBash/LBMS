@@ -149,7 +149,10 @@ public class CommandParser
 
             case "pay":
                 if (args.size() == 1){
-                    //command = new PayFine();
+                    command = new PayFine(library,
+                            (Integer)args.get(0),
+                            (int)args.get(1));
+                    this.addCommand(command);
                 }
                 break;
 
