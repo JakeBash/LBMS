@@ -237,7 +237,7 @@ public class Library extends Observable
 
     public void getFormattedDateTime()
     {
-        this.status = "datetime," + timeClock.getFormattedDateTime() ;
+        this.status = "datetime," + timeClock.getFormattedDateTime() + ";" ;
         notifyObservers();
     }
 
@@ -263,7 +263,14 @@ public class Library extends Observable
         // TODO - handle if you advance time past closing or more than one day
         // TODO - only take numbers 0-7 for days and 0-23 for hours
         // TODO - Must generate reports after each advance
-        timeClock.advanceTime(days, hours);
+
+        if ((days >= 0 && days <= 7) && (hours >= 0 && hours <= 23))
+        {
+            timeClock.advanceTime(days, hours);
+            this.status = "advance,success;" ;
+            notifyObservers();
+        }
+
     }
 
     /**
