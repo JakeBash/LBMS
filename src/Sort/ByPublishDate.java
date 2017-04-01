@@ -12,7 +12,7 @@ import java.util.Comparator;
 public class ByPublishDate implements SortOrder
 {
     /**
-     * Default constructor.
+     * constructor for a publish date sort.
      */
     public ByPublishDate() {}
 

@@ -12,7 +12,7 @@ import java.util.Comparator;
 public class ByStatus implements SortOrder
 {
     /**
-     * Default constructor.
+     * Constructs a status sort.
      */
     public ByStatus() {}
 

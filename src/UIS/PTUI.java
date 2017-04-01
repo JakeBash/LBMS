@@ -62,7 +62,6 @@ public class PTUI implements Observer
      */
     public static void main(String[] args)
     {
-        //TODO: Remove later
         PTUI test = new PTUI();
         try
         {

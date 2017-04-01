@@ -15,7 +15,6 @@ public class TimeClock implements java.io.Serializable
 {
     private int dayOffset;
     private int hourOffset;
-    // Data file location
     private static String file = "files/TimeClock.ser";
 
     /**
@@ -137,7 +136,6 @@ public class TimeClock implements java.io.Serializable
      */
     public void serialize()
     {
-        // Save to file
         try
         {
             FileOutputStream fileOut = new FileOutputStream(file);
