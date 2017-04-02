@@ -188,9 +188,9 @@ public class VisitorStorage implements java.io.Serializable
      * @param visitorID - id of visitor returning books
      * @param books - books to be returned
      */
-    public void returnBooks(Long visitorID, ArrayList<Book> books) {
+    public double returnBooks(Long visitorID, ArrayList<Book> books) {
         Visitor visitor = this.getVisitor(visitorID);
-        visitor.returnBooks(books, this.library.getTime());
+        return visitor.returnBooks(books, this.library.getTime());
     }
 
     /**

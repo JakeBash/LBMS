@@ -74,7 +74,7 @@ public class CheckOut implements java.io.Serializable
      */
     public Calendar getDueDate()
     {
-        return this.returnDate;
+        return this.dueDate;
     }
 
     /**

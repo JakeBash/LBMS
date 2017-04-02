@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import Books.Book;
 import java.util.concurrent.TimeUnit;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Represents a visitor to the library. Provides all state associated with visitors including their personal data,
@@ -120,8 +121,10 @@ public class Visitor implements java.io.Serializable
      *
      * @param books - An arrayList representing the books to be returned.
      */
-    public void returnBooks(ArrayList<Book> books, Calendar dateReturned)
+    public double returnBooks(ArrayList<Book> books, Calendar dateReturned)
     {
+        double totalFines = 0.0;
+
         for (Book book: books)
         {
             // Find the checkout object associated with the book.
@@ -144,6 +147,9 @@ public class Visitor implements java.io.Serializable
             {
                 this.unpaidFines.add(new UnpaidFine(fineAmount, dateReturned));
                 this.balance += fineAmount;
+
+                // Add to total fines applied
+                totalFines += fineAmount;
             }
 
             // Put the copy back in the library
@@ -152,6 +158,8 @@ public class Visitor implements java.io.Serializable
             // Remove the checkout
             this.checkedOutBooks.remove(checkout);
         }
+
+        return totalFines;
     }
 
     /**
@@ -175,12 +183,16 @@ public class Visitor implements java.io.Serializable
     private int calculateFine(CheckOut checkout)
     {
         int fineAmount = 0;
-        long days = checkout.getReturnDate().getTimeInMillis() - checkout.getDueDate().getTimeInMillis();
-        days = TimeUnit.MILLISECONDS.toDays(days);
+        int returnDate = checkout.getReturnDate().get(Calendar.DAY_OF_YEAR);
+        int dueDate = checkout.getDueDate().get(Calendar.DAY_OF_YEAR);
+
+        int days = returnDate - dueDate;
+
         if (days >= 1)
         {
-            fineAmount = Integer.min(10 + (int) (2 * (days / 7)), 30);
+            fineAmount = Integer.min(10 + (2 * (days / 7)), 30);
         }
+
         return fineAmount;
     }
 

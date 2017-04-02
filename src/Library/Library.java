@@ -400,7 +400,14 @@ public class Library extends Observable
                 books.add(book);
             }
         }
-        this.visitorStorage.returnBooks(visitorID, books);
+
+        double fines = this.visitorStorage.returnBooks(visitorID, books);
+
+        if (fines > 0) {
+            updateStatus("return,overdue,$" + Double.toString(fines) + isbns + ";");
+        } else {
+            updateStatus("return,success;");
+        }
     }
 
     /**
