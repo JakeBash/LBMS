@@ -11,4 +11,6 @@ public class LoggedOutState implements LibraryProtectionProxyState
 
     }
 
+    // Can log in... That is about it as far as I know
+
 }

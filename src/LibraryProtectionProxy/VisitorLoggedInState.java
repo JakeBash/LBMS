@@ -10,5 +10,9 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
 
     }
 
+    // Visitors can Begin Visit
+    // Book info querry from book storage
+    // Borrow books
+    // End Visit
 
 }

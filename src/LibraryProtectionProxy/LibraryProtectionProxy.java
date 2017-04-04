@@ -38,8 +38,6 @@ public class LibraryProtectionProxy
 
 
 
-
-
     /**
      *
      * @param index the index of the state to change to
@@ -48,6 +46,12 @@ public class LibraryProtectionProxy
     {
         state = stateList.get(index);
     }
+
+
+
+
+    // TODO implement library interface
+    ////////////////////////////////////////////////////////////////
 
 
 }
