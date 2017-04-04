@@ -46,6 +46,12 @@ public class Library extends Observable
         // TODO: Add catalog, purchases
         this.status = "";
 
+        // Init library states
+        this.stateList = new ArrayList<LibraryState>();
+        this.stateList.add(new LibraryOpen());
+        this.stateList.add(new LibraryClosed());
+        this.currentState = this.stateList.get(0);
+
         // Initialized with reference to self to give access to TimeClock
         this.visitorStorage = VisitorStorage.deserialize(this);
 
@@ -56,13 +62,6 @@ public class Library extends Observable
         this.timer = new Timer("Task Timer");
         this.checkTimeTask = new CheckTimeTask(this);
         timer.schedule(checkTimeTask, 0, 15000);
-
-        // Init library states
-        this.stateList = new ArrayList<LibraryState>();
-        this.stateList.add(new LibraryOpen());
-        this.stateList.add(new LibraryClosed());
-        this.currentState = this.stateList.get(0);
-
     }
 
     /**

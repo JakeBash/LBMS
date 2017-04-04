@@ -2,9 +2,7 @@ package Visitors;
 
 import java.util.ArrayList;
 import Books.Book;
-import java.util.concurrent.TimeUnit;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Represents a visitor to the library. Provides all state associated with visitors including their personal data,
