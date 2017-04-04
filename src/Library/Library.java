@@ -259,6 +259,7 @@ public class Library extends Observable
 
     /**
      * Retrieves a list of books currently checked out for a registered visitor.
+     * Finds borrowed/checked out books
      *
      * @param visitorID - The visitor being queried for their checked out books.
      */
@@ -327,7 +328,7 @@ public class Library extends Observable
     /**
      * Changes the current state of the library from open to closed.
      */
-    public void close()
+    private void close()
     {
         this.visitorStorage.endAllVisits();
         this.currentState = stateList.get(CLOSED);
@@ -336,7 +337,7 @@ public class Library extends Observable
     /**
      * Changes the current state of the library from closed to open.
      */
-    public void open()
+    private void open()
     {
         this.currentState = stateList.get(OPEN);
     }
