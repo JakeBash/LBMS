@@ -72,7 +72,7 @@ public class VisitorStorage implements java.io.Serializable
         if (this.visitors.containsValue(visitor)) { return null; }
 
         // Generate a random visitor ID
-        Long newKey = (long)(Math.random()*100000 + 3333300000L);
+        Long newKey = (long) Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L;
 
         // Set the visitor's id, registered date and store
         visitor.register(newKey, this.library.getTime());
@@ -188,9 +188,9 @@ public class VisitorStorage implements java.io.Serializable
      * @param visitorID - id of visitor returning books
      * @param books - books to be returned
      */
-    public void returnBooks(Long visitorID, ArrayList<Book> books) {
+    public double returnBooks(Long visitorID, ArrayList<Book> books) {
         Visitor visitor = this.getVisitor(visitorID);
-        visitor.returnBooks(books, this.library.getTime());
+        return visitor.returnBooks(books, this.library.getTime());
     }
 
     /**
