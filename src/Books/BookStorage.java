@@ -241,7 +241,6 @@ public class BookStorage implements java.io.Serializable
      */
     public void serialize()
     {
-        // Save to file
         try
         {
             FileOutputStream fileOut = new FileOutputStream(file);

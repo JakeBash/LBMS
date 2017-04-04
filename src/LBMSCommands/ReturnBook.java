@@ -14,7 +14,7 @@ public class ReturnBook implements LBMSCommand
 {
     private Library library;
     private Long visitorID;
-    private ArrayList<String> bookID; // ISBN????!?!?
+    private ArrayList<String> bookID;
 
     /**
      * Creates a ReturnBook command, which will return a book for a registered visitor.

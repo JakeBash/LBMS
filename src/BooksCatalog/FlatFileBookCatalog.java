@@ -7,7 +7,8 @@ import java.util.List;
 import Books.Book;
 
 /**
- * Description
+ * Handles the storage of the currently used library catalog. Holds books objects that employees of the library can
+ * interact with to  search for and purchase new books for the library.
  *
  * @author Tyler Reimold
  */

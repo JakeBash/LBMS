@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  * This interface lays out a base structure for a BookCatalog. We will later add an implementation of this interface to
- * allow the use of AWS(Amazon Web Services) for the purchasing and querying of the book catalog.
+ * allow the use of Google Books web services for the purchasing and querying of the book catalog.
  *
  * @author Tyler Reimold
  */

@@ -12,7 +12,7 @@ import java.util.Comparator;
 public class ByTitle implements SortOrder
 {
     /**
-     * Default constructor.
+     * Constructs a by title sort.
      */
     public ByTitle() {}
 
@@ -54,7 +54,6 @@ public class ByTitle implements SortOrder
      */
     public static void main(String [] args)
     {
-        //TODO: Remove later
         Book b1 = new Book("0123456789","cBook", null, "apub",
                 "02-02-2501", 441);
         Book b2 = new Book("1234567890", "aBook", null, "apub",

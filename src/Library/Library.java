@@ -25,8 +25,8 @@ import java.io.File;
  */
 public class Library extends Observable
 {
-    private final int OPEN = 0 ;
-    private final int CLOSED = 1 ;
+    private final int OPEN = 0;
+    private final int CLOSED = 1;
 
     private VisitorStorage visitorStorage;
     private BookStorage bookStorage;
@@ -35,20 +35,17 @@ public class Library extends Observable
     private TimeClock timeClock;
     private CheckTimeTask checkTimeTask;
     private Timer timer;
-    private LibraryState currentState ;
-    private ArrayList<LibraryState> stateList ;
+    private LibraryState currentState;
+    private ArrayList<LibraryState> stateList;
 
     /**
      * Initializes all required persistent state from existing files.
      */
     public Library()
     {
-        // TODO: Add catalog, purchases
         this.status = "";
-
         // Initialized with reference to self to give access to TimeClock
         this.visitorStorage = VisitorStorage.deserialize(this);
-
         this.bookStorage = BookStorage.deserialize();
         this.bookCatalog = new FlatFileBookCatalog(new File("files/books.txt"));
         this.timeClock = TimeClock.deserialize();
@@ -56,13 +53,11 @@ public class Library extends Observable
         this.timer = new Timer("Task Timer");
         this.checkTimeTask = new CheckTimeTask(this);
         timer.schedule(checkTimeTask, 0, 15000);
-
         // Init library states
         this.stateList = new ArrayList<LibraryState>();
         this.stateList.add(new LibraryOpen());
         this.stateList.add(new LibraryClosed());
         this.currentState = this.stateList.get(0);
-
     }
 
     /**
@@ -96,7 +91,7 @@ public class Library extends Observable
         }
         else if(sortOrder.equals("none"))
         {
-            ;
+           ;
         }
         else
         {
@@ -113,8 +108,7 @@ public class Library extends Observable
 
         updateStatus(response);
     }
-
-
+    
     /**
      * Performs a search for books in the bookstore
      *
@@ -146,7 +140,7 @@ public class Library extends Observable
         }
         else if(sortOrder.equals("none"))
         {
-            ;
+           ;
         }
         else
         {
@@ -165,20 +159,22 @@ public class Library extends Observable
     }
 
     /**
-     * This method borrows books for a specified visitor
-     * @param bkID An ArrayList of Book ISBNs
-     * @param vID A Visitor ID
+     * This method borrows books for a specified visitor.
+     *
+     * @param bkID - An ArrayList of Book ISBNs
+     * @param vID - A Visitor ID.
      */
-    public void borrowBooks(ArrayList<String> bkID,Long vID) {
-
-        String str = this.currentState.stateCheckOutBook(bkID, vID, this.visitorStorage,
-                this.timeClock, this.bookStorage);
-
+    public void borrowBooks(ArrayList<String> bkID,Long vID)
+    {
+        String str = this.currentState.stateCheckOutBook(bkID, vID, this.visitorStorage, this.timeClock, this.bookStorage);
         updateStatus(str);
     }
 
     /**
-     * Description
+     * Purchases books from a recent Book Catalog search.
+     *
+     * @param quantity - The amount of books to be purchased.
+     * @param ids - The temporary ID's of the books to be purchased.
      */
     public void purchaseBooks(int quantity, ArrayList<Integer> ids)
     {
@@ -319,18 +315,18 @@ public class Library extends Observable
      */
     public void checkTime()
     {
-        int hour = timeClock.getCalendarDate().get(Calendar.HOUR_OF_DAY) ;
+        int hour = timeClock.getCalendarDate().get(Calendar.HOUR_OF_DAY);
 
         if((hour < 8 || hour >= 19) && (this.currentState == stateList.get(OPEN)))
             close();
         else if ((hour >= 8 && hour < 19) && (this.currentState == stateList.get(CLOSED)))
             open();
         else
-            ; // Do nothing
+           ; // Do nothing
     }
 
     /**
-     * Change the state of the library to Closed
+     * Changes the current state of the library from open to closed.
      */
     private void close()
     {
@@ -339,7 +335,7 @@ public class Library extends Observable
     }
 
     /**
-     * Changes the state of the library to Open
+     * Changes the current state of the library from closed to open.
      */
     private void open()
     {
@@ -347,7 +343,7 @@ public class Library extends Observable
     }
 
     /**
-     * Gets the current date time of the Library system
+     * Gets a formatted date and time for use in system responses.
      */
     public void getFormattedDateTime()
     {
@@ -355,7 +351,7 @@ public class Library extends Observable
     }
 
     /**
-     * Gets the time of the system in a Date object
+     * Gets the time of the system in a Date object.
      *
      * @return The Time Clock's current time.
      */
@@ -367,8 +363,8 @@ public class Library extends Observable
     /**
      * Method to advance the time of the library.
      *
-     * @param days the number of days to advance.
-     * @param hours the number of hours to advance.
+     * @param days - The number of days to advance.
+     * @param hours - The number of hours to advance.
      */
     public void advanceTime(int days, int hours)
     {
@@ -412,19 +408,18 @@ public class Library extends Observable
     }
 
     /**
-     * Description
-     *
-     * @return
+     * Returns the current status for use with command responses.
      */
     public String getStatus()
     {
-        return this.status;
+       return this.status;
     }
 
     /**
      * Updates the status string of the model and notifies any observers.
      */
-    public void updateStatus(String status){
+    public void updateStatus(String status)
+    {
         this.status = status;
         this.setChanged();
         this.notifyObservers();
@@ -441,9 +436,11 @@ public class Library extends Observable
         this.bookStorage.serialize();
     }
 
+    /**
+     *  Main method for testing.
+     */
     public static void main(String [] args)
     {
-        //TODO: Remove later
         Library lib = new Library();
     }
 }
@@ -456,9 +453,9 @@ class CheckTimeTask extends TimerTask
     private Library library;
 
     /**
-     * Description
+     * Constructor to create a CheckTimeTask.
      *
-     * @param library - the library that is checking the time;
+     * @param library - The library that is checking the time.
      */
     public CheckTimeTask(Library library)
     {
@@ -466,7 +463,7 @@ class CheckTimeTask extends TimerTask
     }
 
     /**
-     * Tells the library to checkTime when the Thread is created
+     * Tells the library to checkTime when the Thread is created.
      */
     public void run()
     {
