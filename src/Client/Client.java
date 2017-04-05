@@ -1,4 +1,4 @@
-package UIS;
+package Client;
 
 /**
  * @author Nikolas Tilley
@@ -6,6 +6,10 @@ package UIS;
 public class Client {
 
     private long clientId;
+    // Visitor
+    // Command Parser
+    // Proxy
+    // Library ?
 
     public Client( long clientID )
     {

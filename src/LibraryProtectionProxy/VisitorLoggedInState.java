@@ -8,11 +8,10 @@ package LibraryProtectionProxy;
  * Begin visits
  * Book info query from book storage
  * Borrow Books
+ * Return Borrowed Books
  * End visits
+ * Logout
  *
- * TODO confirm these permissions
- * Logout -- probably duh
- * Return Borrowed Books? -- or is this just the employee?
  * disconnect?
  * shutdown -- this should probably just be employees
  *
