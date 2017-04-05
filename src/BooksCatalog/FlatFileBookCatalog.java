@@ -196,7 +196,7 @@ public class FlatFileBookCatalog implements BookCatalog
         BookCatalog meme = new FlatFileBookCatalog(new File("files/books.txt"));
         ArrayList<String> authors = new ArrayList<>();
         authors.add("*");
-        System.out.println(meme.bookSearch("*",authors,"*","*"));
+        System.out.println(meme.bookSearch("*",authors,"*","*")) ;
         System.out.println(meme.getLastSearch());
     }
 }
