@@ -4,6 +4,11 @@ package LibraryProtectionProxy;
  * Protection Proxy state for when the client is connected but
  * a user is not logged in
  *
+ * Connected clients that are not logged in may:
+ * Login
+ * shutdown?
+ * disconnect?
+ *
  * @author Nikolas Tilley
  */
 public class LoggedOutState implements LibraryProtectionProxyState
@@ -11,7 +16,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
 
     public LoggedOutState()
     {
-        
+
     }
 
     // Can log in... That is about it as far as I know
@@ -21,7 +26,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Library Book Search
     public void bookSearch()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -29,7 +34,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Book Store Search
     public void bookStoreSearch()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -37,7 +42,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Borrow book
     public void borrowBook()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -45,7 +50,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Book Purchase
     public void purchaseBooks()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -53,7 +58,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Register Visitor
     public void registerVisitor()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -61,7 +66,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Begin Visit
     public void beginVisit()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -69,7 +74,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // End Visit
     public void endVisit()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -77,7 +82,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Find Borrowed Books
     public void getVisitorCheckedOutBooks()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -85,7 +90,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Pay fine
     public void payFine()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -93,7 +98,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Library Statistic Report
     public void generateReport()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -101,7 +106,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Current Date Time
     public void getFormattedDateTime()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -109,7 +114,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Advance Time
     public void advanceTime()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -117,7 +122,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Return book
     public void returnBooks()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -125,7 +130,8 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Shut Down
     public void shutdown()
     {
-
+        // Todo do you need to be logged in to shutdown?
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -133,7 +139,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Client Connect
     public void clientConnect()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -141,7 +147,8 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Client Disconnect
     public void clientDisconnect()
     {
-
+        // response - client ID,disconnect;
+        // todo need to make a state change
     }
 
     // Todo supply argument signature
@@ -149,7 +156,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Create New Account
     public void createAccount()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -157,7 +164,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Log In
     public void login()
     {
-
+        // todo Needs a state change
     }
 
     // Todo supply argument signature
@@ -165,7 +172,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Log Out
     public void logout()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
 
@@ -176,7 +183,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Undo
     public void undo()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -184,7 +191,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Redo
     public void redo()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -194,7 +201,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Set book information service
     public void setService()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
 

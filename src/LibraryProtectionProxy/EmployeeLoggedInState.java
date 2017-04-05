@@ -4,6 +4,9 @@ package LibraryProtectionProxy;
  * Protection Proxy state for when the client is connected, the user is logged in,
  * and that user is an Employee of the library
  *
+ * A logged in employee has access to all the commands
+ *
+ *
  * @author Nikolas Tilley
  */
 public class EmployeeLoggedInState implements LibraryProtectionProxyState
@@ -130,6 +133,7 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // connect,
     // Client Connect
+    // Probably should return an error because you are already connected
     public void clientConnect()
     {
 
@@ -138,9 +142,10 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // disconnect,
     // Client Disconnect
+    // logs user our and ends connection
     public void clientDisconnect()
     {
-
+        // todo needs a state change
     }
 
     // Todo supply argument signature
@@ -164,7 +169,7 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Log Out
     public void logout()
     {
-
+        // todo needs a state change
     }
 
 

@@ -5,7 +5,8 @@ import Library.Library;
 import java.util.ArrayList;
 
 /**
- *
+ * Todo should you be made to type in clientId for every command or is it auto appended by system?
+ * Todo responses should also be preceded by clientID
  *
  * @author Nikolas Tilley
  */

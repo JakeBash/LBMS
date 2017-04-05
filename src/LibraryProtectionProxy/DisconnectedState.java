@@ -135,6 +135,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     public void clientConnect()
     {
         // Allow Client to connect to library, notify lib of new client to update
+        // response - "connect,client ID;"
     }
 
     // Todo supply argument signature

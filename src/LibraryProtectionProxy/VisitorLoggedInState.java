@@ -4,6 +4,18 @@ package LibraryProtectionProxy;
  * Protection Proxy state for when client is connected, and the user is logged in
  * and that user is a Visitor
  *
+ * Logged in visitors may:
+ * Begin visits
+ * Book info query from book storage
+ * Borrow Books
+ * End visits
+ *
+ * TODO confirm these permissions
+ * Logout -- probably duh
+ * Return Borrowed Books? -- or is this just the employee?
+ * disconnect?
+ * shutdown -- this should probably just be employees
+ *
  * @author Nikolas Tilley
  */
 public class VisitorLoggedInState implements LibraryProtectionProxyState
@@ -32,7 +44,7 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Book Store Search
     public void bookStoreSearch()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -48,7 +60,7 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Book Purchase
     public void purchaseBooks()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -56,7 +68,7 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Register Visitor
     public void registerVisitor()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -81,6 +93,8 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     public void getVisitorCheckedOutBooks()
     {
 
+        // Todo.... can you view your own checked out books?
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -88,7 +102,8 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Pay fine
     public void payFine()
     {
-
+        // todo Can only employees pay fines?
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -96,7 +111,7 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Library Statistic Report
     public void generateReport()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -104,7 +119,8 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Current Date Time
     public void getFormattedDateTime()
     {
-
+        // todo can only employees get the time?
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -112,7 +128,7 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Advance Time
     public void advanceTime()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -120,7 +136,8 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Return book
     public void returnBooks()
     {
-
+        // todo Can employees only return books?
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -128,7 +145,8 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Shut Down
     public void shutdown()
     {
-
+        // todo can visitors shutdown?
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -136,15 +154,19 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Client Connect
     public void clientConnect()
     {
-
+        // Todo should this be an "already connected" error
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
     // disconnect,
     // Client Disconnect
+    // Logs user out and ends connection
     public void clientDisconnect()
     {
-
+        // Todo Needs a state change
+        // todo can visitors disconnect clients?
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -152,7 +174,7 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Create New Account
     public void createAccount()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -160,7 +182,8 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Log In
     public void login()
     {
-
+        // Todo: should this be "already logged in"
+        // response: "client ID,<request name>,not-authorized;"
     }
 
     // Todo supply argument signature
@@ -168,7 +191,7 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Log Out
     public void logout()
     {
-
+        // todo needs a state change
     }
 
 
@@ -197,7 +220,7 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Set book information service
     public void setService()
     {
-
+        // response: "client ID,<request name>,not-authorized;"
     }
 
 
