@@ -1,6 +1,9 @@
 package LibraryProtectionProxy;
 
 /**
+ * Protection Proxy state for when the client is connected, the user is logged in,
+ * and that user is an Employee of the library
+ *
  * @author Nikolas Tilley
  */
 public class EmployeeLoggedInState implements LibraryProtectionProxyState

@@ -1,6 +1,9 @@
 package LibraryProtectionProxy;
 
 /**
+ * Protection Proxy state for when client is connected, and the user is logged in
+ * and that user is a Visitor
+ *
  * @author Nikolas Tilley
  */
 public class VisitorLoggedInState implements LibraryProtectionProxyState

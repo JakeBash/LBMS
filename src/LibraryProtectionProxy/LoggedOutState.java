@@ -1,6 +1,9 @@
 package LibraryProtectionProxy;
 
 /**
+ * Protection Proxy state for when the client is connected but
+ * a user is not logged in
+ *
  * @author Nikolas Tilley
  */
 public class LoggedOutState implements LibraryProtectionProxyState
@@ -8,7 +11,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
 
     public LoggedOutState()
     {
-
+        
     }
 
     // Can log in... That is about it as far as I know

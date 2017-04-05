@@ -1,9 +1,16 @@
 package LibraryProtectionProxy;
 
 /**
+ * Proxy state for when the client is not connected to the library
+ *
  * @author Nikolas Tilley
  */
 public class DisconnectedState implements LibraryProtectionProxyState {
+
+    // todo disconnected commands would not be able to pass errors to the library... would
+    // have to directly place error into textbox unless that command is like connect or shutdown
+
+    private final String CLIENT_ERROR = "invalid-client-id;";
 
     public DisconnectedState()
     {
@@ -15,7 +22,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Library Book Search
     public void bookSearch()
     {
-
+        // Set Client UI to CLIENT_ERROR
     }
 
     // Todo supply argument signature
@@ -23,7 +30,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Book Store Search
     public void bookStoreSearch()
     {
-
+        // Set Client UI to CLIENT_ERROR
     }
 
     // Todo supply argument signature
@@ -31,7 +38,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Borrow book
     public void borrowBook()
     {
-
+        // Set Client UI to CLIENT_ERROR
     }
 
     // Todo supply argument signature
@@ -39,7 +46,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Book Purchase
     public void purchaseBooks()
     {
-
+        // Set Client UI to CLIENT_ERROR
     }
 
     // Todo supply argument signature
@@ -47,7 +54,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Register Visitor
     public void registerVisitor()
     {
-
+        // Set Client UI to CLIENT_ERROR
     }
 
     // Todo supply argument signature
@@ -55,7 +62,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Begin Visit
     public void beginVisit()
     {
-
+        // Set Client UI to CLIENT_ERROR
     }
 
     // Todo supply argument signature
@@ -63,7 +70,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // End Visit
     public void endVisit()
     {
-
+        // Set Client UI to CLIENT_ERROR
     }
 
     // Todo supply argument signature
@@ -71,7 +78,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Find Borrowed Books
     public void getVisitorCheckedOutBooks()
     {
-
+        // Set Client UI to CLIENT_ERROR
     }
 
     // Todo supply argument signature
@@ -79,7 +86,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Pay fine
     public void payFine()
     {
-
+        // Set Client UI to CLIENT_ERROR
     }
 
     // Todo supply argument signature
@@ -87,7 +94,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Library Statistic Report
     public void generateReport()
     {
-
+        // Set Client UI to CLIENT_ERROR
     }
 
     // Todo supply argument signature
@@ -95,7 +102,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Current Date Time
     public void getFormattedDateTime()
     {
-
+        // Set Client UI to CLIENT_ERROR
     }
 
     // Todo supply argument signature
@@ -103,7 +110,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Advance Time
     public void advanceTime()
     {
-
+        // Set Client UI to CLIENT_ERROR
     }
 
     // Todo supply argument signature
@@ -111,7 +118,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Return book
     public void returnBooks()
     {
-
+        // Set Client UI to CLIENT_ERROR
     }
 
     // Todo supply argument signature
@@ -119,7 +126,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Shut Down
     public void shutdown()
     {
-
+        // Set Client UI to CLIENT_ERROR Maybe...
     }
 
     // Todo supply argument signature
@@ -127,7 +134,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Client Connect
     public void clientConnect()
     {
-
+        // Allow Client to connect to library, notify lib of new client to update
     }
 
     // Todo supply argument signature
@@ -135,7 +142,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Client Disconnect
     public void clientDisconnect()
     {
-
+        // Set Client UI to CLIENT_ERROR
     }
 
     // Todo supply argument signature
@@ -143,7 +150,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Create New Account
     public void createAccount()
     {
-
+        // Set Client UI to CLIENT_ERROR
     }
 
     // Todo supply argument signature
@@ -151,7 +158,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Log In
     public void login()
     {
-
+        // Set Client UI to CLIENT_ERROR
     }
 
     // Todo supply argument signature
@@ -159,7 +166,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Log Out
     public void logout()
     {
-
+        // Set Client UI to CLIENT_ERROR
     }
 
 
@@ -170,7 +177,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Undo
     public void undo()
     {
-
+        // Set Client UI to CLIENT_ERROR
     }
 
     // Todo supply argument signature
@@ -178,7 +185,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Redo
     public void redo()
     {
-
+        // Set Client UI to CLIENT_ERROR
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -188,6 +195,6 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Set book information service
     public void setService()
     {
-
+        // Set Client UI to CLIENT_ERROR
     }
 }
