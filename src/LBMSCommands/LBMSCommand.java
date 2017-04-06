@@ -12,4 +12,6 @@ public interface LBMSCommand
      * Executes the command on the library.
      */
     void execute();
+
+    void undo();
 }

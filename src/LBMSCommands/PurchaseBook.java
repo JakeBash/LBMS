@@ -31,4 +31,12 @@ public class PurchaseBook implements LBMSCommand
     {
         library.purchaseBooks(this.quantity, this.ids);
     }
+
+    /**
+     * If the Command is undoable as per the requirements, then implement behavior to undo
+     */
+    public void undo()
+    {
+
+    }
 }

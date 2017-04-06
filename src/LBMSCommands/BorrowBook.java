@@ -36,4 +36,12 @@ public class BorrowBook implements LBMSCommand
     {
         this.library.borrowBooks(bookID,this.visitorID);
     }
+
+    /**
+     * If the Command is undoable as per the requirements, then implement behavior to undo
+     */
+    public void undo()
+    {
+
+    }
 }

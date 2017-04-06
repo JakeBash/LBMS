@@ -35,4 +35,12 @@ public class PayFine implements LBMSCommand
     {
         library.payFine(this.visitorID, this.amount);
     }
+
+    /**
+     * If the Command is undoable as per the requirements, then implement behavior to undo
+     */
+    public void undo()
+    {
+
+    }
 }

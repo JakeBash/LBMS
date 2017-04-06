@@ -31,4 +31,12 @@ public class BeginVisit implements LBMSCommand
     {
         library.beginVisit(visitorID);
     }
+
+    /**
+     * If the Command is undoable as per the requirements, then implement behavior to undo
+     */
+    public void undo()
+    {
+
+    }
 }

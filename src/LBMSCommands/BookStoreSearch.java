@@ -101,4 +101,12 @@ public class BookStoreSearch implements LBMSCommand
     {
         this.library.bookStoreSearch(this.title, this.authors, this.isbn, this.publisher, this.sortOrder);
     }
+
+    /**
+     * If the Command is undoable as per the requirements, then implement behavior to undo
+     */
+    public void undo()
+    {
+
+    }
 }
