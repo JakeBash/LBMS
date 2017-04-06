@@ -108,7 +108,7 @@ public class Library extends Observable
 
         updateStatus(response);
     }
-    
+
     /**
      * Performs a search for books in the bookstore
      *
