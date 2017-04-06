@@ -5,13 +5,15 @@ import Library.Library;
 
 /**
  * Borrows a book for a visitor; uses the ID of a specific book or books returned in the most recent library book search.
- * Signature - borrow,visitor ID,{id};
+ *
+ * Signature - clientID,borrow,visitor ID,{id};
  * 
  * @author Nikolas Tilley
  */
 public class BorrowBook implements LBMSCommand
 {
     private Library library;
+    // Todo private long clientID
     private Long visitorID;
     private ArrayList<String> bookID;
 
@@ -44,4 +46,26 @@ public class BorrowBook implements LBMSCommand
     {
 
     }
+
+
+
+    private void parse(String s) {
+        ArrayList<String> args = new ArrayList<String>();
+        // List of book IDS
+
+        String arg = "";
+
+
+        for (char c : s.toCharArray()) {
+
+            if (c == ',' || c == ';') {
+                args.add(arg);
+                arg = "";
+            } else
+                arg += c;
+        }
+        // Todo, when you see {} start adding to list of ids
+        // Todo cast to proper types and set use try/catches
+    }
+
 }

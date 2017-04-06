@@ -6,11 +6,15 @@ import java.util.ArrayList;
 /**
  * Purchases a subset of the books returned from a previous search of the Book Catalog.
  *
+ * Command format: clientID,buy,quantity,id[,ids];
+
+ *
  * @author Nikolas Tilley
  */
 public class PurchaseBook implements LBMSCommand
 {
     private Library library;
+    // todo private long clientID;
     private int quantity;
     private ArrayList<Integer> ids;
 
@@ -39,4 +43,28 @@ public class PurchaseBook implements LBMSCommand
     {
 
     }
+
+
+
+
+    private void parse(String s) {
+        ArrayList<String> args = new ArrayList<String>();
+        // List of book IDS
+
+        String arg = "";
+
+
+        for (char c : s.toCharArray()) {
+
+            if (c == ',' || c == ';') {
+                args.add(arg);
+                arg = "";
+            } else
+                arg += c;
+        }
+        // Todo, when you see {} start adding to list of ids
+        // Todo cast to proper types and set use try/catches
+    }
+
+
 }

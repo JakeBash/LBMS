@@ -6,12 +6,15 @@ import java.util.ArrayList;
 /**
  * Handles the execution of the book search from the library's internal storage.
  *
+ * Signature - clientID,info,title,{authors},[isbn, [publisher,[sort order]]];
+ *
  * @author Nikolas Tilley
  * @author Jake Bashaw
  */
 public class BookSearch implements LBMSCommand
 {
     private Library library;
+    // Todo private long clientID; // Have to add this information to command
     private String title;
     private ArrayList<String> authors;
     private String isbn;
@@ -109,5 +112,56 @@ public class BookSearch implements LBMSCommand
     public void undo()
     {
 
+    }
+
+
+
+
+    private void parse(String s)
+    {
+
+        ArrayList<String> args = new ArrayList<String>();
+        // ArrayList<String> authors = new ArrayList<String>();
+        String arg = "";
+
+        boolean parseLiteral = false;
+
+        for(char c : s.toCharArray())
+        {
+            if ( (c == '{' || c == '\"') && !parseLiteral ) {
+                parseLiteral = true;
+                continue; // Skip { and "
+            }
+            else if ( (c == '}' || c == '\"') && parseLiteral ) {
+                parseLiteral = false;
+                continue; // Skip } and "
+            }
+
+            if ((c == ',' || c == ';') && !parseLiteral) {
+                args.add(arg);
+                arg = "";
+            }
+            else
+                arg += c;
+        }
+
+        // Check valid input with try catchs for casting or something
+        // depending on length you will convert different
+        // Todo delete when done testing
+        for(String ss : args)
+            System.out.println(ss);
+
+    }
+
+
+
+
+
+    // Testing Parsing
+    public static void main(String [] args)
+    {
+        Library lib = new Library();
+        BookSearch cmd = new BookSearch(lib, "title", new ArrayList<String>());
+        cmd.parse("info,\"This is a, comma in a title.\",{author one, author 2, author 3},isbn,publisher,sort order;");
     }
 }

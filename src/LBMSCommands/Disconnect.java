@@ -2,6 +2,8 @@ package LBMSCommands;
 
 import Library.Library;
 
+import java.util.ArrayList;
+
 /**
  * Disconnects the specified client. Any subsequent requests that use the same client ID should be considered invalid.
  *
@@ -38,6 +40,34 @@ public class Disconnect implements LBMSCommand
      */
     @Override
     public void undo() {
+
+    }
+
+
+
+
+
+
+
+
+    private void parse(String s)
+    {
+
+        ArrayList<String> args = new ArrayList<String>();
+
+        String arg = "";
+
+
+        for(char c : s.toCharArray())
+        {
+
+            if (c == ',' || c == ';') {
+                args.add(arg);
+                arg = "";
+            }
+            else
+                arg += c;
+        }
 
     }
 }

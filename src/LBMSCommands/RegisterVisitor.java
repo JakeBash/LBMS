@@ -2,9 +2,12 @@ package LBMSCommands;
 
 import Library.Library;
 
+import java.util.ArrayList;
+
 /**
  * Registers a new visitor so that they can access the library. Visitors are assigned a unique, 10-digit ID by the LBMS.
- * Command format: register,first name,last name,address, phone-number.
+ *
+ * Command format: clientID,register,first name,last name,address, phone-number.
  *
  * @author Kyler Freas
  * @author Nikolas Tilley
@@ -12,6 +15,7 @@ import Library.Library;
 public class RegisterVisitor implements LBMSCommand
 {
     private Library library;
+    // Todo private long clientID;
     private String firstName;
     private String lastName;
     private String address;
@@ -48,6 +52,30 @@ public class RegisterVisitor implements LBMSCommand
      */
     public void undo()
     {
+
+    }
+
+
+
+
+
+
+    private void parse(String s)
+    {
+        ArrayList<String> args = new ArrayList<String>();
+
+        String arg = "";
+
+        for(char c : s.toCharArray())
+        {
+
+            if (c == ',' || c == ';') {
+                args.add(arg);
+                arg = "";
+            }
+            else
+                arg += c;
+        }
 
     }
 }

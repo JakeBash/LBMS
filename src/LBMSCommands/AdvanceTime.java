@@ -2,15 +2,20 @@ package LBMSCommands;
 
 import Library.Library;
 
+import java.util.ArrayList;
+
 /**
  * Advances the library forward in Time. The number of days can be between 0 and 7, and the number of hours can be
  * between 0 and 23.
+ *
+ * clientID,advance,number-of-days[,number-of-hours];
  * 
  * @author Nikolas Tilley
  */
 public class AdvanceTime implements LBMSCommand
 {
     private Library library;
+    // Todo private long clientID; // Have to add this information to command
     private int days;
     private int hours;
 
@@ -56,4 +61,34 @@ public class AdvanceTime implements LBMSCommand
     {
 
     }
+
+
+
+    private void parse(String s)
+    {
+
+        ArrayList<String> args = new ArrayList<String>();
+
+        String arg = "";
+
+
+        for(char c : s.toCharArray())
+        {
+
+            if (c == ',' || c == ';') {
+                args.add(arg);
+                arg = "";
+            }
+            else
+                arg += c;
+        }
+
+        // Check valid input with try catch for casting or something
+        // depending on length you will convert different
+        for(String ss : args)
+            System.out.println(ss);
+
+    }
+
+
 }

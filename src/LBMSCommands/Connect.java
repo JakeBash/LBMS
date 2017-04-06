@@ -2,6 +2,8 @@ package LBMSCommands;
 
 import Library.Library;
 
+import java.util.ArrayList;
+
 /**
  * A new client establishes a connection with the Library.
  *
@@ -42,6 +44,31 @@ public class Connect implements LBMSCommand
      */
     @Override
     public void undo() {
+
+    }
+
+
+
+
+
+    private void parse(String s)
+    {
+
+        ArrayList<String> args = new ArrayList<String>();
+
+        String arg = "";
+
+
+        for(char c : s.toCharArray())
+        {
+
+            if (c == ',' || c == ';') {
+                args.add(arg);
+                arg = "";
+            }
+            else
+                arg += c;
+        }
 
     }
 }

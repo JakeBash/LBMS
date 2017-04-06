@@ -2,15 +2,18 @@ package LBMSCommands;
 
 import Library.Library;
 
+import java.util.ArrayList;
+
 /**
  * Ends a visit in progress.
- * Command format: depart,visitor ID.
+ * Command format: clientID,depart,visitor ID.
  * 
  * @author Nikolas Tilley
  */
 public class EndVisit implements LBMSCommand
 {
     private Library library;
+    // todo private long clientID;
     private Long visitorID;
 
     /**
@@ -38,6 +41,35 @@ public class EndVisit implements LBMSCommand
      */
     public void undo()
     {
+
+    }
+
+
+
+
+
+
+
+
+
+    private void parse(String s)
+    {
+
+        ArrayList<String> args = new ArrayList<String>();
+
+        String arg = "";
+
+
+        for(char c : s.toCharArray())
+        {
+
+            if (c == ',' || c == ';') {
+                args.add(arg);
+                arg = "";
+            }
+            else
+                arg += c;
+        }
 
     }
 }

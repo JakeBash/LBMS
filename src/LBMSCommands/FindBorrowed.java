@@ -2,15 +2,18 @@ package LBMSCommands;
 
 import Library.Library;
 
+import java.util.ArrayList;
+
 /**
  * Queries for a list of books currently borrowed by a specific visitor.
- * Command format: borrowed,visitor ID;
+ * Command format: clientID,borrowed,visitor ID;
  * 
  * @author Nikolas Tilley
  */
 public class FindBorrowed implements LBMSCommand
 {
     private Library library;
+    // Todo private long clientID;
     private Long visitorID;
 
     /**
@@ -38,6 +41,32 @@ public class FindBorrowed implements LBMSCommand
      */
     public void undo()
     {
+
+    }
+
+
+
+
+
+
+    private void parse(String s)
+    {
+
+        ArrayList<String> args = new ArrayList<String>();
+
+        String arg = "";
+
+
+        for(char c : s.toCharArray())
+        {
+
+            if (c == ',' || c == ';') {
+                args.add(arg);
+                arg = "";
+            }
+            else
+                arg += c;
+        }
 
     }
 }

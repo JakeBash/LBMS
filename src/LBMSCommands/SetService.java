@@ -2,13 +2,15 @@ package LBMSCommands;
 
 import Library.Library;
 
+import java.util.ArrayList;
+
 /**
  * Sets the service to use for finding books that can be purchased for the Library.
  * All book query requests should be executed against the specified service.
  *
  * todo this command may set the service for all clients unless we store which service each client is using with clients
  *
- * client ID,service,info-service;
+ * Command format: client ID,service,info-service;
  *      info-service is one of: local, google
  *
  * @author Nikolas Tilley
@@ -49,5 +51,25 @@ public class SetService implements LBMSCommand
     @Override
     public void undo() {
 
+    }
+
+
+
+
+    private void parse(String s) {
+        ArrayList<String> args = new ArrayList<String>();
+        // List of book IDS
+
+        String arg = "";
+
+
+        for (char c : s.toCharArray()) {
+
+            if (c == ',' || c == ';') {
+                args.add(arg);
+                arg = "";
+            } else
+                arg += c;
+        }
     }
 }
