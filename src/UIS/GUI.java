@@ -53,7 +53,7 @@ public class GUI extends JPanel implements ActionListener
 
         public void actionPerformed(ActionEvent e)
         {
-            tabbedPane.add(new GUICommandDisplay().getCommandDisplay(tabbedPane), clientIDCounter-1);
+            tabbedPane.add(new GUICommandDisplay(tabbedPane).getCommandDisplay(), clientIDCounter-1);
             clientIDCounter++;
         }
     }
