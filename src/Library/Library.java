@@ -449,7 +449,7 @@ public class Library extends Observable
      * Creates new client connection with library.
      */
     public void newConnection(Long id){
-        this.clients.put(id, new Client(id, visitorStorage.getVisitor(id)));
+        this.clients.put(id, new Client(id, this));
     }
 
     /**

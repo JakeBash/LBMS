@@ -22,7 +22,7 @@ public class Client
      * Constructs a Client object.
      *
      * @param clientID -
-     * @param library - 
+     * @param library -
      */
     public Client(long clientID, Library library)
     {

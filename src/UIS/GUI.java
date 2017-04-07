@@ -1,8 +1,9 @@
 package UIS;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 /**
@@ -10,27 +11,58 @@ import java.util.ArrayList;
  *
  * @author Jake Bashaw
  */
-public class GUI extends JPanel {
+public class GUI extends JPanel implements ActionListener
+{
     private int clientIDCounter = 1;
     private ArrayList<GUICommandDisplay> commandDisplays = new ArrayList<>();
+    private JTabbedPane tabbedPane;
 
     /**
      * Constructs a new GUI object.
      */
-    public GUI() {
+    public GUI()
+    {
         super(new GridLayout(1, 1));
-        JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Client " + clientIDCounter++, new GUICommandDisplay().getCommandDisplay());
-        tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
-        tabbedPane.addTab("Client " + clientIDCounter++, new GUICommandDisplay().getCommandDisplay());
-        tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
+        tabbedPane = new JTabbedPane();
+        tabbedPane.add(new GUICommandDisplay(tabbedPane).getCommandDisplay(), clientIDCounter-2);
+        clientIDCounter++;
+        JButton button = new TabButton();
+        tabbedPane.add(button);
         add(tabbedPane);
+    }
+
+    public void actionPerformed(ActionEvent evt)
+    {
+
+    }
+
+    private class TabButton extends JButton implements ActionListener
+    {
+        public TabButton()
+        {
+            int size = 17;
+            setPreferredSize(new Dimension(size, size));
+            setToolTipText("Create a new tab");
+            setContentAreaFilled(false);
+            setFocusable(false);
+            setBorder(BorderFactory.createEtchedBorder());
+            setBorderPainted(false);
+            setRolloverEnabled(true);
+            addActionListener(this);
+        }
+
+        public void actionPerformed(ActionEvent e)
+        {
+            tabbedPane.add(new GUICommandDisplay().getCommandDisplay(tabbedPane), clientIDCounter-1);
+            clientIDCounter++;
+        }
     }
 
     /**
      * Main method for testing
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         //Create and set up the window.
         JFrame frame = new JFrame("LBMS");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

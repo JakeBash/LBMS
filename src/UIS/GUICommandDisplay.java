@@ -12,6 +12,7 @@ public class GUICommandDisplay extends Component implements ActionListener
 {
     private JTextField tField;
     private JTextArea tArea;
+    private JTabbedPane tabbedPane;
 
     public JTextField gettField()
     {
@@ -30,8 +31,10 @@ public class GUICommandDisplay extends Component implements ActionListener
 
     private JPanel commandDisplay;
 
-    public GUICommandDisplay()
+    public GUICommandDisplay(JTabbedPane tabbedPane)
     {
+        this.tabbedPane = tabbedPane;
+
         this.tField = new JTextField(20);
         tField.addActionListener(this);
 
