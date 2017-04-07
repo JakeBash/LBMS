@@ -5,7 +5,8 @@ import java.util.ArrayList;
 
 /**
  * Returns a book borrowed by a library visitor.
- * Command format: return,visitor ID,id[,ids];
+ *
+ * Command format: clientID,return,visitor ID,id[,ids];
  *
  * @author Nikolas Tilley
  * @author Kyler Freas
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 public class ReturnBook implements LBMSCommand
 {
     private Library library;
+    // todo private long clientID
     private Long visitorID;
     private ArrayList<String> bookID;
 
@@ -36,5 +38,36 @@ public class ReturnBook implements LBMSCommand
     public void execute()
     {
         this.library.returnBooks(this.visitorID, this.bookID);
+    }
+
+    /**
+     * If the Command is undoable as per the requirements, then implement behavior to undo
+     */
+    public void undo()
+    {
+
+    }
+
+
+
+
+
+    private void parse(String s) {
+        ArrayList<String> args = new ArrayList<String>();
+        // List of book IDS
+
+        String arg = "";
+
+
+        for (char c : s.toCharArray()) {
+
+            if (c == ',' || c == ';') {
+                args.add(arg);
+                arg = "";
+            } else
+                arg += c;
+        }
+        // Todo, when you see {} start adding to list of ids
+        // Todo cast to proper types and set use try/catches
     }
 }

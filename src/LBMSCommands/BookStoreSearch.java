@@ -5,12 +5,15 @@ import Library.Library;
 
 /**
  * Handles the execution of a search of the external library book store catalog.
+ *
+ * search,title,[{authors},isbn[,publisher[,sort order]]];
  * 
  * @author Nikolas Tilley
  */
 public class BookStoreSearch implements LBMSCommand
 {
     private Library library;
+    // Todo private long clientID;
     private String title;
     private ArrayList<String> authors;
     private String isbn;
@@ -101,4 +104,48 @@ public class BookStoreSearch implements LBMSCommand
     {
         this.library.bookStoreSearch(this.title, this.authors, this.isbn, this.publisher, this.sortOrder);
     }
+
+    /**
+     * If the Command is undoable as per the requirements, then implement behavior to undo
+     */
+    public void undo()
+    {
+
+    }
+
+
+
+
+
+
+    private void parse(String s)
+    {
+
+        ArrayList<String> args = new ArrayList<String>();
+        // ArrayList<String> authors = new ArrayList<String>();
+        String arg = "";
+
+        boolean parseLiteral = false;
+
+        for(char c : s.toCharArray())
+        {
+            if ( (c == '{' || c == '\"') && !parseLiteral ) {
+                parseLiteral = true;
+                continue; // Skip { and "
+            }
+            else if ( (c == '}' || c == '\"') && parseLiteral ) {
+                parseLiteral = false;
+                continue; // Skip } and "
+            }
+
+            if ((c == ',' || c == ';') && !parseLiteral) {
+                args.add(arg);
+                arg = "";
+            }
+            else
+                arg += c;
+        }
+
+    }
+
 }

@@ -3,6 +3,7 @@ package Library;
 import Books.*;
 import BooksCatalog.BookCatalog;
 import BooksCatalog.FlatFileBookCatalog;
+import Client.Client;
 import Sort.*;
 import Visitors.CheckOut;
 import Visitors.Visit;
@@ -37,6 +38,14 @@ public class Library extends Observable
     private Timer timer;
     private LibraryState currentState;
     private ArrayList<LibraryState> stateList;
+    /**
+     * The active client of the library.
+     */
+    private Client activeClient;
+    /**
+     * Map of all current client connections. Can only be added to, no getter method.
+     */
+    private HashMap<Long, Client> clients;
 
     /**
      * Initializes all required persistent state from existing files.
@@ -434,6 +443,21 @@ public class Library extends Observable
         this.timeClock.serialize();
         this.visitorStorage.serialize();
         this.bookStorage.serialize();
+    }
+
+    /**
+     * Creates new client connection with library.
+     */
+    public void newConnection(Long id){
+        this.clients.put(id, new Client(id, visitorStorage.getVisitor(id)));
+    }
+
+    /**
+     * Ends the connection with the ACTIVE CLIENT.
+     */
+    public void endCurrentConnection(){
+        this.clients.remove(this.activeClient);
+        this.activeClient = null;
     }
 
     /**

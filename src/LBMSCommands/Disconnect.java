@@ -5,43 +5,45 @@ import Library.Library;
 import java.util.ArrayList;
 
 /**
- * Displays the current date and time in the simulation. This should include any days that have been added to the
- * calendar using the command to advance time.
+ * Disconnects the specified client. Any subsequent requests that use the same client ID should be considered invalid.
  *
- * Command format: clientID,datetime;
+ * client ID,disconnect;
  *
  * @author Nikolas Tilley
  */
-public class GetTime implements LBMSCommand
+public class Disconnect implements LBMSCommand
 {
     private Library library;
-    // Todo private long clientID;
+    private long clientID;
 
     /**
-     * Creates a new GetTime command object.
      *
-     * @param library - The clock keeping track of the date and time.
+     * @param library - The library that the client is currently connected with.
+     * @param clientID - The unique ID of the client disconnecting
      */
-    public GetTime(Library library)
+    public Disconnect(Library library, long clientID)
     {
         this.library = library;
+        this.clientID = clientID;
     }
 
     /**
-     * Executes the GetTime command on the library.
+     * Executes the Connect command on the library.
      */
-    public void execute()
-    {
-        library.getFormattedDateTime();
+    @Override
+    public void execute() {
+
     }
 
     /**
      * If the Command is undoable as per the requirements, then implement behavior to undo
      */
-    public void undo()
-    {
+    @Override
+    public void undo() {
 
     }
+
+
 
 
 

@@ -5,43 +5,46 @@ import Library.Library;
 import java.util.ArrayList;
 
 /**
- * Displays the current date and time in the simulation. This should include any days that have been added to the
- * calendar using the command to advance time.
+ * Logs out a currently logged in user
  *
- * Command format: clientID,datetime;
+ * client ID,logout;
  *
  * @author Nikolas Tilley
  */
-public class GetTime implements LBMSCommand
+public class Logout implements LBMSCommand
 {
+
     private Library library;
-    // Todo private long clientID;
+    private long clientID;
 
     /**
-     * Creates a new GetTime command object.
      *
-     * @param library - The clock keeping track of the date and time.
+     * @param library - The library the Logout command is being executed on.
+     * @param clientID - The ID of the client preforming the Logout command.
      */
-    public GetTime(Library library)
+    public Logout(Library library, long clientID)
     {
         this.library = library;
+        this.clientID = clientID;
     }
 
     /**
-     * Executes the GetTime command on the library.
+     * Executes the Logout command on the library.
      */
-    public void execute()
-    {
-        library.getFormattedDateTime();
+    @Override
+    public void execute() {
+
     }
 
     /**
      * If the Command is undoable as per the requirements, then implement behavior to undo
      */
-    public void undo()
-    {
+    @Override
+    public void undo() {
 
     }
+
+
 
 
 

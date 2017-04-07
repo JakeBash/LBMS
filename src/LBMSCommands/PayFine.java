@@ -2,8 +2,12 @@ package LBMSCommands;
 
 import Library.Library;
 
+import java.util.ArrayList;
+
 /**
  * Pays the library an amount toward a visitor's accumulated fines.
+ *
+ * Command format: clientID,pay,visitor ID,amount;
  *
  * @author Nikolas Tilley
  * @author Kyler Freas
@@ -11,6 +15,7 @@ import Library.Library;
 public class PayFine implements LBMSCommand
 {
     private Library library;
+    // todo private long clientID;
     private Long visitorID;
     private int amount;
 
@@ -34,5 +39,47 @@ public class PayFine implements LBMSCommand
     public void execute()
     {
         library.payFine(this.visitorID, this.amount);
+    }
+
+    /**
+     * If the Command is undoable as per the requirements, then implement behavior to undo
+     */
+    public void undo()
+    {
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private void parse(String s)
+    {
+
+        ArrayList<String> args = new ArrayList<String>();
+
+        String arg = "";
+
+
+        for(char c : s.toCharArray())
+        {
+
+            if (c == ',' || c == ';') {
+                args.add(arg);
+                arg = "";
+            }
+            else
+                arg += c;
+        }
+
     }
 }

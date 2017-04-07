@@ -59,8 +59,12 @@ public class GoogleBooks implements BookCatalog{
             JsonReader jsonReader = Json.createReader(new StringReader(response.toString()));
             JsonObject jsonBooks = jsonReader.readObject();
             jsonReader.close();
-
-            System.out.println(jsonBooks.getJsonArray("items"));
+            for (JsonObject o:jsonBooks.getJsonArray("items").getValuesAs(JsonObject.class)) {
+                if(o.getJsonObject("saleInfo").getJsonString("country").toString().equals("\"US\"") &&
+                        o.getJsonObject("saleInfo").getJsonString("saleability").toString().equals("\"FOR_SALE\"")){
+                    System.out.println("ok for sell");
+                }
+            }
         }
         catch (Exception e){
             System.out.println("System throws exception." + e);
@@ -85,7 +89,8 @@ public class GoogleBooks implements BookCatalog{
     public static void main(String args[]){
         ArrayList<String> authors = new ArrayList<>();
         BookCatalog thing = new GoogleBooks();
-        thing.bookSearch("my flower your", authors, "*", "*");
+        authors.add("J. K. Rowling");
+        thing.bookSearch("*", authors, "*", "*");
 
 
     }
