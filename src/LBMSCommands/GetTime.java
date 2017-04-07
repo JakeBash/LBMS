@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class GetTime implements LBMSCommand
 {
     private Library library;
-    // Todo private long clientID;
+    // Todo private Long clientID;
 
     /**
      * Creates a new GetTime command object.

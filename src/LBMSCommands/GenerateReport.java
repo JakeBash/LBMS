@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class GenerateReport implements LBMSCommand
 {
     private Library library;
-    // todo private long clientID;
+    // todo private Long clientID;
     // todo private int days;
 
     /**

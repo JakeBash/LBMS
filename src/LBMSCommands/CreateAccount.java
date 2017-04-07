@@ -15,12 +15,12 @@ public class CreateAccount implements LBMSCommand
 {
 
     private Library library;
-    private long clientID;
+    private Long clientID;
 
     private String username;
     private String password;
     private String role; // TODO This could be a string, or a bool "isEmployee"
-    private long visitorID;
+    private Long visitorID;
 
 
     /**
@@ -32,8 +32,8 @@ public class CreateAccount implements LBMSCommand
      * @param role - The role of the new account. Accounts can be employees or visitors.
      * @param visitorID - The ID of the visitor associated with the account to be created.
      */
-    public CreateAccount(Library library, long clientID, String username, String password,
-                         String role, long visitorID)
+    public CreateAccount(Library library, Long clientID, String username, String password,
+                         String role, Long visitorID)
     {
         this.library = library;
         this.clientID = clientID;
@@ -61,7 +61,7 @@ public class CreateAccount implements LBMSCommand
     }
 
 
-    
+
 
 
     private void parse(String s)
