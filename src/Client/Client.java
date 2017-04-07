@@ -1,19 +1,22 @@
 package Client;
 
+import Visitors.Visitor;
+
 /**
  * @author Nikolas Tilley
  */
 public class Client {
 
     private long clientId;
-    // Visitor
-    // Command Parser
-    // Proxy
-    // Library ?
+    private Visitor visitor;
+    // Command Parser no
+    // Proxy no
+    // Library yee
 
-    public Client( long clientID )
+    public Client( long clientID, Visitor visitor)
     {
         this.clientId = clientID;
+        this.visitor = visitor;
     }
 
 
