@@ -162,6 +162,6 @@ public class BookSearch implements LBMSCommand
     {
         Library lib = new Library();
         BookSearch cmd = new BookSearch(lib, "title", new ArrayList<String>());
-        cmd.parse("info,\"This is a, comma in a title.\",{author one, author 2, author 3},isbn,publisher,sort order;");
+        cmd.parse("21378641298,info,\"This is a, comma in a title.\",{author one, author 2, author 3},isbn,publisher,sort order;");
     }
 }

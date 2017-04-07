@@ -447,13 +447,15 @@ public class Library extends Observable
 
     /**
      * Creates new client connection with library.
+     * todo add the client id and the client id state object to library
      */
     public void newConnection(Long id){
-        this.clients.put(id, new Client(id, visitorStorage.getVisitor(id)));
+        //this.clients.put(id, new Client(id, visitorStorage.getVisitor(id)));
     }
 
     /**
      * Ends the connection with the ACTIVE CLIENT.
+     * // Todo ???? should end connection with the client that sent the disconnect ID
      */
     public void endCurrentConnection(){
         this.clients.remove(this.activeClient);
