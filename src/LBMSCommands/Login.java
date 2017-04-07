@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Login implements LBMSCommand
 {
     private Library library;
-    private long clientID;
+    private Long clientID;
     private String username;
     private String password;
 
@@ -25,7 +25,7 @@ public class Login implements LBMSCommand
      * @param username - The username of the user logging in.
      * @param password - The password of the user logging in.
      */
-    public Login(Library library, long clientID, String username, String password)
+    public Login(Library library, Long clientID, String username, String password)
     {
         this.library = library;
         this.clientID = clientID;

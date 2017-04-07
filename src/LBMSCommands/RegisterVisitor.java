@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class RegisterVisitor implements LBMSCommand
 {
     private Library library;
-    // Todo private long clientID;
+    // Todo private Long clientID;
     private String firstName;
     private String lastName;
     private String address;

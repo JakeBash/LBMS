@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class EndVisit implements LBMSCommand
 {
     private Library library;
-    // todo private long clientID;
+    // todo private Long clientID;
     private Long visitorID;
 
     /**

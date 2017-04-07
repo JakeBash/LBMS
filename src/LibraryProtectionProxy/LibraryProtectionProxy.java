@@ -15,9 +15,10 @@ import java.util.ArrayList;
 public class LibraryProtectionProxy
 {
 
-    private final int LOGGED_OUT = 0;
-    private final int VISITOR_LOGGED_IN = 1;
-    private final int EMPLOYEE_LOGGED_IN = 2;
+    private final int DISCONNECTED = 0;
+    private final int LOGGED_OUT = 1;
+    private final int VISITOR_LOGGED_IN = 2;
+    private final int EMPLOYEE_LOGGED_IN = 3;
 
     // private visitor/user loggedInVisitor
     private ArrayList<LibraryProtectionProxyState> stateList;
@@ -32,11 +33,12 @@ public class LibraryProtectionProxy
         this.library = library;
 
         stateList = new ArrayList<LibraryProtectionProxyState>();
+        stateList.add(new DisconnectedState());
         stateList.add(new LoggedOutState());
         stateList.add(new VisitorLoggedInState());
         stateList.add(new EmployeeLoggedInState());
 
-        setState(LOGGED_OUT);
+        setState(DISCONNECTED);
     }
 
 
@@ -50,10 +52,6 @@ public class LibraryProtectionProxy
     {
         activeState = stateList.get(index);
     }
-
-
-
-
 
 
 

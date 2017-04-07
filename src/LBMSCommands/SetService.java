@@ -19,7 +19,7 @@ public class SetService implements LBMSCommand
 {
 
     private Library library;
-    private long clientID;
+    private Long clientID;
     private String service;
 
 
@@ -29,7 +29,7 @@ public class SetService implements LBMSCommand
      * @param clientID - The ID of the client that is executing the SetService Command
      * @param service - The service that the client wishes to use.
      */
-    public SetService(Library library, long clientID, String service)
+    public SetService(Library library, Long clientID, String service)
     {
         this.library = library;
         this.clientID = clientID;

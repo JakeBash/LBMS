@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class FindBorrowed implements LBMSCommand
 {
     private Library library;
-    // Todo private long clientID;
+    // Todo private Long clientID;
     private Long visitorID;
 
     /**

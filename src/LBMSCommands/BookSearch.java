@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class BookSearch implements LBMSCommand
 {
     private Library library;
-    // Todo private long clientID; // Have to add this information to command
+    // Todo private Long clientID; // Have to add this information to command
     private String title;
     private ArrayList<String> authors;
     private String isbn;

@@ -15,14 +15,14 @@ public class Logout implements LBMSCommand
 {
 
     private Library library;
-    private long clientID;
+    private Long clientID;
 
     /**
      *
      * @param library - The library the Logout command is being executed on.
      * @param clientID - The ID of the client preforming the Logout command.
      */
-    public Logout(Library library, long clientID)
+    public Logout(Library library, Long clientID)
     {
         this.library = library;
         this.clientID = clientID;

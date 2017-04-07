@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class PayFine implements LBMSCommand
 {
     private Library library;
-    // todo private long clientID;
+    // todo private Long clientID;
     private Long visitorID;
     private int amount;
 

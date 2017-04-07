@@ -13,7 +13,7 @@ import Library.Library;
 public class BorrowBook implements LBMSCommand
 {
     private Library library;
-    // Todo private long clientID
+    // Todo private Long clientID
     private Long visitorID;
     private ArrayList<String> bookID;
 

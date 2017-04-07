@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class Shutdown implements LBMSCommand
 {
     private Library library;
-    // todo private long clientID;
+    // todo private Long clientID;
 
     /**
      *  Creates a new GetTime command object.

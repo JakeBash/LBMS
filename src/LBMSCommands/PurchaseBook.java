@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class PurchaseBook implements LBMSCommand
 {
     private Library library;
-    // todo private long clientID;
+    // todo private Long clientID;
     private int quantity;
     private ArrayList<Integer> ids;
 

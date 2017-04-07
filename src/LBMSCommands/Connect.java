@@ -18,14 +18,14 @@ import java.util.ArrayList;
 public class Connect implements LBMSCommand
 {
     private Library library;
-    private long clientID;
+    private Long clientID;
 
     /**
      *
      * @param library - The library that the client is connecting with.
      * @param clientID - The unique ID of the client connecting
      */
-    public Connect(Library library, long clientID)
+    public Connect(Library library, Long clientID)
     {
         this.library = library;
         this.clientID = clientID;

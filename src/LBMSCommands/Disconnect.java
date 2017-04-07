@@ -14,14 +14,14 @@ import java.util.ArrayList;
 public class Disconnect implements LBMSCommand
 {
     private Library library;
-    private long clientID;
+    private Long clientID;
 
     /**
      *
      * @param library - The library that the client is currently connected with.
      * @param clientID - The unique ID of the client disconnecting
      */
-    public Disconnect(Library library, long clientID)
+    public Disconnect(Library library, Long clientID)
     {
         this.library = library;
         this.clientID = clientID;

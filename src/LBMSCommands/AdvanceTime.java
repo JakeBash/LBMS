@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class AdvanceTime implements LBMSCommand
 {
     private Library library;
-    // Todo private long clientID; // Have to add this information to command
+    // Todo private Long clientID; // Have to add this information to command
     private int days;
     private int hours;
 

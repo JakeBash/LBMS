@@ -13,7 +13,7 @@ import Visitors.Visitor;
  */
 public class Client
 {
-    private long clientId;
+    private Long clientId;
     private Visitor visitor;
     private CommandParser parser;
     private LibraryProtectionProxy proxy;
@@ -24,7 +24,7 @@ public class Client
      * @param clientID -
      * @param library - 
      */
-    public Client(long clientID, Library library)
+    public Client(Long clientID, Library library)
     {
         this.clientId = clientID;
         this.visitor = null;
@@ -38,12 +38,12 @@ public class Client
 
     // -------------------- Getters and setters -------------------- //
 
-    public long getClientId()
+    public Long getClientId()
     {
         return clientId;
     }
 
-    public void setClientId(long clientId)
+    public void setClientId(Long clientId)
     {
         this.clientId = clientId;
     }

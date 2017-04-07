@@ -132,6 +132,10 @@ public interface LibraryProtectionProxyState
     // Set book information service
     public void setService();
 
-
-
+    // Todo supply argument signature
+    // Will forward error strings to the library if connected
+    // Checks to see if there is a connected user
+    // will print to the current tab if not connected
+    /*public void forwardResponse();
+*/
 }
