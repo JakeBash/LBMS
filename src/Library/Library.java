@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.io.File;
+import LibraryProtectionProxy.LibrarySubject;
 
 /**
  * The Library class serves as the "brain" of the LBMS system so-to-say. Interactions between the library's internal
@@ -24,7 +25,7 @@ import java.io.File;
  * @author Tyler Reimold
  * @author Kyle Kaniecki
  */
-public class Library extends Observable
+public class Library extends Observable //todo implements LibrarySubject
 {
     private final int OPEN = 0;
     private final int CLOSED = 1;

@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author Nikolas Tilley
  */
-public class LibraryProtectionProxy
+public class LibraryProtectionProxy implements LibrarySubject
 {
 
     private final int DISCONNECTED = 0;
