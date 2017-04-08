@@ -1,7 +1,6 @@
 package UIS;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author Jake Bashaw
  */
-public class GUI extends JPanel implements ActionListener
+public class GUI extends JPanel
 {
     private int clientIDCounter = 1;
     private ArrayList<GUICommandDisplay> commandDisplays = new ArrayList<>();
@@ -24,25 +23,27 @@ public class GUI extends JPanel implements ActionListener
     {
         super(new GridLayout(1, 1));
         tabbedPane = new JTabbedPane();
-        tabbedPane.add(new GUICommandDisplay(tabbedPane).getCommandDisplay(), clientIDCounter-2);
+        tabbedPane.add(new GUICommandDisplay(tabbedPane, clientIDCounter).getCommandDisplay(), "Client " + clientIDCounter);
         clientIDCounter++;
-        JButton button = new TabButton();
-        tabbedPane.add(button);
+        JButton button = new newClient();
+        tabbedPane.add(button, "New Client");
         add(tabbedPane);
     }
 
-    public void actionPerformed(ActionEvent evt)
+    /**
+     * Description
+     */
+    private class newClient extends JButton implements ActionListener
     {
-
-    }
-
-    private class TabButton extends JButton implements ActionListener
-    {
-        public TabButton()
+        /**
+         * Description
+         */
+        public newClient()
         {
             int size = 17;
             setPreferredSize(new Dimension(size, size));
-            setToolTipText("Create a new tab");
+            setText("Create a new client");
+            setToolTipText("Create a new client connection");
             setContentAreaFilled(false);
             setFocusable(false);
             setBorder(BorderFactory.createEtchedBorder());
@@ -51,9 +52,16 @@ public class GUI extends JPanel implements ActionListener
             addActionListener(this);
         }
 
+        /**
+         * Description
+         *
+         * @param e - 
+         */
         public void actionPerformed(ActionEvent e)
         {
-            tabbedPane.add(new GUICommandDisplay(tabbedPane).getCommandDisplay(), clientIDCounter-1);
+            GUICommandDisplay newDisplay = new GUICommandDisplay(tabbedPane, clientIDCounter);
+            tabbedPane.add(newDisplay.getCommandDisplay(), "Client " + clientIDCounter, tabbedPane.getTabCount()-1);
+            commandDisplays.add(newDisplay);
             clientIDCounter++;
         }
     }
