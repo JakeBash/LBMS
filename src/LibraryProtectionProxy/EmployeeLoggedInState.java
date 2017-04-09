@@ -1,5 +1,7 @@
 package LibraryProtectionProxy;
 
+import Library.Library;
+
 import java.util.ArrayList;
 
 /**
@@ -14,9 +16,11 @@ import java.util.ArrayList;
 public class EmployeeLoggedInState implements LibraryProtectionProxyState
 {
 
-    public EmployeeLoggedInState()
-    {
+    private Library library;
 
+    public EmployeeLoggedInState(Library library)
+    {
+        this.library = library;
     }
 
 

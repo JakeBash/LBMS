@@ -33,10 +33,10 @@ public class LibraryProtectionProxy implements LibrarySubject
         this.library = library;
 
         stateList = new ArrayList<LibraryProtectionProxyState>();
-        stateList.add(new DisconnectedState());
-        stateList.add(new LoggedOutState());
-        stateList.add(new VisitorLoggedInState());
-        stateList.add(new EmployeeLoggedInState());
+        stateList.add(new DisconnectedState(library));
+        stateList.add(new LoggedOutState(library));
+        stateList.add(new VisitorLoggedInState(library));
+        stateList.add(new EmployeeLoggedInState(library));
 
         setState(DISCONNECTED);
     }

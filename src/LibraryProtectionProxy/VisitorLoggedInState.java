@@ -1,5 +1,7 @@
 package LibraryProtectionProxy;
 
+import Library.Library;
+
 import java.util.ArrayList;
 
 /**
@@ -21,9 +23,12 @@ import java.util.ArrayList;
  */
 public class VisitorLoggedInState implements LibraryProtectionProxyState
 {
-    public VisitorLoggedInState()
-    {
 
+    private Library library;
+
+    public VisitorLoggedInState(Library library)
+    {
+        this.library = library;
     }
 
     // Visitors can Begin Visit

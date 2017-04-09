@@ -1,5 +1,7 @@
 package LibraryProtectionProxy;
 
+import Library.Library;
+
 import java.util.ArrayList;
 
 /**
@@ -13,10 +15,11 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // have to directly place error into textbox unless that command is like connect or shutdown
 
     private final String CLIENT_ERROR = "invalid-client-id;";
+    private Library library;
 
-    public DisconnectedState()
+    public DisconnectedState(Library library)
     {
-
+        this.library = library;
     }
 
     // Todo implement

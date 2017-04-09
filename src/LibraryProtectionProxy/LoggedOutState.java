@@ -1,5 +1,7 @@
 package LibraryProtectionProxy;
 
+import Library.Library;
+
 import java.util.ArrayList;
 
 /**
@@ -16,9 +18,11 @@ import java.util.ArrayList;
 public class LoggedOutState implements LibraryProtectionProxyState
 {
 
-    public LoggedOutState()
-    {
+    private Library library;
 
+    public LoggedOutState(Library library)
+    {
+        this.library = library;
     }
 
     // Can log in... That is about it as far as I know
