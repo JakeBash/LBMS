@@ -1,5 +1,7 @@
 package LibraryProtectionProxy;
 
+import java.util.ArrayList;
+
 /**
  * Protection Proxy state for when the client is connected, the user is logged in,
  * and that user is an Employee of the library
@@ -21,7 +23,7 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // info,
     // Library Book Search
-    public void bookSearch()
+    public void bookSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
 
     }
@@ -29,7 +31,7 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // search,
     // Book Store Search
-    public void bookStoreSearch()
+    public void bookStoreSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
 
     }
@@ -37,7 +39,7 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // borrow,
     // Borrow book
-    public void borrowBook()
+    public void borrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
     {
 
     }
@@ -45,7 +47,7 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // buy,
     // Book Purchase
-    public void purchaseBooks()
+    public void purchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
     {
 
     }
@@ -53,7 +55,7 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // register,
     // Register Visitor
-    public void registerVisitor()
+    public void registerVisitor(Long clientID, String firstName, String lastName, String address, String phoneNumber)
     {
 
     }
@@ -61,7 +63,7 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // arrive,
     // Begin Visit
-    public void beginVisit()
+    public void beginVisit(Long clientID, Long visitorID)
     {
 
     }
@@ -69,7 +71,7 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // depart,
     // End Visit
-    public void endVisit()
+    public void endVisit(Long clientID, Long visitorID)
     {
 
     }
@@ -77,7 +79,7 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // borrowed,
     // Find Borrowed Books
-    public void getVisitorCheckedOutBooks()
+    public void getVisitorCheckedOutBooks(Long clientID, Long visitorID)
     {
 
     }
@@ -85,7 +87,7 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // pay,
     // Pay fine
-    public void payFine()
+    public void payFine(Long clientID, Long visitorID, int amount)
     {
 
     }
@@ -93,7 +95,7 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // report,
     // Library Statistic Report
-    public void generateReport()
+    public void generateReport(Long clientID)
     {
 
     }
@@ -101,7 +103,7 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // datetime,
     // Current Date Time
-    public void getFormattedDateTime()
+    public void getFormattedDateTime(Long clientID)
     {
 
     }
@@ -109,7 +111,7 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // advance,
     // Advance Time
-    public void advanceTime()
+    public void advanceTime(Long clientID, int days, int hours)
     {
 
     }
@@ -117,7 +119,7 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // return,
     // Return book
-    public void returnBooks()
+    public void returnBooks(Long clientID, Long visitorID, ArrayList<String> isbns)
     {
 
     }
@@ -125,7 +127,7 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // shutdown,
     // Shut Down
-    public void shutdown()
+    public void shutdown(Long clientID)
     {
 
     }
@@ -134,7 +136,7 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // connect,
     // Client Connect
     // Probably should return an error because you are already connected
-    public void clientConnect()
+    public void clientConnect(Long clientID)
     {
 
     }
@@ -143,7 +145,7 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // disconnect,
     // Client Disconnect
     // logs user our and ends connection
-    public void clientDisconnect()
+    public void clientDisconnect(Long clientID)
     {
         // todo needs a state change
     }
