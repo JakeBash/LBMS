@@ -14,14 +14,15 @@ public class GenerateReport implements LBMSCommand
 {
     private Library library;
     // todo private Long clientID;
-    // todo private int days;
+    private int days;
 
     /**
      * Creates a command to generate a statistical report for the library.
      */
-    public GenerateReport(Library lib)
+    public GenerateReport(Library lib, int days)
     {
         this.library = lib;
+        this.days = days;
     }
 
     /**
@@ -29,7 +30,7 @@ public class GenerateReport implements LBMSCommand
      */
     public void execute()
     {
-        this.library.generateReport();
+        this.library.generateReport(days);
     }
 
     /**

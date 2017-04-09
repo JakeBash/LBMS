@@ -53,21 +53,24 @@ public class Library extends Observable //todo implements LibrarySubject
      */
     public Library()
     {
+        // Init library states
+        this.stateList = new ArrayList<LibraryState>();
+        this.stateList.add(new LibraryOpen());
+        this.stateList.add(new LibraryClosed());
+        this.currentState = this.stateList.get(0);
+
         this.status = "";
         // Initialized with reference to self to give access to TimeClock
         this.visitorStorage = VisitorStorage.deserialize(this);
         this.bookStorage = BookStorage.deserialize();
         this.bookCatalog = new FlatFileBookCatalog(new File("files/books.txt"));
         this.timeClock = TimeClock.deserialize();
+
         // Have to cancel task and Timer when shutting down
         this.timer = new Timer("Task Timer");
         this.checkTimeTask = new CheckTimeTask(this);
         timer.schedule(checkTimeTask, 0, 15000);
-        // Init library states
-        this.stateList = new ArrayList<LibraryState>();
-        this.stateList.add(new LibraryOpen());
-        this.stateList.add(new LibraryClosed());
-        this.currentState = this.stateList.get(0);
+
     }
 
     /**
@@ -310,13 +313,13 @@ public class Library extends Observable //todo implements LibrarySubject
      * Generates a statistical report of the library
      *
      */
-    public void generateReport()
+    public void generateReport(int days)
     {
         //TODO: Add in the rest of the report data needed
         LocalDate localDate = LocalDate.now();
         updateStatus(DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate) + "\n"
                 + this.bookStorage.generateReport() + "\n"
-                + this.visitorStorage.generateReport() + "\n");
+                + this.visitorStorage.generateReport(days) + "\n");
 
     }
 
