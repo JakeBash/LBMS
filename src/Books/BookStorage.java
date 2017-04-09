@@ -1,5 +1,7 @@
 package Books;
 
+import Library.Library;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,12 +36,19 @@ public class BookStorage implements java.io.Serializable
     private static String file = "files/BookStorage.ser";
 
     /**
+     * Reference to the library to check the library's time
+     * Not persisted in storage
+     */
+    private transient Library library;
+
+    /**
      * Constructor for BookStorage. Initializes a new Book Storage with an empty book storage HashMap.
      */
-    public BookStorage()
+    public BookStorage(Library library)
     {
         this.books = new HashMap<>();
         this.purchases = new ArrayList<>();
+        this.library = library;
     }
 
     /**
@@ -219,19 +228,68 @@ public class BookStorage implements java.io.Serializable
     }
 
     /**
+     * Helper method for report generation.
+     * Filters the purchase list by purchased date for a given number of days
+     * in the past.
+     *
+     * @param days - number of days in the past to collect data
+     * @return list of filtered purchases
+     */
+    private ArrayList<Purchase> getFilteredPurchases(int days)
+    {
+        if (days == 0)
+        {
+            return new ArrayList<>(this.purchases);
+        }
+
+        ArrayList<Purchase> filteredVisitors = new ArrayList<>();
+
+        for (Purchase purchase: this.purchases)
+        {
+            // Calculate the date range
+            Calendar startDate = this.library.getTime();
+            startDate.add(Calendar.DAY_OF_YEAR, -days);
+
+            if (purchase.getPurchaseDate().after(startDate))
+            {
+                filteredVisitors.add(purchase);
+            }
+        }
+
+        return filteredVisitors;
+    }
+
+    /**
+     * Helper method for report generation.
+     * Calculates the number of books purchased for a given date range.
+     *
+     * @param days - number of days in the past to collect data
+     * @return number of books purchased
+     */
+    private int getTotalBooks(int days)
+    {
+        int numBooks = 0;
+
+        ArrayList<Purchase> filteredPurchases = this.getFilteredPurchases(days);
+
+        for (Purchase purchase: filteredPurchases)
+        {
+            numBooks += purchase.getPurchasedBooks().size() * purchase.getQuantity();
+        }
+
+        return numBooks;
+    }
+
+    /**
      * Generates the pertinent information from the BookStorage class for use in a library statistical report.
      *
      * @return A string representing the pertinent information for use in the report.
      */
-    public String generateReport()
+    public String generateReport(int days)
     {
         String reportString = "";
-        int numBooks = 0;
-        // Get the total number of books owned by the library
-        for(Book book : this.books.values())
-        {
-            numBooks += book.getNumCopies();
-        }
+        int numBooks = this.getTotalBooks(days);
+
         reportString += "Number of Books: " + numBooks + " ";
         return reportString;
     }
@@ -260,7 +318,7 @@ public class BookStorage implements java.io.Serializable
      *
      * @return An instance of BookStorage generated from the previously saved .ser file.
      */
-    public static BookStorage deserialize()
+    public static BookStorage deserialize(Library library)
     {
         try
         {
@@ -279,7 +337,7 @@ public class BookStorage implements java.io.Serializable
         catch (EOFException eof)
         {
             // Start a fresh storage
-            return new BookStorage();
+            return new BookStorage(library);
         }
         catch (IOException i)
         {
@@ -292,6 +350,6 @@ public class BookStorage implements java.io.Serializable
         }
 
         // If an error occurs, return an empty storage
-        return new BookStorage();
+        return new BookStorage(library);
     }
 }
