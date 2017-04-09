@@ -42,25 +42,4 @@ public class Shutdown implements LBMSCommand
     {
 
     }
-
-
-
-
-
-    private void parse(String s) {
-        ArrayList<String> args = new ArrayList<String>();
-        // List of book IDS
-
-        String arg = "";
-
-
-        for (char c : s.toCharArray()) {
-
-            if (c == ',' || c == ';') {
-                args.add(arg);
-                arg = "";
-            } else
-                arg += c;
-        }
-    }
 }

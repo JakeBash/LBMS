@@ -47,27 +47,4 @@ public class ReturnBook implements LBMSCommand
     {
 
     }
-
-
-
-
-
-    private void parse(String s) {
-        ArrayList<String> args = new ArrayList<String>();
-        // List of book IDS
-
-        String arg = "";
-
-
-        for (char c : s.toCharArray()) {
-
-            if (c == ',' || c == ';') {
-                args.add(arg);
-                arg = "";
-            } else
-                arg += c;
-        }
-        // Todo, when you see {} start adding to list of ids
-        // Todo cast to proper types and set use try/catches
-    }
 }

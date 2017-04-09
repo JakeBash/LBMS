@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class AdvanceTime implements LBMSCommand
 {
     private Library library;
-    // Todo private Long clientID; // Have to add this information to command
+    private Long clientID;
     private int days;
     private int hours;
 
@@ -46,6 +46,8 @@ public class AdvanceTime implements LBMSCommand
         this.hours = hours;
     }
 
+
+
     /**
      * Executes the AdvanceTime command on the library.
      */
@@ -61,34 +63,5 @@ public class AdvanceTime implements LBMSCommand
     {
 
     }
-
-
-
-    private void parse(String s)
-    {
-
-        ArrayList<String> args = new ArrayList<String>();
-
-        String arg = "";
-
-
-        for(char c : s.toCharArray())
-        {
-
-            if (c == ',' || c == ';') {
-                args.add(arg);
-                arg = "";
-            }
-            else
-                arg += c;
-        }
-
-        // Check valid input with try catch for casting or something
-        // depending on length you will convert different
-        for(String ss : args)
-            System.out.println(ss);
-
-    }
-
 
 }

@@ -43,32 +43,4 @@ public class Logout implements LBMSCommand
     public void undo() {
 
     }
-
-
-
-
-
-
-
-
-    private void parse(String s)
-    {
-
-        ArrayList<String> args = new ArrayList<String>();
-
-        String arg = "";
-
-
-        for(char c : s.toCharArray())
-        {
-
-            if (c == ',' || c == ';') {
-                args.add(arg);
-                arg = "";
-            }
-            else
-                arg += c;
-        }
-
-    }
 }

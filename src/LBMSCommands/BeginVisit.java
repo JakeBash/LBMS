@@ -45,35 +45,4 @@ public class BeginVisit implements LBMSCommand
 
     }
 
-
-
-
-
-
-    private void parse(String s)
-    {
-
-        ArrayList<String> args = new ArrayList<String>();
-
-        String arg = "";
-
-
-        for(char c : s.toCharArray())
-        {
-
-            if (c == ',' || c == ';') {
-                args.add(arg);
-                arg = "";
-            }
-            else
-                arg += c;
-        }
-
-        // Check valid input with try catchs for casting or something
-        // depending on length you will convert different
-        // Todo delete for release
-        for(String ss : args)
-            System.out.println(ss);
-
-    }
 }

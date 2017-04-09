@@ -113,39 +113,4 @@ public class BookStoreSearch implements LBMSCommand
 
     }
 
-
-
-
-
-
-    private void parse(String s)
-    {
-
-        ArrayList<String> args = new ArrayList<String>();
-        // ArrayList<String> authors = new ArrayList<String>();
-        String arg = "";
-
-        boolean parseLiteral = false;
-
-        for(char c : s.toCharArray())
-        {
-            if ( (c == '{' || c == '\"') && !parseLiteral ) {
-                parseLiteral = true;
-                continue; // Skip { and "
-            }
-            else if ( (c == '}' || c == '\"') && parseLiteral ) {
-                parseLiteral = false;
-                continue; // Skip } and "
-            }
-
-            if ((c == ',' || c == ';') && !parseLiteral) {
-                args.add(arg);
-                arg = "";
-            }
-            else
-                arg += c;
-        }
-
-    }
-
 }
