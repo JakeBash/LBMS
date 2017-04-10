@@ -456,6 +456,7 @@ public class Library extends Observable //todo implements LibrarySubject
         this.timeClock.serialize();
         this.visitorStorage.serialize();
         this.bookStorage.serialize();
+        System.exit(0);
     }
 
     /**

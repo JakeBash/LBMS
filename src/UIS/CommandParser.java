@@ -271,7 +271,7 @@ public class CommandParser
 
             case "shutdown":
                 library.shutdown();
-                System.exit(0);
+                // This is already in the library shutdown command // System.exit(0);
 
             default:
                 break;
