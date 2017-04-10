@@ -62,7 +62,7 @@ public class Library extends Observable //todo implements LibrarySubject
         this.status = "";
         // Initialized with reference to self to give access to TimeClock
         this.visitorStorage = VisitorStorage.deserialize(this);
-        this.bookStorage = BookStorage.deserialize();
+        this.bookStorage = BookStorage.deserialize(this);
         this.bookCatalog = new FlatFileBookCatalog(new File("files/books.txt"));
         this.timeClock = TimeClock.deserialize();
 
@@ -318,7 +318,7 @@ public class Library extends Observable //todo implements LibrarySubject
         //TODO: Add in the rest of the report data needed
         LocalDate localDate = LocalDate.now();
         updateStatus(DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate) + "\n"
-                + this.bookStorage.generateReport() + "\n"
+                + this.bookStorage.generateReport(days) + "\n"
                 + this.visitorStorage.generateReport(days) + "\n");
 
     }
