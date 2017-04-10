@@ -1,6 +1,8 @@
 package LBMSCommands;
 
 import Library.Library;
+import LibraryProtectionProxy.LibrarySubject;
+
 import java.util.ArrayList;
 
 /**
@@ -14,7 +16,9 @@ import java.util.ArrayList;
 public class ReturnBook implements LBMSCommand
 {
     private Library library;
-    // todo private Long clientID
+
+    private LibrarySubject proxy;
+    private Long clientID;
     private Long visitorID;
     private ArrayList<String> bookID;
 
@@ -32,11 +36,36 @@ public class ReturnBook implements LBMSCommand
         this.bookID = bookID;
     }
 
+
+
+    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
+
+    /**
+     * Creates a ReturnBook command, which will return a book for a registered visitor.
+     *
+     * @param proxy - The proxy library that the book is being returned to.
+     * @param clientID - The ID of the client that is making the ReturnBook Request.
+     * @param visitorID - The ID of the visitor that is returning the book.
+     * @param bookID - The temporary ID of the book that is to be returned.
+     */
+    public ReturnBook(LibrarySubject proxy, Long clientID, Long visitorID, ArrayList<String> bookID)
+    {
+        this.proxy = proxy;
+        this.clientID = clientID;
+        this.visitorID = visitorID;
+        this.bookID = bookID;
+    }
+
+
+    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
+
+
     /**
      * Executes the ReturnBook command on the library.
      */
     public void execute()
     {
+        // todo proxy.returnBooks(clientID, visitorID, bookID);
         this.library.returnBooks(this.visitorID, this.bookID);
     }
 
