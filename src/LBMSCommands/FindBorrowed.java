@@ -1,6 +1,7 @@
 package LBMSCommands;
 
 import Library.Library;
+import LibraryProtectionProxy.LibrarySubject;
 
 import java.util.ArrayList;
 
@@ -13,7 +14,9 @@ import java.util.ArrayList;
 public class FindBorrowed implements LBMSCommand
 {
     private Library library;
-    // Todo private Long clientID;
+
+    private LibrarySubject proxy;
+    private Long clientID;
     private Long visitorID;
 
     /**
@@ -28,11 +31,33 @@ public class FindBorrowed implements LBMSCommand
         this.visitorID = visitorID;
     }
 
+
+
+
+
+    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
+    /**
+     * A command that asks the library to find a visitor's checked out books.
+     *
+     * @param proxy - A proxy library that has books checked out by visitors.
+     * @param clientID - The ID of the client making the FindBorrowed request.
+     * @param visitorID - The visitor that is being queried for checked out books.
+     */
+    public FindBorrowed(LibrarySubject proxy, Long clientID, Long visitorID)
+    {
+        this.proxy = proxy;
+        this.clientID = clientID;
+        this.visitorID = visitorID;
+    }
+
+    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
+
     /**
      * Executes the FindBorrowed command on the library.
      */
     public void execute()
     {
+        // todo this.proxy.getVisitorCheckedOutBooks(clientID, visitorID);
         library.getVisitorCheckedOutBooks(visitorID);
     }
 

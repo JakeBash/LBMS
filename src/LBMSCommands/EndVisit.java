@@ -1,6 +1,7 @@
 package LBMSCommands;
 
 import Library.Library;
+import LibraryProtectionProxy.LibrarySubject;
 
 import java.util.ArrayList;
 
@@ -13,7 +14,9 @@ import java.util.ArrayList;
 public class EndVisit implements LBMSCommand
 {
     private Library library;
-    // todo private Long clientID;
+
+    private LibrarySubject proxy;
+    private Long clientID;
     private Long visitorID;
 
     /**
@@ -28,11 +31,34 @@ public class EndVisit implements LBMSCommand
         this.visitorID = visitorID;
     }
 
+
+
+
+    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
+    /**
+     * Constructs an EndVisit command to be executed.
+     *
+     * @param proxy - The proxy library that the visitor was visiting.
+     * @param clientID - The ID of the client making the EndVisit request.
+     * @param visitorID - The ID of an active visitor.
+     */
+    public EndVisit(LibrarySubject proxy, Long clientID, Long visitorID)
+    {
+        this.proxy = proxy;
+        this.clientID = clientID;
+        this.visitorID = visitorID;
+    }
+
+
+
+    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
+
     /**
      * Executes the EndVisit command on the library.
      */
     public void execute()
     {
+        // todo this.proxy.endVisit(clientID, visitorID);
         library.endVisit(visitorID);
     }
 

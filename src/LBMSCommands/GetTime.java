@@ -1,6 +1,7 @@
 package LBMSCommands;
 
 import Library.Library;
+import LibraryProtectionProxy.LibrarySubject;
 
 import java.util.ArrayList;
 
@@ -15,23 +16,44 @@ import java.util.ArrayList;
 public class GetTime implements LBMSCommand
 {
     private Library library;
-    // Todo private Long clientID;
+
+    private LibrarySubject proxy;
+    private Long clientID;
 
     /**
      * Creates a new GetTime command object.
      *
-     * @param library - The clock keeping track of the date and time.
+     * @param library - The library that the GetTime command will be executed on.
      */
     public GetTime(Library library)
     {
         this.library = library;
     }
 
+
+
+    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
+    /**
+     * Creates a new GetTime command object.
+     *
+     * @param proxy - The library proxy that the GetTime command will be executed on.
+     * @param clientID - The ID of the client making the getTime request
+     */
+    public GetTime(LibrarySubject proxy, Long clientID)
+    {
+        this.proxy = proxy;
+    }
+
+
+
+    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
+
     /**
      * Executes the GetTime command on the library.
      */
     public void execute()
     {
+        // todo proxy.getFormattedDateTime(clientID);
         library.getFormattedDateTime();
     }
 

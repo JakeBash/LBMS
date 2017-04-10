@@ -2,6 +2,7 @@ package LBMSCommands;
 
 import java.util.ArrayList;
 import Library.Library;
+import LibraryProtectionProxy.LibrarySubject;
 
 /**
  * Handles the execution of a search of the external library book store catalog.
@@ -13,7 +14,9 @@ import Library.Library;
 public class BookStoreSearch implements LBMSCommand
 {
     private Library library;
-    // Todo private Long clientID;
+
+    private LibrarySubject proxy;
+    private Long clientID;
     private String title;
     private ArrayList<String> authors;
     private String isbn;
@@ -97,11 +100,113 @@ public class BookStoreSearch implements LBMSCommand
         this.sortOrder = sortOrder;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
+    /**
+     * Creates a command to search the book store for books to buy. Constructs with the minimum amount of search criteria
+     * required.
+     *
+     * @param proxy - The proxy library that is being searched.
+     * @param clientID - The ID of the client requesting the book store search
+     * @param title - The title of the desired book(s).
+     */
+    public BookStoreSearch(LibrarySubject proxy, Long clientID, String title)
+    {
+        this.proxy = proxy;
+        this.clientID = clientID;
+        this.title = title;
+        this.authors = new ArrayList<>();
+        this.isbn = "*";
+        this.publisher = "*";
+        this.sortOrder = "none";
+    }
+
+    /**
+     * Creates a command to search the book store for books to buy. Constructs with additional criteria from the
+     * previous implementation.
+     *
+     * @param proxy - The proxy library that is being searched.
+     * @param clientID - The ID of the client requesting the book store search
+     * @param title - The title of the desired book(s).
+     * @param authors - The authors of the desired book(s).
+     * @param isbn - The ISBN of the desired book(s).
+     */
+    public BookStoreSearch(LibrarySubject proxy, Long clientID, String title, ArrayList<String> authors, String isbn)
+    {
+        this.proxy = proxy;
+        this.clientID = clientID;
+        this.title = title;
+        this.authors = authors;
+        this.isbn = isbn;
+        this.publisher = "*";
+        this.sortOrder = "none";
+    }
+
+    /**
+     * Creates a command to search the book store for books to buy. Constructs with additional criteria from the
+     * previous implementation.
+     *
+     * @param proxy - The proxy library that is being searched.
+     * @param clientID - The ID of the client requesting the book store search
+     * @param title - The title of the desired book(s).
+     * @param authors - The authors of the desired book(s).
+     * @param isbn - The ISBN of the desired book(s).
+     * @param publisher - The publisher of the desired book(s).
+     */
+    public BookStoreSearch(LibrarySubject proxy, Long clientID, String title, ArrayList<String> authors, String isbn, String publisher)
+    {
+        this.proxy = proxy;
+        this.clientID = clientID;
+        this.title = title;
+        this.authors = authors;
+        this.isbn = isbn;
+        this.publisher = publisher;
+        this.sortOrder = "none";
+    }
+
+    /**
+     * Creates a command to search the book store for books to buy. Constructs with additional criteria from the
+     * previous implementation.
+     *
+     * @param proxy - The proxy library that is being searched.
+     * @param clientID - The ID of the client requesting the book store search
+     * @param title - The title of the desired book(s).
+     * @param authors - The authors of the desired book(s).
+     * @param isbn - The ISBN of the desired book(s).
+     * @param publisher - The publisher of the desired book(s).
+     * @param sortOrder - The sort order to be used when gathering the desired book(s).
+     */
+    public BookStoreSearch(LibrarySubject proxy, Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
+    {
+        this.proxy = proxy;
+        this.clientID = clientID;
+        this.title = title;
+        this.authors = authors;
+        this.isbn = isbn;
+        this.publisher = publisher;
+        this.sortOrder = sortOrder;
+    }
+
+    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
+
     /**
      * Executes the BookStoreSearch command on the library.
      */
     public void execute()
     {
+        // todo this.proxy.bookSearch(this.clientID, this.title, this.authors, this.isbn, this.publisher, this.sortOrder);
         this.library.bookStoreSearch(this.title, this.authors, this.isbn, this.publisher, this.sortOrder);
     }
 
