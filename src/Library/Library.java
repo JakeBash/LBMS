@@ -438,6 +438,15 @@ public class Library extends Observable //todo implements LibrarySubject
         this.notifyObservers();
     }
 
+    // Todo implement me!!!!!
+    public void updateClientStatus(Long clientID, String status)
+    {
+        System.out.print("Client " + clientID + "'s status is: " + status);
+//        this.status = status;
+//        this.setChanged();
+//        this.notifyObservers();
+    }
+
     /**
      * Shut down the system, persisting all data created in flat files.
      */
