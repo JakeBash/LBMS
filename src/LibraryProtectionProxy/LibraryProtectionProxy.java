@@ -1,5 +1,6 @@
 package LibraryProtectionProxy;
 
+import LBMSCommands.Disconnect;
 import Library.Library;
 
 import java.util.ArrayList;
@@ -15,10 +16,10 @@ import java.util.ArrayList;
 public class LibraryProtectionProxy implements LibrarySubject
 {
 
-    private final int DISCONNECTED = 0;
-    private final int LOGGED_OUT = 1;
-    private final int VISITOR_LOGGED_IN = 2;
-    private final int EMPLOYEE_LOGGED_IN = 3;
+    private final int DISCONNECTED_STATE = 0;
+    private final int LOGGED_OUT_STATE = 1;
+    private final int VISITOR_LOGGED_IN_STATE = 2;
+    private final int EMPLOYEE_LOGGED_IN_STATE = 3;
 
     // private visitor/user loggedInVisitor
     private ArrayList<LibraryProtectionProxyState> stateList;
@@ -29,7 +30,6 @@ public class LibraryProtectionProxy implements LibrarySubject
     // Or they need to have a visitor
     public LibraryProtectionProxy( Library library )
     {
-
         this.library = library;
 
         stateList = new ArrayList<LibraryProtectionProxyState>();
@@ -38,7 +38,7 @@ public class LibraryProtectionProxy implements LibrarySubject
         stateList.add(new VisitorLoggedInState(library));
         stateList.add(new EmployeeLoggedInState(library));
 
-        setState(DISCONNECTED);
+        setState(DISCONNECTED_STATE);
     }
 
 
@@ -137,9 +137,9 @@ public class LibraryProtectionProxy implements LibrarySubject
     // Todo supply argument signature
     // report,
     // Library Statistic Report
-    public void generateReport(Long clientID)
+    public void generateReport(Long clientID, int days)
     {
-        activeState.generateReport(clientID);
+        activeState.generateReport(clientID, days);
     }
 
     // Todo supply argument signature
@@ -182,17 +182,24 @@ public class LibraryProtectionProxy implements LibrarySubject
     {
         // Should add client to library's list of observers
         activeState.clientConnect(clientID);
+
+        if (activeState instanceof DisconnectedState)
+            setState(LOGGED_OUT_STATE);
     }
 
     // Todo supply argument signature
-    // Todo decide if this logs you out, this is important for connecting
     // disconnect,
     // Client Disconnect
     public void clientDisconnect(Long clientID)
     {
         // should remove client from library's list of observers
-        // Should probably log you out first?
+
+
+        if (activeState instanceof EmployeeLoggedInState || activeState instanceof VisitorLoggedInState)
+            activeState.logout();
+
         activeState.clientDisconnect(clientID);
+        setState(DISCONNECTED_STATE);
     }
 
     // Todo supply argument signature
@@ -209,6 +216,10 @@ public class LibraryProtectionProxy implements LibrarySubject
     public void login()
     {
         activeState.login();
+        // log that user in, get that users type
+        // if employee setState(employee)
+        // else if visitor set state
+        // else fail
     }
 
     // Todo supply argument signature
@@ -217,6 +228,7 @@ public class LibraryProtectionProxy implements LibrarySubject
     public void logout()
     {
         activeState.logout();
+        setState(LOGGED_OUT_STATE);
     }
 
 

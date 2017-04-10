@@ -99,7 +99,7 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // report,
     // Library Statistic Report
-    public void generateReport(Long clientID)
+    public void generateReport(Long clientID, int days)
     {
 
     }
