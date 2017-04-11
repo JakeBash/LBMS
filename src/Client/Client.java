@@ -3,7 +3,10 @@ package Client;
 import Library.Library;
 import LibraryProtectionProxy.LibraryProtectionProxy;
 import UIS.CommandParser;
+import Books.Book;
 import Visitors.Visitor;
+
+import java.util.ArrayList;
 
 /**
  * Description
@@ -15,6 +18,14 @@ public class Client
 {
     private Long clientId;
     private Visitor visitor;
+    /**
+     * The last search from the book catalog.
+     */
+    private ArrayList<Book>  lastStoreSearch;
+    private ArrayList<Book> lastStorageSearch;
+    // Command Parser no
+    // Proxy no
+    // Library yee
     private CommandParser parser;
     private LibraryProtectionProxy proxy;
 
@@ -42,6 +53,9 @@ public class Client
     {
         return clientId;
     }
+    public ArrayList<Book> getLastStoreSearch() {return lastStoreSearch;}
+    public ArrayList<Book> getLastStorageSearch() {return lastStoreSearch;}
+
 
     public void setClientId(Long clientId)
     {
