@@ -27,7 +27,7 @@ public class GUI extends JPanel
         super(new GridLayout(1, 1));
         this.lib = new Library();
         tabbedPane = new JTabbedPane();
-        tabbedPane.add(new GUICommandDisplay(tabbedPane, clientIDCounter).getCommandDisplay(), "Client " + clientIDCounter);
+        tabbedPane.add(new GUICommandDisplay(tabbedPane, Long.valueOf(clientIDCounter)).getCommandDisplay(), "Client " + clientIDCounter);
         clientIDCounter++;
         JButton button = new newClient();
         tabbedPane.add(button, "New Client");
@@ -63,7 +63,7 @@ public class GUI extends JPanel
          */
         public void actionPerformed(ActionEvent e)
         {
-            GUICommandDisplay newDisplay = new GUICommandDisplay(tabbedPane, clientIDCounter);
+            GUICommandDisplay newDisplay = new GUICommandDisplay(tabbedPane, Long.valueOf(clientIDCounter));
             lib.addObserver(newDisplay);
             tabbedPane.add(newDisplay.getCommandDisplay(), "Client " + clientIDCounter, tabbedPane.getTabCount()-1);
             commandDisplays.add(newDisplay);

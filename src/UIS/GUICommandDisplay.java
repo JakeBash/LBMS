@@ -14,7 +14,7 @@ import java.util.Observer;
  */
 public class GUICommandDisplay extends Component implements ActionListener, Observer
 {
-    private int clientID;
+    private Long clientID;
     private JTextField tField;
     private JButton removeClient;
     private JTextArea tArea;
@@ -26,7 +26,7 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
      *
      * @param tabbedPane -
      */
-    public GUICommandDisplay(JTabbedPane tabbedPane, int clientID)
+    public GUICommandDisplay(JTabbedPane tabbedPane, Long clientID)
     {
         this.clientID = clientID;
 
@@ -99,7 +99,7 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
         return tArea;
     }
 
-    public int getClientID()
+    public Long getClientID()
     {
         return clientID;
     }
