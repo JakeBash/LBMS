@@ -397,8 +397,8 @@ public class Library extends Observable //todo implements LibrarySubject
         {
             updateStatus("advance,invalid-number-of-hours," + hours +";" );
         }
-
     }
+
 
     public void returnBooks(Long visitorID, ArrayList<String> isbns)
     {
@@ -419,6 +419,7 @@ public class Library extends Observable //todo implements LibrarySubject
             updateStatus("return,success;");
         }
     }
+
 
     /**
      * Returns the current status for use with command responses.
@@ -470,6 +471,7 @@ public class Library extends Observable //todo implements LibrarySubject
      * Ends the connection with the ACTIVE CLIENT.
      */
     public void endCurrentConnection(){
+        // Todo get rid of active clients... end connections by supplying the client id and remove client with that id
         this.clients.remove(this.activeClient);
         this.activeClient = null;
     }
