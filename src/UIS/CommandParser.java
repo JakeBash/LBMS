@@ -122,6 +122,10 @@ public class CommandParser
 
             case "borrow":
                 if(args.size() == 2) {
+                    if( String.class.isInstance(args.get(1))) {
+                        String temp = (String) args.remove(1);
+                        args.add(1,new ArrayList<String>().add(temp));
+                    }
                     command = new BorrowBook(library, Long.parseLong((String)args.get(0)),(ArrayList<String>)args.get(1));
                     this.addCommand(command);
                 }
@@ -264,6 +268,7 @@ public class CommandParser
             case "shutdown":
                 library.shutdown();
                 System.exit(0);
+                break;
 
             default:
                 break;

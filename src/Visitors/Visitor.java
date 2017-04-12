@@ -228,19 +228,22 @@ public class Visitor implements java.io.Serializable
      * @param days - The number of days of data to return.
      * @return The total amount of fines paid by the visitor in the last [days] number of days.
      */
-    public int getFinesUnpaid(int days)
+    public ArrayList<UnpaidFine> getFinesUnpaid(int days)
     {
+        if(days == 0){
+            return this.unpaidFines;
+        }
         // Apply date offset
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_MONTH, -days);
 
         // Calculate total fines paid by visitor in date range
-        int totalFines = 0;
+        ArrayList<UnpaidFine> totalFines = new ArrayList<>();
         for (UnpaidFine fine: this.unpaidFines)
         {
             if (fine.getDateAccumulated().after(calendar.getTime()))
             {
-                totalFines += fine.getAmount();
+                totalFines.add(fine);
             }
         }
 

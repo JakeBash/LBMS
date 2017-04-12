@@ -134,16 +134,18 @@ public class VisitorStorage implements java.io.Serializable
      *
      * @return The total fine amount.
      */
-    private int getTotalUnpaidFines()
+    public ArrayList<UnpaidFine> getTotalUnpaidFines(Long visitorID)
     {
         //TODO: Take into account number of days to include in report. Currently returning total since beginning of time
         int totalBalance = 0;
         for (Visitor visitor: this.visitors.values())
         {
-            totalBalance += visitor.getBalance();
+            if(visitor.getID() == visitorID){
+                return visitor.getFinesUnpaid(0);
+            }
         }
 
-        return totalBalance;
+        return new ArrayList<>();
     }
 
     /**
@@ -242,13 +244,13 @@ public class VisitorStorage implements java.io.Serializable
         String totalFinesPaid = String.valueOf(this.getTotalPaidFines());
 
         // Get total outstanding fines
-        String totalFinesOutstanding = String.valueOf(this.getTotalUnpaidFines());
+        //String totalFinesOutstanding = String.valueOf(this.getTotalUnpaidFines());
 
         // Add data to the report and return
         reportString = "Number of Visitors: " + totalVisitors + "\n"
                 + "Average Length of Visit: " + averageStay + "\n"
-                + "Fines Collected: " + totalFinesPaid + "\n"
-                + "Fines Outstanding: " + totalFinesOutstanding;
+                + "Fines Collected: " + totalFinesPaid + "\n";
+                //+ "Fines Outstanding: " + totalFinesOutstanding;
 
         return reportString;
     }
