@@ -122,10 +122,6 @@ public class CommandParser
 
             case "borrow":
                 if(args.size() == 2) {
-                    if( String.class.isInstance(args.get(1))) {
-                        String temp = (String) args.remove(1);
-                        args.add(1,new ArrayList<String>().add(temp));
-                    }
                     command = new BorrowBook(library, Long.parseLong((String)args.get(0)),(ArrayList<String>)args.get(1));
                     this.addCommand(command);
                 }
@@ -191,7 +187,7 @@ public class CommandParser
                 break;
 
             case "pay":
-                if (args.size() == 1)
+                if (args.size() == 2)
                 {
                     command = new PayFine(library, Long.parseLong((String)args.get(0)), Integer.parseInt((String)args.get(1)));
                     this.addCommand(command);
@@ -213,7 +209,15 @@ public class CommandParser
             case "report":
                 if(args.size() == 0)
                 {
-                    command = new GenerateReport(library);
+                    command = new GenerateReport(library, 0);
+                    this.addCommand(command);
+                }
+                else if(args.size() == 1)
+                {
+                    String strDays = (String)args.get(0);
+                    int days = Integer.valueOf(strDays);
+
+                    command = new GenerateReport(library, days);
                     this.addCommand(command);
                 }
                 break;
@@ -267,8 +271,7 @@ public class CommandParser
 
             case "shutdown":
                 library.shutdown();
-                System.exit(0);
-                break;
+                // This is already in the library shutdown command // System.exit(0);
 
             default:
                 break;

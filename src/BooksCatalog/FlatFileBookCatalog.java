@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import Books.Book;
+import Client.Client;
 
 /**
  * Handles the storage of the currently used library catalog. Holds books objects that employees of the library can
@@ -196,7 +197,6 @@ public class FlatFileBookCatalog implements BookCatalog
         BookCatalog meme = new FlatFileBookCatalog(new File("files/books.txt"));
         ArrayList<String> authors = new ArrayList<>();
         authors.add("*");
-        System.out.println(meme.bookSearch("*",authors,"*","*"));
-        System.out.println(meme.getLastSearch());
+        System.out.println(meme.bookSearch("*",authors,"*","*")) ;
     }
 }

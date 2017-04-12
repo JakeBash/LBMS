@@ -12,6 +12,7 @@ import java.util.Observer;
  * distribution of commands is handled here.
  *
  * @author Kyle Kaniecki
+ * @author Tyler
  */
 public class PTUI implements Observer
 {
@@ -21,6 +22,7 @@ public class PTUI implements Observer
 
     /**
      * Creates a new PTUI that accepts input from the user.
+     * // Todo, this should take in a lib as a param from main
      */
     public PTUI()
     {

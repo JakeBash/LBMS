@@ -1,5 +1,9 @@
 package LibraryProtectionProxy;
 
+import Library.Library;
+
+import java.util.ArrayList;
+
 /**
  * Protection Proxy state for when the client is connected but
  * a user is not logged in
@@ -14,140 +18,130 @@ package LibraryProtectionProxy;
 public class LoggedOutState implements LibraryProtectionProxyState
 {
 
-    public LoggedOutState()
-    {
+    private Library library;
 
+    public LoggedOutState(Library library)
+    {
+        this.library = library;
     }
 
     // Can log in... That is about it as far as I know
 
-    // Todo supply argument signature
+
     // info,
     // Library Book Search
-    public void bookSearch()
+    public void bookSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
-        // response: "client ID,<request name>,not-authorized;"
+        library.updateClientStatus(clientID, clientID + ",info,not-authorized;");
     }
 
-    // Todo supply argument signature
+
     // search,
     // Book Store Search
-    public void bookStoreSearch()
+    public void bookStoreSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
-        // response: "client ID,<request name>,not-authorized;"
+        library.updateClientStatus(clientID, clientID + ",search,not-authorized;");
     }
 
-    // Todo supply argument signature
     // borrow,
     // Borrow book
-    public void borrowBook()
+    public void borrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
     {
-        // response: "client ID,<request name>,not-authorized;"
+        library.updateClientStatus(clientID, clientID + ",borrow,not-authorized;");
     }
 
-    // Todo supply argument signature
     // buy,
     // Book Purchase
-    public void purchaseBooks()
+    public void purchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
     {
-        // response: "client ID,<request name>,not-authorized;"
+        library.updateClientStatus(clientID, clientID + ",buy,not-authorized;");
     }
 
-    // Todo supply argument signature
     // register,
     // Register Visitor
-    public void registerVisitor()
+    public void registerVisitor(Long clientID, String firstName, String lastName, String address, String phoneNumber)
     {
-        // response: "client ID,<request name>,not-authorized;"
+        library.updateClientStatus(clientID, clientID + ",register,not-authorized;");
     }
 
-    // Todo supply argument signature
     // arrive,
     // Begin Visit
-    public void beginVisit()
+    public void beginVisit(Long clientID, Long visitorID)
     {
-        // response: "client ID,<request name>,not-authorized;"
+        // You must log in before you can begin a visit
+        library.updateClientStatus(clientID, clientID + ",arrive,not-authorized;");
     }
 
-    // Todo supply argument signature
     // depart,
     // End Visit
-    public void endVisit()
+    public void endVisit(Long clientID, Long visitorID)
     {
-        // response: "client ID,<request name>,not-authorized;"
+        library.updateClientStatus(clientID, clientID + ",depart,not-authorized;");
     }
 
-    // Todo supply argument signature
     // borrowed,
     // Find Borrowed Books
-    public void getVisitorCheckedOutBooks()
+    public void getVisitorCheckedOutBooks(Long clientID, Long visitorID)
     {
-        // response: "client ID,<request name>,not-authorized;"
+        library.updateClientStatus(clientID, clientID + ",borrowed,not-authorized;");
     }
 
-    // Todo supply argument signature
     // pay,
     // Pay fine
-    public void payFine()
+    public void payFine(Long clientID, Long visitorID, int amount)
     {
-        // response: "client ID,<request name>,not-authorized;"
+        library.updateClientStatus(clientID, clientID + ",pay,not-authorized;");
     }
 
-    // Todo supply argument signature
     // report,
     // Library Statistic Report
-    public void generateReport()
+    public void generateReport(Long clientID, int days)
     {
-        // response: "client ID,<request name>,not-authorized;"
+        library.updateClientStatus(clientID, clientID + ",report,not-authorized;");
     }
 
-    // Todo supply argument signature
     // datetime,
     // Current Date Time
-    public void getFormattedDateTime()
+    public void getFormattedDateTime(Long clientID)
     {
-        // response: "client ID,<request name>,not-authorized;"
+        library.updateClientStatus(clientID, clientID + ",datetime,not-authorized;");
     }
 
-    // Todo supply argument signature
     // advance,
     // Advance Time
-    public void advanceTime()
+    public void advanceTime(Long clientID, int days, int hours)
     {
-        // response: "client ID,<request name>,not-authorized;"
+        library.updateClientStatus(clientID, clientID + ",advance,not-authorized;");
     }
 
-    // Todo supply argument signature
     // return,
     // Return book
-    public void returnBooks()
+    public void returnBooks(Long clientID, Long visitorID, ArrayList<String> isbns)
     {
-        // response: "client ID,<request name>,not-authorized;"
+        library.updateClientStatus(clientID, clientID + ",return,not-authorized;");
     }
 
-    // Todo supply argument signature
     // shutdown,
     // Shut Down
-    public void shutdown()
+    public void shutdown(Long clientID)
     {
         // Todo do you need to be logged in to shutdown?
-        // response: "client ID,<request name>,not-authorized;"
+        library.updateClientStatus(clientID, clientID + ",shutdown,not-authorized;");
     }
 
-    // Todo supply argument signature
     // connect,
     // Client Connect
-    public void clientConnect()
+    public void clientConnect(Long clientID)
     {
-        // response: "client ID,<request name>,not-authorized;"
+        library.updateClientStatus(clientID, clientID + ",connect,already-connected;");
     }
 
     // Todo supply argument signature
     // disconnect,
     // Client Disconnect
-    public void clientDisconnect()
+    public void clientDisconnect(Long clientID)
     {
-        // response - client ID,disconnect;
+        // end connection
         // todo need to make a state change
     }
 

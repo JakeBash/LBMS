@@ -197,26 +197,29 @@ public class Visitor implements java.io.Serializable
     /**
      * Gets a total of fines paid by the visitor within a given number of days in the past.
      *
+     * @param days - number of days in the past to collect data
      * @return The total amount of fines paid by the visitor in the last [days] number of days.
      */
-    public int getFinesPaid()
+    public int getFinesPaid(int days)
     {
-        //TODO: Take into account number of days to include in report. Currently returning total since beginning of time
-        /*
+        if (days == 0)
+        {
+            // Return the total paid fines
+            return this.paidFines.stream().mapToInt(PaidFine::getAmount).sum();
+        }
+
         // Apply date offset
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_MONTH, -days);
-        */
+        Calendar startDate = Calendar.getInstance();
+        startDate.add(Calendar.DAY_OF_MONTH, -days);
 
         // Calculate total fines paid by visitor in date range
         int totalFines = 0;
         for (PaidFine fine: this.paidFines)
         {
-            /*
-            if (fine.getDatePaid().after(calendar.getTime()))
-            {*/
+            if (fine.getDatePaid().after(startDate))
+            {
                 totalFines += fine.getAmount();
-            //}
+            }
         }
 
         return totalFines;
@@ -228,22 +231,25 @@ public class Visitor implements java.io.Serializable
      * @param days - The number of days of data to return.
      * @return The total amount of fines paid by the visitor in the last [days] number of days.
      */
-    public ArrayList<UnpaidFine> getFinesUnpaid(int days)
+    public int getFinesUnpaid(int days)
     {
-        if(days == 0){
-            return this.unpaidFines;
+        if (days == 0)
+        {
+            // Return the total unpaid fines
+            return this.unpaidFines.stream().mapToInt(UnpaidFine::getAmount).sum();
         }
+
         // Apply date offset
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_MONTH, -days);
+        Calendar startDate = Calendar.getInstance();
+        startDate.add(Calendar.DAY_OF_MONTH, -days);
 
         // Calculate total fines paid by visitor in date range
-        ArrayList<UnpaidFine> totalFines = new ArrayList<>();
+        int totalFines = 0;
         for (UnpaidFine fine: this.unpaidFines)
         {
-            if (fine.getDateAccumulated().after(calendar.getTime()))
+            if (fine.getDateAccumulated().after(startDate))
             {
-                totalFines.add(fine);
+                totalFines += fine.getAmount();
             }
         }
 

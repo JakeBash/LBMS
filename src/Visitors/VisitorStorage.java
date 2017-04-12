@@ -134,18 +134,16 @@ public class VisitorStorage implements java.io.Serializable
      *
      * @return The total fine amount.
      */
-    public ArrayList<UnpaidFine> getTotalUnpaidFines(Long visitorID)
+    private int getTotalUnpaidFines(int days)
     {
         //TODO: Take into account number of days to include in report. Currently returning total since beginning of time
         int totalBalance = 0;
-        for (Visitor visitor: this.visitors.values())
+        for (Visitor visitor: this.getFilteredVisitors(days))
         {
-            if(visitor.getID() == visitorID){
-                return visitor.getFinesUnpaid(0);
-            }
+            totalBalance += visitor.getFinesUnpaid(days);
         }
 
-        return new ArrayList<>();
+        return totalBalance;
     }
 
     /**
@@ -153,13 +151,13 @@ public class VisitorStorage implements java.io.Serializable
      *
      * @return The total paid fine amount.
      */
-    private int getTotalPaidFines()
+    private int getTotalPaidFines(int days)
     {
         //TODO: Take into account number of days to include in report. Currently returning total since beginning of time
         int totalBalance = 0;
-        for (Visitor visitor: this.visitors.values())
+        for (Visitor visitor: this.getFilteredVisitors(days))
         {
-            totalBalance += visitor.getFinesPaid();
+            totalBalance += visitor.getFinesPaid(days);
         }
 
         return totalBalance;
@@ -190,27 +188,88 @@ public class VisitorStorage implements java.io.Serializable
      * @param visitorID - id of visitor returning books
      * @param books - books to be returned
      */
-    public double returnBooks(Long visitorID, ArrayList<Book> books) {
+    public double returnBooks(Long visitorID, ArrayList<Book> books)
+    {
         Visitor visitor = this.getVisitor(visitorID);
         return visitor.returnBooks(books, this.library.getTime());
     }
 
     /**
-     * Generates the visitor data stored, in string format, to be included in a statistical report.
-     * Data includes: Total number of visitors, Average length of visit.
+     * Helper method for report generation.
+     * Filters the visitor list by registered date for a given number of days
+     * in the past.
      *
-     * @return A String representing the applicable Visitor data for a statistical report.
+     * @param days - number of days in the past to collect data
+     * @return list of filtered visitors
      */
-    public String generateReport()
+    private ArrayList<Visitor> getFilteredVisitors(int days)
     {
-        //TODO: Take into account number of days to include in report. Currently returning total since beginning of time
+        if (days == 0)
+        {
+            return new ArrayList<>(this.visitors.values());
+        }
+        ArrayList<Visitor> filteredVisitors = new ArrayList<>();
 
-        // String to hold the report data
-        String reportString;
+        for (Visitor visitor: this.visitors.values())
+        {
+            // Calculate the date range
+            Calendar startDate = this.library.getTime();
+            startDate.add(Calendar.DAY_OF_YEAR, -days);
 
-        // Get total # visitors and visits
-        int totalVisitors = this.visitors.keySet().size();
-        int totalVisits = this.visitHistory.size();
+            if (visitor.getRegisteredDate().after(startDate))
+            {
+                filteredVisitors.add(visitor);
+            }
+        }
+
+        return filteredVisitors;
+    }
+
+    /**
+     * Helper method for report generation.
+     * Calculates the number of visitors registered in a given time frame.
+     *
+     * @param days - number of days in the past to collect data
+     * @return number of visitors registered
+     */
+    private int getTotalVisitors(int days)
+    {
+        return this.getFilteredVisitors(days).size();
+    }
+
+    /**
+     * Helper method for report generation.
+     * Calculates the average length of stay at the library.
+     *
+     * @param days - number of days in the past to collect data
+     * @return average visit time (hh:mm:ss)
+     */
+    private String getAverageVisit(int days)
+    {
+        // Holds the visits filtered by start date
+        ArrayList<Visit> filteredVisits = new ArrayList<>();
+
+        if (days == 0)
+        {
+            // Report on all data
+            filteredVisits = this.visitHistory;
+        }
+        else
+        {
+            // Calculate the date range
+            Calendar startDate = this.library.getTime();
+            startDate.add(Calendar.DAY_OF_YEAR, -days);
+
+            for (Visit visit: this.visitHistory)
+            {
+                if (visit.getStartDateTime().after(startDate))
+                {
+                    filteredVisits.add(visit);
+                }
+            }
+        }
+
+        int totalVisits = filteredVisits.size();
 
         // Prevent division by 0
         if (totalVisits == 0) { totalVisits = 1; }
@@ -219,7 +278,7 @@ public class VisitorStorage implements java.io.Serializable
         // Total visit time (milliseconds)
         long totalTime = 0;
 
-        for (Visit visit : this.visitHistory)
+        for (Visit visit : filteredVisits)
         {
             Calendar start = visit.getStartDateTime();
             Calendar end = visit.getEndDateTime();
@@ -238,19 +297,38 @@ public class VisitorStorage implements java.io.Serializable
         String strMinutes = String.format("%02d", minutes);
         String strSeconds = String.format("%02d", seconds);
 
-        String averageStay = strHours + ":" + strMinutes + ":" + strSeconds;
+        return strHours + ":" + strMinutes + ":" + strSeconds;
+    }
+
+    /**
+     * Generates the visitor data stored, in string format, to be included in a statistical report.
+     * Data includes: Total number of visitors, Average length of visit.
+     *
+     * @return A String representing the applicable Visitor data for a statistical report.
+     */
+    public String generateReport(int days)
+    {
+        //TODO: Take into account number of days to include in report. Currently returning total since beginning of time
+        // String to hold the report data
+        String reportString;
+
+        // Get total # visitors
+        int totalVisitors = this.getTotalVisitors(days);
+
+        // Get average length of visits
+        String avgVisitTime = this.getAverageVisit(days);
 
         // Get total fines collected
-        String totalFinesPaid = String.valueOf(this.getTotalPaidFines());
+        int totalFinesPaid = this.getTotalPaidFines(days);
 
         // Get total outstanding fines
-        //String totalFinesOutstanding = String.valueOf(this.getTotalUnpaidFines());
+        int totalFinesOutstanding = this.getTotalUnpaidFines(days) - totalFinesPaid;
 
         // Add data to the report and return
         reportString = "Number of Visitors: " + totalVisitors + "\n"
-                + "Average Length of Visit: " + averageStay + "\n"
-                + "Fines Collected: " + totalFinesPaid + "\n";
-                //+ "Fines Outstanding: " + totalFinesOutstanding;
+                + "Average Length of Visit: " + avgVisitTime + "\n"
+                + "Fines Collected: " + totalFinesPaid + "\n"
+                + "Fines Outstanding: " + totalFinesOutstanding;
 
         return reportString;
     }

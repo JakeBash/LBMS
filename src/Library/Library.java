@@ -3,6 +3,7 @@ package Library;
 import Books.*;
 import BooksCatalog.BookCatalog;
 import BooksCatalog.FlatFileBookCatalog;
+import Client.Client;
 import Sort.*;
 import Visitors.CheckOut;
 import Visitors.Visit;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.io.File;
+import LibraryProtectionProxy.LibrarySubject;
 
 /**
  * The Library class serves as the "brain" of the LBMS system so-to-say. Interactions between the library's internal
@@ -23,7 +25,7 @@ import java.io.File;
  * @author Tyler Reimold
  * @author Kyle Kaniecki
  */
-public class Library extends Observable
+public class Library extends Observable //todo implements LibrarySubject
 {
     private final int OPEN = 0;
     private final int CLOSED = 1;
@@ -37,27 +39,38 @@ public class Library extends Observable
     private Timer timer;
     private LibraryState currentState;
     private ArrayList<LibraryState> stateList;
+    /**
+     * The active client of the library.
+     */
+    private Client activeClient;
+    /**
+     * Map of all current client connections. Can only be added to, no getter method.
+     */
+    private HashMap<Long, Client> clients;
 
     /**
      * Initializes all required persistent state from existing files.
      */
     public Library()
     {
-        this.status = "";
-        // Initialized with reference to self to give access to TimeClock
-        this.visitorStorage = VisitorStorage.deserialize(this);
-        this.bookStorage = BookStorage.deserialize();
-        this.bookCatalog = new FlatFileBookCatalog(new File("files/books.txt"));
-        this.timeClock = TimeClock.deserialize();
-        // Have to cancel task and Timer when shutting down
-        this.timer = new Timer("Task Timer");
-        this.checkTimeTask = new CheckTimeTask(this);
-        timer.schedule(checkTimeTask, 0, 15000);
         // Init library states
         this.stateList = new ArrayList<LibraryState>();
         this.stateList.add(new LibraryOpen());
         this.stateList.add(new LibraryClosed());
         this.currentState = this.stateList.get(0);
+
+        this.status = "";
+        // Initialized with reference to self to give access to TimeClock
+        this.visitorStorage = VisitorStorage.deserialize(this);
+        this.bookStorage = BookStorage.deserialize(this);
+        this.bookCatalog = new FlatFileBookCatalog(new File("files/books.txt"));
+        this.timeClock = TimeClock.deserialize();
+
+        // Have to cancel task and Timer when shutting down
+        this.timer = new Timer("Task Timer");
+        this.checkTimeTask = new CheckTimeTask(this);
+        timer.schedule(checkTimeTask, 0, 15000);
+
     }
 
     /**
@@ -108,7 +121,7 @@ public class Library extends Observable
 
         updateStatus(response);
     }
-    
+
     /**
      * Performs a search for books in the bookstore
      *
@@ -118,7 +131,7 @@ public class Library extends Observable
      * @param publisher - The publisher of the desired book(s).
      * @param sortOrder - The sort order to be used when gathering the desired book(s).
      */
-    public void bookStoreSearch(String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
+    public void bookStoreSearch(Long id, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
         ArrayList<Book> searchRes = this.bookCatalog.bookSearch(title, authors, isbn, publisher);
         String response = "info,";
@@ -154,6 +167,7 @@ public class Library extends Observable
         {
             response += b.toString("sSearch") + ";\n";
         }
+        this.getClient(id).setLastStoreSearch(searchRes);
 
         updateStatus(response);
     }
@@ -300,13 +314,13 @@ public class Library extends Observable
      * Generates a statistical report of the library
      *
      */
-    public void generateReport()
+    public void generateReport(int days)
     {
         //TODO: Add in the rest of the report data needed
         LocalDate localDate = LocalDate.now();
         updateStatus(DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate) + "\n"
-                + this.bookStorage.generateReport() + "\n"
-                + this.visitorStorage.generateReport() + "\n");
+                + this.bookStorage.generateReport(days) + "\n"
+                + this.visitorStorage.generateReport(days) + "\n");
 
     }
 
@@ -384,8 +398,8 @@ public class Library extends Observable
         {
             updateStatus("advance,invalid-number-of-hours," + hours +";" );
         }
-
     }
+
 
     public void returnBooks(Long visitorID, ArrayList<String> isbns)
     {
@@ -407,6 +421,7 @@ public class Library extends Observable
         }
     }
 
+
     /**
      * Returns the current status for use with command responses.
      */
@@ -425,6 +440,15 @@ public class Library extends Observable
         this.notifyObservers();
     }
 
+    // Todo implement me!!!!!
+    public void updateClientStatus(Long clientID, String status)
+    {
+        System.out.print("Client " + clientID + "'s status is: " + status);
+//        this.status = status;
+//        this.setChanged();
+//        this.notifyObservers();
+    }
+
     /**
      * Shut down the system, persisting all data created in flat files.
      */
@@ -434,6 +458,30 @@ public class Library extends Observable
         this.timeClock.serialize();
         this.visitorStorage.serialize();
         this.bookStorage.serialize();
+        System.exit(0);
+    }
+
+    /**
+     * Creates new client connection with library.
+     */
+    public void newConnection(Long id){
+        this.clients.put(id, new Client(id, this));
+    }
+
+    /**
+     * Ends the connection with the ACTIVE CLIENT.
+     */
+    public void endCurrentConnection(){
+        // Todo get rid of active clients... end connections by supplying the client id and remove client with that id
+        this.clients.remove(this.activeClient);
+        this.activeClient = null;
+    }
+
+    /**
+     * Helper method for getting client
+     */
+    private Client getClient(Long id){
+        return this.clients.get(id);
     }
 
     /**
