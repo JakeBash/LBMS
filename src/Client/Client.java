@@ -53,9 +53,14 @@ public class Client
     {
         return clientId;
     }
+    /**
+     * Retrieves the results from the mst recent search of the Book Catalog.
+     *
+     * @return An ArrayList representing the results from the last search of the Book Catalog.
+     */
     public ArrayList<Book> getLastStoreSearch() {return lastStoreSearch;}
     public ArrayList<Book> getLastStorageSearch() {return lastStoreSearch;}
-
+    public void setLastStoreSearch(ArrayList<Book> books) {this.lastStoreSearch = books;}
 
     public void setClientId(Long clientId)
     {
