@@ -4,13 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Description
  *
  * @author Jake Bashaw
  */
-public class GUICommandDisplay extends Component implements ActionListener
+public class GUICommandDisplay extends Component implements ActionListener, Observer
 {
     private int clientID;
     private JTextField tField;
@@ -105,5 +107,11 @@ public class GUICommandDisplay extends Component implements ActionListener
     public JPanel getCommandDisplay()
     {
         return commandDisplay;
+    }
+
+    @Override
+
+    public void update(Observable observable, Object o) {
+        //TODO
     }
 }

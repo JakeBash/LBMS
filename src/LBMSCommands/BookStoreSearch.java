@@ -30,6 +30,7 @@ public class BookStoreSearch implements LBMSCommand
      * @param library - The library that is being searched.
      * @param title - The title of the desired book(s).
      */
+    @Deprecated
     public BookStoreSearch(Library library, String title)
     {
         this.library = library;
@@ -49,6 +50,7 @@ public class BookStoreSearch implements LBMSCommand
      * @param authors - The authors of the desired book(s).
      * @param isbn - The ISBN of the desired book(s).
      */
+    @Deprecated
     public BookStoreSearch(Library library, String title, ArrayList<String> authors, String isbn)
     {
         this.library = library;
@@ -69,6 +71,7 @@ public class BookStoreSearch implements LBMSCommand
      * @param isbn - The ISBN of the desired book(s).
      * @param publisher - The publisher of the desired book(s).
      */
+    @Deprecated
     public BookStoreSearch(Library library, String title, ArrayList<String> authors, String isbn, String publisher)
     {
         this.library = library;
@@ -90,6 +93,7 @@ public class BookStoreSearch implements LBMSCommand
      * @param publisher - The publisher of the desired book(s).
      * @param sortOrder - The sort order to be used when gathering the desired book(s).
      */
+    @Deprecated
     public BookStoreSearch(Library library, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
         this.library = library;
@@ -207,7 +211,7 @@ public class BookStoreSearch implements LBMSCommand
     public void execute()
     {
         // todo this.proxy.bookSearch(this.clientID, this.title, this.authors, this.isbn, this.publisher, this.sortOrder);
-        this.library.bookStoreSearch(this.title, this.authors, this.isbn, this.publisher, this.sortOrder);
+        this.library.bookStoreSearch(this.clientID, this.title, this.authors, this.isbn, this.publisher, this.sortOrder);
     }
 
     /**

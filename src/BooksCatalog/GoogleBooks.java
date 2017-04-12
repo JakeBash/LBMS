@@ -73,10 +73,6 @@ public class GoogleBooks implements BookCatalog{
         return null;
     }
 
-    @Override
-    public ArrayList<Book> getLastSearch() {
-        return null;
-    }
 
     @Override
     public ArrayList<Book> purchase(int quantity, ArrayList<Integer> ids) {

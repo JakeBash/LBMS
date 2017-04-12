@@ -131,7 +131,7 @@ public class Library extends Observable //todo implements LibrarySubject
      * @param publisher - The publisher of the desired book(s).
      * @param sortOrder - The sort order to be used when gathering the desired book(s).
      */
-    public void bookStoreSearch(String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
+    public void bookStoreSearch(Long id, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
         ArrayList<Book> searchRes = this.bookCatalog.bookSearch(title, authors, isbn, publisher);
         String response = "info,";
@@ -167,6 +167,7 @@ public class Library extends Observable //todo implements LibrarySubject
         {
             response += b.toString("sSearch") + ";\n";
         }
+        this.getClient(id).setLastStoreSearch(searchRes);
 
         updateStatus(response);
     }
@@ -472,6 +473,13 @@ public class Library extends Observable //todo implements LibrarySubject
     public void endCurrentConnection(){
         this.clients.remove(this.activeClient);
         this.activeClient = null;
+    }
+
+    /**
+     * Helper method for getting client
+     */
+    private Client getClient(Long id){
+        return this.clients.get(id);
     }
 
     /**
