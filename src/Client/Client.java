@@ -26,8 +26,8 @@ public class Client
     // Command Parser no
     // Proxy no
     // Library yee
-    private CommandParser parser;
-    private LibraryProtectionProxy proxy;
+    private CommandParser parser; // todo this should get moved to GUICommandDisplay
+    private LibraryProtectionProxy proxy; // todo This should get moved to GUICommandDisplay
 
     /**
      * Constructs a Client object.
