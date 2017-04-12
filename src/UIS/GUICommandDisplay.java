@@ -112,6 +112,6 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
     @Override
 
     public void update(Observable observable, Object o) {
-        //TODO
+        //TODO Has to go into the Client class in library and update whatever GUI things are dependent on it.
     }
 }

@@ -1,5 +1,7 @@
 package UIS;
 
+import Library.Library;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -15,6 +17,7 @@ public class GUI extends JPanel
     private int clientIDCounter = 1;
     private ArrayList<GUICommandDisplay> commandDisplays = new ArrayList<>();
     private JTabbedPane tabbedPane;
+    private Library lib;
 
     /**
      * Constructs a new GUI object.
@@ -22,6 +25,7 @@ public class GUI extends JPanel
     public GUI()
     {
         super(new GridLayout(1, 1));
+        this.lib = new Library();
         tabbedPane = new JTabbedPane();
         tabbedPane.add(new GUICommandDisplay(tabbedPane, clientIDCounter).getCommandDisplay(), "Client " + clientIDCounter);
         clientIDCounter++;
@@ -60,6 +64,7 @@ public class GUI extends JPanel
         public void actionPerformed(ActionEvent e)
         {
             GUICommandDisplay newDisplay = new GUICommandDisplay(tabbedPane, clientIDCounter);
+            lib.addObserver(newDisplay);
             tabbedPane.add(newDisplay.getCommandDisplay(), "Client " + clientIDCounter, tabbedPane.getTabCount()-1);
             commandDisplays.add(newDisplay);
             clientIDCounter++;
