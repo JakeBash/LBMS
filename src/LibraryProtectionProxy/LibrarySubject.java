@@ -123,16 +123,16 @@ public interface LibrarySubject {
 
     ////////////////////////// maybe not in proxy ? ///////////////////////////
 
-    // Todo supply argument signature
-    // undo,
-    // Undo
-    public void undo();
-
-
-    // Todo supply argument signature
-    // redo,
-    // Redo
-    public void redo();
+//    // Todo supply argument signature
+//    // undo,
+//    // Undo
+//    public void undo();
+//
+//
+//    // Todo supply argument signature
+//    // redo,
+//    // Redo
+//    public void redo();
 
 
     ///////////////////////////////////////////////////////////////////////////

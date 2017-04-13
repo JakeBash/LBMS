@@ -142,7 +142,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Client Connect
     public void clientConnect(Long clientID)
     {
-        library.newConnection(clientID);
+        library.clientConnect(clientID);
         // response - "connect,client ID;"
     }
 

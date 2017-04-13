@@ -42,7 +42,7 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Library Book Search
     public void bookSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
-
+        library.bookSearch(clientID, title, authors, isbn, publisher, sortOrder);
     }
 
     // Todo supply argument signature
@@ -58,7 +58,7 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Borrow book
     public void borrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
     {
-
+        library.borrowBook(clientID, bookID, visitorID);
     }
 
     // Todo supply argument signature
@@ -82,7 +82,7 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Begin Visit
     public void beginVisit(Long clientID, Long visitorID)
     {
-
+        library.beginVisit(clientID, visitorID);
     }
 
     // Todo supply argument signature
@@ -90,7 +90,7 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // End Visit
     public void endVisit(Long clientID, Long visitorID)
     {
-
+        library.endVisit(clientID, visitorID);
     }
 
     // Todo supply argument signature

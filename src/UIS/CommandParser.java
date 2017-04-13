@@ -37,39 +37,48 @@ public class CommandParser
      *
      * @param s - The command that was entered by the user.
      */
-    public void parseCommand(String s)
-    {
+    public void parseCommand(String s) {
 
         ArrayList<String> args = new ArrayList<String>();
         String arg = "";
 
         boolean parseLiteral = false;
-        for(char c : s.toCharArray())
-        {
-            if ( (c == '{' || c == '\"') && !parseLiteral ) {
+        for (char c : s.toCharArray()) {
+            if ((c == '{' || c == '\"') && !parseLiteral) {
                 parseLiteral = true;
                 continue; // Skip { and "
-            }
-            else if ( (c == '}' || c == '\"') && parseLiteral ) {
+            } else if ((c == '}' || c == '\"') && parseLiteral) {
                 parseLiteral = false;
                 continue; // Skip } and "
             }
 
-            if ((c == ',' || c == ';') && !parseLiteral) {
+            if (c == ',' && !parseLiteral) {
                 args.add(arg);
                 arg = "";
-            }
-            else
+            } else if (c == ';' && !parseLiteral) {
+                args.add(arg);
+                arg = "";
+                break;
+            } else
                 arg += c;
         }
 
-        String cmd = args.get(1);
-        this.createCommand(cmd,args);
+        // The client technically will not be able to enter anything less than length 1... or 2 if we have a dropdown box for commands
+        if (args.size() >= 2)
+        {
+            String cmd = args.get(1);
+            this.createCommand(cmd,args);
+            if (s.endsWith(";"))
+                this.executeAllCommands();
+            else
+                System.out.println("partial-request;");//Partial Request Error
+        }
+        else {
+            // todo this should only go to the client that is using the cmd parser
+            System.out.println("Invalid argument length");
+        }
 
-        if (s.endsWith(";"))
-            this.executeAllCommands();
-        else
-            System.out.println("partial-request;");//Partial Request Error
+
 
     }
 
@@ -152,11 +161,15 @@ public class CommandParser
                 break;
 
             case "datetime":
-                if (args.size() == 2)
+                try {
+                    if (args.size() == 2) {
+                        Long clientID = Long.parseLong(args.get(0));
+                        command = new GetTime(proxy, clientID);
+                        this.addCommand(command);
+                    }
+                } catch (Exception e)
                 {
-                    Long clientID = Long.parseLong(args.get(0));
-                    command = new GetTime(proxy, clientID);
-                    this.addCommand(command);
+                    System.out.println("Invalid params - " + e.getMessage());
                 }
                 break;
 

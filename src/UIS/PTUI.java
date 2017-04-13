@@ -64,14 +64,14 @@ public class PTUI implements Observer
      */
     public static void main(String[] args)
     {
-        PTUI test = new PTUI();
-        try
+        while(true)
         {
-            test.getCommand();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
+            PTUI test = new PTUI();
+            try {
+                test.getCommand();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
