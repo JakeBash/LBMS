@@ -64,8 +64,7 @@ public class BeginVisit implements LBMSCommand
      */
     public void execute()
     {
-        // todo proxy.beginVisit(clientID, visitorID);
-        library.beginVisit(visitorID);
+        proxy.beginVisit(clientID, visitorID);
     }
 
     /**

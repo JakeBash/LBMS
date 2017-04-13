@@ -77,8 +77,7 @@ public class GenerateReport implements LBMSCommand
      */
     public void execute()
     {
-        // todo this.proxy.generateReport(clientID, days);
-        this.library.generateReport(days);
+        this.proxy.generateReport(clientID, days);
     }
 
     /**

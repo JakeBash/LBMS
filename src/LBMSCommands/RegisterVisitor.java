@@ -75,8 +75,7 @@ public class RegisterVisitor implements LBMSCommand
      */
     public void execute()
     {
-        // todo proxy.registerVisitor(clientID, firstName, lastName, address, phoneNumber);
-        library.registerVisitor(firstName, lastName, address, phoneNumber);
+        proxy.registerVisitor(clientID, firstName, lastName, address, phoneNumber);
     }
 
     /**

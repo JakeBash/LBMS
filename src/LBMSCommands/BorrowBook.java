@@ -64,8 +64,7 @@ public class BorrowBook implements LBMSCommand
      */
     public void execute()
     {
-        // this.proxy.borrowBook(clientID, bookID, visitorID);
-        this.library.borrowBooks(bookID,this.visitorID);
+        this.proxy.borrowBook(clientID, bookID, visitorID);
     }
 
     /**

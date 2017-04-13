@@ -25,7 +25,7 @@ import LibraryProtectionProxy.LibrarySubject;
  * @author Tyler Reimold
  * @author Kyle Kaniecki
  */
-public class Library extends Observable //todo implements LibrarySubject
+public class Library extends Observable implements LibrarySubject
 {
     private final int OPEN = 0;
     private final int CLOSED = 1;
@@ -82,7 +82,7 @@ public class Library extends Observable //todo implements LibrarySubject
      * @param publisher - The publisher of the desired book(s).
      * @param sortOrder - The sort order to be used when gathering the desired book(s).
      */
-    public void bookSearch(String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
+    public void bookSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
         ArrayList<Book> searchRes = this.bookStorage.bookSearch(title, authors, isbn, publisher);
         String response = "info,";
@@ -131,7 +131,7 @@ public class Library extends Observable //todo implements LibrarySubject
      * @param publisher - The publisher of the desired book(s).
      * @param sortOrder - The sort order to be used when gathering the desired book(s).
      */
-    public void bookStoreSearch(Long id, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
+    public void bookStoreSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
         ArrayList<Book> searchRes = this.bookCatalog.bookSearch(title, authors, isbn, publisher);
         String response = "info,";
@@ -167,7 +167,7 @@ public class Library extends Observable //todo implements LibrarySubject
         {
             response += b.toString("sSearch") + ";\n";
         }
-        this.getClient(id).setLastStoreSearch(searchRes);
+        this.getClient(clientID).setLastStoreSearch(searchRes);
 
         updateStatus(response);
     }
@@ -178,7 +178,7 @@ public class Library extends Observable //todo implements LibrarySubject
      * @param bkID - An ArrayList of Book ISBNs
      * @param vID - A Visitor ID.
      */
-    public void borrowBooks(ArrayList<String> bkID,Long vID)
+    public void borrowBook(Long clientID, ArrayList<String> bkID,Long vID)
     {
         String str = this.currentState.stateCheckOutBook(bkID, vID, this.visitorStorage, this.timeClock, this.bookStorage);
         updateStatus(str);
@@ -190,7 +190,7 @@ public class Library extends Observable //todo implements LibrarySubject
      * @param quantity - The amount of books to be purchased.
      * @param ids - The temporary ID's of the books to be purchased.
      */
-    public void purchaseBooks(int quantity, ArrayList<Integer> ids)
+    public void purchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
     {
         ArrayList<Book> purchasedBooks = this.bookCatalog.purchase(quantity, ids);
 
@@ -215,7 +215,7 @@ public class Library extends Observable //todo implements LibrarySubject
      * @param phoneNumber - The phone number of the visitor to be registered.
      * @return The newly registered visitor.
      */
-    public void registerVisitor(String firstName, String lastName, String address, String phoneNumber)
+    public void registerVisitor(Long clientID, String firstName, String lastName, String address, String phoneNumber)
     {
         Visitor newVis = visitorStorage.registerVisitor(firstName, lastName, address, phoneNumber);
         String response = "register,";
@@ -237,7 +237,7 @@ public class Library extends Observable //todo implements LibrarySubject
      *
      * @param visitorID - The ID of the visitor that is starting their visit.
      */
-    public void beginVisit(Long visitorID)
+    public void beginVisit(Long clientID, Long visitorID)
     {
         String response = currentState.stateBeginVisit(visitorID, this.visitorStorage);
         updateStatus(response);
@@ -248,7 +248,7 @@ public class Library extends Observable //todo implements LibrarySubject
      *
      * @param visitorID - The ID of the visitor currently at the library.
      */
-    public void endVisit(Long visitorID)
+    public void endVisit(Long clientID, Long visitorID)
     {
         Visit visit = this.visitorStorage.endVisit(visitorID);
 
@@ -277,7 +277,7 @@ public class Library extends Observable //todo implements LibrarySubject
      *
      * @param visitorID - The visitor being queried for their checked out books.
      */
-    public void getVisitorCheckedOutBooks(Long visitorID)
+    public void getVisitorCheckedOutBooks(Long clientID, Long visitorID)
     {
         Visitor visitor = this.visitorStorage.getVisitor(visitorID);
         String response = "borrowed,";
@@ -305,7 +305,7 @@ public class Library extends Observable //todo implements LibrarySubject
      * @param visitorID - id of visitor paying the fine
      * @param amount - amount to pay
      */
-    public void payFine(Long visitorID, int amount)
+    public void payFine(Long clientID, Long visitorID, int amount)
     {
         this.visitorStorage.payFine(visitorID, amount);
     }
@@ -314,7 +314,7 @@ public class Library extends Observable //todo implements LibrarySubject
      * Generates a statistical report of the library
      *
      */
-    public void generateReport(int days)
+    public void generateReport(Long clientID, int days)
     {
         //TODO: Add in the rest of the report data needed
         LocalDate localDate = LocalDate.now();
@@ -359,7 +359,7 @@ public class Library extends Observable //todo implements LibrarySubject
     /**
      * Gets a formatted date and time for use in system responses.
      */
-    public void getFormattedDateTime()
+    public void getFormattedDateTime(Long clientID)
     {
         updateStatus("datetime," + timeClock.getFormattedDateTime() + ";" );
     }
@@ -380,7 +380,7 @@ public class Library extends Observable //todo implements LibrarySubject
      * @param days - The number of days to advance.
      * @param hours - The number of hours to advance.
      */
-    public void advanceTime(int days, int hours)
+    public void advanceTime(Long clientID, int days, int hours)
     {
 
         if ((days >= 0 && days <= 7) && (hours >= 0 && hours <= 23))
@@ -401,7 +401,7 @@ public class Library extends Observable //todo implements LibrarySubject
     }
 
 
-    public void returnBooks(Long visitorID, ArrayList<String> isbns)
+    public void returnBooks(Long clientID, Long visitorID, ArrayList<String> isbns)
     {
         ArrayList<Book> books = new ArrayList<>();
         for (Book book: this.bookStorage.getBooks().values())
@@ -452,7 +452,7 @@ public class Library extends Observable //todo implements LibrarySubject
     /**
      * Shut down the system, persisting all data created in flat files.
      */
-    public void shutdown()
+    public void shutdown(Long clientID)
     {
         //TODO: Serialize all other entities to be persisted
         this.timeClock.serialize();
@@ -464,25 +464,65 @@ public class Library extends Observable //todo implements LibrarySubject
     /**
      * Creates new client connection with library.
      */
-    public void newConnection(Long id){
-        this.clients.put(id, new Client(id, this));
+    public void clientConnect(Long clientID){
+        this.clients.put(clientID, new Client(clientID, this));
     }
 
     /**
      * Ends the connection with the ACTIVE CLIENT.
      */
-    public void endCurrentConnection(){
+    public void clientDisconnect(Long clientID){
         // Todo get rid of active clients... end connections by supplying the client id and remove client with that id
-        this.clients.remove(this.activeClient);
-        this.activeClient = null;
+        //this.clients.remove(this.activeClient);
+        //this.activeClient = null;
     }
 
     /**
      * Helper method for getting client
      */
-    private Client getClient(Long id){
-        return this.clients.get(id);
+    private Client getClient(Long clientID){
+        return this.clients.get(clientID);
     }
+
+
+    ///////////////////////// R2 Requierments //////////////
+
+    public void createAccount()
+    {
+
+    }
+
+    public void login()
+    {
+
+    }
+
+    public void logout()
+    {
+
+    }
+
+    public void setService()
+    {
+
+    }
+
+    public void forwardResponse(Long clientID, String response)
+    {
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      *  Main method for testing.

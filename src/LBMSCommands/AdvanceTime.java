@@ -95,8 +95,7 @@ public class AdvanceTime implements LBMSCommand
      */
     public void execute()
     {
-        // todo proxy.advanceTime(clientID, days, hours);
-        library.advanceTime(days, hours);
+        proxy.advanceTime(clientID, days, hours);
     }
 
     /**

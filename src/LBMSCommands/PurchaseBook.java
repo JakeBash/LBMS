@@ -65,8 +65,7 @@ public class PurchaseBook implements LBMSCommand
      */
     public void execute()
     {
-        // todo proxy.purchaseBooks(clientID, quantity, ids);
-        library.purchaseBooks(this.quantity, this.ids);
+        proxy.purchaseBooks(clientID, quantity, ids);
     }
 
     /**

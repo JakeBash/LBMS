@@ -53,8 +53,7 @@ public class GetTime implements LBMSCommand
      */
     public void execute()
     {
-        // todo proxy.getFormattedDateTime(clientID);
-        library.getFormattedDateTime();
+        proxy.getFormattedDateTime(clientID);
     }
 
     /**

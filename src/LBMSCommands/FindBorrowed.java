@@ -57,8 +57,7 @@ public class FindBorrowed implements LBMSCommand
      */
     public void execute()
     {
-        // todo this.proxy.getVisitorCheckedOutBooks(clientID, visitorID);
-        library.getVisitorCheckedOutBooks(visitorID);
+        this.proxy.getVisitorCheckedOutBooks(clientID, visitorID);
     }
 
     /**
