@@ -170,9 +170,7 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Logs user out and ends connection
     public void clientDisconnect(Long clientID)
     {
-        // Todo Needs a state change
-        // todo can visitors disconnect clients?
-        // response: "client ID,<request name>,not-authorized;"
+        library.clientDisconnect(clientID);
     }
 
     // Todo supply argument signature

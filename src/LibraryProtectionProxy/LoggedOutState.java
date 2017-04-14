@@ -141,7 +141,7 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Client Disconnect
     public void clientDisconnect(Long clientID)
     {
-        // end connection
+        library.clientDisconnect(clientID);
         // todo need to make a state change
     }
 

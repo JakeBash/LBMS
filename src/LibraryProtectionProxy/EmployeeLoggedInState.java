@@ -151,7 +151,7 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // logs user our and ends connection
     public void clientDisconnect(Long clientID)
     {
-        // todo needs a state change
+        library.clientDisconnect(clientID);
     }
 
     // Todo supply argument signature

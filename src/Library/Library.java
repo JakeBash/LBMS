@@ -430,24 +430,7 @@ public class Library extends Observable implements LibrarySubject
        return this.status;
     }
 
-    /**
-     * Updates the status string of the model and notifies any observers.
-     */
-    public void updateStatus(String status)
-    {
-        this.status = status;
-        this.setChanged();
-        this.notifyObservers();
-    }
 
-    // Todo implement me!!!!!
-    public void updateClientStatus(Long clientID, String status)
-    {
-        System.out.print("Client " + clientID + "'s status is: " + status);
-//        this.status = status;
-//        this.setChanged();
-//        this.notifyObservers();
-    }
 
     /**
      * Shut down the system, persisting all data created in flat files.
@@ -464,14 +447,16 @@ public class Library extends Observable implements LibrarySubject
     /**
      * Creates new client connection with library.
      */
-    public void clientConnect(Long clientID){
+    public void clientConnect(Long clientID)
+    {
         this.clients.put(clientID, new Client(clientID, this));
     }
 
     /**
      * Ends the connection with the ACTIVE CLIENT.
      */
-    public void clientDisconnect(Long clientID){
+    public void clientDisconnect(Long clientID)
+    {
         // Todo get rid of active clients... end connections by supplying the client id and remove client with that id
         //this.clients.remove(this.activeClient);
         //this.activeClient = null;
@@ -485,7 +470,7 @@ public class Library extends Observable implements LibrarySubject
     }
 
 
-    ///////////////////////// R2 Requierments //////////////
+    ///////////////////////// R2 Requierments /////////////////////////
 
     public void createAccount()
     {
@@ -509,12 +494,35 @@ public class Library extends Observable implements LibrarySubject
 
     public void forwardResponse(Long clientID, String response)
     {
-
+        updateClientStatus(clientID, response);
     }
 
 
 
 
+
+    ///////////////////////// Helper Methods for Updating Status ////////////////////////////
+
+
+
+    /**
+     * Updates the status string of the model and notifies any observers.
+     */
+    public void updateStatus(String status)
+    {
+        this.status = status;
+        this.setChanged();
+        this.notifyObservers();
+    }
+
+    // Todo implement me!!!!!
+    public void updateClientStatus(Long clientID, String status)
+    {
+        System.out.print("Client " + clientID + "'s status is: " + status);
+//        this.status = status;
+//        this.setChanged();
+//        this.notifyObservers();
+    }
 
 
 
