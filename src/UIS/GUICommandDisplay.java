@@ -62,6 +62,7 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
     {
         String command = tField.getText();
         tArea.append(command + "\n");
+        parser.parseCommand(clientID + "," +command);
         tField.setText("");
     }
 

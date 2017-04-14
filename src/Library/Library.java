@@ -361,6 +361,8 @@ public class Library extends Observable implements LibrarySubject
      */
     public void getFormattedDateTime(Long clientID)
     {
+
+        System.out.println(clientID + ",datetime," + timeClock.getFormattedDateTime() + ";" ); // todo Debugging
         updateStatus("datetime," + timeClock.getFormattedDateTime() + ";" );
     }
 
@@ -449,7 +451,7 @@ public class Library extends Observable implements LibrarySubject
      */
     public void clientConnect(Long clientID)
     {
-        this.clients.put(clientID, new Client(clientID, this));
+        this.clients.put(clientID, new Client(clientID));
     }
 
     /**

@@ -110,6 +110,9 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Current Date Time
     public void getFormattedDateTime(Long clientID)
     {
+        System.out.println("datetime - Disconnected State?");
+        library.getFormattedDateTime(clientID);
+
         // Set Client UI to CLIENT_ERROR
     }
 

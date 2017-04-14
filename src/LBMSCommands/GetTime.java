@@ -42,6 +42,7 @@ public class GetTime implements LBMSCommand
     public GetTime(LibrarySubject proxy, Long clientID)
     {
         this.proxy = proxy;
+        this.clientID = clientID;
     }
 
 
