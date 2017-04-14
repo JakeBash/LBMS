@@ -1,5 +1,8 @@
 package UIS;
 
+import Library.Library;
+import LibraryProtectionProxy.LibraryProtectionProxy;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,14 +23,17 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
     private JTextArea tArea;
     private JTabbedPane tabbedPane;
     private JPanel commandDisplay;
+    private CommandParser parser;
 
     /**
      * Description
      *
      * @param tabbedPane -
      */
-    public GUICommandDisplay(JTabbedPane tabbedPane, Long clientID)
+    public GUICommandDisplay(Library library, JTabbedPane tabbedPane, Long clientID)
     {
+        this.parser = new CommandParser(new LibraryProtectionProxy(library));
+
         this.clientID = clientID;
 
         this.tabbedPane = tabbedPane;
