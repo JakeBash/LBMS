@@ -39,14 +39,11 @@ public class Library extends Observable implements LibrarySubject
     private Timer timer;
     private LibraryState currentState;
     private ArrayList<LibraryState> stateList;
-    /**
-     * The active client of the library.
-     */
-    private Client activeClient;
+
     /**
      * Map of all current client connections. Can only be added to, no getter method.
      */
-    private HashMap<Long, Client> clients;
+    private HashMap<Long, Client> clientList;
 
     /**
      * Initializes all required persistent state from existing files.
@@ -58,6 +55,9 @@ public class Library extends Observable implements LibrarySubject
         this.stateList.add(new LibraryOpen());
         this.stateList.add(new LibraryClosed());
         this.currentState = this.stateList.get(0);
+
+        // Initialize client map
+        this.clientList = new HashMap<Long, Client>();
 
         this.status = "";
         // Initialized with reference to self to give access to TimeClock
@@ -451,7 +451,7 @@ public class Library extends Observable implements LibrarySubject
      */
     public void clientConnect(Long clientID)
     {
-        this.clients.put(clientID, new Client(clientID));
+        this.clientList.put(clientID, new Client(clientID));
     }
 
     /**
@@ -459,16 +459,14 @@ public class Library extends Observable implements LibrarySubject
      */
     public void clientDisconnect(Long clientID)
     {
-        // Todo get rid of active clients... end connections by supplying the client id and remove client with that id
-        //this.clients.remove(this.activeClient);
-        //this.activeClient = null;
+        this.clientList.remove(clientID);
     }
 
     /**
      * Helper method for getting client
      */
     private Client getClient(Long clientID){
-        return this.clients.get(clientID);
+        return this.clientList.get(clientID);
     }
 
 
@@ -520,10 +518,14 @@ public class Library extends Observable implements LibrarySubject
     // Todo implement me!!!!!
     public void updateClientStatus(Long clientID, String status)
     {
-        System.out.print("Client " + clientID + "'s status is: " + status);
-//        this.status = status;
-//        this.setChanged();
-//        this.notifyObservers();
+        if (clientList.get(clientID) != null)
+        {
+            clientList.get(clientID).setStatus(status);
+            System.out.println(clientList.get(clientID).getStatus()); // Todo remove -- here for debugging
+        }
+        // setchanged
+        // notifyobservers
+
     }
 
 
