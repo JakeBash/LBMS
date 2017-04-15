@@ -1,27 +1,20 @@
 package Client;
 
-import Library.Library;
-import LibraryProtectionProxy.LibraryProtectionProxy;
-import UIS.CommandParser;
 import Books.Book;
 import Visitors.Visitor;
-
 import java.util.ArrayList;
 
 /**
  * Description
  *
  * @author Nikolas Tilley
- * @author Jake Bashaww
+ * @author Jake Bashaw
  */
 public class Client
 {
     private Long clientId;
     private Visitor visitor;
     private String status;
-    /**
-     * The last search from the book catalog.
-     */
     private ArrayList<Book>  lastStoreSearch;
     private ArrayList<Book> lastStorageSearch;
     // Command Parser no
@@ -53,14 +46,21 @@ public class Client
     {
         return clientId;
     }
-    /**
-     * Retrieves the results from the mst recent search of the Book Catalog.
-     *
-     * @return An ArrayList representing the results from the last search of the Book Catalog.
-     */
-    public ArrayList<Book> getLastStoreSearch() {return lastStoreSearch;}
-    public ArrayList<Book> getLastStorageSearch() {return lastStoreSearch;}
-    public void setLastStoreSearch(ArrayList<Book> books) {this.lastStoreSearch = books;}
+
+    public ArrayList<Book> getLastStoreSearch()
+    {
+        return lastStoreSearch;
+    }
+
+    public ArrayList<Book> getLastStorageSearch()
+    {
+        return lastStoreSearch;
+    }
+
+    public void setLastStoreSearch(ArrayList<Book> books)
+    {
+        this.lastStoreSearch = books;
+    }
 
     public void setClientId(Long clientId)
     {
@@ -72,11 +72,11 @@ public class Client
         this.visitor = v;
     }
 
-
     public void setStatus(String status)
     {
         this.status = status;
     }
+
     public String getStatus()
     {
         return status;

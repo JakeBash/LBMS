@@ -2,7 +2,6 @@ package UIS;
 
 import Library.Library;
 import LibraryProtectionProxy.LibraryProtectionProxy;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,6 +17,7 @@ import java.util.Observer;
 public class GUICommandDisplay extends Component implements ActionListener, Observer
 {
     private Long clientID;
+    private Library library;
     private JTextField tField;
     private JButton removeClient;
     private JTextArea tArea;
@@ -28,13 +28,17 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
     /**
      * Description
      *
+     * @param library -
      * @param tabbedPane -
+     * @param clientID -
      */
     public GUICommandDisplay(Library library, JTabbedPane tabbedPane, Long clientID)
     {
         this.parser = new CommandParser(new LibraryProtectionProxy(library));
 
         this.clientID = clientID;
+
+        this.library = library;
 
         this.tabbedPane = tabbedPane;
 
@@ -62,7 +66,7 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
     {
         String command = tField.getText();
         tArea.append(command + "\n");
-        parser.parseCommand(clientID + "," +command);
+        parser.parseCommand(clientID + "," + command);
         tField.setText("");
     }
 
@@ -117,8 +121,8 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
     }
 
     @Override
-
-    public void update(Observable observable, Object o) {
-        //TODO Has to go into the Client class in library and update whatever GUI things are dependent on it.
+    public void update(Observable observable, Object o)
+    {
+        tArea.append(this.library.getClientStatus(clientID) + "\n");
     }
 }
