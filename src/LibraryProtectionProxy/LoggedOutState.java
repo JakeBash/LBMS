@@ -148,9 +148,10 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // create,
     // Create New Account
-    public void createAccount()
+    public void createAccount(Long clientID, String username, String password, String role, Long visitorID)
     {
-        // response: "client ID,<request name>,not-authorized;"
+        String response = clientID + ",create,not-authorized;";
+        library.updateClientStatus(clientID, response);
     }
 
     // Todo supply argument signature

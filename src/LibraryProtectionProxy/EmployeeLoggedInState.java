@@ -135,7 +135,7 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
 
     // disconnect,
     // Client Disconnect
-    // logs user our and ends connection
+    // logs user out and ends connection
     public void clientDisconnect(Long clientID)
     {
         library.clientDisconnect(clientID);
@@ -144,9 +144,9 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // create,
     // Create New Account
-    public void createAccount()
+    public void createAccount(Long clientID, String username, String password, String role, Long visitorID)
     {
-
+        library.createAccount(clientID, username, password, role, visitorID);
     }
 
     // Todo supply argument signature

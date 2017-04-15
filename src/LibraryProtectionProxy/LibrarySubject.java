@@ -107,7 +107,7 @@ public interface LibrarySubject {
     // Todo supply argument signature
     // create,
     // Create New Account
-    public void createAccount();
+    public void createAccount(Long clientID, String username, String password, String role, Long visitorID);
 
 
     // Todo supply argument signature

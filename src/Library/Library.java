@@ -474,11 +474,37 @@ public class Library extends Observable implements LibrarySubject
     }
 
 
-    ///////////////////////// R2 Requierments /////////////////////////
+    ///////////////////////// R2 Requirements /////////////////////////
 
-    public void createAccount()
+    public void createAccount(Long clientID, String username, String password, String role, Long visitorID)
     {
+        String response;
 
+        if (visitorStorage.getVisitor(visitorID) == null)
+        {
+            response = clientID + ",create,invalid-visitor;";
+            updateClientStatus(clientID, response);
+        }
+        else
+        {
+            String result = visitorStorage.createAccountCheck(username, visitorID);
+
+            if (result.equals("duplicate username"))
+            {
+                response = clientID + ",create,duplicate-username;";
+            }
+            else if (result.equals("duplicate visitor"))
+            {
+                response = clientID + ",create,duplicate-visitor;";
+            }
+            else
+            {
+                visitorStorage.getVisitor(visitorID).createAccount(username, password, role);
+                visitorStorage.addTakenUsername(username);
+                response = clientID + ",create,success;";
+            }
+            updateClientStatus(clientID, response);
+        }
     }
 
     public void login()
@@ -501,13 +527,7 @@ public class Library extends Observable implements LibrarySubject
         updateClientStatus(clientID, response);
     }
 
-
-
-
-
     ///////////////////////// Helper Methods for Updating Status ////////////////////////////
-
-
 
     /**
      * Updates the status string of the model and notifies any observers.
@@ -529,7 +549,6 @@ public class Library extends Observable implements LibrarySubject
         }
         // setchanged
         // notifyobservers
-
     }
 
     ///////////////////////// Helper Methods for Sorting Lists of Books ////////////////////////////
@@ -561,13 +580,6 @@ public class Library extends Observable implements LibrarySubject
         }
         return true;
     }
-
-
-
-
-
-
-
 
     /**
      *  Main method for testing.

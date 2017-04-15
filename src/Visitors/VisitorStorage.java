@@ -27,6 +27,9 @@ public class VisitorStorage implements java.io.Serializable
     // Full history of visits in the library
     private ArrayList<Visit> visitHistory;
 
+    // Full list of taken usernames of visitors
+    private ArrayList<String> takenUsernames;
+
     // Data file location
     private static String file = "files/VisitorStorage.ser";
 
@@ -80,6 +83,28 @@ public class VisitorStorage implements java.io.Serializable
 
         // Return the new visitor
         return visitor;
+    }
+
+    /**
+     * Description
+     *
+     * @param username -
+     * @param visitorID -
+     * @return
+     */
+    public String createAccountCheck(String username, Long visitorID)
+    {
+        if (this.getVisitor(visitorID).getUsername() != null)
+            return "duplicate visitor";
+        else if (this.takenUsernames.contains(username))
+            return "duplicate username";
+        else
+            return "success";
+    }
+
+    public void addTakenUsername(String username)
+    {
+        this.takenUsernames.add(username);
     }
 
     /**

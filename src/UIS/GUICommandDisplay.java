@@ -2,7 +2,6 @@ package UIS;
 
 import Library.Library;
 import LibraryProtectionProxy.LibraryProtectionProxy;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -28,7 +27,9 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
     /**
      * Description
      *
+     * @param library -
      * @param tabbedPane -
+     * @param clientID -
      */
     public GUICommandDisplay(Library library, JTabbedPane tabbedPane, Long clientID)
     {
@@ -117,8 +118,8 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
     }
 
     @Override
-
-    public void update(Observable observable, Object o) {
+    public void update(Observable observable, Object o)
+    {
         //TODO Has to go into the Client class in library and update whatever GUI things are dependent on it.
     }
 }
