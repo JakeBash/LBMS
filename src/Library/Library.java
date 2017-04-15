@@ -532,6 +532,10 @@ public class Library extends Observable implements LibrarySubject
 
     }
 
+
+
+
+
     ///////////////////////// Helper Methods for Sorting Lists of Books ////////////////////////////
 
     private boolean sortBookList(ArrayList<Book> searchRes, String sortOrder)
