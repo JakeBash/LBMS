@@ -147,7 +147,6 @@ public class LibraryProtectionProxy implements LibrarySubject
     // Current Date Time
     public void getFormattedDateTime(Long clientID)
     {
-        System.out.println("datetime - Protection Proxy");
         activeState.getFormattedDateTime(clientID);
     }
 

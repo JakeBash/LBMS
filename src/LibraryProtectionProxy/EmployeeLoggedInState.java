@@ -24,108 +24,95 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     }
 
 
-    // Todo supply argument signature
     // info,
     // Library Book Search
     public void bookSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
-
+        library.bookSearch(clientID, title, authors, isbn, publisher, sortOrder);
     }
 
-    // Todo supply argument signature
     // search,
     // Book Store Search
     public void bookStoreSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
-
+        library.bookStoreSearch(clientID, title, authors, isbn, publisher, sortOrder);
     }
 
-    // Todo supply argument signature
     // borrow,
     // Borrow book
-    public void borrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
+    public void borrowBook(Long clientID, ArrayList<String> bookID, Long visitorID)
     {
-
+        library.borrowBook(clientID, bookID, visitorID);
     }
 
-    // Todo supply argument signature
     // buy,
     // Book Purchase
     public void purchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
     {
-
+        library.purchaseBooks(clientID, quantity, ids);
     }
 
-    // Todo supply argument signature
     // register,
     // Register Visitor
     public void registerVisitor(Long clientID, String firstName, String lastName, String address, String phoneNumber)
     {
-
+        library.registerVisitor(clientID, firstName, lastName, address, phoneNumber);
     }
 
-    // Todo supply argument signature
     // arrive,
     // Begin Visit
     public void beginVisit(Long clientID, Long visitorID)
     {
-
+        library.beginVisit(clientID, visitorID);
     }
 
-    // Todo supply argument signature
     // depart,
     // End Visit
     public void endVisit(Long clientID, Long visitorID)
     {
-
+        library.endVisit(clientID, visitorID);
     }
 
-    // Todo supply argument signature
     // borrowed,
     // Find Borrowed Books
     public void getVisitorCheckedOutBooks(Long clientID, Long visitorID)
     {
-
+        library.getVisitorCheckedOutBooks(clientID, visitorID);
     }
 
-    // Todo supply argument signature
     // pay,
     // Pay fine
     public void payFine(Long clientID, Long visitorID, int amount)
     {
-
+        library.payFine(clientID, visitorID, amount);
     }
 
-    // Todo supply argument signature
     // report,
     // Library Statistic Report
     public void generateReport(Long clientID, int days)
     {
-
+        library.generateReport(clientID, days);
     }
 
-    // Todo supply argument signature
     // datetime,
     // Current Date Time
     public void getFormattedDateTime(Long clientID)
     {
-
+        library.getFormattedDateTime(clientID);
     }
 
-    // Todo supply argument signature
     // advance,
     // Advance Time
     public void advanceTime(Long clientID, int days, int hours)
     {
-
+        library.advanceTime(clientID, days, hours);
     }
 
-    // Todo supply argument signature
     // return,
     // Return book
     public void returnBooks(Long clientID, Long visitorID, ArrayList<String> isbns)
     {
-
+        library.returnBooks(clientID, visitorID, isbns);
     }
 
     // Todo supply argument signature
@@ -133,19 +120,19 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Shut Down
     public void shutdown(Long clientID)
     {
-
+        // TODO Make sure this is done safely
+        library.shutdown(clientID);
     }
 
-    // Todo supply argument signature
     // connect,
     // Client Connect
     // Probably should return an error because you are already connected
     public void clientConnect(Long clientID)
     {
-
+        String response = clientID + ",connect,already-connected;";
+        library.updateClientStatus(clientID, response);
     }
 
-    // Todo supply argument signature
     // disconnect,
     // Client Disconnect
     // logs user our and ends connection
