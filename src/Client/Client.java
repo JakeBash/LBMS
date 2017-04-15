@@ -18,6 +18,7 @@ public class Client
 {
     private Long clientId;
     private Visitor visitor;
+    private String status;
     /**
      * The last search from the book catalog.
      */
@@ -69,5 +70,15 @@ public class Client
     public void setVisitor(Visitor v)
     {
         this.visitor = v;
+    }
+
+
+    public void setStatus(String status)
+    {
+        this.status = status;
+    }
+    public String getStatus()
+    {
+        return status;
     }
 }
