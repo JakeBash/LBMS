@@ -37,7 +37,6 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // End Visit
 
 
-    // Todo supply argument signature
     // info,
     // Library Book Search
     public void bookSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
@@ -45,15 +44,15 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
         library.bookSearch(clientID, title, authors, isbn, publisher, sortOrder);
     }
 
-    // Todo supply argument signature
     // search,
     // Book Store Search
     public void bookStoreSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
-        // response: "client ID,<request name>,not-authorized;"
+        String response = clientID + ",search,not-authorized;";
+        library.updateClientStatus(clientID, response);
+
     }
 
-    // Todo supply argument signature
     // borrow,
     // Borrow book
     public void borrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
@@ -61,23 +60,22 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
         library.borrowBook(clientID, bookID, visitorID);
     }
 
-    // Todo supply argument signature
     // buy,
     // Book Purchase
     public void purchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
     {
-        // response: "client ID,<request name>,not-authorized;"
+        String response = clientID + ",buy,not-authorized;";
+        library.updateClientStatus(clientID, response);
     }
 
-    // Todo supply argument signature
     // register,
     // Register Visitor
     public void registerVisitor(Long clientID, String firstName, String lastName, String address, String phoneNumber)
     {
-        // response: "client ID,<request name>,not-authorized;"
+        String response = clientID + ",register,not-authorized;";
+        library.updateClientStatus(clientID, response);
     }
 
-    // Todo supply argument signature
     // arrive,
     // Begin Visit
     public void beginVisit(Long clientID, Long visitorID)
@@ -85,7 +83,6 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
         library.beginVisit(clientID, visitorID);
     }
 
-    // Todo supply argument signature
     // depart,
     // End Visit
     public void endVisit(Long clientID, Long visitorID)
@@ -112,15 +109,16 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
         // response: "client ID,<request name>,not-authorized;"
     }
 
-    // Todo supply argument signature
+
     // report,
     // Library Statistic Report
     public void generateReport(Long clientID, int days)
     {
-        // response: "client ID,<request name>,not-authorized;"
+        String response = clientID + ",report,not-authorized;";
+        library.updateClientStatus(clientID, response);
     }
 
-    // Todo supply argument signature
+
     // datetime,
     // Current Date Time
     public void getFormattedDateTime(Long clientID)
@@ -134,8 +132,8 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Advance Time
     public void advanceTime(Long clientID, int days, int hours)
     {
-        // response: "client ID,<request name>,not-authorized;"
-    }
+        String response = clientID + ",advance,not-authorized;";
+        library.updateClientStatus(clientID, response);    }
 
     // Todo supply argument signature
     // return,
@@ -186,8 +184,8 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Log In
     public void login()
     {
-        // Todo: should this be "already logged in"
-        // response: "client ID,<request name>,not-authorized;"
+        // String response = clientID + ",login,already-logged-in;";
+        // library.updateClientStatus(clientID, response);
     }
 
     // Todo supply argument signature
