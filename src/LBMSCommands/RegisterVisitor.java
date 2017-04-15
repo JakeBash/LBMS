@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public class RegisterVisitor implements LBMSCommand
 {
     private Library library;
-
     private LibrarySubject proxy;
     private Long clientID;
     private String firstName;

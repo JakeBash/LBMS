@@ -15,7 +15,6 @@ import java.util.ArrayList;
  */
 public class CreateAccount implements LBMSCommand
 {
-    private Library library;
     private LibrarySubject proxy;
     private Long clientID;
     private String username;
@@ -25,16 +24,14 @@ public class CreateAccount implements LBMSCommand
 
     /**
      *
-     * @param library - The library the CreateAccount command is being executed on.
      * @param clientID - The ID of the client executing the CreateAccount command.
      * @param username - The username of the new account.
      * @param password - The password of the new account.
      * @param role - The role of the new account. Accounts can be employees or visitors.
      * @param visitorID - The ID of the visitor associated with the account to be created.
      */
-    public CreateAccount(Library library, LibrarySubject proxy, Long clientID, String username, String password, String role, Long visitorID)
+    public CreateAccount(LibrarySubject proxy, Long clientID, String username, String password, String role, Long visitorID)
     {
-        this.library = library;
         this.proxy = proxy;
         this.clientID = clientID;
         this.username = username;

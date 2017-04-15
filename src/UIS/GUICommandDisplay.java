@@ -17,6 +17,7 @@ import java.util.Observer;
 public class GUICommandDisplay extends Component implements ActionListener, Observer
 {
     private Long clientID;
+    private Library library;
     private JTextField tField;
     private JButton removeClient;
     private JTextArea tArea;
@@ -36,6 +37,8 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
         this.parser = new CommandParser(new LibraryProtectionProxy(library));
 
         this.clientID = clientID;
+
+        this.library = library;
 
         this.tabbedPane = tabbedPane;
 
@@ -63,7 +66,7 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
     {
         String command = tField.getText();
         tArea.append(command + "\n");
-        parser.parseCommand(clientID + "," +command);
+        parser.parseCommand(clientID + "," + command);
         tField.setText("");
     }
 
@@ -120,6 +123,6 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
     @Override
     public void update(Observable observable, Object o)
     {
-        //TODO Has to go into the Client class in library and update whatever GUI things are dependent on it.
+        tArea.append(this.library.getClientStatus(clientID) + "\n");
     }
 }

@@ -435,7 +435,15 @@ public class Library extends Observable implements LibrarySubject
             return "invalid-client-id;";
     }
 
-
+    /**
+     * Description
+     *
+     * @return
+     */
+    public VisitorStorage getVisitorStorage()
+    {
+        return this.visitorStorage;
+    }
 
     /**
      * Shut down the system, persisting all data created in flat files.
@@ -500,16 +508,28 @@ public class Library extends Observable implements LibrarySubject
             else
             {
                 visitorStorage.getVisitor(visitorID).createAccount(username, password, role);
-                visitorStorage.addTakenUsername(username);
+                visitorStorage.addTakenUsername(username, visitorID);
                 response = clientID + ",create,success;";
             }
             updateClientStatus(clientID, response);
         }
     }
 
-    public void login()
+    public void login(Long clientID, String username, String password)
     {
+        boolean login = visitorStorage.login(username, password);
+        String response;
 
+        if (login)
+        {
+            response = clientID + ",login,success;";
+        }
+        else
+        {
+            response = clientID + ",login,bad-username-or-password;";
+        }
+
+        this.updateClientStatus(clientID, response);
     }
 
     public void logout()
@@ -547,8 +567,8 @@ public class Library extends Observable implements LibrarySubject
             clientList.get(clientID).setStatus(status);
             System.out.println(clientList.get(clientID).getStatus()); // Todo remove -- here for debugging
         }
-        // setchanged
-        // notifyobservers
+        this.setChanged();
+        this.notifyObservers();
     }
 
     ///////////////////////// Helper Methods for Sorting Lists of Books ////////////////////////////

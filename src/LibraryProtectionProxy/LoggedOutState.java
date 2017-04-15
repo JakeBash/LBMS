@@ -157,9 +157,9 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // login,
     // Log In
-    public void login()
+    public void login(Long clientID, String username, String password)
     {
-        // todo Needs a state change
+        library.login(clientID, username, password);
     }
 
     // Todo supply argument signature

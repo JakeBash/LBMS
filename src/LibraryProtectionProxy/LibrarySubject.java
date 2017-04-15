@@ -113,7 +113,7 @@ public interface LibrarySubject {
     // Todo supply argument signature
     // login,
     // Log In
-    public void login();
+    public void login(Long clientID, String username, String password);
 
 
     // Todo supply argument signature

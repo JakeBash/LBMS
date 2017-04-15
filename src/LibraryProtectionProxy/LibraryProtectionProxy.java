@@ -2,6 +2,8 @@ package LibraryProtectionProxy;
 
 import LBMSCommands.Disconnect;
 import Library.Library;
+import Visitors.Visit;
+import Visitors.Visitor;
 
 import java.util.ArrayList;
 
@@ -15,13 +17,11 @@ import java.util.ArrayList;
  */
 public class LibraryProtectionProxy implements LibrarySubject
 {
-
     private final int DISCONNECTED_STATE = 0;
     private final int LOGGED_OUT_STATE = 1;
     private final int VISITOR_LOGGED_IN_STATE = 2;
     private final int EMPLOYEE_LOGGED_IN_STATE = 3;
-
-    // private visitor/user loggedInVisitor
+    private Visitor loggedInVisitor;
     private ArrayList<LibraryProtectionProxyState> stateList;
     private LibraryProtectionProxyState activeState;
     private Library library;
@@ -41,8 +41,6 @@ public class LibraryProtectionProxy implements LibrarySubject
         setState(DISCONNECTED_STATE);
     }
 
-
-
     /**
      * Sets the state of the protection proxy
      *
@@ -52,12 +50,6 @@ public class LibraryProtectionProxy implements LibrarySubject
     {
         activeState = stateList.get(index);
     }
-
-
-
-
-
-
 
     // TODO implement library interface
     ////////////////////////////////////////////////////////////////
@@ -213,13 +205,16 @@ public class LibraryProtectionProxy implements LibrarySubject
     // Todo supply argument signature
     // login,
     // Log In
-    public void login()
+    public void login(Long clientID, String username, String password)
     {
-        activeState.login();
-        // log that user in, get that users type
-        // if employee setState(employee)
-        // else if visitor set state
-        // else fail
+        activeState.login(clientID, username, password);
+        String role = library.getVisitorStorage().getUsernames().get(username).getRole();
+        if (role.equals("Employee"))
+            this.setState(EMPLOYEE_LOGGED_IN_STATE);
+        else if (role.equals("Visitor"))
+            this.setState(VISITOR_LOGGED_IN_STATE);
+        else
+            ;//Do Nothing
     }
 
     // Todo supply argument signature

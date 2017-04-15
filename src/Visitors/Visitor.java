@@ -145,6 +145,16 @@ public class Visitor implements java.io.Serializable
         return this.username;
     }
 
+    public String getPassword()
+    {
+        return this.password;
+    }
+
+    public String getRole()
+    {
+        return this.accountType;
+    }
+
     /**
      * Returns the visitor's books to the library. Applies any fines associated with books returned late.
      *

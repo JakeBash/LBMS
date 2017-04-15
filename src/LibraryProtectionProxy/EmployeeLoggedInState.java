@@ -152,9 +152,10 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // login,
     // Log In
-    public void login()
+    public void login(Long clientID, String username, String password)
     {
-
+        String response = clientID + ",login,already-logged-in;";
+        library.updateClientStatus(clientID, response);
     }
 
     // Todo supply argument signature

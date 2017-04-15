@@ -164,7 +164,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // login,
     // Log In
-    public void login()
+    public void login(Long clientID, String username, String password)
     {
         // Set Client UI to CLIENT_ERROR
     }
