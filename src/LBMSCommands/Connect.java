@@ -1,8 +1,6 @@
 package LBMSCommands;
+import LibraryProtectionProxy.LibrarySubject;
 
-import Library.Library;
-
-import java.util.ArrayList;
 
 /**
  * A new client establishes a connection with the Library.
@@ -17,17 +15,17 @@ import java.util.ArrayList;
  */
 public class Connect implements LBMSCommand
 {
-    private Library library;
+    private LibrarySubject proxy;
     private Long clientID;
 
     /**
      *
-     * @param library - The library that the client is connecting with.
+     * @param proxy - The proxy that the client is connecting with.
      * @param clientID - The unique ID of the client connecting
      */
-    public Connect(Library library, Long clientID)
+    public Connect(LibrarySubject proxy, Long clientID)
     {
-        this.library = library;
+        this.proxy = proxy;
         this.clientID = clientID;
     }
 
@@ -36,7 +34,7 @@ public class Connect implements LBMSCommand
      */
     @Override
     public void execute() {
-
+        this.proxy.clientConnect(clientID);
     }
 
     /**
