@@ -85,41 +85,27 @@ public class Library extends Observable implements LibrarySubject
     public void bookSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
         ArrayList<Book> searchRes = this.bookStorage.bookSearch(title, authors, isbn, publisher);
-        String response = "info,";
+        String response = clientID + ",info,";
 
-        if (sortOrder.equals("title"))
+        if (sortBookList(searchRes, sortOrder))
         {
-            ByTitle bt = new ByTitle();
-            bt.sort(searchRes);
+            response += searchRes.size() + "\n";
+            for(Book b : searchRes)
+            {
+                response += b.toString("bSearch") + ";\n";
+            }
+
+            updateStatus(response); // Todo depreciate
+            updateClientStatus(clientID, response);
+
         }
-        else if (sortOrder.equals("publish-date"))
-        {
-            ByPublishDate bpd = new ByPublishDate();
-            bpd.sort(searchRes);
-        }
-        else if (sortOrder.equals("book-status"))
-        {
-            ByStatus bs = new ByStatus();
-            bs.sort(searchRes);
-        }
-        else if(sortOrder.equals("none"))
-        {
-           ;
-        }
-        else
-        {
+        else {
             response += "invalid-sort-order;";
-            updateStatus(response);
-            return;
+            updateStatus(response); // todo depreciate
+            updateClientStatus(clientID, response);
+
         }
 
-        response += searchRes.size() + "\n";
-        for(Book b : searchRes)
-        {
-            response += b.toString("bSearch") + ";\n";
-        }
-
-        updateStatus(response);
     }
 
     /**
@@ -134,54 +120,40 @@ public class Library extends Observable implements LibrarySubject
     public void bookStoreSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
         ArrayList<Book> searchRes = this.bookCatalog.bookSearch(title, authors, isbn, publisher);
-        String response = "info,";
+        String response = clientID + ",search,";
 
-        if (sortOrder.equals("title"))
+        if (sortBookList(searchRes, sortOrder))
         {
-            ByTitle bt = new ByTitle();
-            bt.sort(searchRes);
+            response += searchRes.size() + "\n";
+            for(Book b : searchRes)
+            {
+                response += b.toString("sSearch") + ";\n";
+            }
+            this.getClient(clientID).setLastStoreSearch(searchRes);
+
+            updateStatus(response); // todo depreciate
+            updateClientStatus(clientID, response);
+
         }
-        else if (sortOrder.equals("publish-date"))
-        {
-            ByPublishDate bpd = new ByPublishDate();
-            bpd.sort(searchRes);
-        }
-        else if (sortOrder.equals("book-status"))
-        {
-            ByStatus bs = new ByStatus();
-            bs.sort(searchRes);
-        }
-        else if(sortOrder.equals("none"))
-        {
-           ;
-        }
-        else
-        {
+        else {
             response += "invalid-sort-order;";
-            updateStatus(response);
-            return;
-        }
+            updateStatus(response); // todo depreciate
+            updateClientStatus(clientID, response);
 
-        response += searchRes.size() + "\n";
-        for(Book b : searchRes)
-        {
-            response += b.toString("sSearch") + ";\n";
         }
-        this.getClient(clientID).setLastStoreSearch(searchRes);
-
-        updateStatus(response);
     }
 
     /**
      * This method borrows books for a specified visitor.
+     * Handed off to the State of the Library
      *
      * @param bkID - An ArrayList of Book ISBNs
      * @param vID - A Visitor ID.
      */
     public void borrowBook(Long clientID, ArrayList<String> bkID,Long vID)
     {
-        String str = this.currentState.stateCheckOutBook(bkID, vID, this.visitorStorage, this.timeClock, this.bookStorage);
-        updateStatus(str);
+        String str = clientID + "," + this.currentState.stateCheckOutBook(bkID, vID, this.visitorStorage, this.timeClock, this.bookStorage);
+        updateStatus(str); // todo depreciate
     }
 
     /**
@@ -196,14 +168,15 @@ public class Library extends Observable implements LibrarySubject
 
         bookStorage.addBooks(purchasedBooks, quantity, this.getTime());
 
-        String response = "buy,success\n";
+        String response = clientID + ",buy,success\n";
 
         for (Book b : purchasedBooks)
         {
             response += b.toString("bPurchase") + quantity +";\n";
         }
 
-        updateStatus(response);
+        updateStatus(response); // todo depreciate
+        updateClientStatus(clientID, response);
     }
 
     /**
@@ -218,7 +191,7 @@ public class Library extends Observable implements LibrarySubject
     public void registerVisitor(Long clientID, String firstName, String lastName, String address, String phoneNumber)
     {
         Visitor newVis = visitorStorage.registerVisitor(firstName, lastName, address, phoneNumber);
-        String response = "register,";
+        String response = clientID + ",register,";
 
         if (newVis != null)
         {
@@ -229,7 +202,8 @@ public class Library extends Observable implements LibrarySubject
             response += "duplicate;";
         }
 
-        updateStatus(response);
+        updateStatus(response); // Todo depreciate
+        updateClientStatus(clientID, response);
     }
 
     /**
@@ -239,8 +213,9 @@ public class Library extends Observable implements LibrarySubject
      */
     public void beginVisit(Long clientID, Long visitorID)
     {
-        String response = currentState.stateBeginVisit(visitorID, this.visitorStorage);
-        updateStatus(response);
+        String response = clientID + "," + currentState.stateBeginVisit(visitorID, this.visitorStorage);
+        updateStatus(response); // Todo depreciate
+        updateClientStatus(clientID, response);
     }
 
     /**
@@ -252,7 +227,7 @@ public class Library extends Observable implements LibrarySubject
     {
         Visit visit = this.visitorStorage.endVisit(visitorID);
 
-        String response = "depart,";
+        String response = clientID + ",depart,";
 
         if(visitorStorage.getVisitor(visitorID) == null)
         {
@@ -268,7 +243,8 @@ public class Library extends Observable implements LibrarySubject
             response += "duplicate;";
         }
 
-        updateStatus(response);
+        updateStatus(response); // Todo depreciate
+        updateClientStatus(clientID, response);
     }
 
     /**
@@ -280,7 +256,7 @@ public class Library extends Observable implements LibrarySubject
     public void getVisitorCheckedOutBooks(Long clientID, Long visitorID)
     {
         Visitor visitor = this.visitorStorage.getVisitor(visitorID);
-        String response = "borrowed,";
+        String response = clientID + ",borrowed,";
 
         if (visitor != null)
         {
@@ -296,7 +272,8 @@ public class Library extends Observable implements LibrarySubject
             response += visitorID;
         }
 
-        updateStatus(response);
+        updateStatus(response); // todo depreciate
+        updateClientStatus(clientID, response);
     }
 
     /**
@@ -307,7 +284,13 @@ public class Library extends Observable implements LibrarySubject
      */
     public void payFine(Long clientID, Long visitorID, int amount)
     {
+        // Todo this needs to make responses
         this.visitorStorage.payFine(visitorID, amount);
+
+
+        String response = clientID + ",success" + "," + amount + ";";
+        updateClientStatus(clientID, response);
+
     }
 
     /**
@@ -318,9 +301,13 @@ public class Library extends Observable implements LibrarySubject
     {
         //TODO: Add in the rest of the report data needed
         LocalDate localDate = LocalDate.now();
-        updateStatus(DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate) + "\n"
+        String response = clientID + "," + DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate) + "\n"
                 + this.bookStorage.generateReport(days) + "\n"
-                + this.visitorStorage.generateReport(days) + "\n");
+                + this.visitorStorage.generateReport(days) + "\n";
+
+
+        updateStatus(response); // Todo depreciate
+        updateClientStatus(clientID, response);
 
     }
 
@@ -361,9 +348,8 @@ public class Library extends Observable implements LibrarySubject
      */
     public void getFormattedDateTime(Long clientID)
     {
-
-        System.out.println(clientID + ",datetime," + timeClock.getFormattedDateTime() + ";" ); // todo Debugging
-        updateStatus("datetime," + timeClock.getFormattedDateTime() + ";" );
+        updateStatus(clientID + ",datetime," + timeClock.getFormattedDateTime() + ";" ); // todo depreciated
+        updateClientStatus(clientID, clientID + ",datetime," + timeClock.getFormattedDateTime() + ";" );
     }
 
     /**
@@ -390,16 +376,23 @@ public class Library extends Observable implements LibrarySubject
             timeClock.advanceTime(days, hours);
             visitorStorage.endAllVisits();
             //generateReport();
-            updateStatus("advance,success;" );
+            updateStatus(clientID + ",advance,success;" ); // todo depreciate
+            updateClientStatus(clientID, clientID + ",advance,success;");
         }
         else if (days < 0 || days > 7)
         {
-            updateStatus("advance,invalid-number-of-days," + days +";" );
+            updateStatus(clientID + ",advance,invalid-number-of-days," + days +";" ); // todo depreciate
+            updateClientStatus(clientID, clientID + ",advance,invalid-number-of-days," + days +";" );
+
         }
         else if (hours < 0 || hours > 23)
         {
-            updateStatus("advance,invalid-number-of-hours," + hours +";" );
+            updateStatus(clientID + ",advance,invalid-number-of-hours," + hours +";" ); // todo depreciate
+            updateClientStatus(clientID, clientID + ",advance,invalid-number-of-days," + hours +";" );
+
         }
+
+
     }
 
 
@@ -417,9 +410,11 @@ public class Library extends Observable implements LibrarySubject
         double fines = this.visitorStorage.returnBooks(visitorID, books);
 
         if (fines > 0) {
-            updateStatus("return,overdue,$" + Double.toString(fines) + isbns + ";");
+            updateStatus(clientID + ",return,overdue,$" + Double.toString(fines) + isbns + ";"); // Todo depreciate
+            updateClientStatus(clientID, clientID + ",return,overdue,$" + Double.toString(fines) + isbns + ";");
         } else {
-            updateStatus("return,success;");
+            updateStatus(clientID + ",return,success;"); // todo depreciate
+            updateClientStatus(clientID, clientID + ",return,success;");
         }
     }
 
@@ -430,6 +425,14 @@ public class Library extends Observable implements LibrarySubject
     public String getStatus()
     {
        return this.status;
+    }
+
+    public String getClientStatus(Long clientID)
+    {
+        if (clientList.get(clientID) != null)
+            return clientList.get(clientID).getStatus();
+        else
+            return "invalid-client-id;";
     }
 
 
@@ -460,6 +463,7 @@ public class Library extends Observable implements LibrarySubject
     public void clientDisconnect(Long clientID)
     {
         this.clientList.remove(clientID);
+        // Todo client should be notified somehow... probably at proxy or cmd parser level
     }
 
     /**
@@ -528,6 +532,35 @@ public class Library extends Observable implements LibrarySubject
 
     }
 
+    ///////////////////////// Helper Methods for Sorting Lists of Books ////////////////////////////
+
+    private boolean sortBookList(ArrayList<Book> searchRes, String sortOrder)
+    {
+        if (sortOrder.equals("title"))
+        {
+            ByTitle bt = new ByTitle();
+            bt.sort(searchRes);
+        }
+        else if (sortOrder.equals("publish-date"))
+        {
+            ByPublishDate bpd = new ByPublishDate();
+            bpd.sort(searchRes);
+        }
+        else if (sortOrder.equals("book-status"))
+        {
+            ByStatus bs = new ByStatus();
+            bs.sort(searchRes);
+        }
+        else if(sortOrder.equals("none"))
+        {
+            ;
+        }
+        else
+        {
+            return false;
+        }
+        return true;
+    }
 
 
 
