@@ -1,6 +1,7 @@
 package LBMSCommands;
 
 import Library.Library;
+import LibraryProtectionProxy.LibrarySubject;
 
 import java.util.ArrayList;
 
@@ -14,17 +15,17 @@ import java.util.ArrayList;
 public class Logout implements LBMSCommand
 {
 
-    private Library library;
+    private LibrarySubject proxy;
     private Long clientID;
 
     /**
      *
-     * @param library - The library the Logout command is being executed on.
+     * @param proxy - The proxy library the Logout command is being executed on.
      * @param clientID - The ID of the client preforming the Logout command.
      */
-    public Logout(Library library, Long clientID)
+    public Logout(LibrarySubject proxy, Long clientID)
     {
-        this.library = library;
+        this.proxy = proxy;
         this.clientID = clientID;
     }
 
@@ -33,7 +34,7 @@ public class Logout implements LBMSCommand
      */
     @Override
     public void execute() {
-
+        // Todo implement logout in library first
     }
 
     /**
