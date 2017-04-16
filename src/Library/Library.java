@@ -532,7 +532,7 @@ public class Library extends Observable implements LibrarySubject
         this.updateClientStatus(clientID, response);
     }
 
-    public void logout()
+    public void logout(Long clientID)
     {
 
     }
