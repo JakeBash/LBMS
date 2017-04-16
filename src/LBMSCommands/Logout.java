@@ -1,9 +1,6 @@
 package LBMSCommands;
 
-import Library.Library;
 import LibraryProtectionProxy.LibrarySubject;
-
-import java.util.ArrayList;
 
 /**
  * Logs out a currently logged in user
@@ -22,7 +19,7 @@ public class Logout implements LBMSCommand
     /**
      * Description
      *
-     * @param proxy - The proxy the Logout command is being executed on.
+     * @param proxy - The proxy library the Logout command is being executed on.
      * @param clientID - The ID of the client preforming the Logout command.
      */
     public Logout(LibrarySubject proxy, Long clientID)
