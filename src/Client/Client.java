@@ -19,6 +19,10 @@ public class Client
     private ArrayList<Book> lastStorageSearch;
 
     /**
+     * The display string of 
+     */
+
+    /**
      * Constructs a Client object.
      *
      * @param clientID -

@@ -93,8 +93,13 @@ public class GoogleBooks implements BookCatalog{
                     //Find JsonObject o publisher date
                     publishDatearg = o.getJsonObject("volumeInfo").getJsonString("publishedDate").toString();
 
-                    //Find JsonObject o page count
-                    pageCountarg = o.getJsonObject("volumeInfo").getJsonNumber("pageCount").intValue(); //TODO Page count apparently not returned on all api calls. Thanks Google.
+                    try {
+                        //Find JsonObject o page count
+                        pageCountarg = o.getJsonObject("volumeInfo").getJsonNumber("pageCount").intValue(); //TODO Page count apparently not returned on all api calls. Thanks Google.
+                    }
+                    catch (NullPointerException e){
+                        pageCountarg = 0;
+                    }
                     Book abook = new Book(isbnarg, titlearg, authorsarg, publisherarg, publishDatearg, pageCountarg);
                     System.out.println(abook.toString("bSearch"));
                     books.add(abook);
@@ -105,7 +110,6 @@ public class GoogleBooks implements BookCatalog{
             System.out.println("System throws exception." + e);
 
         }
-        System.out.println(books);
         return books;
     }
 
