@@ -208,13 +208,17 @@ public class LibraryProtectionProxy implements LibrarySubject
     public void login(Long clientID, String username, String password)
     {
         activeState.login(clientID, username, password);
-        String role = library.getVisitorStorage().getUsernames().get(username).getRole();
-        if (role.equals("Employee"))
-            this.setState(EMPLOYEE_LOGGED_IN_STATE);
-        else if (role.equals("Visitor"))
-            this.setState(VISITOR_LOGGED_IN_STATE);
-        else
-            ;//Do Nothing
+
+        if(activeState instanceof LoggedOutState)
+        {
+            String role = library.getVisitorStorage().getUsernames().get(username).getRole();
+            if (role.equals("Employee"))
+                this.setState(EMPLOYEE_LOGGED_IN_STATE);
+            else if (role.equals("Visitor"))
+                this.setState(VISITOR_LOGGED_IN_STATE);
+            else
+                ;//Do Nothing
+        }
     }
 
     // Todo supply argument signature
