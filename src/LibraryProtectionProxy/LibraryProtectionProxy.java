@@ -185,8 +185,6 @@ public class LibraryProtectionProxy implements LibrarySubject
     public void clientDisconnect(Long clientID)
     {
         // should remove client from library's list of observers
-
-
         if (activeState instanceof EmployeeLoggedInState || activeState instanceof VisitorLoggedInState)
             activeState.logout(clientID);
 
@@ -211,11 +209,17 @@ public class LibraryProtectionProxy implements LibrarySubject
 
         if(activeState instanceof LoggedOutState)
         {
-            String role = library.getVisitorStorage().getUsernames().get(username).getRole();
-            if (role.equals("Employee"))
+            Visitor loggedInUser = library.getVisitorStorage().getUsernames().get(username);
+            if (loggedInUser.getRole().equals("Employee"))
+            {
                 this.setState(EMPLOYEE_LOGGED_IN_STATE);
-            else if (role.equals("Visitor"))
+                loggedInVisitor = loggedInUser;
+            }
+            else if (loggedInUser.getRole().equals("Visitor"))
+            {
                 this.setState(VISITOR_LOGGED_IN_STATE);
+                loggedInVisitor = loggedInUser;
+            }
             else
                 ;//Do Nothing
         }
@@ -228,6 +232,7 @@ public class LibraryProtectionProxy implements LibrarySubject
     {
         activeState.logout(clientID);
         setState(LOGGED_OUT_STATE);
+        loggedInVisitor = null;
     }
 
 

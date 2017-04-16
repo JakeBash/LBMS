@@ -17,11 +17,6 @@ public class Client
     private String status;
     private ArrayList<Book>  lastStoreSearch;
     private ArrayList<Book> lastStorageSearch;
-    // Command Parser no
-    // Proxy no
-    // Library yee
-    // private CommandParser parser; // todo this should get moved to GUICommandDisplay
-    // private LibraryProtectionProxy proxy; // todo This should get moved to GUICommandDisplay
 
     /**
      * Constructs a Client object.
@@ -32,11 +27,6 @@ public class Client
     {
         this.clientId = clientID;
         this.visitor = null;
-        //this.parser = new CommandParser(library);
-        //this.proxy = new LibraryProtectionProxy(library);
-        // Command Parser no
-        // Proxy no
-        // Library yee
     }
 
 
