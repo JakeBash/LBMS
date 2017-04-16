@@ -192,9 +192,10 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // logout,
     // Log Out
-    public void logout()
+    public void logout(Long clientID)
     {
-        // todo needs a state change
+        String response = clientID + ",logout,success;";
+        library.updateClientStatus(clientID, response);
     }
 
 

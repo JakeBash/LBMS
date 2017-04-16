@@ -165,9 +165,10 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // logout,
     // Log Out
-    public void logout()
+    public void logout(Long clientID)
     {
-        // response: "client ID,<request name>,not-authorized;"
+        String response = clientID + ",logout,success;";
+        library.updateClientStatus(clientID, response);
     }
 
 

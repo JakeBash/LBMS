@@ -188,7 +188,7 @@ public class LibraryProtectionProxy implements LibrarySubject
 
 
         if (activeState instanceof EmployeeLoggedInState || activeState instanceof VisitorLoggedInState)
-            activeState.logout();
+            activeState.logout(clientID);
 
         activeState.clientDisconnect(clientID);
         setState(DISCONNECTED_STATE);
@@ -224,9 +224,9 @@ public class LibraryProtectionProxy implements LibrarySubject
     // Todo supply argument signature
     // logout,
     // Log Out
-    public void logout()
+    public void logout(Long clientID)
     {
-        activeState.logout();
+        activeState.logout(clientID);
         setState(LOGGED_OUT_STATE);
     }
 

@@ -172,7 +172,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // logout,
     // Log Out
-    public void logout()
+    public void logout(Long clientID)
     {
         // Set Client UI to CLIENT_ERROR
     }

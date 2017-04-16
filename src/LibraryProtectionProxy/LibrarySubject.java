@@ -119,7 +119,7 @@ public interface LibrarySubject {
     // Todo supply argument signature
     // logout,
     // Log Out
-    public void logout();
+    public void logout(Long clientID);
 
     ////////////////////////// maybe not in proxy ? ///////////////////////////
 
