@@ -160,6 +160,27 @@ public class CommandParser
                 }
                 break;
 
+            case "connect":
+                if (args.size() == 2){
+                    Long clientID = Long.parseLong(args.get(0));
+                    command = new Connect(proxy, clientID);
+                    this.addCommand(command);
+                }
+                break;
+
+            case "create":
+                if (args.size() == 6){
+                    Long clientID = Long.parseLong(args.get(0));
+                    String username = args.get(2);
+                    String password = args.get(3);
+                    String role = args.get(4);
+                    Long visitorID = Long.parseLong(args.get(5));
+
+                    command = new CreateAccount(proxy, clientID, username, password, role, visitorID);
+
+                }
+                break;
+
             case "datetime":
                 try {
                     if (args.size() == 2) {
@@ -180,6 +201,14 @@ public class CommandParser
                     Long visitorID = Long.parseLong(args.get(2));
                     command = new EndVisit(proxy, clientID, visitorID);
 
+                    this.addCommand(command);
+                }
+                break;
+
+            case "disconnect":
+                if (args.size() == 2) {
+                    Long clientID = Long.parseLong(args.get(0));
+                    command = new Disconnect(proxy, clientID);
                     this.addCommand(command);
                 }
                 break;
