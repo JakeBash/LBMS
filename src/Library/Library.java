@@ -34,7 +34,6 @@ public class Library extends Observable implements LibrarySubject
 
     private VisitorStorage visitorStorage;
     private BookStorage bookStorage;
-    private BookCatalog bookCatalog;
     private String status;
     private TimeClock timeClock;
     private CheckTimeTask checkTimeTask;
@@ -65,7 +64,6 @@ public class Library extends Observable implements LibrarySubject
         // Initialized with reference to self to give access to TimeClock
         this.visitorStorage = VisitorStorage.deserialize(this);
         this.bookStorage = BookStorage.deserialize(this);
-        this.bookCatalog = new FlatFileBookCatalog(FLATFILE);
         this.timeClock = TimeClock.deserialize();
 
         // Have to cancel task and Timer when shutting down
@@ -121,7 +119,7 @@ public class Library extends Observable implements LibrarySubject
      */
     public void bookStoreSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
-        ArrayList<Book> searchRes = this.bookCatalog.bookSearch(title, authors, isbn, publisher);
+        ArrayList<Book> searchRes = this.getClient(clientID).getBookCatalog().bookSearch(title, authors, isbn, publisher);
         String response = clientID + ",search,";
 
         if (sortBookList(searchRes, sortOrder))
@@ -580,17 +578,7 @@ public class Library extends Observable implements LibrarySubject
         this.notifyObservers();
     }
 
-    /**
-     * Switches the catalog state between the flat file catalog and the web services catalog.
-     */
-    public void switchCatalogState(){
-        if(this.bookCatalog.getClass() == FlatFileBookCatalog.class){
-            this.bookCatalog = new GoogleBooks();
-        }
-        else{
-            this.bookCatalog = new FlatFileBookCatalog(FLATFILE);
-        }
-    }
+
 
 
     ///////////////////////// Helper Methods for Sorting Lists of Books ////////////////////////////
