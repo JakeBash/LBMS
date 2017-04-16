@@ -60,7 +60,7 @@ public class GoogleBooks implements BookCatalog{
             JsonReader jsonReader = Json.createReader(new StringReader(response.toString()));
             JsonObject jsonBooks = jsonReader.readObject();
             jsonReader.close();
-
+            int tempId = 1;
 
             for (JsonObject o:jsonBooks.getJsonArray("items").getValuesAs(JsonObject.class)) {
                 if(o.getJsonObject("saleInfo").getJsonString("country").toString().equals("\"US\"") &&
@@ -95,13 +95,14 @@ public class GoogleBooks implements BookCatalog{
 
                     try {
                         //Find JsonObject o page count
-                        pageCountarg = o.getJsonObject("volumeInfo").getJsonNumber("pageCount").intValue(); //TODO Page count apparently not returned on all api calls. Thanks Google.
+                        pageCountarg = o.getJsonObject("volumeInfo").getJsonNumber("pageCount").intValue();
                     }
                     catch (NullPointerException e){
                         pageCountarg = 0;
                     }
                     Book abook = new Book(isbnarg, titlearg, authorsarg, publisherarg, publishDatearg, pageCountarg);
-                    System.out.println(abook.toString("bSearch"));
+                    abook.setTempID(tempId++);
+                    System.out.println(abook.toString("sSearch"));
                     books.add(abook);
                 }
             }
@@ -111,12 +112,6 @@ public class GoogleBooks implements BookCatalog{
 
         }
         return books;
-    }
-
-
-    @Override
-    public ArrayList<Book> purchase(int quantity, ArrayList<Integer> ids) {
-        return null;
     }
 
 

@@ -23,12 +23,5 @@ public interface BookCatalog
      */
     ArrayList<Book> bookSearch(String title, ArrayList<String> authors, String isbn, String publisher);
 
-    /**
-     * Initiates a purchase of the desired books from that are chosen from the most recent Book Catalog search.
-     *
-     * @param quantity - The amount of books to be purchased.
-     * @param ids - The temporary id's of the books that are to be purchased.
-     * @return An ArrayList representing the purchased books.
-     */
-    ArrayList<Book> purchase(int quantity, ArrayList<Integer> ids);
+
 }

@@ -3,6 +3,7 @@ package Library;
 import Books.*;
 import BooksCatalog.BookCatalog;
 import BooksCatalog.FlatFileBookCatalog;
+import BooksCatalog.GoogleBooks;
 import Client.Client;
 import Sort.*;
 import Visitors.CheckOut;
@@ -29,6 +30,7 @@ public class Library extends Observable implements LibrarySubject
 {
     private final int OPEN = 0;
     private final int CLOSED = 1;
+    private final File FLATFILE = new File("files/books.txt");
 
     private VisitorStorage visitorStorage;
     private BookStorage bookStorage;
@@ -63,7 +65,7 @@ public class Library extends Observable implements LibrarySubject
         // Initialized with reference to self to give access to TimeClock
         this.visitorStorage = VisitorStorage.deserialize(this);
         this.bookStorage = BookStorage.deserialize(this);
-        this.bookCatalog = new FlatFileBookCatalog(new File("files/books.txt"));
+        this.bookCatalog = new FlatFileBookCatalog(FLATFILE);
         this.timeClock = TimeClock.deserialize();
 
         // Have to cancel task and Timer when shutting down
@@ -164,8 +166,15 @@ public class Library extends Observable implements LibrarySubject
      */
     public void purchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
     {
-        ArrayList<Book> purchasedBooks = this.bookCatalog.purchase(quantity, ids);
-
+        ArrayList<Book> booksToPurchase = this.getClient(clientID).getLastStoreSearch();
+        ArrayList<Book> purchasedBooks = new ArrayList<>();
+        for(Book book : booksToPurchase)
+        {
+            if(ids.contains(book.getTempID()))
+            {
+                purchasedBooks.add(book);
+            }
+        }
         bookStorage.addBooks(purchasedBooks, quantity, this.getTime());
 
         String response = clientID + ",buy,success\n";
@@ -571,8 +580,17 @@ public class Library extends Observable implements LibrarySubject
         this.notifyObservers();
     }
 
-
-
+    /**
+     * Switches the catalog state between the flat file catalog and the web services catalog.
+     */
+    public void switchCatalogState(){
+        if(this.bookCatalog.getClass() == FlatFileBookCatalog.class){
+            this.bookCatalog = new GoogleBooks();
+        }
+        else{
+            this.bookCatalog = new FlatFileBookCatalog(FLATFILE);
+        }
+    }
 
 
     ///////////////////////// Helper Methods for Sorting Lists of Books ////////////////////////////

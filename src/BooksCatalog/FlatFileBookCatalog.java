@@ -44,23 +44,6 @@ public class FlatFileBookCatalog implements BookCatalog
     }
 
 
-    /**
-     * Initiates a purchase of books that were contained in the last Book Catalog search.
-     *
-     * @return An ArrayList representing the books that are being purchased.
-     */
-    public ArrayList<Book> purchase(int quantity, ArrayList<Integer> ids)
-    {
-        ArrayList<Book> purchases = new ArrayList<>();
-        for(Book book : getLastSearch())
-        {
-            if(ids.contains(book.getTempID()))
-            {
-                purchases.add(book);
-            }
-        }
-        return purchases;
-    }
 
     /**
      * Given a set of user search criteria, returns the books that meet the supplied criteria.
