@@ -203,9 +203,7 @@ public class BookSearch implements LBMSCommand
      */
     public void execute()
     {
-        // todo this.proxy.bookSearch(this.clientID, this.title, this.authors, this.isbn, this.publisher, this.sortOrder);
-
-        this.library.bookSearch(this.title, this.authors, this.isbn, this.publisher, this.sortOrder);
+        this.proxy.bookSearch(this.clientID, this.title, this.authors, this.isbn, this.publisher, this.sortOrder);
     }
 
     /**

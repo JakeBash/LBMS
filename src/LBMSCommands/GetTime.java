@@ -42,6 +42,7 @@ public class GetTime implements LBMSCommand
     public GetTime(LibrarySubject proxy, Long clientID)
     {
         this.proxy = proxy;
+        this.clientID = clientID;
     }
 
 
@@ -53,8 +54,7 @@ public class GetTime implements LBMSCommand
      */
     public void execute()
     {
-        // todo proxy.getFormattedDateTime(clientID);
-        library.getFormattedDateTime();
+        proxy.getFormattedDateTime(clientID);
     }
 
     /**

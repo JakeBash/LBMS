@@ -17,6 +17,9 @@ public class Visitor implements java.io.Serializable
     private String address;
     private String phoneNumber;
     private Long id;
+    private String username;
+    private String password;
+    private String accountType;
     private ArrayList<CheckOut> checkedOutBooks;
     private ArrayList<UnpaidFine> unpaidFines;
     private ArrayList<PaidFine> paidFines;
@@ -38,6 +41,9 @@ public class Visitor implements java.io.Serializable
         this.lastName = lastName;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.username = null;
+        this.password = null;
+        this.accountType = null;
         this.checkedOutBooks = new ArrayList<>();
         this.unpaidFines = new ArrayList<>();
         this.paidFines = new ArrayList<>();
@@ -55,6 +61,21 @@ public class Visitor implements java.io.Serializable
     {
         this.id = id;
         this.registeredDate = registeredDate;
+    }
+
+    /**
+     * Description
+     *
+     * @param username -
+     * @param password -
+     * @param role -
+     * @return
+     */
+    public void createAccount(String username, String password, String role)
+    {
+        this.username = username;
+        this.password = password;
+        this.accountType = role;
     }
 
     /**
@@ -112,6 +133,26 @@ public class Visitor implements java.io.Serializable
     public ArrayList<CheckOut> getCheckOut()
     {
         return this.checkedOutBooks;
+    }
+
+    /**
+     * Description
+     *
+     * @return
+     */
+    public String getUsername()
+    {
+        return this.username;
+    }
+
+    public String getPassword()
+    {
+        return this.password;
+    }
+
+    public String getRole()
+    {
+        return this.accountType;
     }
 
     /**

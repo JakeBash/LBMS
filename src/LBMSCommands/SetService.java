@@ -1,6 +1,7 @@
 package LBMSCommands;
 
 import Library.Library;
+import LibraryProtectionProxy.LibrarySubject;
 
 import java.util.ArrayList;
 
@@ -18,20 +19,20 @@ import java.util.ArrayList;
 public class SetService implements LBMSCommand
 {
 
-    private Library library;
+    private LibrarySubject proxy;
     private Long clientID;
     private String service;
 
 
     /**
      *
-     * @param library - The library that the SetService command is being executed on
+     * @param proxy - The library proxy that the SetService command is being executed on
      * @param clientID - The ID of the client that is executing the SetService Command
      * @param service - The service that the client wishes to use.
      */
-    public SetService(Library library, Long clientID, String service)
+    public SetService(LibrarySubject proxy, Long clientID, String service)
     {
-        this.library = library;
+        this.proxy = proxy;
         this.clientID = clientID;
         this.service = service;
     }

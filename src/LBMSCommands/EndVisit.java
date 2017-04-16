@@ -58,8 +58,7 @@ public class EndVisit implements LBMSCommand
      */
     public void execute()
     {
-        // todo this.proxy.endVisit(clientID, visitorID);
-        library.endVisit(visitorID);
+        this.proxy.endVisit(clientID, visitorID);
     }
 
     /**

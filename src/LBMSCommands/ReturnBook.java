@@ -65,8 +65,7 @@ public class ReturnBook implements LBMSCommand
      */
     public void execute()
     {
-        // todo proxy.returnBooks(clientID, visitorID, bookID);
-        this.library.returnBooks(this.visitorID, this.bookID);
+        proxy.returnBooks(clientID, visitorID, bookID);
     }
 
     /**

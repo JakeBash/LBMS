@@ -52,8 +52,7 @@ public class Shutdown implements LBMSCommand
      */
     public void execute()
     {
-        // todo proxy.shutdown(clientID);
-        library.shutdown();
+        proxy.shutdown(clientID);
     }
 
     /**

@@ -3,6 +3,7 @@ package Library;
 import Books.*;
 import BooksCatalog.BookCatalog;
 import BooksCatalog.FlatFileBookCatalog;
+import BooksCatalog.GoogleBooks;
 import Client.Client;
 import Sort.*;
 import Visitors.CheckOut;
@@ -25,28 +26,25 @@ import LibraryProtectionProxy.LibrarySubject;
  * @author Tyler Reimold
  * @author Kyle Kaniecki
  */
-public class Library extends Observable //todo implements LibrarySubject
+public class Library extends Observable implements LibrarySubject
 {
     private final int OPEN = 0;
     private final int CLOSED = 1;
+    private final File FLATFILE = new File("files/books.txt");
 
     private VisitorStorage visitorStorage;
     private BookStorage bookStorage;
-    private BookCatalog bookCatalog;
     private String status;
     private TimeClock timeClock;
     private CheckTimeTask checkTimeTask;
     private Timer timer;
     private LibraryState currentState;
     private ArrayList<LibraryState> stateList;
-    /**
-     * The active client of the library.
-     */
-    private Client activeClient;
+
     /**
      * Map of all current client connections. Can only be added to, no getter method.
      */
-    private HashMap<Long, Client> clients;
+    private HashMap<Long, Client> clientList;
 
     /**
      * Initializes all required persistent state from existing files.
@@ -59,11 +57,13 @@ public class Library extends Observable //todo implements LibrarySubject
         this.stateList.add(new LibraryClosed());
         this.currentState = this.stateList.get(0);
 
+        // Initialize client map
+        this.clientList = new HashMap<Long, Client>();
+
         this.status = "";
         // Initialized with reference to self to give access to TimeClock
         this.visitorStorage = VisitorStorage.deserialize(this);
         this.bookStorage = BookStorage.deserialize(this);
-        this.bookCatalog = new FlatFileBookCatalog(new File("files/books.txt"));
         this.timeClock = TimeClock.deserialize();
 
         // Have to cancel task and Timer when shutting down
@@ -82,44 +82,30 @@ public class Library extends Observable //todo implements LibrarySubject
      * @param publisher - The publisher of the desired book(s).
      * @param sortOrder - The sort order to be used when gathering the desired book(s).
      */
-    public void bookSearch(String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
+    public void bookSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
         ArrayList<Book> searchRes = this.bookStorage.bookSearch(title, authors, isbn, publisher);
-        String response = "info,";
+        String response = clientID + ",info,";
 
-        if (sortOrder.equals("title"))
+        if (sortBookList(searchRes, sortOrder))
         {
-            ByTitle bt = new ByTitle();
-            bt.sort(searchRes);
+            response += searchRes.size() + "\n";
+            for(Book b : searchRes)
+            {
+                response += b.toString("bSearch") + ";\n";
+            }
+
+            updateStatus(response); // Todo depreciate
+            updateClientStatus(clientID, response);
+
         }
-        else if (sortOrder.equals("publish-date"))
-        {
-            ByPublishDate bpd = new ByPublishDate();
-            bpd.sort(searchRes);
-        }
-        else if (sortOrder.equals("book-status"))
-        {
-            ByStatus bs = new ByStatus();
-            bs.sort(searchRes);
-        }
-        else if(sortOrder.equals("none"))
-        {
-           ;
-        }
-        else
-        {
+        else {
             response += "invalid-sort-order;";
-            updateStatus(response);
-            return;
+            updateStatus(response); // todo depreciate
+            updateClientStatus(clientID, response);
+
         }
 
-        response += searchRes.size() + "\n";
-        for(Book b : searchRes)
-        {
-            response += b.toString("bSearch") + ";\n";
-        }
-
-        updateStatus(response);
     }
 
     /**
@@ -131,57 +117,43 @@ public class Library extends Observable //todo implements LibrarySubject
      * @param publisher - The publisher of the desired book(s).
      * @param sortOrder - The sort order to be used when gathering the desired book(s).
      */
-    public void bookStoreSearch(Long id, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
+    public void bookStoreSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
-        ArrayList<Book> searchRes = this.bookCatalog.bookSearch(title, authors, isbn, publisher);
-        String response = "info,";
+        ArrayList<Book> searchRes = this.getClient(clientID).getBookCatalog().bookSearch(title, authors, isbn, publisher);
+        String response = clientID + ",search,";
 
-        if (sortOrder.equals("title"))
+        if (sortBookList(searchRes, sortOrder))
         {
-            ByTitle bt = new ByTitle();
-            bt.sort(searchRes);
+            response += searchRes.size() + "\n";
+            for(Book b : searchRes)
+            {
+                response += b.toString("sSearch") + ";\n";
+            }
+            this.getClient(clientID).setLastStoreSearch(searchRes);
+
+            updateStatus(response); // todo depreciate
+            updateClientStatus(clientID, response);
+
         }
-        else if (sortOrder.equals("publish-date"))
-        {
-            ByPublishDate bpd = new ByPublishDate();
-            bpd.sort(searchRes);
-        }
-        else if (sortOrder.equals("book-status"))
-        {
-            ByStatus bs = new ByStatus();
-            bs.sort(searchRes);
-        }
-        else if(sortOrder.equals("none"))
-        {
-           ;
-        }
-        else
-        {
+        else {
             response += "invalid-sort-order;";
-            updateStatus(response);
-            return;
-        }
+            updateStatus(response); // todo depreciate
+            updateClientStatus(clientID, response);
 
-        response += searchRes.size() + "\n";
-        for(Book b : searchRes)
-        {
-            response += b.toString("sSearch") + ";\n";
         }
-        this.getClient(id).setLastStoreSearch(searchRes);
-
-        updateStatus(response);
     }
 
     /**
      * This method borrows books for a specified visitor.
+     * Handed off to the State of the Library
      *
      * @param bkID - An ArrayList of Book ISBNs
      * @param vID - A Visitor ID.
      */
-    public void borrowBooks(ArrayList<String> bkID,Long vID)
+    public void borrowBook(Long clientID, ArrayList<String> bkID,Long vID)
     {
-        String str = this.currentState.stateCheckOutBook(bkID, vID, this.visitorStorage, this.timeClock, this.bookStorage);
-        updateStatus(str);
+        String str = clientID + "," + this.currentState.stateCheckOutBook(bkID, vID, this.visitorStorage, this.timeClock, this.bookStorage);
+        updateStatus(str); // todo depreciate
     }
 
     /**
@@ -190,20 +162,28 @@ public class Library extends Observable //todo implements LibrarySubject
      * @param quantity - The amount of books to be purchased.
      * @param ids - The temporary ID's of the books to be purchased.
      */
-    public void purchaseBooks(int quantity, ArrayList<Integer> ids)
+    public void purchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
     {
-        ArrayList<Book> purchasedBooks = this.bookCatalog.purchase(quantity, ids);
-
+        ArrayList<Book> booksToPurchase = this.getClient(clientID).getLastStoreSearch();
+        ArrayList<Book> purchasedBooks = new ArrayList<>();
+        for(Book book : booksToPurchase)
+        {
+            if(ids.contains(book.getTempID()))
+            {
+                purchasedBooks.add(book);
+            }
+        }
         bookStorage.addBooks(purchasedBooks, quantity, this.getTime());
 
-        String response = "buy,success\n";
+        String response = clientID + ",buy,success\n";
 
         for (Book b : purchasedBooks)
         {
             response += b.toString("bPurchase") + quantity +";\n";
         }
 
-        updateStatus(response);
+        updateStatus(response); // todo depreciate
+        updateClientStatus(clientID, response);
     }
 
     /**
@@ -215,10 +195,10 @@ public class Library extends Observable //todo implements LibrarySubject
      * @param phoneNumber - The phone number of the visitor to be registered.
      * @return The newly registered visitor.
      */
-    public void registerVisitor(String firstName, String lastName, String address, String phoneNumber)
+    public void registerVisitor(Long clientID, String firstName, String lastName, String address, String phoneNumber)
     {
         Visitor newVis = visitorStorage.registerVisitor(firstName, lastName, address, phoneNumber);
-        String response = "register,";
+        String response = clientID + ",register,";
 
         if (newVis != null)
         {
@@ -229,7 +209,8 @@ public class Library extends Observable //todo implements LibrarySubject
             response += "duplicate;";
         }
 
-        updateStatus(response);
+        updateStatus(response); // Todo depreciate
+        updateClientStatus(clientID, response);
     }
 
     /**
@@ -237,10 +218,11 @@ public class Library extends Observable //todo implements LibrarySubject
      *
      * @param visitorID - The ID of the visitor that is starting their visit.
      */
-    public void beginVisit(Long visitorID)
+    public void beginVisit(Long clientID, Long visitorID)
     {
-        String response = currentState.stateBeginVisit(visitorID, this.visitorStorage);
-        updateStatus(response);
+        String response = clientID + "," + currentState.stateBeginVisit(visitorID, this.visitorStorage);
+        updateStatus(response); // Todo depreciate
+        updateClientStatus(clientID, response);
     }
 
     /**
@@ -248,11 +230,11 @@ public class Library extends Observable //todo implements LibrarySubject
      *
      * @param visitorID - The ID of the visitor currently at the library.
      */
-    public void endVisit(Long visitorID)
+    public void endVisit(Long clientID, Long visitorID)
     {
         Visit visit = this.visitorStorage.endVisit(visitorID);
 
-        String response = "depart,";
+        String response = clientID + ",depart,";
 
         if(visitorStorage.getVisitor(visitorID) == null)
         {
@@ -268,7 +250,8 @@ public class Library extends Observable //todo implements LibrarySubject
             response += "duplicate;";
         }
 
-        updateStatus(response);
+        updateStatus(response); // Todo depreciate
+        updateClientStatus(clientID, response);
     }
 
     /**
@@ -277,10 +260,10 @@ public class Library extends Observable //todo implements LibrarySubject
      *
      * @param visitorID - The visitor being queried for their checked out books.
      */
-    public void getVisitorCheckedOutBooks(Long visitorID)
+    public void getVisitorCheckedOutBooks(Long clientID, Long visitorID)
     {
         Visitor visitor = this.visitorStorage.getVisitor(visitorID);
-        String response = "borrowed,";
+        String response = clientID + ",borrowed,";
 
         if (visitor != null)
         {
@@ -296,7 +279,8 @@ public class Library extends Observable //todo implements LibrarySubject
             response += visitorID;
         }
 
-        updateStatus(response);
+        updateStatus(response); // todo depreciate
+        updateClientStatus(clientID, response);
     }
 
     /**
@@ -305,22 +289,32 @@ public class Library extends Observable //todo implements LibrarySubject
      * @param visitorID - id of visitor paying the fine
      * @param amount - amount to pay
      */
-    public void payFine(Long visitorID, int amount)
+    public void payFine(Long clientID, Long visitorID, int amount)
     {
+        // Todo this needs to make responses
         this.visitorStorage.payFine(visitorID, amount);
+
+
+        String response = clientID + ",success" + "," + amount + ";";
+        updateClientStatus(clientID, response);
+
     }
 
     /**
      * Generates a statistical report of the library
      *
      */
-    public void generateReport(int days)
+    public void generateReport(Long clientID, int days)
     {
         //TODO: Add in the rest of the report data needed
         LocalDate localDate = LocalDate.now();
-        updateStatus(DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate) + "\n"
+        String response = clientID + "," + DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate) + "\n"
                 + this.bookStorage.generateReport(days) + "\n"
-                + this.visitorStorage.generateReport(days) + "\n");
+                + this.visitorStorage.generateReport(days) + "\n";
+
+
+        updateStatus(response); // Todo depreciate
+        updateClientStatus(clientID, response);
 
     }
 
@@ -359,9 +353,10 @@ public class Library extends Observable //todo implements LibrarySubject
     /**
      * Gets a formatted date and time for use in system responses.
      */
-    public void getFormattedDateTime()
+    public void getFormattedDateTime(Long clientID)
     {
-        updateStatus("datetime," + timeClock.getFormattedDateTime() + ";" );
+        updateStatus(clientID + ",datetime," + timeClock.getFormattedDateTime() + ";" ); // todo depreciated
+        updateClientStatus(clientID, clientID + ",datetime," + timeClock.getFormattedDateTime() + ";" );
     }
 
     /**
@@ -380,7 +375,7 @@ public class Library extends Observable //todo implements LibrarySubject
      * @param days - The number of days to advance.
      * @param hours - The number of hours to advance.
      */
-    public void advanceTime(int days, int hours)
+    public void advanceTime(Long clientID, int days, int hours)
     {
 
         if ((days >= 0 && days <= 7) && (hours >= 0 && hours <= 23))
@@ -388,20 +383,27 @@ public class Library extends Observable //todo implements LibrarySubject
             timeClock.advanceTime(days, hours);
             visitorStorage.endAllVisits();
             //generateReport();
-            updateStatus("advance,success;" );
+            updateStatus(clientID + ",advance,success;" ); // todo depreciate
+            updateClientStatus(clientID, clientID + ",advance,success;");
         }
         else if (days < 0 || days > 7)
         {
-            updateStatus("advance,invalid-number-of-days," + days +";" );
+            updateStatus(clientID + ",advance,invalid-number-of-days," + days +";" ); // todo depreciate
+            updateClientStatus(clientID, clientID + ",advance,invalid-number-of-days," + days +";" );
+
         }
         else if (hours < 0 || hours > 23)
         {
-            updateStatus("advance,invalid-number-of-hours," + hours +";" );
+            updateStatus(clientID + ",advance,invalid-number-of-hours," + hours +";" ); // todo depreciate
+            updateClientStatus(clientID, clientID + ",advance,invalid-number-of-days," + hours +";" );
+
         }
+
+
     }
 
 
-    public void returnBooks(Long visitorID, ArrayList<String> isbns)
+    public void returnBooks(Long clientID, Long visitorID, ArrayList<String> isbns)
     {
         ArrayList<Book> books = new ArrayList<>();
         for (Book book: this.bookStorage.getBooks().values())
@@ -415,9 +417,11 @@ public class Library extends Observable //todo implements LibrarySubject
         double fines = this.visitorStorage.returnBooks(visitorID, books);
 
         if (fines > 0) {
-            updateStatus("return,overdue,$" + Double.toString(fines) + isbns + ";");
+            updateStatus(clientID + ",return,overdue,$" + Double.toString(fines) + isbns + ";"); // Todo depreciate
+            updateClientStatus(clientID, clientID + ",return,overdue,$" + Double.toString(fines) + isbns + ";");
         } else {
-            updateStatus("return,success;");
+            updateStatus(clientID + ",return,success;"); // todo depreciate
+            updateClientStatus(clientID, clientID + ",return,success;");
         }
     }
 
@@ -429,6 +433,128 @@ public class Library extends Observable //todo implements LibrarySubject
     {
        return this.status;
     }
+
+    public String getClientStatus(Long clientID)
+    {
+        if (clientList.get(clientID) != null)
+            return clientList.get(clientID).getStatus();
+        else
+            return "invalid-client-id;";
+    }
+
+    /**
+     * Description
+     *
+     * @return
+     */
+    public VisitorStorage getVisitorStorage()
+    {
+        return this.visitorStorage;
+    }
+
+    /**
+     * Shut down the system, persisting all data created in flat files.
+     */
+    public void shutdown(Long clientID)
+    {
+        //TODO: Serialize all other entities to be persisted
+        this.timeClock.serialize();
+        this.visitorStorage.serialize();
+        this.bookStorage.serialize();
+        System.exit(0);
+    }
+
+    /**
+     * Creates new client connection with library.
+     */
+    public void clientConnect(Long clientID)
+    {
+        this.clientList.put(clientID, new Client(clientID));
+    }
+
+    /**
+     * Ends the connection with the ACTIVE CLIENT.
+     */
+    public void clientDisconnect(Long clientID)
+    {
+        this.clientList.remove(clientID);
+        // Todo client should be notified somehow... probably at proxy or cmd parser level
+    }
+
+    /**
+     * Helper method for getting client
+     */
+    private Client getClient(Long clientID){
+        return this.clientList.get(clientID);
+    }
+
+
+    ///////////////////////// R2 Requirements /////////////////////////
+
+    public void createAccount(Long clientID, String username, String password, String role, Long visitorID)
+    {
+        String response;
+
+        if (visitorStorage.getVisitor(visitorID) == null)
+        {
+            response = clientID + ",create,invalid-visitor;";
+            updateClientStatus(clientID, response);
+        }
+        else
+        {
+            String result = visitorStorage.createAccountCheck(username, visitorID);
+
+            if (result.equals("duplicate username"))
+            {
+                response = clientID + ",create,duplicate-username;";
+            }
+            else if (result.equals("duplicate visitor"))
+            {
+                response = clientID + ",create,duplicate-visitor;";
+            }
+            else
+            {
+                visitorStorage.getVisitor(visitorID).createAccount(username, password, role);
+                visitorStorage.addTakenUsername(username, visitorID);
+                response = clientID + ",create,success;";
+            }
+            updateClientStatus(clientID, response);
+        }
+    }
+
+    public void login(Long clientID, String username, String password)
+    {
+        boolean login = visitorStorage.login(username, password);
+        String response;
+
+        if (login)
+        {
+            response = clientID + ",login,success;";
+        }
+        else
+        {
+            response = clientID + ",login,bad-username-or-password;";
+        }
+
+        this.updateClientStatus(clientID, response);
+    }
+
+    public void logout(Long clientID)
+    {
+
+    }
+
+    public void setService()
+    {
+
+    }
+
+    public void forwardResponse(Long clientID, String response)
+    {
+        updateClientStatus(clientID, response);
+    }
+
+    ///////////////////////// Helper Methods for Updating Status ////////////////////////////
 
     /**
      * Updates the status string of the model and notifies any observers.
@@ -443,45 +569,46 @@ public class Library extends Observable //todo implements LibrarySubject
     // Todo implement me!!!!!
     public void updateClientStatus(Long clientID, String status)
     {
-        System.out.print("Client " + clientID + "'s status is: " + status);
-//        this.status = status;
-//        this.setChanged();
-//        this.notifyObservers();
+        if (clientList.get(clientID) != null)
+        {
+            clientList.get(clientID).setStatus(status);
+            System.out.println(clientList.get(clientID).getStatus()); // Todo remove -- here for debugging
+        }
+        this.setChanged();
+        this.notifyObservers();
     }
 
-    /**
-     * Shut down the system, persisting all data created in flat files.
-     */
-    public void shutdown()
+
+
+
+    ///////////////////////// Helper Methods for Sorting Lists of Books ////////////////////////////
+
+    private boolean sortBookList(ArrayList<Book> searchRes, String sortOrder)
     {
-        //TODO: Serialize all other entities to be persisted
-        this.timeClock.serialize();
-        this.visitorStorage.serialize();
-        this.bookStorage.serialize();
-        System.exit(0);
-    }
-
-    /**
-     * Creates new client connection with library.
-     */
-    public void newConnection(Long id){
-        this.clients.put(id, new Client(id, this));
-    }
-
-    /**
-     * Ends the connection with the ACTIVE CLIENT.
-     */
-    public void endCurrentConnection(){
-        // Todo get rid of active clients... end connections by supplying the client id and remove client with that id
-        this.clients.remove(this.activeClient);
-        this.activeClient = null;
-    }
-
-    /**
-     * Helper method for getting client
-     */
-    private Client getClient(Long id){
-        return this.clients.get(id);
+        if (sortOrder.equals("title"))
+        {
+            ByTitle bt = new ByTitle();
+            bt.sort(searchRes);
+        }
+        else if (sortOrder.equals("publish-date"))
+        {
+            ByPublishDate bpd = new ByPublishDate();
+            bpd.sort(searchRes);
+        }
+        else if (sortOrder.equals("book-status"))
+        {
+            ByStatus bs = new ByStatus();
+            bs.sort(searchRes);
+        }
+        else if(sortOrder.equals("none"))
+        {
+            ;
+        }
+        else
+        {
+            return false;
+        }
+        return true;
     }
 
     /**

@@ -1,8 +1,6 @@
 package LBMSCommands;
 
-import Library.Library;
-
-import java.util.ArrayList;
+import LibraryProtectionProxy.LibrarySubject;
 
 /**
  * Logs out a currently logged in user
@@ -10,21 +8,23 @@ import java.util.ArrayList;
  * client ID,logout;
  *
  * @author Nikolas Tilley
+ * @author Jake Bashaw
  */
 public class Logout implements LBMSCommand
 {
 
-    private Library library;
+    private LibrarySubject proxy;
     private Long clientID;
 
     /**
+     * Description
      *
-     * @param library - The library the Logout command is being executed on.
+     * @param proxy - The proxy library the Logout command is being executed on.
      * @param clientID - The ID of the client preforming the Logout command.
      */
-    public Logout(Library library, Long clientID)
+    public Logout(LibrarySubject proxy, Long clientID)
     {
-        this.library = library;
+        this.proxy = proxy;
         this.clientID = clientID;
     }
 
@@ -32,15 +32,17 @@ public class Logout implements LBMSCommand
      * Executes the Logout command on the library.
      */
     @Override
-    public void execute() {
-
+    public void execute()
+    {
+        this.proxy.logout(clientID);
     }
 
     /**
      * If the Command is undoable as per the requirements, then implement behavior to undo
      */
     @Override
-    public void undo() {
+    public void undo()
+    {
 
     }
 }

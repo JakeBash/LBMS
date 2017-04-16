@@ -9,9 +9,8 @@ import java.util.ArrayList;
  *
  * @author Nikolas Tilley
  */
-public class DisconnectedState implements LibraryProtectionProxyState {
-
-
+public class DisconnectedState implements LibraryProtectionProxyState
+{
     // have to directly place error into textbox unless that command is like connect or shutdown
 
     private final String CLIENT_ERROR = "invalid-client-id;";
@@ -142,7 +141,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Client Connect
     public void clientConnect(Long clientID)
     {
-        library.newConnection(clientID);
+        library.clientConnect(clientID);
         // response - "connect,client ID;"
     }
 
@@ -157,7 +156,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Todo supply argument signature
     // create,
     // Create New Account
-    public void createAccount()
+    public void createAccount(Long clientID, String username, String password, String role, Long visitorID)
     {
         // Set Client UI to CLIENT_ERROR
     }
@@ -165,7 +164,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Todo supply argument signature
     // login,
     // Log In
-    public void login()
+    public void login(Long clientID, String username, String password)
     {
         // Set Client UI to CLIENT_ERROR
     }
@@ -173,7 +172,7 @@ public class DisconnectedState implements LibraryProtectionProxyState {
     // Todo supply argument signature
     // logout,
     // Log Out
-    public void logout()
+    public void logout(Long clientID)
     {
         // Set Client UI to CLIENT_ERROR
     }

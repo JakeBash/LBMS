@@ -27,6 +27,9 @@ public class VisitorStorage implements java.io.Serializable
     // Full history of visits in the library
     private ArrayList<Visit> visitHistory;
 
+    // Full list of taken usernames of visitors
+    private HashMap<String, Visitor> usernames;
+
     // Data file location
     private static String file = "files/VisitorStorage.ser";
 
@@ -39,6 +42,7 @@ public class VisitorStorage implements java.io.Serializable
         this.visitors = new HashMap<>();
         this.activeVisits = new HashMap<>();
         this.visitHistory = new ArrayList<>();
+        this.usernames = new HashMap<>();
     }
 
     /**
@@ -50,6 +54,16 @@ public class VisitorStorage implements java.io.Serializable
     public Visitor getVisitor(Long ID)
     {
         return this.visitors.get(ID);
+    }
+
+    /**
+     * Description
+     *
+     * @return
+     */
+    public HashMap<String, Visitor> getUsernames()
+    {
+        return this.usernames;
     }
 
     /**
@@ -80,6 +94,41 @@ public class VisitorStorage implements java.io.Serializable
 
         // Return the new visitor
         return visitor;
+    }
+
+    /**
+     * Description
+     *
+     * @param username -
+     * @param visitorID -
+     * @return
+     */
+    public String createAccountCheck(String username, Long visitorID)
+    {
+        if (this.getVisitor(visitorID).getUsername() != null)
+            return "duplicate visitor";
+        else if (this.usernames.containsKey(username))
+            return "duplicate username";
+        else
+            return "success";
+    }
+
+    public void addTakenUsername(String username, Long visitorID)
+    {
+        this.usernames.put(username, this.getVisitor(visitorID));
+    }
+
+    public boolean login(String username, String password)
+    {
+        if (this.usernames.containsKey(username))
+        {
+            if (this.usernames.get(username).getPassword().equals(password))
+                return true;
+            else
+                return false;
+        }
+        else
+            return false;
     }
 
     /**

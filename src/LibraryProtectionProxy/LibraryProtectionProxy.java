@@ -2,6 +2,8 @@ package LibraryProtectionProxy;
 
 import LBMSCommands.Disconnect;
 import Library.Library;
+import Visitors.Visit;
+import Visitors.Visitor;
 
 import java.util.ArrayList;
 
@@ -15,13 +17,11 @@ import java.util.ArrayList;
  */
 public class LibraryProtectionProxy implements LibrarySubject
 {
-
     private final int DISCONNECTED_STATE = 0;
     private final int LOGGED_OUT_STATE = 1;
     private final int VISITOR_LOGGED_IN_STATE = 2;
     private final int EMPLOYEE_LOGGED_IN_STATE = 3;
-
-    // private visitor/user loggedInVisitor
+    private Visitor loggedInVisitor;
     private ArrayList<LibraryProtectionProxyState> stateList;
     private LibraryProtectionProxyState activeState;
     private Library library;
@@ -41,8 +41,6 @@ public class LibraryProtectionProxy implements LibrarySubject
         setState(DISCONNECTED_STATE);
     }
 
-
-
     /**
      * Sets the state of the protection proxy
      *
@@ -52,12 +50,6 @@ public class LibraryProtectionProxy implements LibrarySubject
     {
         activeState = stateList.get(index);
     }
-
-
-
-
-
-
 
     // TODO implement library interface
     ////////////////////////////////////////////////////////////////
@@ -193,10 +185,8 @@ public class LibraryProtectionProxy implements LibrarySubject
     public void clientDisconnect(Long clientID)
     {
         // should remove client from library's list of observers
-
-
         if (activeState instanceof EmployeeLoggedInState || activeState instanceof VisitorLoggedInState)
-            activeState.logout();
+            activeState.logout(clientID);
 
         activeState.clientDisconnect(clientID);
         setState(DISCONNECTED_STATE);
@@ -205,30 +195,44 @@ public class LibraryProtectionProxy implements LibrarySubject
     // Todo supply argument signature
     // create,
     // Create New Account
-    public void createAccount()
+    public void createAccount(Long clientID, String username, String password, String role, Long visitorID)
     {
-        activeState.createAccount();
+        activeState.createAccount(clientID, username, password, role, visitorID);
     }
 
     // Todo supply argument signature
     // login,
     // Log In
-    public void login()
+    public void login(Long clientID, String username, String password)
     {
-        activeState.login();
-        // log that user in, get that users type
-        // if employee setState(employee)
-        // else if visitor set state
-        // else fail
+        activeState.login(clientID, username, password);
+
+        if(activeState instanceof LoggedOutState)
+        {
+            Visitor loggedInUser = library.getVisitorStorage().getUsernames().get(username);
+            if (loggedInUser.getRole().equals("Employee"))
+            {
+                this.setState(EMPLOYEE_LOGGED_IN_STATE);
+                loggedInVisitor = loggedInUser;
+            }
+            else if (loggedInUser.getRole().equals("Visitor"))
+            {
+                this.setState(VISITOR_LOGGED_IN_STATE);
+                loggedInVisitor = loggedInUser;
+            }
+            else
+                ;//Do Nothing
+        }
     }
 
     // Todo supply argument signature
     // logout,
     // Log Out
-    public void logout()
+    public void logout(Long clientID)
     {
-        activeState.logout();
+        activeState.logout(clientID);
         setState(LOGGED_OUT_STATE);
+        loggedInVisitor = null;
     }
 
 

@@ -62,8 +62,7 @@ public class PayFine implements LBMSCommand
      */
     public void execute()
     {
-        // todo proxy.payFine(clientID, visitorID, amount);
-        library.payFine(this.visitorID, this.amount);
+        proxy.payFine(clientID, visitorID, amount);
     }
 
     /**
