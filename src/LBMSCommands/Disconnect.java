@@ -1,6 +1,7 @@
 package LBMSCommands;
 
 import Library.Library;
+import LibraryProtectionProxy.LibrarySubject;
 
 import java.util.ArrayList;
 
@@ -13,17 +14,17 @@ import java.util.ArrayList;
  */
 public class Disconnect implements LBMSCommand
 {
-    private Library library;
+    private LibrarySubject proxy;
     private Long clientID;
 
     /**
      *
-     * @param library - The library that the client is currently connected with.
+     * @param proxy - The proxy library that the client is currently connected with.
      * @param clientID - The unique ID of the client disconnecting
      */
-    public Disconnect(Library library, Long clientID)
+    public Disconnect(LibrarySubject proxy, Long clientID)
     {
-        this.library = library;
+        this.proxy = proxy;
         this.clientID = clientID;
     }
 
@@ -32,7 +33,8 @@ public class Disconnect implements LBMSCommand
      */
     @Override
     public void execute() {
-
+        // Todo returning a string to the user will be tricky
+        this.proxy.clientDisconnect(clientID);
     }
 
     /**
