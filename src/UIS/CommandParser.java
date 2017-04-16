@@ -253,6 +253,25 @@ public class CommandParser
                 }
                 break;
 
+            case "login":
+                if (args.size() == 4) {
+                    Long clientID = Long.parseLong(args.get(0));
+                    String username = args.get(2);
+                    String password = args.get(3);
+
+                    command = new Login(proxy, clientID, username, password);
+                    this.addCommand(command);
+                }
+                break;
+
+            case "logout":
+                if (args.size() == 2) {
+                    Long clientID = Long.parseLong(args.get(0));
+                    command = new Logout(proxy, clientID);
+                    this.addCommand(command);
+                }
+                break;
+
             case "pay":
                 if (args.size() == 4)
                 {
