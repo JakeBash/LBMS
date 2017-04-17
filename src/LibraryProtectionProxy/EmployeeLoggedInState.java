@@ -52,6 +52,11 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
         library.purchaseBooks(clientID, quantity, ids);
     }
 
+    public void undoPurchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
+    {
+        library.undoPurchaseBooks(clientID,quantity,ids);
+    }
+
     // register,
     // Register Visitor
     public void registerVisitor(Long clientID, String firstName, String lastName, String address, String phoneNumber)

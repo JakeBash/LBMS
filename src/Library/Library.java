@@ -186,6 +186,20 @@ public class Library extends Observable implements LibrarySubject
         updateClientStatus(clientID, response);
     }
 
+    public void undoPurchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
+    {
+        ArrayList<Book> booksToRemove = this.getClient(clientID).getLastStoreSearch();
+        ArrayList<Book> removeBooks = new ArrayList<>();
+        for(Book book : booksToRemove)
+        {
+            if(ids.contains(book.getTempID()))
+            {
+                removeBooks.add(book);
+            }
+        }
+        this.bookStorage.removeBooks(removeBooks,quantity,this.getTime());
+    }
+
     /**
      * Registers a new visitor in the library.
      *

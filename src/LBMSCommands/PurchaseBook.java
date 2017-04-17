@@ -73,7 +73,7 @@ public class PurchaseBook implements LBMSCommand
      */
     public void undo()
     {
-
+        proxy.undoPurchaseBooks(clientID,quantity,ids);
     }
 
 }
