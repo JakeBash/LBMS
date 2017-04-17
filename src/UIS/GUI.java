@@ -45,14 +45,9 @@ public class GUI extends JPanel
          */
         public newClient()
         {
-            int size = 17;
-            setPreferredSize(new Dimension(size, size));
             setText("Create a new client");
             setToolTipText("Create a new client connection");
-            setContentAreaFilled(false);
             setFocusable(false);
-            setBorder(BorderFactory.createEtchedBorder());
-            setBorderPainted(false);
             setRolloverEnabled(true);
             addActionListener(this);
         }

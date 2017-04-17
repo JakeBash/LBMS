@@ -42,7 +42,8 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
 
         this.tabbedPane = tabbedPane;
 
-        this.tField = new JTextField(20);
+        this.tField = new JTextField(1);
+        this.tField.setPreferredSize(new Dimension(200, 20));
         tField.addActionListener(this);
 
         this.tArea = new JTextArea(5, 20);
