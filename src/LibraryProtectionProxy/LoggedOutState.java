@@ -57,6 +57,11 @@ public class LoggedOutState implements LibraryProtectionProxyState
         library.updateClientStatus(clientID, clientID + ",buy,not-authorized;");
     }
 
+    public void undoPurchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
+    {
+        library.undoPurchaseBooks(clientID,quantity,ids);
+    }
+
     // register,
     // Register Visitor
     public void registerVisitor(Long clientID, String firstName, String lastName, String address, String phoneNumber)

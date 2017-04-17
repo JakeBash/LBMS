@@ -88,7 +88,7 @@ public class LibraryProtectionProxy implements LibrarySubject
 
     public void undoPurchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
     {
-        
+        activeState.undoPurchaseBooks(clientID,quantity,ids);
     }
 
     // Todo supply argument signature

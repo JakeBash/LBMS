@@ -40,6 +40,8 @@ public interface LibraryProtectionProxyState
     // Book Purchase
     void purchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids);
 
+    void undoPurchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids);
+
     // Todo supply argument signature
     // register,
     // Register Visitor

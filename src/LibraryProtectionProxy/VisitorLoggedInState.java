@@ -68,6 +68,12 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
         library.updateClientStatus(clientID, response);
     }
 
+    public void undoPurchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
+    {
+        library.updateClientStatus(clientID,",undo buy, not-authorized;");
+        library.undoPurchaseBooks(clientID,quantity,ids);
+    }
+
     // register,
     // Register Visitor
     public void registerVisitor(Long clientID, String firstName, String lastName, String address, String phoneNumber)

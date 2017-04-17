@@ -56,6 +56,11 @@ public class DisconnectedState implements LibraryProtectionProxyState
         // Set Client UI to CLIENT_ERROR
     }
 
+    public void undoPurchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
+    {
+        //library.undoPurchaseBooks(clientID,quantity,ids);
+    }
+
 
     // register,
     // Register Visitor
