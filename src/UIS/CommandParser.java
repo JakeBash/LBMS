@@ -71,11 +71,11 @@ public class CommandParser
             if (s.endsWith(";"))
                 this.executeAllCommands();
             else
-                System.out.println("partial-request;");//Partial Request Error
+                proxy.forwardResponse( Long.parseLong(args.get(0)), args.get(0) + ",partial-request;");//Partial Request Error
         }
         else {
             // todo this should only go to the client that is using the cmd parser
-            System.out.println("Invalid argument length");
+            proxy.forwardResponse(Long.parseLong(args.get(0)), "Invalid argument length;");
         }
 
 
@@ -182,18 +182,13 @@ public class CommandParser
                 break;
 
             case "datetime":
-                try {
                     if (args.size() == 2) {
                         Long clientID = Long.parseLong(args.get(0));
                         command = new GetTime(proxy, clientID);
                         this.addCommand(command);
                     }
-                } catch (Exception e)
-                {
-                    System.out.println("Invalid params - " + e.getMessage());
-                }
                 break;
-
+                    
             case "depart":
                 if (args.size() == 3)
                 {

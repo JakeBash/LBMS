@@ -78,6 +78,8 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
 
         if(!proxy.isConnected() && !wasConnected) // This is really hacky and does not fulfil requirements totally
             tArea.append("invalid-client-id,client-not-connected;\n");
+        if(!proxy.isConnected() && wasConnected)
+            tArea.append(clientID + ",disconnect;" + "\n");
         tField.setText("");
     }
 

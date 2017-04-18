@@ -26,10 +26,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Library Book Search
     public void bookSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
-        // todo This will not work, can't update the UI if not connected, have to write to gui directly
-        // todo - maybe connecting and disconnecting should not be commands... but instead be called directly
-        // todo - from the client to the library and back to  the gui?
-        library.updateClientStatus(clientID, clientID + ",info,not-authorized;");
+        // Disconnected state wont work with the way we update client status's
     }
 
 
@@ -37,6 +34,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Book Store Search
     public void bookStoreSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
+        // Disconnected state wont work with the way we update client status's
 
     }
 
@@ -45,6 +43,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Borrow book
     public void borrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
     {
+        // Disconnected state wont work with the way we update client status's
         // Set Client UI to CLIENT_ERROR
     }
 
@@ -53,6 +52,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Book Purchase
     public void purchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
     {
+        // Disconnected state wont work with the way we update client status's
         // Set Client UI to CLIENT_ERROR
     }
 
@@ -61,6 +61,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Register Visitor
     public void registerVisitor(Long clientID, String firstName, String lastName, String address, String phoneNumber)
     {
+        // Disconnected state wont work with the way we update client status's
         // Set Client UI to CLIENT_ERROR
     }
 
@@ -69,6 +70,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Begin Visit
     public void beginVisit(Long clientID, Long visitorID)
     {
+        // Disconnected state wont work with the way we update client status's
         // Set Client UI to CLIENT_ERROR
     }
 
@@ -77,6 +79,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // End Visit
     public void endVisit(Long clientID, Long visitorID)
     {
+        // Disconnected state wont work with the way we update client status's
         // Set Client UI to CLIENT_ERROR
     }
 
@@ -85,6 +88,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Find Borrowed Books
     public void getVisitorCheckedOutBooks(Long clientID, Long visitorID)
     {
+        // Disconnected state wont work with the way we update client status's
         // Set Client UI to CLIENT_ERROR
     }
 
@@ -93,6 +97,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Pay fine
     public void payFine(Long clientID, Long visitorID, int amount)
     {
+        // Disconnected state wont work with the way we update client status's
         // Set Client UI to CLIENT_ERROR
     }
 
@@ -101,6 +106,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Library Statistic Report
     public void generateReport(Long clientID, int days)
     {
+        // Disconnected state wont work with the way we update client status's
         // Set Client UI to CLIENT_ERROR
     }
 
@@ -109,6 +115,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Current Date Time
     public void getFormattedDateTime(Long clientID)
     {
+        // Disconnected state wont work with the way we update client status's
         // Set Client UI to CLIENT_ERROR
     }
 
@@ -117,6 +124,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Advance Time
     public void advanceTime(Long clientID, int days, int hours)
     {
+        // Disconnected state wont work with the way we update client status's
         // Set Client UI to CLIENT_ERROR
     }
 
@@ -125,6 +133,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Return book
     public void returnBooks(Long clientID, Long visitorID, ArrayList<String> isbns)
     {
+        // Disconnected state wont work with the way we update client status's
         // Set Client UI to CLIENT_ERROR
     }
 
@@ -133,6 +142,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Shut Down
     public void shutdown(Long clientID)
     {
+        // Disconnected state wont work with the way we update client status's
         // Set Client UI to CLIENT_ERROR Maybe...
     }
 
@@ -150,6 +160,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Client Disconnect
     public void clientDisconnect(Long clientID)
     {
+        // Disconnected state wont work with the way we update client status's
         // Set Client UI to CLIENT_ERROR
     }
 
@@ -158,6 +169,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Create New Account
     public void createAccount(Long clientID, String username, String password, String role, Long visitorID)
     {
+        // Disconnected state wont work with the way we update client status's
         // Set Client UI to CLIENT_ERROR
     }
 
@@ -166,6 +178,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Log In
     public void login(Long clientID, String username, String password)
     {
+        // Disconnected state wont work with the way we update client status's
         // Set Client UI to CLIENT_ERROR
     }
 
@@ -174,6 +187,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Log Out
     public void logout(Long clientID)
     {
+        // Disconnected state wont work with the way we update client status's
         // Set Client UI to CLIENT_ERROR
     }
 
@@ -203,6 +217,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Set book information service
     public void setService()
     {
+        // Disconnected state wont work with the way we update client status's
         // Set Client UI to CLIENT_ERROR
     }
 }

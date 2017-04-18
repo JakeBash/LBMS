@@ -272,7 +272,8 @@ public class LibraryProtectionProxy implements LibrarySubject
     // todo Should always work... unless disconnected?!?!?!? MB
     public void forwardResponse(Long clientID, String response)
     {
-
+        if (!(activeState instanceof DisconnectedState))
+            library.forwardResponse(clientID, response);
     }
 
     public boolean isConnected()
