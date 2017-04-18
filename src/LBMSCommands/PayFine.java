@@ -70,6 +70,6 @@ public class PayFine implements LBMSCommand
      */
     public void undo()
     {
-
+        proxy.undoPayFine(clientID,visitorID,amount);
     }
 }

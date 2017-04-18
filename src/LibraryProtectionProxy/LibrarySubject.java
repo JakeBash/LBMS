@@ -66,6 +66,8 @@ public interface LibrarySubject
     // Pay fine
     void payFine(Long clientID, Long visitorID, int amount);
 
+    void undoPayFine(Long clientID, Long visitorID, int amount);
+
 
     // Todo supply argument signature
     // report,

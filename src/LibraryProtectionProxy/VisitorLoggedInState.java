@@ -120,6 +120,11 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
         // response: "client ID,<request name>,not-authorized;"
     }
 
+    public void undoPayFine(Long clientID, Long visitorID, int amount)
+    {
+
+    }
+
 
     // report,
     // Library Statistic Report

@@ -15,13 +15,11 @@ import java.util.ArrayList;
  *
  * @author Nikolas Tilley
  */
-public class LoggedOutState implements LibraryProtectionProxyState
-{
+public class LoggedOutState implements LibraryProtectionProxyState {
 
     private Library library;
 
-    public LoggedOutState(Library library)
-    {
+    public LoggedOutState(Library library) {
         this.library = library;
     }
 
@@ -30,77 +28,71 @@ public class LoggedOutState implements LibraryProtectionProxyState
 
     // info,
     // Library Book Search
-    public void bookSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
-    {
+    public void bookSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder) {
         library.updateClientStatus(clientID, clientID + ",info,not-authorized;");
     }
 
 
     // search,
     // Book Store Search
-    public void bookStoreSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
-    {
+    public void bookStoreSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder) {
         library.updateClientStatus(clientID, clientID + ",search,not-authorized;");
     }
 
     // borrow,
     // Borrow book
-    public void borrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
-    {
+    public void borrowBook(Long clientID, ArrayList<String> bookID, Long visitorID) {
         library.updateClientStatus(clientID, clientID + ",borrow,not-authorized;");
     }
 
-    public void undoBorrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
-    {
-        library.updateClientStatus(clientID,clientID + ",undo borrow,not-authorized");
+    public void undoBorrowBook(Long clientID, ArrayList<String> bookID, Long visitorID) {
+        library.updateClientStatus(clientID, clientID + ",undo borrow,not-authorized");
     }
 
     // buy,
     // Book Purchase
-    public void purchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
-    {
+    public void purchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids) {
         library.updateClientStatus(clientID, clientID + ",buy,not-authorized;");
     }
 
-    public void undoPurchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
-    {
-        library.undoPurchaseBooks(clientID,quantity,ids);
+    public void undoPurchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids) {
+        library.undoPurchaseBooks(clientID, quantity, ids);
     }
 
     // register,
     // Register Visitor
-    public void registerVisitor(Long clientID, String firstName, String lastName, String address, String phoneNumber)
-    {
+    public void registerVisitor(Long clientID, String firstName, String lastName, String address, String phoneNumber) {
         library.updateClientStatus(clientID, clientID + ",register,not-authorized;");
     }
 
     // arrive,
     // Begin Visit
-    public void beginVisit(Long clientID, Long visitorID)
-    {
+    public void beginVisit(Long clientID, Long visitorID) {
         // You must log in before you can begin a visit
         library.updateClientStatus(clientID, clientID + ",arrive,not-authorized;");
     }
 
     // depart,
     // End Visit
-    public void endVisit(Long clientID, Long visitorID)
-    {
+    public void endVisit(Long clientID, Long visitorID) {
         library.updateClientStatus(clientID, clientID + ",depart,not-authorized;");
     }
 
     // borrowed,
     // Find Borrowed Books
-    public void getVisitorCheckedOutBooks(Long clientID, Long visitorID)
-    {
+    public void getVisitorCheckedOutBooks(Long clientID, Long visitorID) {
         library.updateClientStatus(clientID, clientID + ",borrowed,not-authorized;");
     }
 
     // pay,
     // Pay fine
-    public void payFine(Long clientID, Long visitorID, int amount)
-    {
+    public void payFine(Long clientID, Long visitorID, int amount) {
         library.updateClientStatus(clientID, clientID + ",pay,not-authorized;");
+    }
+
+    public void undoPayFine(Long clientID, Long visitorID, int amount)
+    {
+        library.updateClientStatus(clientID, clientID + ",undo pay, not-authorized");
     }
 
     // report,

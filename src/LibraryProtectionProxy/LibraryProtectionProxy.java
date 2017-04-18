@@ -136,6 +136,11 @@ public class LibraryProtectionProxy implements LibrarySubject
         activeState.payFine(clientID, visitorID, amount);
     }
 
+    public void undoPayFine(Long clientID, Long visitorID, int amount)
+    {
+        activeState.undoPayFine(clientID, visitorID, amount);
+    }
+
     // Todo supply argument signature
     // report,
     // Library Statistic Report

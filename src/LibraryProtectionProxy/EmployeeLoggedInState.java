@@ -97,6 +97,11 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
         library.payFine(clientID, visitorID, amount);
     }
 
+    public void undoPayFine(Long clientID, Long visitorID, int amount)
+    {
+        library.undoPayFine(clientID,visitorID,amount);
+    }
+
     // report,
     // Library Statistic Report
     public void generateReport(Long clientID, int days)

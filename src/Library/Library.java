@@ -319,6 +319,11 @@ public class Library extends Observable implements LibrarySubject
 
     }
 
+    public void undoPayFine(Long clientID, Long visitorID, int amount)
+    {
+        this.visitorStorage.undoPayFine(visitorID, amount);
+    }
+
     /**
      * Generates a statistical report of the library
      *

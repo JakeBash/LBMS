@@ -106,6 +106,11 @@ public class DisconnectedState implements LibraryProtectionProxyState
         // Set Client UI to CLIENT_ERROR
     }
 
+    public void undoPayFine(Long clientID, Long visitorID, int amount)
+    {
+
+    }
+
 
     // report,
     // Library Statistic Report
