@@ -273,7 +273,7 @@ public class Library extends Observable implements LibrarySubject
             response += visitorID;
         }
 
-        updateClientStatus(clientID, response + ";");
+        updateClientStatus(clientID, response);
     }
 
     /**
