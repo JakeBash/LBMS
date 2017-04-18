@@ -158,7 +158,8 @@ public class Library extends Observable implements LibrarySubject
 
     public void undoBorrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
     {
-
+        String str = clientID + ",undo borrow,success";
+        this.returnBooks(clientID,visitorID,bookID);
     }
 
     /**
