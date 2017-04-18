@@ -207,21 +207,20 @@ public class LibraryProtectionProxy implements LibrarySubject
     {
         activeState.login(clientID, username, password);
 
-        if(activeState instanceof LoggedOutState)
-        {
+        if(activeState instanceof LoggedOutState) {
             Visitor loggedInUser = library.getVisitorStorage().getUsernames().get(username);
-            if (loggedInUser.getRole().equals("Employee"))
+
+            if (loggedInUser != null)
             {
-                this.setState(EMPLOYEE_LOGGED_IN_STATE);
-                loggedInVisitor = loggedInUser;
+                if (loggedInUser.getRole().equalsIgnoreCase("Employee")) {
+                    this.setState(EMPLOYEE_LOGGED_IN_STATE);
+                    loggedInVisitor = loggedInUser;
+                } else if (loggedInUser.getRole().equalsIgnoreCase("Visitor")) {
+                    this.setState(VISITOR_LOGGED_IN_STATE);
+                    loggedInVisitor = loggedInUser;
+                } else
+                    ;//Do Nothing
             }
-            else if (loggedInUser.getRole().equals("Visitor"))
-            {
-                this.setState(VISITOR_LOGGED_IN_STATE);
-                loggedInVisitor = loggedInUser;
-            }
-            else
-                ;//Do Nothing
         }
     }
 

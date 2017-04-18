@@ -30,7 +30,8 @@ public class main
                 "the \"connect;\" command. You are not initially connected to the library.\n\n" +
                 "3. After you connect, you will have to log in. The default employee user is\n" +
                         "username: admin\n" +
-                        "password: admin\n"
+                        "password: admin\n" +
+                        "userID: 9000000000\n"
         );
 
         System.out.println("Enter 1 to launch the GUI\n" +
@@ -43,6 +44,7 @@ public class main
 
 
         if (option.equals("1")) {
+            System.out.println("\n\n\nLaunching LBMS GUI...\n\n\n");
 
             //Create and set up the window.
             JFrame frame = new JFrame("LBMS");
@@ -57,6 +59,7 @@ public class main
         }
         else if (option.equals("2"))
         {
+            System.out.println("\n\n\nLaunching LBMS PTUI...\n\n\n");
             PTUI client = new PTUI();
             while (true) {
                 try {

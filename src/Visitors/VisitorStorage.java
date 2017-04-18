@@ -33,6 +33,9 @@ public class VisitorStorage implements java.io.Serializable
     // Data file location
     private static String file = "files/VisitorStorage.ser";
 
+    // Default admin user
+    private Visitor admin;
+
     /**
      * Default constructor. Initializes with empty visitor and visit hashes.
      */
@@ -43,6 +46,14 @@ public class VisitorStorage implements java.io.Serializable
         this.activeVisits = new HashMap<>();
         this.visitHistory = new ArrayList<>();
         this.usernames = new HashMap<>();
+
+        // Create admin/default user
+        this.admin = new Visitor("admin", "admin", "GCCIS Building 70", "5555555555");
+        this.admin.createAccount("admin", "admin", "Employee");
+        this.admin.setID(9000000000L);
+        this.usernames.put("admin", this.admin);
+
+        this.visitors.put(admin.getID(), admin);
     }
 
     /**
