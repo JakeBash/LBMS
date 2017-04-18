@@ -10,6 +10,7 @@ import java.util.*;
  * and visits in the system.
  *
  * @author Kyler Freas
+ * @author Jake Bashaw
  */
 
 public class VisitorStorage implements java.io.Serializable

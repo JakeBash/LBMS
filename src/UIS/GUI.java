@@ -1,7 +1,6 @@
 package UIS;
 
 import Library.Library;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -14,8 +13,8 @@ import java.util.ArrayList;
  */
 public class GUI extends JPanel
 {
-    private int clientIDCounter = 1;
-    private ArrayList<GUICommandDisplay> commandDisplays = new ArrayList<>();
+    private int clientIDCounter;
+    private ArrayList<GUICommandDisplay> commandDisplays;
     private JTabbedPane tabbedPane;
     private Library lib;
 
@@ -27,26 +26,28 @@ public class GUI extends JPanel
         super(new GridLayout(1, 1));
         this.setPreferredSize(new Dimension(500,500));
 
+        this.clientIDCounter = 1;
+        this.commandDisplays = new ArrayList<>();
         this.lib = new Library();
         tabbedPane = new JTabbedPane();
         GUICommandDisplay initDisplay = new GUICommandDisplay(lib, tabbedPane, Long.valueOf(clientIDCounter));
         lib.addObserver(initDisplay);
         tabbedPane.add(initDisplay.getCommandDisplay(), "Client " + clientIDCounter);
         clientIDCounter++;
-        JButton button = new newClient();
-        tabbedPane.add(button, "New Client");
+        JButton newClientButton = new NewClient();
+        tabbedPane.add(newClientButton, "New Client");
         add(tabbedPane);
     }
 
     /**
      * Description
      */
-    private class newClient extends JButton implements ActionListener
+    private class NewClient extends JButton implements ActionListener
     {
         /**
          * Description
          */
-        public newClient()
+        public NewClient()
         {
             setText("Create a new client");
             setToolTipText("Create a new client connection");

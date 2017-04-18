@@ -51,7 +51,7 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
         tArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(tArea);
 
-        this.removeClient = new removeClient();
+        this.removeClient = new RemoveClient();
 
         this.commandDisplay = new JPanel(new BorderLayout());
         commandDisplay.add(tField, BorderLayout.CENTER);
@@ -92,12 +92,12 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
     /**
      * Description
      */
-    private class removeClient extends JButton implements ActionListener
+    private class RemoveClient extends JButton implements ActionListener
     {
         /**
          * Description
          */
-        public removeClient()
+        public RemoveClient()
         {
             setText("Close Client");
             setPreferredSize(new Dimension(125, 25));

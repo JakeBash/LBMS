@@ -19,7 +19,7 @@ public class Visitor implements java.io.Serializable
     private Long id;
     private String username;
     private String password;
-    private String accountType;
+    private String role;
     private ArrayList<CheckOut> checkedOutBooks;
     private ArrayList<UnpaidFine> unpaidFines;
     private ArrayList<PaidFine> paidFines;
@@ -43,7 +43,7 @@ public class Visitor implements java.io.Serializable
         this.phoneNumber = phoneNumber;
         this.username = null;
         this.password = null;
-        this.accountType = null;
+        this.role = null;
         this.checkedOutBooks = new ArrayList<>();
         this.unpaidFines = new ArrayList<>();
         this.paidFines = new ArrayList<>();
@@ -75,7 +75,7 @@ public class Visitor implements java.io.Serializable
     {
         this.username = username;
         this.password = password;
-        this.accountType = role;
+        this.role = role;
     }
 
     /**
@@ -152,7 +152,7 @@ public class Visitor implements java.io.Serializable
 
     public String getRole()
     {
-        return this.accountType;
+        return this.role;
     }
 
     /**
