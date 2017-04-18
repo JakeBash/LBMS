@@ -215,9 +215,10 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // service,
     // Set book information service
-    public void setService()
+    public void setService(Long clientID, String service)
     {
-        // Disconnected state wont work with the way we update client status's
-        System.out.println("invalid-client-id,client-not-connected;\n");
+        String response = clientID + " " + service + " not-authorized;";
+        library.updateClientStatus(clientID, response);
+        //library.setService(clientID, service);
     }
 }

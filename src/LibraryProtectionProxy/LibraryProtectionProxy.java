@@ -233,9 +233,9 @@ public class LibraryProtectionProxy implements LibrarySubject
     // Todo supply argument signature
     // service,
     // Set book information service
-    public void setService()
+    public void setService(Long clientID, String service)
     {
-        activeState.setService();
+        activeState.setService(clientID, service );
     }
 
 

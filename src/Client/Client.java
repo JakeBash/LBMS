@@ -95,7 +95,7 @@ public class Client
      * Switches the catalog state between the flat file catalog and the web services catalog.
      */
     public void switchCatalogState(String service){
-        if(service == "google"){
+        if(service.equals("google")){
             this.bookCatalog = new GoogleBooks();
         }
         else{

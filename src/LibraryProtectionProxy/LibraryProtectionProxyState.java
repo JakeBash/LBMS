@@ -133,7 +133,7 @@ public interface LibraryProtectionProxyState
     // Todo supply argument signature
     // service,
     // Set book information service
-    void setService();
+    void setService(Long clientID, String service);
 
     // Todo supply argument signature
     // Will forward error strings to the library if connected

@@ -287,9 +287,9 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // service,
     // Set book information service
-    public void setService()
+    public void setService(Long clientID, String service)
     {
-        // response: "client ID,<request name>,not-authorized;"
+        library.setService(clientID, service);
     }
 
 
