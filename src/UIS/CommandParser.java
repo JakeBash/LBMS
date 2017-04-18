@@ -19,7 +19,8 @@ import java.util.ArrayList;
 public class CommandParser
 {
     private ArrayList<LBMSCommand> commandQueue;
-    private ArrayList<LBMSCommand> undoQueue;
+    private ArrayList<LBMSCommand> undoStack;
+    private ArrayList<LBMSCommand> redoStack;
     private LibraryProtectionProxy proxy;
     private boolean execute;
 
@@ -550,6 +551,8 @@ public class CommandParser
         {
             LBMSCommand command = commandQueue.remove(0);
             command.execute();
+            this.addUndoCommand(command);
+            this.redoStack.clear();
         }
     }
 
@@ -560,6 +563,37 @@ public class CommandParser
     {
         while (!commandQueue.isEmpty())
             executeCommand();
+    }
+
+    public void addUndoCommand(LBMSCommand command)
+    {
+        this.undoStack.add(command);
+
+        //If the undo stack gets to be bigger than twenty, it will remove the oldest command
+        if(this.undoStack.size() > 20)
+        {
+            this.undoStack.remove(0);
+        }
+    }
+
+    public void executeUndoCommand()
+    {
+        if(!this.undoStack.isEmpty())
+        {
+            LBMSCommand command = this.undoStack.remove(this.undoStack.size() - 1);
+            command.undo();
+            this.redoStack.add(command);
+        }
+    }
+
+    public void executeRedoCommand()
+    {
+        if(!this.redoStack.isEmpty())
+        {
+            LBMSCommand command = this.redoStack.remove(this.redoStack.size() - 1);
+            command.execute();
+            this.undoStack.add(command);
+        }
     }
 }
 
