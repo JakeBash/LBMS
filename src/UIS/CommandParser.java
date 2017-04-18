@@ -20,7 +20,7 @@ public class CommandParser
 {
     private ArrayList<LBMSCommand> commandQueue;
     private ArrayList<LBMSCommand> undoQueue;
-    private LibrarySubject proxy;
+    private LibraryProtectionProxy proxy;
     private boolean execute;
 
 
