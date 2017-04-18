@@ -19,7 +19,7 @@ public class Client
     private Long clientId;
     private Visitor visitor;
     private String status;
-    private ArrayList<Book>  lastStoreSearch;
+    private ArrayList<Book> lastStoreSearch;
     private ArrayList<Book> lastStorageSearch;
     private BookCatalog bookCatalog;
     private final File FLATFILE = new File("files/books.txt");
