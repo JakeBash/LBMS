@@ -470,6 +470,8 @@ public class Library extends Observable implements LibrarySubject
     public void clientConnect(Long clientID)
     {
         this.clientList.put(clientID, new Client(clientID));
+        String response = "connect,"+ clientID +";";
+        updateClientStatus(clientID, response);
     }
 
     /**

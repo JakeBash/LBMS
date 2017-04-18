@@ -275,5 +275,12 @@ public class LibraryProtectionProxy implements LibrarySubject
 
     }
 
+    public boolean isConnected()
+    {
+        if (activeState instanceof DisconnectedState)
+            return false;
+        else
+            return true;
+    }
 
 }

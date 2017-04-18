@@ -24,6 +24,7 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
     private JTabbedPane tabbedPane;
     private JPanel commandDisplay;
     private CommandParser parser;
+    private LibraryProtectionProxy proxy; // need to do this to implement responses when not connected
 
     /**
      * Description
@@ -34,7 +35,8 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
      */
     public GUICommandDisplay(Library library, JTabbedPane tabbedPane, Long clientID)
     {
-        this.parser = new CommandParser(new LibraryProtectionProxy(library));
+        this.proxy =  new LibraryProtectionProxy(library); // need to do this to implement responses when not connected
+        this.parser = new CommandParser(this.proxy);
 
         this.clientID = clientID;
 
@@ -42,10 +44,11 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
 
         this.tabbedPane = tabbedPane;
 
-        this.tField = new JTextField(20);
+        this.tField = new JTextField(50);
+
         tField.addActionListener(this);
 
-        this.tArea = new JTextArea(5, 20);
+        this.tArea = new JTextArea(25, 50);
         tArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(tArea);
 
@@ -66,7 +69,17 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
     {
         String command = tField.getText();
         tArea.append(command + "\n");
+
+
+        // Hacky way to deal with not being able to update UI if not connected
+        boolean wasConnected = true;
+        if (!proxy.isConnected())
+            wasConnected = false;
+
         parser.parseCommand(clientID + "," + command);
+
+        if(!proxy.isConnected() && !wasConnected) // This is really hacky and does not fulfil requirements totally
+            tArea.append("invalid-client-id,client-not-connected;\n");
         tField.setText("");
     }
 

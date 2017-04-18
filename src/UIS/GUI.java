@@ -28,7 +28,9 @@ public class GUI extends JPanel
 
         this.lib = new Library();
         tabbedPane = new JTabbedPane();
-        tabbedPane.add(new GUICommandDisplay(lib, tabbedPane, Long.valueOf(clientIDCounter)).getCommandDisplay(), "Client " + clientIDCounter);
+        GUICommandDisplay initDisplay = new GUICommandDisplay(lib, tabbedPane, Long.valueOf(clientIDCounter));
+        lib.addObserver(initDisplay);
+        tabbedPane.add(initDisplay.getCommandDisplay(), "Client " + clientIDCounter);
         clientIDCounter++;
         JButton button = new newClient();
         tabbedPane.add(button, "New Client");
