@@ -167,7 +167,6 @@ public class DisconnectedState implements LibraryProtectionProxyState
         System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
-    // Todo supply argument signature
     // create,
     // Create New Account
     public void createAccount(Long clientID, String username, String password, String role, Long visitorID)
@@ -176,7 +175,6 @@ public class DisconnectedState implements LibraryProtectionProxyState
         System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
-    // Todo supply argument signature
     // login,
     // Log In
     public void login(Long clientID, String username, String password)
@@ -185,7 +183,6 @@ public class DisconnectedState implements LibraryProtectionProxyState
         System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
-    // Todo supply argument signature
     // logout,
     // Log Out
     public void logout(Long clientID)

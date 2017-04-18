@@ -108,6 +108,8 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
          */
         public void actionPerformed(ActionEvent e)
         {
+            proxy.logout(clientID);
+            proxy.clientDisconnect(clientID);
             int i = tabbedPane.indexOfTab("Client " + clientID);
             tabbedPane.remove(i);
         }

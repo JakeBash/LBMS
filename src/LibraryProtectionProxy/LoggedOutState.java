@@ -25,9 +25,6 @@ public class LoggedOutState implements LibraryProtectionProxyState
         this.library = library;
     }
 
-    // Can log in... That is about it as far as I know
-
-
     // info,
     // Library Book Search
     public void bookSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
