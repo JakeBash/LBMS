@@ -18,7 +18,6 @@ public class LibraryProtectionProxy implements LibrarySubject
     private final int LOGGED_OUT_STATE = 1;
     private final int VISITOR_LOGGED_IN_STATE = 2;
     private final int EMPLOYEE_LOGGED_IN_STATE = 3;
-    private Visitor loggedInVisitor;
     private ArrayList<LibraryProtectionProxyState> stateList;
     private LibraryProtectionProxyState activeState;
     private Library library;
@@ -188,12 +187,12 @@ public class LibraryProtectionProxy implements LibrarySubject
 
             if (loggedInUser != null)
             {
-                if (loggedInUser.getRole().equalsIgnoreCase("Employee")) {
+                library.getClient(clientID).setVisitor(loggedInUser);
+
+                if (loggedInUser.getRole().equalsIgnoreCase("employee")) {
                     this.setState(EMPLOYEE_LOGGED_IN_STATE);
-                    loggedInVisitor = loggedInUser;
-                } else if (loggedInUser.getRole().equalsIgnoreCase("Visitor")) {
+                } else if (loggedInUser.getRole().equalsIgnoreCase("visitor")) {
                     this.setState(VISITOR_LOGGED_IN_STATE);
-                    loggedInVisitor = loggedInUser;
                 } else
                     ;//Do Nothing
             }
@@ -207,7 +206,6 @@ public class LibraryProtectionProxy implements LibrarySubject
     {
         activeState.logout(clientID);
         setState(LOGGED_OUT_STATE);
-        loggedInVisitor = null;
     }
 
 
@@ -257,6 +255,11 @@ public class LibraryProtectionProxy implements LibrarySubject
             return false;
         else
             return true;
+    }
+
+    public Library getLibrary()
+    {
+        return this.library;
     }
 
 }

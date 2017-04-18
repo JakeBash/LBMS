@@ -142,6 +142,11 @@ public class VisitorStorage implements java.io.Serializable
             return false;
     }
 
+    public Visitor getVisitorByUsername(String username)
+    {
+        return this.usernames.get(username);
+    }
+
     /**
      * Begins a visit in the library for a registered visitor.
      *

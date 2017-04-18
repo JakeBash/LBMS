@@ -67,6 +67,11 @@ public class Client
         this.clientId = clientId;
     }
 
+    public Visitor getVisitor()
+    {
+        return this.visitor;
+    }
+
     public void setVisitor(Visitor v)
     {
         this.visitor = v;

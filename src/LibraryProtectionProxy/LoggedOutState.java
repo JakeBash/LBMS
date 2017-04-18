@@ -122,7 +122,6 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Shut Down
     public void shutdown(Long clientID)
     {
-        // Todo do you need to be logged in to shutdown?
         library.updateClientStatus(clientID, clientID + ",shutdown,not-authorized;");
     }
 
@@ -133,16 +132,13 @@ public class LoggedOutState implements LibraryProtectionProxyState
         library.updateClientStatus(clientID, clientID + ",connect,already-connected;");
     }
 
-    // Todo supply argument signature
     // disconnect,
     // Client Disconnect
     public void clientDisconnect(Long clientID)
     {
         library.clientDisconnect(clientID);
-        // todo need to make a state change
     }
 
-    // Todo supply argument signature
     // create,
     // Create New Account
     public void createAccount(Long clientID, String username, String password, String role, Long visitorID)
@@ -151,7 +147,6 @@ public class LoggedOutState implements LibraryProtectionProxyState
         library.updateClientStatus(clientID, response);
     }
 
-    // Todo supply argument signature
     // login,
     // Log In
     public void login(Long clientID, String username, String password)
@@ -159,12 +154,11 @@ public class LoggedOutState implements LibraryProtectionProxyState
         library.login(clientID, username, password);
     }
 
-    // Todo supply argument signature
     // logout,
     // Log Out
     public void logout(Long clientID)
     {
-        String response = clientID + ",logout,success;";
+        String response = clientID + ",logout,not-authorized;";
         library.updateClientStatus(clientID, response);
     }
 

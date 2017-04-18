@@ -469,7 +469,7 @@ public class Library extends Observable implements LibrarySubject
     /**
      * Helper method for getting client
      */
-    private Client getClient(Long clientID){
+    public Client getClient(Long clientID){
         return this.clientList.get(clientID);
     }
 
@@ -515,6 +515,7 @@ public class Library extends Observable implements LibrarySubject
         if (login)
         {
             response = clientID + ",login,success;";
+            this.getClient(clientID).setVisitor(visitorStorage.getVisitorByUsername(username));
         }
         else
         {
@@ -526,7 +527,9 @@ public class Library extends Observable implements LibrarySubject
 
     public void logout(Long clientID)
     {
-
+        this.getClient(clientID).setVisitor(null);
+        String response = clientID + ",logout,success;";
+        updateClientStatus(clientID, response);
     }
 
     public void setService()

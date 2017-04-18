@@ -158,8 +158,7 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Log Out
     public void logout(Long clientID)
     {
-        String response = clientID + ",logout,success;";
-        library.updateClientStatus(clientID, response);
+        library.logout(clientID);
     }
 
 

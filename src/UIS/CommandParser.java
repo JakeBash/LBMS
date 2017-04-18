@@ -20,6 +20,7 @@ public class CommandParser
     private LibrarySubject proxy;
     private boolean execute;
 
+
     /**
      * Creates a new CommandParser to be used with the parsing of user entered commands.
      *
@@ -40,6 +41,7 @@ public class CommandParser
     public void parseCommand(String s) {
 
         ArrayList<String> args = new ArrayList<String>();
+
         String arg = "";
 
         boolean parseLiteral = false;
@@ -71,11 +73,15 @@ public class CommandParser
             if (s.endsWith(";"))
                 this.executeAllCommands();
             else
-                proxy.forwardResponse( Long.parseLong(args.get(0)), args.get(0) + ",partial-request;");//Partial Request Error
+                proxy.forwardResponse(Long.parseLong(args.get(0)), args.get(0) + ",partial-request;");//Partial Request Error
+
         }
         else {
-            // todo this should only go to the client that is using the cmd parser
-            proxy.forwardResponse(Long.parseLong(args.get(0)), "Invalid argument length;");
+            if (s.endsWith(";"))
+                proxy.forwardResponse(Long.parseLong(args.get(0)), "Invalid argument length;");
+            else
+                proxy.forwardResponse(Long.parseLong(args.get(0)), args.get(0) + ",partial-request;");//Partial Request Error
+
         }
 
 
@@ -116,6 +122,13 @@ public class CommandParser
                 break;
 
             case "arrive":
+//                if (args.size() == 2)
+//                {
+//                    Long clientID = Long.parseLong(args.get(0));
+//                    Long visitorID = proxy.
+//                    command = new BeginVisit(proxy, clientID, visitorID);
+//                    this.addCommand(command);
+//                }
                 if (args.size() == 3)
                 {
                     Long clientID = Long.parseLong(args.get(0));
@@ -177,7 +190,7 @@ public class CommandParser
                     Long visitorID = Long.parseLong(args.get(5));
 
                     command = new CreateAccount(proxy, clientID, username, password, role, visitorID);
-
+                    this.addCommand(command);
                 }
                 break;
 
