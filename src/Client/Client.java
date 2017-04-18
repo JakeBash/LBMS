@@ -94,8 +94,8 @@ public class Client
     /**
      * Switches the catalog state between the flat file catalog and the web services catalog.
      */
-    public void switchCatalogState(){
-        if(this.bookCatalog.getClass() == FlatFileBookCatalog.class){
+    public void switchCatalogState(String service){
+        if(service == "google"){
             this.bookCatalog = new GoogleBooks();
         }
         else{

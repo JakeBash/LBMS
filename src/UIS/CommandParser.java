@@ -388,6 +388,14 @@ public class CommandParser
                     this.addCommand(command);
                 }
 
+            case "set":
+                if (args.size() == 3){
+                    Long clientID = Long.parseLong(args.get(0));
+                    String service = args.get(2);
+                    command = new SetService(proxy, clientID, service);
+
+                }
+
             default:
                 break;
         }
