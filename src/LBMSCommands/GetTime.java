@@ -15,24 +15,9 @@ import java.util.ArrayList;
  */
 public class GetTime implements LBMSCommand
 {
-    private Library library;
-
     private LibrarySubject proxy;
     private Long clientID;
 
-    /**
-     * Creates a new GetTime command object.
-     *
-     * @param library - The library that the GetTime command will be executed on.
-     */
-    public GetTime(Library library)
-    {
-        this.library = library;
-    }
-
-
-
-    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
     /**
      * Creates a new GetTime command object.
      *
@@ -46,8 +31,6 @@ public class GetTime implements LBMSCommand
     }
 
 
-
-    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
 
     /**
      * Executes the GetTime command on the library.

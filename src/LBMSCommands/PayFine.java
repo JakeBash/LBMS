@@ -15,29 +15,11 @@ import java.util.ArrayList;
  */
 public class PayFine implements LBMSCommand
 {
-    private Library library;
-
     private LibrarySubject proxy;
     private Long clientID;
     private Long visitorID;
     private int amount;
 
-    /**
-     * Initialize the PayFine command with required parameters.
-     *
-     * @param library - Library object with data.
-     * @param visitorID - The visitor who is paying the fine.
-     * @param amount - The amount to be paid.
-     */
-    public PayFine(Library library, Long visitorID, int amount)
-    {
-        this.library = library;
-        this.visitorID = visitorID;
-        this.amount = amount;
-    }
-
-
-    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
     /**
      * Initialize the PayFine command with required parameters.
      *
@@ -54,8 +36,6 @@ public class PayFine implements LBMSCommand
         this.amount = amount;
     }
 
-
-    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
 
     /**
      * Executes the PayFine command on the library.

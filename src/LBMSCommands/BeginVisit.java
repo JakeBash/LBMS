@@ -14,27 +14,9 @@ import java.util.ArrayList;
  */
 public class BeginVisit implements LBMSCommand
 {
-    private Library library;
-
     private LibrarySubject proxy;
     private Long clientID;
     private Long visitorID;
-
-    /**
-     * Creates a BeginVisit command object.
-     * 
-     * @param library - The library the visitor is visiting.
-     * @param visitorID - The ID of the visitor who is attempting to visit.
-     */
-    public BeginVisit(Library library, Long visitorID)
-    {
-        this.library = library;
-        this.visitorID = visitorID;
-    }
-
-
-
-
 
     ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
     /**

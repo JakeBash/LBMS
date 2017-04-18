@@ -14,27 +14,10 @@ import java.util.ArrayList;
  */
 public class GenerateReport implements LBMSCommand
 {
-    private Library library;
 
     private LibrarySubject proxy;
     private Long clientID;
     private int days;
-
-    /**
-     * Creates a command to generate a statistical report for the library.
-     */
-    public GenerateReport(Library lib, int days)
-    {
-        this.library = lib;
-        this.days = days;
-    }
-
-
-
-
-
-
-    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
 
 
     /**

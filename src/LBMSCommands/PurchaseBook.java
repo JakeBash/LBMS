@@ -15,31 +15,12 @@ import java.util.ArrayList;
  */
 public class PurchaseBook implements LBMSCommand
 {
-    private Library library;
 
     private LibrarySubject proxy;
     private Long clientID;
     private int quantity;
     private ArrayList<Integer> ids;
 
-
-    /**
-     * Creates a PurchaseBook command to purchase a subset of the books returned from a previous search.
-     *
-     * @param library - The library that the PurchaseBook command is being executed on.
-     * @param quantity - The number of copies of the book that are being purchased.
-     * @param ids - The temporary ID of the book returned from the most recent BookStoreSearch.
-     */
-    public PurchaseBook(Library library, int quantity, ArrayList<Integer> ids)
-    {
-        this.library = library;
-        this.quantity = quantity;
-        this.ids = ids;
-    }
-
-
-
-    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
 
     /**
      * Creates a PurchaseBook command to purchase a subset of the books returned from a previous search.
