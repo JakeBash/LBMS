@@ -540,8 +540,15 @@ public class Library extends Observable implements LibrarySubject
      */
     public void setService(Long clientID, String service)
     {
-        this.getClient(clientID).switchCatalogState(service);
-        this.updateClientStatus(clientID, clientID + ", service changed to " + service);
+        String response;
+
+        if (this.getClient(clientID).switchCatalogState(service)) {
+            response = clientID + "service,success;";
+        }
+        else
+            response = clientID + "service,incorrect-info-service;" ;
+
+        this.updateClientStatus(clientID, response);
     }
 
     public void forwardResponse(Long clientID, String response)

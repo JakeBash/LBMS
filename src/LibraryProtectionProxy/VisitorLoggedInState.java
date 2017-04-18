@@ -289,7 +289,8 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Set book information service
     public void setService(Long clientID, String service)
     {
-        library.setService(clientID, service);
+        String response = clientID + ",service,not-authorized;";
+        library.updateClientStatus(clientID, response);
     }
 
 

@@ -188,9 +188,8 @@ public class LoggedOutState implements LibraryProtectionProxyState
     // Set book information service
     public void setService(Long clientID, String service)
     {
-        String response = clientID + " " + service + " not-authorized;";
+        String response = clientID + ",service,not-authorized;";
         library.updateClientStatus(clientID, response);
-        //library.setService(clientID, service);
     }
 
 
