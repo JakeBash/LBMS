@@ -149,6 +149,7 @@ public class Library extends Observable implements LibrarySubject
     public void borrowBook(Long clientID, ArrayList<String> bkID,Long vID)
     {
         String str = clientID + "," + this.currentState.stateCheckOutBook(bkID, vID, this.visitorStorage, this.timeClock, this.bookStorage);
+        updateClientStatus(clientID, str);
     }
 
     /**
@@ -272,7 +273,7 @@ public class Library extends Observable implements LibrarySubject
             response += visitorID;
         }
 
-        updateClientStatus(clientID, response);
+        updateClientStatus(clientID, response + ";");
     }
 
     /**
