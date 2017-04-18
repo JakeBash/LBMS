@@ -47,6 +47,6 @@ public class EndVisit implements LBMSCommand
      */
     public void undo()
     {
-
+        this.proxy.beginVisit(clientID,visitorID);
     }
 }

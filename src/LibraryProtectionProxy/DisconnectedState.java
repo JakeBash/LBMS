@@ -50,6 +50,11 @@ public class DisconnectedState implements LibraryProtectionProxyState
         System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
+    public void undoBorrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
+    {
+
+    }
+
 
     // buy,
     // Book Purchase
@@ -57,6 +62,11 @@ public class DisconnectedState implements LibraryProtectionProxyState
     {
         // Disconnected state wont work with the way we update client status's
         System.out.println("invalid-client-id,client-not-connected;\n");
+    }
+
+    public void undoPurchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
+    {
+        //library.undoPurchaseBooks(clientID,quantity,ids);
     }
 
 
@@ -102,6 +112,11 @@ public class DisconnectedState implements LibraryProtectionProxyState
     {
         // Disconnected state wont work with the way we update client status's
         System.out.println("invalid-client-id,client-not-connected;\n");
+    }
+
+    public void undoPayFine(Long clientID, Long visitorID, int amount)
+    {
+
     }
 
 

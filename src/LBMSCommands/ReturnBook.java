@@ -50,6 +50,6 @@ public class ReturnBook implements LBMSCommand
      */
     public void undo()
     {
-
+        proxy.borrowBook(clientID,bookID,visitorID);
     }
 }

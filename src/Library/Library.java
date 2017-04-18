@@ -152,6 +152,12 @@ public class Library extends Observable implements LibrarySubject
         updateClientStatus(clientID, str);
     }
 
+    public void undoBorrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
+    {
+        String str = clientID + ",undo borrow,success";
+        this.returnBooks(clientID,visitorID,bookID);
+    }
+
     /**
      * Purchases books from a recent Book Catalog search.
      *
@@ -179,6 +185,20 @@ public class Library extends Observable implements LibrarySubject
         }
 
         updateClientStatus(clientID, response);
+    }
+
+    public void undoPurchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
+    {
+        ArrayList<Book> booksToRemove = this.getClient(clientID).getLastStoreSearch();
+        ArrayList<Book> removeBooks = new ArrayList<>();
+        for(Book book : booksToRemove)
+        {
+            if(ids.contains(book.getTempID()))
+            {
+                removeBooks.add(book);
+            }
+        }
+        this.bookStorage.removeBooks(removeBooks,quantity,this.getTime());
     }
 
     /**
@@ -291,6 +311,11 @@ public class Library extends Observable implements LibrarySubject
         String response = clientID + ",success" + "," + amount + ";";
         updateClientStatus(clientID, response);
 
+    }
+
+    public void undoPayFine(Long clientID, Long visitorID, int amount)
+    {
+        this.visitorStorage.undoPayFine(visitorID, amount);
     }
 
     /**

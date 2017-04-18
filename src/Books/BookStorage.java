@@ -3,6 +3,7 @@ package Books;
 import Library.Library;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -95,6 +96,20 @@ public class BookStorage implements java.io.Serializable
                 // Adds the book to the storage and increments the amount of owned books.
                 this.books.put(b.getIsbn(), b);
                 this.books.get(b.getIsbn()).addCopies(quantity);
+            }
+        }
+    }
+
+    public void removeBooks(ArrayList<Book> books, int quantity, Calendar date)
+    {
+        for(Purchase p : this.purchases)
+        {
+            if(p.getPurchaseDate().compareTo(date) == 0)
+            {
+                if(p.getPurchasedBooks().equals(books))
+                {
+                    this.purchases.remove(p);
+                }
             }
         }
     }

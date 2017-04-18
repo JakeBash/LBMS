@@ -70,6 +70,13 @@ public class LibraryProtectionProxy implements LibrarySubject
         activeState.borrowBook(clientID, bookID, visitorID);
     }
 
+
+    public void undoBorrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
+    {
+        activeState.undoBorrowBook(clientID,bookID,visitorID);
+    }
+
+    // Todo supply argument signature
     // buy,
     // Book Purchase
     public void purchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
@@ -77,6 +84,12 @@ public class LibraryProtectionProxy implements LibrarySubject
         activeState.purchaseBooks(clientID, quantity, ids);
     }
 
+    public void undoPurchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
+    {
+        activeState.undoPurchaseBooks(clientID,quantity,ids);
+    }
+
+    // Todo supply argument signature
     // register,
     // Register Visitor
     public void registerVisitor(Long clientID, String firstName, String lastName, String address, String phoneNumber)
@@ -112,6 +125,12 @@ public class LibraryProtectionProxy implements LibrarySubject
         activeState.payFine(clientID, visitorID, amount);
     }
 
+    public void undoPayFine(Long clientID, Long visitorID, int amount)
+    {
+        activeState.undoPayFine(clientID, visitorID, amount);
+    }
+
+    // Todo supply argument signature
     // report,
     // Library Statistic Report
     public void generateReport(Long clientID, int days)

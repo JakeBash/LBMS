@@ -212,6 +212,20 @@ public class Visitor implements java.io.Serializable
         this.paidFines.add(new PaidFine(amount, datePaid));
     }
 
+    public void undoPayFine(int amount, Calendar datePaid)
+    {
+        this.balance += amount;
+
+        for(PaidFine f : this.paidFines)
+        {
+            if(f.getDatePaid().equals(datePaid))
+            {
+                this.paidFines.remove(f);
+                break;
+            }
+        }
+    }
+
     /**
      * Calculates the fines applied to a returned book transaction. $10 is added to the fine for 1 day late, and $2 is
      * added for each additional week late. A fine cannot exceed $30.
