@@ -1,6 +1,9 @@
 package UIS;
 
 import Library.Library;
+import LibraryProtectionProxy.LibraryProtectionProxy;
+import LibraryProtectionProxy.LibrarySubject;
+
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -18,18 +21,23 @@ public class PTUI implements Observer
 {
     private CommandParser commandparser;
     private BufferedReader reader;
+    private Long clientID;
+    private LibraryProtectionProxy proxy;
     private Library lib;
 
     /**
      * Creates a new PTUI that accepts input from the user.
-     * // Todo, this should take in a lib as a param from main
      */
     public PTUI()
     {
         this.reader = new BufferedReader(new InputStreamReader(System.in));
         this.lib = new Library();
         this.lib.addObserver(this);
-        this.commandparser = new CommandParser(lib);
+
+        this.clientID = Long.valueOf(657584);
+
+        this.proxy = new LibraryProtectionProxy(lib);
+        this.commandparser = new CommandParser(proxy);
     }
 
     /**
@@ -42,7 +50,19 @@ public class PTUI implements Observer
         System.out.println("Enter Command");
         try
         {
-            this.commandparser.parseCommand(reader.readLine());
+
+            String command = reader.readLine();
+
+            // Hacky way to deal with not being able to update UI if not connected
+            boolean wasConnected = true;
+            if (!proxy.isConnected())
+                wasConnected = false;
+
+            commandparser.parseCommand(clientID + "," + command);
+
+            if(!proxy.isConnected() && wasConnected)
+                System.out.println(clientID + ",disconnect;" + "\n");
+
         }
         catch(IOException io)
         {
@@ -56,7 +76,7 @@ public class PTUI implements Observer
     @Override
     public void update(Observable observable, Object o)
     {
-        System.out.println(this.lib.getStatus());
+        System.out.println(this.lib.getClientStatus(this.clientID));
     }
 
     /**
@@ -64,9 +84,9 @@ public class PTUI implements Observer
      */
     public static void main(String[] args)
     {
+        PTUI test = new PTUI();
         while(true)
         {
-            PTUI test = new PTUI();
             try {
                 test.getCommand();
             } catch (IOException e) {

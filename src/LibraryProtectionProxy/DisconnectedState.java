@@ -27,6 +27,8 @@ public class DisconnectedState implements LibraryProtectionProxyState
     public void bookSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
         // Disconnected state wont work with the way we update client status's
+        System.out.println("invalid-client-id,client-not-connected;\n");
+
     }
 
 
@@ -35,6 +37,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     public void bookStoreSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
         // Disconnected state wont work with the way we update client status's
+        System.out.println("invalid-client-id,client-not-connected;\n");
 
     }
 
@@ -44,7 +47,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     public void borrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
     {
         // Disconnected state wont work with the way we update client status's
-        // Set Client UI to CLIENT_ERROR
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -53,7 +56,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     public void purchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
     {
         // Disconnected state wont work with the way we update client status's
-        // Set Client UI to CLIENT_ERROR
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -62,7 +65,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     public void registerVisitor(Long clientID, String firstName, String lastName, String address, String phoneNumber)
     {
         // Disconnected state wont work with the way we update client status's
-        // Set Client UI to CLIENT_ERROR
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -71,7 +74,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     public void beginVisit(Long clientID, Long visitorID)
     {
         // Disconnected state wont work with the way we update client status's
-        // Set Client UI to CLIENT_ERROR
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -80,7 +83,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     public void endVisit(Long clientID, Long visitorID)
     {
         // Disconnected state wont work with the way we update client status's
-        // Set Client UI to CLIENT_ERROR
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -89,7 +92,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     public void getVisitorCheckedOutBooks(Long clientID, Long visitorID)
     {
         // Disconnected state wont work with the way we update client status's
-        // Set Client UI to CLIENT_ERROR
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -98,7 +101,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     public void payFine(Long clientID, Long visitorID, int amount)
     {
         // Disconnected state wont work with the way we update client status's
-        // Set Client UI to CLIENT_ERROR
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -107,7 +110,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     public void generateReport(Long clientID, int days)
     {
         // Disconnected state wont work with the way we update client status's
-        // Set Client UI to CLIENT_ERROR
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -116,7 +119,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     public void getFormattedDateTime(Long clientID)
     {
         // Disconnected state wont work with the way we update client status's
-        // Set Client UI to CLIENT_ERROR
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -125,7 +128,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     public void advanceTime(Long clientID, int days, int hours)
     {
         // Disconnected state wont work with the way we update client status's
-        // Set Client UI to CLIENT_ERROR
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -134,7 +137,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     public void returnBooks(Long clientID, Long visitorID, ArrayList<String> isbns)
     {
         // Disconnected state wont work with the way we update client status's
-        // Set Client UI to CLIENT_ERROR
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -143,7 +146,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     public void shutdown(Long clientID)
     {
         // Disconnected state wont work with the way we update client status's
-        // Set Client UI to CLIENT_ERROR Maybe...
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -161,7 +164,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     public void clientDisconnect(Long clientID)
     {
         // Disconnected state wont work with the way we update client status's
-        // Set Client UI to CLIENT_ERROR
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
     // Todo supply argument signature
@@ -170,7 +173,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     public void createAccount(Long clientID, String username, String password, String role, Long visitorID)
     {
         // Disconnected state wont work with the way we update client status's
-        // Set Client UI to CLIENT_ERROR
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
     // Todo supply argument signature
@@ -179,7 +182,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     public void login(Long clientID, String username, String password)
     {
         // Disconnected state wont work with the way we update client status's
-        // Set Client UI to CLIENT_ERROR
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
     // Todo supply argument signature
@@ -188,7 +191,7 @@ public class DisconnectedState implements LibraryProtectionProxyState
     public void logout(Long clientID)
     {
         // Disconnected state wont work with the way we update client status's
-        // Set Client UI to CLIENT_ERROR
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -218,6 +221,6 @@ public class DisconnectedState implements LibraryProtectionProxyState
     public void setService()
     {
         // Disconnected state wont work with the way we update client status's
-        // Set Client UI to CLIENT_ERROR
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 }

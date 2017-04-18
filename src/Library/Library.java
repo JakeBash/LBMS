@@ -574,7 +574,6 @@ public class Library extends Observable implements LibrarySubject
         if (clientList.get(clientID) != null)
         {
             clientList.get(clientID).setStatus(status);
-            System.out.println(clientList.get(clientID).getStatus()); // Todo remove -- here for debugging
         }
         this.setChanged();
         this.notifyObservers();

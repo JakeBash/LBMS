@@ -188,7 +188,7 @@ public class CommandParser
                         this.addCommand(command);
                     }
                 break;
-                    
+
             case "depart":
                 if (args.size() == 3)
                 {
