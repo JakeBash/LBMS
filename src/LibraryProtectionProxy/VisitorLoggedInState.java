@@ -68,12 +68,23 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
         }
     }
 
+    public void undoBorrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
+    {
+        library.borrowBook(clientID,bookID,visitorID);
+    }
+
     // buy,
     // Book Purchase
     public void purchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
     {
         String response = clientID + ",buy,not-authorized;";
         library.updateClientStatus(clientID, response);
+    }
+
+    public void undoPurchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
+    {
+        library.updateClientStatus(clientID,",undo buy, not-authorized;");
+        library.undoPurchaseBooks(clientID,quantity,ids);
     }
 
     // register,
@@ -168,6 +179,11 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
         {
             library.updateClientStatus(clientID, clientID + ",pay,invalid-id;");
         }
+    }
+
+    public void undoPayFine(Long clientID, Long visitorID, int amount)
+    {
+
     }
 
 

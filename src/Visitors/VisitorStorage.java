@@ -247,6 +247,16 @@ public class VisitorStorage implements java.io.Serializable
         visitor.payFine(amount, this.library.getTime());
     }
 
+    public void undoPayFine(Long visitorID, int amount)
+    {
+        Visitor v = this.getVisitor(visitorID);
+
+        if (v == null) { return; }
+
+        v.undoPayFine(amount, this.library.getTime());
+
+    }
+
     /**
      * Returns a list of books for a given visitor
      *

@@ -19,7 +19,8 @@ import java.util.ArrayList;
 public class CommandParser
 {
     private ArrayList<LBMSCommand> commandQueue;
-    private LibraryProtectionProxy proxy;
+    private ArrayList<LBMSCommand> undoQueue;
+    private LibrarySubject proxy;
     private boolean execute;
 
 

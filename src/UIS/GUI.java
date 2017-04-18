@@ -25,6 +25,7 @@ public class GUI extends JPanel
     public GUI()
     {
         super(new GridLayout(1, 1));
+        this.setPreferredSize(new Dimension(500,500));
 
         this.lib = new Library();
         tabbedPane = new JTabbedPane();

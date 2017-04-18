@@ -35,10 +35,14 @@ public interface LibraryProtectionProxyState
     // Borrow book
     void borrowBook(Long clientID, ArrayList<String> bookID,Long visitorID);
 
+    void undoBorrowBook(Long clientID, ArrayList<String> bookID,Long visitorID);
+
     // Todo supply argument signature
     // buy,
     // Book Purchase
     void purchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids);
+
+    void undoPurchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids);
 
     // Todo supply argument signature
     // register,
@@ -64,6 +68,8 @@ public interface LibraryProtectionProxyState
     // pay,
     // Pay fine
     void payFine(Long clientID, Long visitorID, int amount);
+
+    void undoPayFine(Long clientID, Long visitorID, int amount);
 
     // Todo supply argument signature
     // report,

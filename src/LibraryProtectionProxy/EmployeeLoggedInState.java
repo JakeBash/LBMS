@@ -45,11 +45,21 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
         library.borrowBook(clientID, bookID, visitorID);
     }
 
+    public void undoBorrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
+    {
+        library.undoBorrowBook(clientID, bookID, visitorID);
+    }
+
     // buy,
     // Book Purchase
     public void purchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
     {
         library.purchaseBooks(clientID, quantity, ids);
+    }
+
+    public void undoPurchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
+    {
+        library.undoPurchaseBooks(clientID,quantity,ids);
     }
 
     // register,
@@ -85,6 +95,11 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     public void payFine(Long clientID, Long visitorID, int amount)
     {
         library.payFine(clientID, visitorID, amount);
+    }
+
+    public void undoPayFine(Long clientID, Long visitorID, int amount)
+    {
+        library.undoPayFine(clientID,visitorID,amount);
     }
 
     // report,
