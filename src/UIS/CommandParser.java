@@ -152,15 +152,15 @@ public class CommandParser
                     if (proxy.getClientVisitorID(clientID) != null)
                     {
                         Long visitorID = proxy.getClientVisitorID(clientID);
-                        ArrayList<String> bookIDs = new ArrayList<String>(Arrays.asList(args.get(3).split(",")));
+                        ArrayList<String> bookIDs = new ArrayList<String>(Arrays.asList(args.get(2).split(",")));
                         command = new BorrowBook(proxy, clientID, visitorID, bookIDs);
                         this.addCommand(command);
                     }
                 }
                 if(args.size() == 4) {
                     Long clientID = Long.parseLong(args.get(0));
-                    Long visitorID = Long.parseLong(args.get(2));
-                    ArrayList<String> bookIDs = new ArrayList<String>(Arrays.asList(args.get(3).split(",")));
+                    ArrayList<String> bookIDs = new ArrayList<String>(Arrays.asList(args.get(2).split(",")));
+                    Long visitorID = Long.parseLong(args.get(3));
                     command = new BorrowBook(proxy, clientID, visitorID, bookIDs);
                     this.addCommand(command);
                 }
@@ -336,8 +336,8 @@ public class CommandParser
                 if (args.size() == 4)
                 {
                     Long clientID = Long.parseLong(args.get(0));
-                    Long visitorID = Long.parseLong(args.get(2));
-                    int amount = Integer.parseInt(args.get(3));
+                    int amount = Integer.parseInt(args.get(2));
+                    Long visitorID = Long.parseLong(args.get(3));
                     command = new PayFine(proxy, clientID, visitorID, amount);
                     this.addCommand(command);
                 }

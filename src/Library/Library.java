@@ -262,7 +262,9 @@ public class Library extends Observable implements LibrarySubject
             response += checkouts.size() + "\n";
             for (CheckOut c : checkouts)
             {
-                response += c.getBook().toString("fBorrow") + c.getBorrowDate() + "\n";
+                Calendar borrowDate = c.getBorrowDate();
+                String date =  borrowDate.get(Calendar.YEAR) + "/" + borrowDate.get(Calendar.MONTH) + "/" + borrowDate.get(Calendar.DAY_OF_MONTH);
+                response += c.getBook().toString("fBorrow") + date + "\n";
             }
         }
         else
