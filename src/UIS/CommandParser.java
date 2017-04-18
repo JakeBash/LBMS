@@ -1,12 +1,6 @@
 package UIS;
-
 import LBMSCommands.*;
-import Library.Library;
 import LibraryProtectionProxy.LibraryProtectionProxy;
-import LibraryProtectionProxy.LibrarySubject;
-
-
-import java.lang.reflect.Proxy;
 import java.util.Arrays;
 import java.util.ArrayList;
 
@@ -187,7 +181,6 @@ public class CommandParser
                 }
                 else if (args.size() == 3)
                 {
-
                     Long visitorID = Long.parseLong(args.get(2));
                     command = new FindBorrowed(proxy, clientID, visitorID);
                     this.addCommand(command);
