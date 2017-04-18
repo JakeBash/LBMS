@@ -13,8 +13,6 @@ import LibraryProtectionProxy.LibrarySubject;
  */
 public class BookStoreSearch implements LBMSCommand
 {
-    private Library library;
-
     private LibrarySubject proxy;
     private Long clientID;
     private String title;
@@ -23,101 +21,7 @@ public class BookStoreSearch implements LBMSCommand
     private String publisher;
     private String sortOrder;
 
-    /**
-     * Creates a command to search the book store for books to buy. Constructs with the minimum amount of search criteria
-     * required.
-     * 
-     * @param library - The library that is being searched.
-     * @param title - The title of the desired book(s).
-     */
-    @Deprecated
-    public BookStoreSearch(Library library, String title)
-    {
-        this.library = library;
-        this.title = title;
-        this.authors = new ArrayList<>();
-        this.isbn = "*";
-        this.publisher = "*";
-        this.sortOrder = "none";
-    }
 
-    /**
-     * Creates a command to search the book store for books to buy. Constructs with additional criteria from the
-     * previous implementation.
-     * 
-     * @param library - The library that is being searched.
-     * @param title - The title of the desired book(s).
-     * @param authors - The authors of the desired book(s).
-     * @param isbn - The ISBN of the desired book(s).
-     */
-    @Deprecated
-    public BookStoreSearch(Library library, String title, ArrayList<String> authors, String isbn)
-    {
-        this.library = library;
-        this.title = title;
-        this.authors = authors;
-        this.isbn = isbn;
-        this.publisher = "*";
-        this.sortOrder = "none";
-    }
-
-    /**
-     * Creates a command to search the book store for books to buy. Constructs with additional criteria from the
-     * previous implementation.
-     *
-     * @param library - The library that is being searched.
-     * @param title - The title of the desired book(s).
-     * @param authors - The authors of the desired book(s).
-     * @param isbn - The ISBN of the desired book(s).
-     * @param publisher - The publisher of the desired book(s).
-     */
-    @Deprecated
-    public BookStoreSearch(Library library, String title, ArrayList<String> authors, String isbn, String publisher)
-    {
-        this.library = library;
-        this.title = title;
-        this.authors = authors;
-        this.isbn = isbn;
-        this.publisher = publisher;
-        this.sortOrder = "none";
-    }
-
-    /**
-     * Creates a command to search the book store for books to buy. Constructs with additional criteria from the
-     * previous implementation.
-     * 
-     * @param library - The library that is being searched.
-     * @param title - The title of the desired book(s).
-     * @param authors - The authors of the desired book(s).
-     * @param isbn - The ISBN of the desired book(s).
-     * @param publisher - The publisher of the desired book(s).
-     * @param sortOrder - The sort order to be used when gathering the desired book(s).
-     */
-    @Deprecated
-    public BookStoreSearch(Library library, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
-    {
-        this.library = library;
-        this.title = title;
-        this.authors = authors;
-        this.isbn = isbn;
-        this.publisher = publisher;
-        this.sortOrder = sortOrder;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
     /**
      * Creates a command to search the book store for books to buy. Constructs with the minimum amount of search criteria
      * required.
@@ -210,8 +114,7 @@ public class BookStoreSearch implements LBMSCommand
      */
     public void execute()
     {
-        // todo this.proxy.bookSearch(this.clientID, this.title, this.authors, this.isbn, this.publisher, this.sortOrder);
-        this.library.bookStoreSearch(this.clientID, this.title, this.authors, this.isbn, this.publisher, this.sortOrder);
+        this.proxy.bookStoreSearch(this.clientID, this.title, this.authors, this.isbn, this.publisher, this.sortOrder);
     }
 
     /**

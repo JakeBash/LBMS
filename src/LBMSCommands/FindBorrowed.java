@@ -13,29 +13,11 @@ import java.util.ArrayList;
  */
 public class FindBorrowed implements LBMSCommand
 {
-    private Library library;
-
     private LibrarySubject proxy;
     private Long clientID;
     private Long visitorID;
 
-    /**
-     * A command that asks the library to find a visitor's checked out books.
-     *
-     * @param library - A library that has books checked out by visitors.
-     * @param visitorID - The visitor that is being queried for checked out books.
-     */
-    public FindBorrowed(Library library, Long visitorID)
-    {
-        this.library = library;
-        this.visitorID = visitorID;
-    }
 
-
-
-
-
-    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
     /**
      * A command that asks the library to find a visitor's checked out books.
      *
@@ -50,7 +32,6 @@ public class FindBorrowed implements LBMSCommand
         this.visitorID = visitorID;
     }
 
-    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
 
     /**
      * Executes the FindBorrowed command on the library.

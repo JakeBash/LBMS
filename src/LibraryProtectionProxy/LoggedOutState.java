@@ -23,9 +23,6 @@ public class LoggedOutState implements LibraryProtectionProxyState {
         this.library = library;
     }
 
-    // Can log in... That is about it as far as I know
-
-
     // info,
     // Library Book Search
     public void bookSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder) {
@@ -127,7 +124,6 @@ public class LoggedOutState implements LibraryProtectionProxyState {
     // Shut Down
     public void shutdown(Long clientID)
     {
-        // Todo do you need to be logged in to shutdown?
         library.updateClientStatus(clientID, clientID + ",shutdown,not-authorized;");
     }
 
@@ -138,16 +134,13 @@ public class LoggedOutState implements LibraryProtectionProxyState {
         library.updateClientStatus(clientID, clientID + ",connect,already-connected;");
     }
 
-    // Todo supply argument signature
     // disconnect,
     // Client Disconnect
     public void clientDisconnect(Long clientID)
     {
         library.clientDisconnect(clientID);
-        // todo need to make a state change
     }
 
-    // Todo supply argument signature
     // create,
     // Create New Account
     public void createAccount(Long clientID, String username, String password, String role, Long visitorID)
@@ -156,7 +149,6 @@ public class LoggedOutState implements LibraryProtectionProxyState {
         library.updateClientStatus(clientID, response);
     }
 
-    // Todo supply argument signature
     // login,
     // Log In
     public void login(Long clientID, String username, String password)
@@ -164,12 +156,11 @@ public class LoggedOutState implements LibraryProtectionProxyState {
         library.login(clientID, username, password);
     }
 
-    // Todo supply argument signature
     // logout,
     // Log Out
     public void logout(Long clientID)
     {
-        String response = clientID + ",logout,success;";
+        String response = clientID + ",logout,not-authorized;";
         library.updateClientStatus(clientID, response);
     }
 
@@ -197,9 +188,10 @@ public class LoggedOutState implements LibraryProtectionProxyState {
     // Todo supply argument signature
     // service,
     // Set book information service
-    public void setService()
+    public void setService(Long clientID, String service)
     {
-        // response: "client ID,<request name>,not-authorized;"
+        String response = clientID + ",service,not-authorized;";
+        library.updateClientStatus(clientID, response);
     }
 
 

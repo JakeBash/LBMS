@@ -15,43 +15,10 @@ import java.util.ArrayList;
  */
 public class AdvanceTime implements LBMSCommand
 {
-    private Library library;
-
     private LibrarySubject proxy;
     private Long clientID;
     private int days;
     private int hours;
-
-    /**
-     * Constructor for AdvanceTime, used when only a day amount is supplied.
-     *
-     * @param library - The library that the advancement of time is being applied to.
-     * @param days - The amount of days that is to be advanced.
-     */
-    public AdvanceTime(Library library, int days)
-    {
-        this.library = library;
-        this.days = days;
-        this.hours = 0;
-    }
-
-    /**
-     * Constructor for AdvanceTime, used when a day and hour amount are supplied.
-     *
-     * @param library - The library that the advancement of time is being applied to.
-     * @param days - The amount of days that is to be advanced.
-     * @param hours - The amount of hours that is to advanced.
-     */
-    public AdvanceTime(Library library, int days, int hours)
-    {
-        this.library = library;
-        this.days = days;
-        this.hours = hours;
-    }
-
-
-
-    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
 
     /**
      * Constructor for AdvanceTime, used when a day and hour amount are supplied.
@@ -84,9 +51,6 @@ public class AdvanceTime implements LBMSCommand
         this.days = days;
         this.hours = hours;
     }
-
-    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
-
 
 
 

@@ -26,10 +26,9 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Library Book Search
     public void bookSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
-        // todo This will not work, can't update the UI if not connected, have to write to gui directly
-        // todo - maybe connecting and disconnecting should not be commands... but instead be called directly
-        // todo - from the client to the library and back to  the gui?
-        library.updateClientStatus(clientID, clientID + ",info,not-authorized;");
+        // Disconnected state wont work with the way we update client status's
+        System.out.println("invalid-client-id,client-not-connected;\n");
+
     }
 
 
@@ -37,6 +36,8 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Book Store Search
     public void bookStoreSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
     {
+        // Disconnected state wont work with the way we update client status's
+        System.out.println("invalid-client-id,client-not-connected;\n");
 
     }
 
@@ -45,7 +46,8 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Borrow book
     public void borrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
     {
-        // Set Client UI to CLIENT_ERROR
+        // Disconnected state wont work with the way we update client status's
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
     public void undoBorrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
@@ -58,7 +60,8 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Book Purchase
     public void purchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
     {
-        // Set Client UI to CLIENT_ERROR
+        // Disconnected state wont work with the way we update client status's
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
     public void undoPurchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
@@ -71,7 +74,8 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Register Visitor
     public void registerVisitor(Long clientID, String firstName, String lastName, String address, String phoneNumber)
     {
-        // Set Client UI to CLIENT_ERROR
+        // Disconnected state wont work with the way we update client status's
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -79,7 +83,8 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Begin Visit
     public void beginVisit(Long clientID, Long visitorID)
     {
-        // Set Client UI to CLIENT_ERROR
+        // Disconnected state wont work with the way we update client status's
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -87,7 +92,8 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // End Visit
     public void endVisit(Long clientID, Long visitorID)
     {
-        // Set Client UI to CLIENT_ERROR
+        // Disconnected state wont work with the way we update client status's
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -95,7 +101,8 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Find Borrowed Books
     public void getVisitorCheckedOutBooks(Long clientID, Long visitorID)
     {
-        // Set Client UI to CLIENT_ERROR
+        // Disconnected state wont work with the way we update client status's
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -103,7 +110,8 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Pay fine
     public void payFine(Long clientID, Long visitorID, int amount)
     {
-        // Set Client UI to CLIENT_ERROR
+        // Disconnected state wont work with the way we update client status's
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
     public void undoPayFine(Long clientID, Long visitorID, int amount)
@@ -116,7 +124,8 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Library Statistic Report
     public void generateReport(Long clientID, int days)
     {
-        // Set Client UI to CLIENT_ERROR
+        // Disconnected state wont work with the way we update client status's
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -124,7 +133,8 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Current Date Time
     public void getFormattedDateTime(Long clientID)
     {
-        // Set Client UI to CLIENT_ERROR
+        // Disconnected state wont work with the way we update client status's
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -132,7 +142,8 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Advance Time
     public void advanceTime(Long clientID, int days, int hours)
     {
-        // Set Client UI to CLIENT_ERROR
+        // Disconnected state wont work with the way we update client status's
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -140,7 +151,8 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Return book
     public void returnBooks(Long clientID, Long visitorID, ArrayList<String> isbns)
     {
-        // Set Client UI to CLIENT_ERROR
+        // Disconnected state wont work with the way we update client status's
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -148,7 +160,8 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Shut Down
     public void shutdown(Long clientID)
     {
-        // Set Client UI to CLIENT_ERROR Maybe...
+        // Disconnected state wont work with the way we update client status's
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -165,31 +178,32 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Client Disconnect
     public void clientDisconnect(Long clientID)
     {
-        // Set Client UI to CLIENT_ERROR
+        // Disconnected state wont work with the way we update client status's
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
-    // Todo supply argument signature
     // create,
     // Create New Account
     public void createAccount(Long clientID, String username, String password, String role, Long visitorID)
     {
-        // Set Client UI to CLIENT_ERROR
+        // Disconnected state wont work with the way we update client status's
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
-    // Todo supply argument signature
     // login,
     // Log In
     public void login(Long clientID, String username, String password)
     {
-        // Set Client UI to CLIENT_ERROR
+        // Disconnected state wont work with the way we update client status's
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
-    // Todo supply argument signature
     // logout,
     // Log Out
     public void logout(Long clientID)
     {
-        // Set Client UI to CLIENT_ERROR
+        // Disconnected state wont work with the way we update client status's
+        System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
 
@@ -216,8 +230,10 @@ public class DisconnectedState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // service,
     // Set book information service
-    public void setService()
+    public void setService(Long clientID, String service)
     {
-        // Set Client UI to CLIENT_ERROR
+        String response = clientID + " " + service + " not-authorized;";
+        library.updateClientStatus(clientID, response);
+        //library.setService(clientID, service);
     }
 }

@@ -1,5 +1,6 @@
 package LibraryProtectionProxy;
 
+import Client.Client;
 import LBMSCommands.Disconnect;
 import Library.Library;
 import Visitors.Visit;
@@ -8,10 +9,7 @@ import Visitors.Visitor;
 import java.util.ArrayList;
 
 /**
- * Todo should you be made to type in clientId for every command or is it auto appended by system?
- * Todo responses should also be preceded by clientID
  *
- * todo Library interface?!?!?!?!
  *
  * @author Nikolas Tilley
  */
@@ -21,7 +19,6 @@ public class LibraryProtectionProxy implements LibrarySubject
     private final int LOGGED_OUT_STATE = 1;
     private final int VISITOR_LOGGED_IN_STATE = 2;
     private final int EMPLOYEE_LOGGED_IN_STATE = 3;
-    private Visitor loggedInVisitor;
     private ArrayList<LibraryProtectionProxyState> stateList;
     private LibraryProtectionProxyState activeState;
     private Library library;
@@ -51,10 +48,7 @@ public class LibraryProtectionProxy implements LibrarySubject
         activeState = stateList.get(index);
     }
 
-    // TODO implement library interface
-    ////////////////////////////////////////////////////////////////
 
-    // Todo supply argument signature
     // info,
     // Library Book Search
     public void bookSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
@@ -62,7 +56,6 @@ public class LibraryProtectionProxy implements LibrarySubject
         activeState.bookSearch(clientID, title, authors, isbn, publisher, sortOrder);
     }
 
-    // Todo supply argument signature
     // search,
     // Book Store Search
     public void bookStoreSearch(Long clientID, String title, ArrayList<String> authors, String isbn, String publisher, String sortOrder)
@@ -70,13 +63,13 @@ public class LibraryProtectionProxy implements LibrarySubject
         activeState.bookStoreSearch(clientID, title, authors, isbn, publisher, sortOrder);
     }
 
-    // Todo supply argument signature
     // borrow,
     // Borrow book
     public void borrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
     {
         activeState.borrowBook(clientID, bookID, visitorID);
     }
+
 
     public void undoBorrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
     {
@@ -104,7 +97,6 @@ public class LibraryProtectionProxy implements LibrarySubject
         activeState.registerVisitor(clientID, firstName, lastName, address, phoneNumber);
     }
 
-    // Todo supply argument signature
     // arrive,
     // Begin Visit
     public void beginVisit(Long clientID, Long visitorID)
@@ -112,7 +104,6 @@ public class LibraryProtectionProxy implements LibrarySubject
         activeState.beginVisit(clientID, visitorID);
     }
 
-    // Todo supply argument signature
     // depart,
     // End Visit
     public void endVisit(Long clientID, Long visitorID)
@@ -120,7 +111,6 @@ public class LibraryProtectionProxy implements LibrarySubject
         activeState.endVisit(clientID, visitorID);
     }
 
-    // Todo supply argument signature
     // borrowed,
     // Find Borrowed Books
     public void getVisitorCheckedOutBooks(Long clientID, Long visitorID)
@@ -128,7 +118,6 @@ public class LibraryProtectionProxy implements LibrarySubject
         activeState.getVisitorCheckedOutBooks(clientID, visitorID);
     }
 
-    // Todo supply argument signature
     // pay,
     // Pay fine
     public void payFine(Long clientID, Long visitorID, int amount)
@@ -149,7 +138,6 @@ public class LibraryProtectionProxy implements LibrarySubject
         activeState.generateReport(clientID, days);
     }
 
-    // Todo supply argument signature
     // datetime,
     // Current Date Time
     public void getFormattedDateTime(Long clientID)
@@ -157,7 +145,6 @@ public class LibraryProtectionProxy implements LibrarySubject
         activeState.getFormattedDateTime(clientID);
     }
 
-    // Todo supply argument signature
     // advance,
     // Advance Time
     public void advanceTime(Long clientID, int days, int hours)
@@ -165,7 +152,6 @@ public class LibraryProtectionProxy implements LibrarySubject
         activeState.advanceTime(clientID, days, hours);
     }
 
-    // Todo supply argument signature
     // return,
     // Return book
     public void returnBooks(Long clientID, Long visitorID, ArrayList<String> isbns)
@@ -173,7 +159,6 @@ public class LibraryProtectionProxy implements LibrarySubject
         activeState.returnBooks(clientID, visitorID, isbns);
     }
 
-    // Todo supply argument signature
     // shutdown,
     // Shut Down
     public void shutdown(Long clientID)
@@ -181,8 +166,6 @@ public class LibraryProtectionProxy implements LibrarySubject
         activeState.shutdown(clientID);
     }
 
-    // Todo supply argument signature
-    // Todo if you connect, and never previously logged out from last connection, are you still logged in?
     // connect,
     // Client Connect
     public void clientConnect(Long clientID)
@@ -194,7 +177,6 @@ public class LibraryProtectionProxy implements LibrarySubject
             setState(LOGGED_OUT_STATE);
     }
 
-    // Todo supply argument signature
     // disconnect,
     // Client Disconnect
     public void clientDisconnect(Long clientID)
@@ -207,7 +189,6 @@ public class LibraryProtectionProxy implements LibrarySubject
         setState(DISCONNECTED_STATE);
     }
 
-    // Todo supply argument signature
     // create,
     // Create New Account
     public void createAccount(Long clientID, String username, String password, String role, Long visitorID)
@@ -215,39 +196,36 @@ public class LibraryProtectionProxy implements LibrarySubject
         activeState.createAccount(clientID, username, password, role, visitorID);
     }
 
-    // Todo supply argument signature
     // login,
     // Log In
     public void login(Long clientID, String username, String password)
     {
         activeState.login(clientID, username, password);
 
-        if(activeState instanceof LoggedOutState)
-        {
+        if(activeState instanceof LoggedOutState) {
             Visitor loggedInUser = library.getVisitorStorage().getUsernames().get(username);
-            if (loggedInUser.getRole().equals("Employee"))
+
+            if (loggedInUser != null)
             {
-                this.setState(EMPLOYEE_LOGGED_IN_STATE);
-                loggedInVisitor = loggedInUser;
+                library.getClient(clientID).setVisitor(loggedInUser);
+
+                if (loggedInUser.getRole().equalsIgnoreCase("employee")) {
+                    this.setState(EMPLOYEE_LOGGED_IN_STATE);
+                } else if (loggedInUser.getRole().equalsIgnoreCase("visitor")) {
+                    this.setState(VISITOR_LOGGED_IN_STATE);
+                } else
+                    ;//Do Nothing
             }
-            else if (loggedInUser.getRole().equals("Visitor"))
-            {
-                this.setState(VISITOR_LOGGED_IN_STATE);
-                loggedInVisitor = loggedInUser;
-            }
-            else
-                ;//Do Nothing
         }
     }
 
-    // Todo supply argument signature
+
     // logout,
     // Log Out
     public void logout(Long clientID)
     {
         activeState.logout(clientID);
         setState(LOGGED_OUT_STATE);
-        loggedInVisitor = null;
     }
 
 
@@ -274,9 +252,9 @@ public class LibraryProtectionProxy implements LibrarySubject
     // Todo supply argument signature
     // service,
     // Set book information service
-    public void setService()
+    public void setService(Long clientID, String service)
     {
-        activeState.setService();
+        activeState.setService(clientID, service );
     }
 
 
@@ -287,8 +265,24 @@ public class LibraryProtectionProxy implements LibrarySubject
     // todo Should always work... unless disconnected?!?!?!? MB
     public void forwardResponse(Long clientID, String response)
     {
-
+        if (!(activeState instanceof DisconnectedState))
+            library.forwardResponse(clientID, response);
     }
 
+    public boolean isConnected()
+    {
+        if (activeState instanceof DisconnectedState)
+            return false;
+        else
+            return true;
+    }
+
+    public Long getClientVisitorID(Long clientID)
+    {
+        if (activeState instanceof EmployeeLoggedInState || activeState instanceof VisitorLoggedInState)
+            return library.getClient(clientID).getVisitor().getID();
+        else
+            return null;
+    }
 
 }

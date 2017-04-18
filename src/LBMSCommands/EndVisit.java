@@ -13,28 +13,11 @@ import java.util.ArrayList;
  */
 public class EndVisit implements LBMSCommand
 {
-    private Library library;
-
     private LibrarySubject proxy;
     private Long clientID;
     private Long visitorID;
 
-    /**
-     * Constructs an EndVisit command to be executed.
-     * 
-     * @param library - The library that the visitor was visiting.
-     * @param visitorID - The ID of an active visitor.
-     */
-    public EndVisit(Library library, Long visitorID)
-    {
-        this.library = library;
-        this.visitorID = visitorID;
-    }
 
-
-
-
-    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
     /**
      * Constructs an EndVisit command to be executed.
      *
@@ -50,8 +33,6 @@ public class EndVisit implements LBMSCommand
     }
 
 
-
-    ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
 
     /**
      * Executes the EndVisit command on the library.

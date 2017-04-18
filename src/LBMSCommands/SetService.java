@@ -43,6 +43,8 @@ public class SetService implements LBMSCommand
      */
     @Override
     public void execute() {
+        this.proxy.setService(clientID, service);
+
 
     }
 

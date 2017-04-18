@@ -79,19 +79,33 @@ public class GoogleBooks implements BookCatalog{
                     }
 
                     //Find JsonObject o title
-
+                    try {
                     titlearg = o.getJsonObject("volumeInfo").getJsonString("title").toString();
                     //Find JsonObject o authors
-
-                    for(JsonString p: o.getJsonObject("volumeInfo").getJsonArray("authors").getValuesAs(JsonString.class)){
-                        authorsarg.add(p.toString());
                     }
+                    catch (NullPointerException e) {
+                        titlearg = o.getJsonObject("volumeInfo").getJsonString("publisher").toString();
+                    }
+                    try {
+                        for (JsonString p : o.getJsonObject("volumeInfo").getJsonArray("authors").getValuesAs(JsonString.class)) {
+                            authorsarg.add(p.toString());
+                        }
+                    }
+                    catch (NullPointerException e) {
+                        authorsarg.add("*");
+                    }
+
 
                     //Find JsonObject o publisher
                     publisherarg = o.getJsonObject("volumeInfo").getJsonString("publisher").toString();
-
+                    try {
                     //Find JsonObject o publisher date
                     publishDatearg = o.getJsonObject("volumeInfo").getJsonString("publishedDate").toString();
+                    }
+                    catch (NullPointerException e) {
+                        publishDatearg = "10/10/1997";
+                    }
+
 
                     try {
                         //Find JsonObject o page count
@@ -120,8 +134,8 @@ public class GoogleBooks implements BookCatalog{
     public static void main(String args[]){
         ArrayList<String> authors = new ArrayList<>();
         BookCatalog thing = new GoogleBooks();
-        authors.add("hitler");
-        thing.bookSearch("*", authors, "*", "*");
+
+        thing.bookSearch("communist", authors, "*", "*");
 
 
     }

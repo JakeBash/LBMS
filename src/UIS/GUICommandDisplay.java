@@ -24,6 +24,8 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
     private JTabbedPane tabbedPane;
     private JPanel commandDisplay;
     private CommandParser parser;
+    private LibraryProtectionProxy proxy; // need to do this to implement responses when not connected
+    private boolean checkChange;
 
     /**
      * Description
@@ -34,18 +36,18 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
      */
     public GUICommandDisplay(Library library, JTabbedPane tabbedPane, Long clientID)
     {
-        this.parser = new CommandParser(new LibraryProtectionProxy(library));
+        this.proxy =  new LibraryProtectionProxy(library); // need to do this to implement responses when not connected
+        this.parser = new CommandParser(this.proxy);
 
         this.clientID = clientID;
 
         this.library = library;
 
         this.tabbedPane = tabbedPane;
-
-        this.tField = new JTextField(20);
+        this.tField = new JTextField(50);
         tField.addActionListener(this);
 
-        this.tArea = new JTextArea(5, 20);
+        this.tArea = new JTextArea(25, 50);
         tArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(tArea);
 
@@ -55,6 +57,8 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
         commandDisplay.add(tField, BorderLayout.CENTER);
         commandDisplay.add(removeClient, BorderLayout.SOUTH);
         commandDisplay.add(scrollPane, BorderLayout.NORTH);
+
+        checkChange = false;
     }
 
     /**
@@ -64,10 +68,25 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
      */
     public void actionPerformed(ActionEvent evt)
     {
+        checkChange = true;
+
         String command = tField.getText();
         tArea.append(command + "\n");
+
+
+        // Hacky way to deal with not being able to update UI if not connected
+        boolean wasConnected = true;
+        if (!proxy.isConnected())
+            wasConnected = false;
+
         parser.parseCommand(clientID + "," + command);
+
+        if(!proxy.isConnected() && !wasConnected) // This is really hacky and does not fulfil requirements totally
+            tArea.append("invalid-client-id,client-not-connected;\n");
+        if(!proxy.isConnected() && wasConnected)
+            tArea.append(clientID + ",disconnect;" + "\n");
         tField.setText("");
+
     }
 
     /**
@@ -95,6 +114,8 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
          */
         public void actionPerformed(ActionEvent e)
         {
+            proxy.logout(clientID);
+            proxy.clientDisconnect(clientID);
             int i = tabbedPane.indexOfTab("Client " + clientID);
             tabbedPane.remove(i);
         }
@@ -123,6 +144,10 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
     @Override
     public void update(Observable observable, Object o)
     {
-        tArea.append(this.library.getClientStatus(clientID) + "\n");
+        if(checkChange)
+        {
+            tArea.append(this.library.getClientStatus(clientID) + "\n");
+            checkChange = false;
+        }
     }
 }

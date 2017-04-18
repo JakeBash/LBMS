@@ -15,21 +15,8 @@ import java.util.ArrayList;
  */
 public class Shutdown implements LBMSCommand
 {
-    private Library library;
-
     private LibrarySubject proxy;
     private Long clientID;
-
-    /**
-     *  Creates a new Shutdown command object
-     *
-     * @param library - The library that the Shutdown command will execute on.
-     */
-    public Shutdown(Library library)
-    {
-        this.library = library;
-    }
-
 
     ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
 

@@ -29,7 +29,9 @@ public class GUI extends JPanel
 
         this.lib = new Library();
         tabbedPane = new JTabbedPane();
-        tabbedPane.add(new GUICommandDisplay(lib, tabbedPane, Long.valueOf(clientIDCounter)).getCommandDisplay(), "Client " + clientIDCounter);
+        GUICommandDisplay initDisplay = new GUICommandDisplay(lib, tabbedPane, Long.valueOf(clientIDCounter));
+        lib.addObserver(initDisplay);
+        tabbedPane.add(initDisplay.getCommandDisplay(), "Client " + clientIDCounter);
         clientIDCounter++;
         JButton button = new newClient();
         tabbedPane.add(button, "New Client");
@@ -46,14 +48,9 @@ public class GUI extends JPanel
          */
         public newClient()
         {
-            int size = 17;
-            setPreferredSize(new Dimension(size, size));
             setText("Create a new client");
             setToolTipText("Create a new client connection");
-            setContentAreaFilled(false);
             setFocusable(false);
-            setBorder(BorderFactory.createEtchedBorder());
-            setBorderPainted(false);
             setRolloverEnabled(true);
             addActionListener(this);
         }

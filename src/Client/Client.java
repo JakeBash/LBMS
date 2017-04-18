@@ -5,7 +5,6 @@ import BooksCatalog.BookCatalog;
 import BooksCatalog.FlatFileBookCatalog;
 import BooksCatalog.GoogleBooks;
 import Visitors.Visitor;
-
 import java.io.File;
 import java.util.ArrayList;
 
@@ -20,7 +19,7 @@ public class Client
     private Long clientId;
     private Visitor visitor;
     private String status;
-    private ArrayList<Book>  lastStoreSearch;
+    private ArrayList<Book> lastStoreSearch;
     private ArrayList<Book> lastStorageSearch;
     private BookCatalog bookCatalog;
     private final File FLATFILE = new File("files/books.txt");
@@ -68,6 +67,11 @@ public class Client
         this.clientId = clientId;
     }
 
+    public Visitor getVisitor()
+    {
+        return this.visitor;
+    }
+
     public void setVisitor(Visitor v)
     {
         this.visitor = v;
@@ -90,12 +94,16 @@ public class Client
     /**
      * Switches the catalog state between the flat file catalog and the web services catalog.
      */
-    public void switchCatalogState(){
-        if(this.bookCatalog.getClass() == FlatFileBookCatalog.class){
+    public boolean switchCatalogState(String service){
+        if(service.equalsIgnoreCase("google")){
             this.bookCatalog = new GoogleBooks();
+            return true;
         }
-        else{
+        else if (service.equalsIgnoreCase("local")){
             this.bookCatalog = new FlatFileBookCatalog(FLATFILE);
+            return true;
         }
+        else
+            return false;
     }
 }

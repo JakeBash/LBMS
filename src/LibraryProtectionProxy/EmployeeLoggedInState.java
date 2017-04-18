@@ -130,12 +130,10 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
         library.returnBooks(clientID, visitorID, isbns);
     }
 
-    // Todo supply argument signature
     // shutdown,
     // Shut Down
     public void shutdown(Long clientID)
     {
-        // TODO Make sure this is done safely
         library.shutdown(clientID);
     }
 
@@ -156,7 +154,6 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
         library.clientDisconnect(clientID);
     }
 
-    // Todo supply argument signature
     // create,
     // Create New Account
     public void createAccount(Long clientID, String username, String password, String role, Long visitorID)
@@ -164,7 +161,6 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
         library.createAccount(clientID, username, password, role, visitorID);
     }
 
-    // Todo supply argument signature
     // login,
     // Log In
     public void login(Long clientID, String username, String password)
@@ -173,13 +169,11 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
         library.updateClientStatus(clientID, response);
     }
 
-    // Todo supply argument signature
     // logout,
     // Log Out
     public void logout(Long clientID)
     {
-        String response = clientID + ",logout,success;";
-        library.updateClientStatus(clientID, response);
+        library.logout(clientID);
     }
 
 
@@ -206,9 +200,9 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     // Todo supply argument signature
     // service,
     // Set book information service
-    public void setService()
+    public void setService(Long clientID, String service)
     {
-
+        library.setService(clientID, service);
     }
 
 

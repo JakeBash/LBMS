@@ -148,9 +148,11 @@ public interface LibrarySubject
     // Todo supply argument signature
     // service,
     // Set book information service
-    void setService();
+    void setService(Long clientId, String service);
 
     // Passes responses from the UIS to the library if the commands cannot make it there
     void forwardResponse(Long clientID, String response);
+
+
 
 }

@@ -95,13 +95,11 @@ public class Library extends Observable implements LibrarySubject
                 response += b.toString("bSearch") + ";\n";
             }
 
-            updateStatus(response); // Todo depreciate
             updateClientStatus(clientID, response);
 
         }
         else {
             response += "invalid-sort-order;";
-            updateStatus(response); // todo depreciate
             updateClientStatus(clientID, response);
 
         }
@@ -131,13 +129,11 @@ public class Library extends Observable implements LibrarySubject
             }
             this.getClient(clientID).setLastStoreSearch(searchRes);
 
-            updateStatus(response); // todo depreciate
             updateClientStatus(clientID, response);
 
         }
         else {
             response += "invalid-sort-order;";
-            updateStatus(response); // todo depreciate
             updateClientStatus(clientID, response);
 
         }
@@ -153,7 +149,7 @@ public class Library extends Observable implements LibrarySubject
     public void borrowBook(Long clientID, ArrayList<String> bkID,Long vID)
     {
         String str = clientID + "," + this.currentState.stateCheckOutBook(bkID, vID, this.visitorStorage, this.timeClock, this.bookStorage);
-        updateStatus(str); // todo depreciate
+        updateClientStatus(clientID, str);
     }
 
     public void undoBorrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
@@ -188,7 +184,6 @@ public class Library extends Observable implements LibrarySubject
             response += b.toString("bPurchase") + quantity +";\n";
         }
 
-        updateStatus(response); // todo depreciate
         updateClientStatus(clientID, response);
     }
 
@@ -229,7 +224,6 @@ public class Library extends Observable implements LibrarySubject
             response += "duplicate;";
         }
 
-        updateStatus(response); // Todo depreciate
         updateClientStatus(clientID, response);
     }
 
@@ -241,7 +235,6 @@ public class Library extends Observable implements LibrarySubject
     public void beginVisit(Long clientID, Long visitorID)
     {
         String response = clientID + "," + currentState.stateBeginVisit(visitorID, this.visitorStorage);
-        updateStatus(response); // Todo depreciate
         updateClientStatus(clientID, response);
     }
 
@@ -270,7 +263,6 @@ public class Library extends Observable implements LibrarySubject
             response += "duplicate;";
         }
 
-        updateStatus(response); // Todo depreciate
         updateClientStatus(clientID, response);
     }
 
@@ -291,7 +283,9 @@ public class Library extends Observable implements LibrarySubject
             response += checkouts.size() + "\n";
             for (CheckOut c : checkouts)
             {
-                response += c.getBook().toString("fBorrow") + c.getBorrowDate() + "\n";
+                Calendar borrowDate = c.getBorrowDate();
+                String date =  borrowDate.get(Calendar.YEAR) + "/" + borrowDate.get(Calendar.MONTH) + "/" + borrowDate.get(Calendar.DAY_OF_MONTH);
+                response += c.getBook().toString("fBorrow") + date + "\n";
             }
         }
         else
@@ -299,8 +293,7 @@ public class Library extends Observable implements LibrarySubject
             response += visitorID;
         }
 
-        updateStatus(response); // todo depreciate
-        updateClientStatus(clientID, response);
+        updateClientStatus(clientID, response + ";");
     }
 
     /**
@@ -338,7 +331,6 @@ public class Library extends Observable implements LibrarySubject
                 + this.visitorStorage.generateReport(days) + "\n";
 
 
-        updateStatus(response); // Todo depreciate
         updateClientStatus(clientID, response);
 
     }
@@ -380,7 +372,6 @@ public class Library extends Observable implements LibrarySubject
      */
     public void getFormattedDateTime(Long clientID)
     {
-        updateStatus(clientID + ",datetime," + timeClock.getFormattedDateTime() + ";" ); // todo depreciated
         updateClientStatus(clientID, clientID + ",datetime," + timeClock.getFormattedDateTime() + ";" );
     }
 
@@ -408,18 +399,15 @@ public class Library extends Observable implements LibrarySubject
             timeClock.advanceTime(days, hours);
             visitorStorage.endAllVisits();
             //generateReport();
-            updateStatus(clientID + ",advance,success;" ); // todo depreciate
             updateClientStatus(clientID, clientID + ",advance,success;");
         }
         else if (days < 0 || days > 7)
         {
-            updateStatus(clientID + ",advance,invalid-number-of-days," + days +";" ); // todo depreciate
             updateClientStatus(clientID, clientID + ",advance,invalid-number-of-days," + days +";" );
 
         }
         else if (hours < 0 || hours > 23)
         {
-            updateStatus(clientID + ",advance,invalid-number-of-hours," + hours +";" ); // todo depreciate
             updateClientStatus(clientID, clientID + ",advance,invalid-number-of-days," + hours +";" );
 
         }
@@ -442,10 +430,8 @@ public class Library extends Observable implements LibrarySubject
         double fines = this.visitorStorage.returnBooks(visitorID, books);
 
         if (fines > 0) {
-            updateStatus(clientID + ",return,overdue,$" + Double.toString(fines) + isbns + ";"); // Todo depreciate
             updateClientStatus(clientID, clientID + ",return,overdue,$" + Double.toString(fines) + isbns + ";");
         } else {
-            updateStatus(clientID + ",return,success;"); // todo depreciate
             updateClientStatus(clientID, clientID + ",return,success;");
         }
     }
@@ -495,6 +481,8 @@ public class Library extends Observable implements LibrarySubject
     public void clientConnect(Long clientID)
     {
         this.clientList.put(clientID, new Client(clientID));
+        String response = "connect,"+ clientID +";";
+        updateClientStatus(clientID, response);
     }
 
     /**
@@ -509,7 +497,7 @@ public class Library extends Observable implements LibrarySubject
     /**
      * Helper method for getting client
      */
-    private Client getClient(Long clientID){
+    public Client getClient(Long clientID){
         return this.clientList.get(clientID);
     }
 
@@ -555,6 +543,7 @@ public class Library extends Observable implements LibrarySubject
         if (login)
         {
             response = clientID + ",login,success;";
+            this.getClient(clientID).setVisitor(visitorStorage.getVisitorByUsername(username));
         }
         else
         {
@@ -566,12 +555,28 @@ public class Library extends Observable implements LibrarySubject
 
     public void logout(Long clientID)
     {
-
+        this.getClient(clientID).setVisitor(null);
+        String response = clientID + ",logout,success;";
+        updateClientStatus(clientID, response);
     }
 
-    public void setService()
-    {
 
+    /**
+     * Sets the client service state to google or flat file otherwise
+     * @param clientID
+     * @param service
+     */
+    public void setService(Long clientID, String service)
+    {
+        String response;
+
+        if (this.getClient(clientID).switchCatalogState(service)) {
+            response = clientID + "service,success;";
+        }
+        else
+            response = clientID + "service,incorrect-info-service;" ;
+
+        this.updateClientStatus(clientID, response);
     }
 
     public void forwardResponse(Long clientID, String response)
@@ -597,7 +602,6 @@ public class Library extends Observable implements LibrarySubject
         if (clientList.get(clientID) != null)
         {
             clientList.get(clientID).setStatus(status);
-            System.out.println(clientList.get(clientID).getStatus()); // Todo remove -- here for debugging
         }
         this.setChanged();
         this.notifyObservers();

@@ -56,10 +56,13 @@ public class LibraryOpen implements LibraryState
      *
      * @return A String representing the output that will displayed to the user.
      */
-    public String stateCheckOutBook(ArrayList<String> bkID,Long vID, VisitorStorage visitorStorage, TimeClock timeClock, BookStorage bookStorage)
+    public String stateCheckOutBook(ArrayList<String> bkID, Long vID, VisitorStorage visitorStorage, TimeClock timeClock, BookStorage bookStorage)
     {
         Visitor currentV = visitorStorage.getVisitor(vID);
         ArrayList<Book> books = new ArrayList<>();
+
+        if(bookStorage.getLastSearch() == null || bookStorage.getLastSearch().size() == 0)
+            return "borrow,no-recent-search-found;";
 
         for(String id : bkID)
         {
