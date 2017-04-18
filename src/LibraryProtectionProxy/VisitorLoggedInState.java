@@ -60,6 +60,11 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
         library.borrowBook(clientID, bookID, visitorID);
     }
 
+    public void undoBorrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
+    {
+        library.borrowBook(clientID,bookID,visitorID);
+    }
+
     // buy,
     // Book Purchase
     public void purchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)

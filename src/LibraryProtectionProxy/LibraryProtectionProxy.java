@@ -78,6 +78,11 @@ public class LibraryProtectionProxy implements LibrarySubject
         activeState.borrowBook(clientID, bookID, visitorID);
     }
 
+    public void undoBorrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
+    {
+        activeState.undoBorrowBook(clientID,bookID,visitorID);
+    }
+
     // Todo supply argument signature
     // buy,
     // Book Purchase

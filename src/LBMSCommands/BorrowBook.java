@@ -72,7 +72,7 @@ public class BorrowBook implements LBMSCommand
      */
     public void undo()
     {
-
+        this.proxy.undoBorrowBook(clientID, bookID, visitorID);
     }
 
 }

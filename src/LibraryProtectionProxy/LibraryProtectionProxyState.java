@@ -35,6 +35,8 @@ public interface LibraryProtectionProxyState
     // Borrow book
     void borrowBook(Long clientID, ArrayList<String> bookID,Long visitorID);
 
+    void undoBorrowBook(Long clientID, ArrayList<String> bookID,Long visitorID);
+
     // Todo supply argument signature
     // buy,
     // Book Purchase

@@ -79,4 +79,30 @@ public class LibraryOpen implements LibraryState
         return "borrow," + c.get(Calendar.YEAR) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.DAY_OF_MONTH)
                 + ";" ;
     }
+
+    public String stateUndoCheckout(ArrayList<String> bkID,Long vID, VisitorStorage visitorStorage, TimeClock timeClock, BookStorage bookStorage)
+    {
+        Visitor currentv = visitorStorage.getVisitor(vID);
+        ArrayList<Book> books = new ArrayList<>();
+
+        for(String id : bkID)
+        {
+            for (Book bk : bookStorage.getLastSearch())
+            {
+                if (bk.getIsbn().compareTo(id) == 0)
+                {
+                    books.add(bk);
+                    break;
+                }
+            }
+        }
+
+        Calendar c = timeClock.getCalendarDate();
+
+        currentv.returnBooks(books,c);
+
+        return "borrow," + c.get(Calendar.YEAR) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.DAY_OF_MONTH)
+                + ";" ;
+
+    }
 }

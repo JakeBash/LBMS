@@ -156,6 +156,11 @@ public class Library extends Observable implements LibrarySubject
         updateStatus(str); // todo depreciate
     }
 
+    public void undoBorrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
+    {
+
+    }
+
     /**
      * Purchases books from a recent Book Catalog search.
      *
