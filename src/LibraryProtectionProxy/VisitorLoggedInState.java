@@ -132,8 +132,21 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
     // Find Borrowed Books
     public void getVisitorCheckedOutBooks(Long clientID, Long visitorID)
     {
-        String response = clientID + ",borrowed,not-authorized;";
-        library.updateClientStatus(clientID, response);
+        Visitor visitor = library.getClient(clientID).getVisitor();
+        if (visitor != null)
+        {
+            if (visitor.getID().compareTo(visitorID) == 0)
+                library.getVisitorCheckedOutBooks(clientID, visitorID);
+            else
+            {
+                String response = clientID + ",borrowed,not-authorized-to-make-commands-on-other's-behalf;";
+                library.updateClientStatus(clientID, response);
+            }
+        }
+        else
+        {
+            library.updateClientStatus(clientID, clientID + ",return,invalid-id;");
+        }
     }
 
     // pay,

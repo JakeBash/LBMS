@@ -1,5 +1,6 @@
 package LibraryProtectionProxy;
 
+import Client.Client;
 import LBMSCommands.Disconnect;
 import Library.Library;
 import Visitors.Visit;
@@ -257,9 +258,12 @@ public class LibraryProtectionProxy implements LibrarySubject
             return true;
     }
 
-    public Library getLibrary()
+    public Long getClientVisitorID(Long clientID)
     {
-        return this.library;
+        if (activeState instanceof EmployeeLoggedInState || activeState instanceof VisitorLoggedInState)
+            return library.getClient(clientID).getVisitor().getID();
+        else
+            return null;
     }
 
 }

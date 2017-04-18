@@ -2,9 +2,11 @@ package UIS;
 
 import LBMSCommands.*;
 import Library.Library;
+import LibraryProtectionProxy.LibraryProtectionProxy;
 import LibraryProtectionProxy.LibrarySubject;
 
 
+import java.lang.reflect.Proxy;
 import java.util.Arrays;
 import java.util.ArrayList;
 
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 public class CommandParser
 {
     private ArrayList<LBMSCommand> commandQueue;
-    private LibrarySubject proxy;
+    private LibraryProtectionProxy proxy;
     private boolean execute;
 
 
@@ -26,7 +28,7 @@ public class CommandParser
      *
      * @param proxy - The proxy library that is being acted upon.
      */
-    public CommandParser(LibrarySubject proxy)
+    public CommandParser(LibraryProtectionProxy proxy)
     {
         commandQueue = new ArrayList<LBMSCommand>();
         this.proxy = proxy;
@@ -122,13 +124,17 @@ public class CommandParser
                 break;
 
             case "arrive":
-//                if (args.size() == 2)
-//                {
-//                    Long clientID = Long.parseLong(args.get(0));
-//                    Long visitorID = proxy.
-//                    command = new BeginVisit(proxy, clientID, visitorID);
-//                    this.addCommand(command);
-//                }
+                if (args.size() == 2)
+                {
+                    Long clientID = Long.parseLong(args.get(0));
+
+                    if (proxy.getClientVisitorID(clientID) != null)
+                    {
+                        Long visitorID = proxy.getClientVisitorID(clientID);
+                        command = new BeginVisit(proxy, clientID, visitorID);
+                        this.addCommand(command);
+                    }
+                }
                 if (args.size() == 3)
                 {
                     Long clientID = Long.parseLong(args.get(0));
@@ -139,6 +145,18 @@ public class CommandParser
                 break;
 
             case "borrow":
+                if (args.size() == 3)
+                {
+                    Long clientID = Long.parseLong(args.get(0));
+
+                    if (proxy.getClientVisitorID(clientID) != null)
+                    {
+                        Long visitorID = proxy.getClientVisitorID(clientID);
+                        ArrayList<String> bookIDs = new ArrayList<String>(Arrays.asList(args.get(3).split(",")));
+                        command = new BorrowBook(proxy, clientID, visitorID, bookIDs);
+                        this.addCommand(command);
+                    }
+                }
                 if(args.size() == 4) {
                     Long clientID = Long.parseLong(args.get(0));
                     Long visitorID = Long.parseLong(args.get(2));
@@ -149,6 +167,17 @@ public class CommandParser
                 break;
 
             case "borrowed":
+                if (args.size() == 2)
+                {
+                    Long clientID = Long.parseLong(args.get(0));
+
+                    if (proxy.getClientVisitorID(clientID) != null)
+                    {
+                        Long visitorID = proxy.getClientVisitorID(clientID);
+                        command = new FindBorrowed(proxy, clientID, visitorID);
+                        this.addCommand(command);
+                    }
+                }
                 if (args.size() == 3)
                 {
                     Long clientID = Long.parseLong(args.get(0));
@@ -203,6 +232,17 @@ public class CommandParser
                 break;
 
             case "depart":
+                if (args.size() == 2)
+                {
+                    Long clientID = Long.parseLong(args.get(0));
+
+                    if (proxy.getClientVisitorID(clientID) != null)
+                    {
+                        Long visitorID = proxy.getClientVisitorID(clientID);
+                        command = new EndVisit(proxy, clientID, visitorID);
+                        this.addCommand(command);
+                    }
+                }
                 if (args.size() == 3)
                 {
                     Long clientID = Long.parseLong(args.get(0));
@@ -281,6 +321,18 @@ public class CommandParser
                 break;
 
             case "pay":
+                if (args.size() == 3)
+                {
+                    Long clientID = Long.parseLong(args.get(0));
+
+                    if (proxy.getClientVisitorID(clientID) != null)
+                    {
+                        Long visitorID = proxy.getClientVisitorID(clientID);
+                        int amount = Integer.parseInt(args.get(3));
+                        command = new PayFine(proxy, clientID, visitorID, amount);
+                        this.addCommand(command);
+                    }
+                }
                 if (args.size() == 4)
                 {
                     Long clientID = Long.parseLong(args.get(0));

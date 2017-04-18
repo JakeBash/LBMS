@@ -25,6 +25,7 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
     private JPanel commandDisplay;
     private CommandParser parser;
     private LibraryProtectionProxy proxy; // need to do this to implement responses when not connected
+    private boolean checkChange;
 
     /**
      * Description
@@ -56,6 +57,8 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
         commandDisplay.add(tField, BorderLayout.CENTER);
         commandDisplay.add(removeClient, BorderLayout.SOUTH);
         commandDisplay.add(scrollPane, BorderLayout.NORTH);
+
+        checkChange = false;
     }
 
     /**
@@ -65,6 +68,8 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
      */
     public void actionPerformed(ActionEvent evt)
     {
+        checkChange = true;
+
         String command = tField.getText();
         tArea.append(command + "\n");
 
@@ -81,6 +86,7 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
         if(!proxy.isConnected() && wasConnected)
             tArea.append(clientID + ",disconnect;" + "\n");
         tField.setText("");
+
     }
 
     /**
@@ -138,6 +144,10 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
     @Override
     public void update(Observable observable, Object o)
     {
-        tArea.append(this.library.getClientStatus(clientID) + "\n");
+        if(checkChange)
+        {
+            tArea.append(this.library.getClientStatus(clientID) + "\n");
+            checkChange = false;
+        }
     }
 }
