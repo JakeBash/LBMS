@@ -16,7 +16,7 @@ import Client.Client;
 public class FlatFileBookCatalog implements BookCatalog
 {
     private List<Book> books;
-    private ArrayList<Book> lastsearch;
+    private ArrayList<Book> lastSearch;
 
     /**
      * Constructor for the FlatFileBookCatalog. Attempts to load a .txt file containing the Book Catalog.
@@ -38,13 +38,11 @@ public class FlatFileBookCatalog implements BookCatalog
      *
      * @return An ArrayList representing the most recent search of the Book Catalog.
      */
-    public ArrayList<Book> getLastSearch()
+    public ArrayList<Book> getlastSearch()
     {
-        return lastsearch;
+        return lastSearch;
     }
-
-
-
+    
     /**
      * Given a set of user search criteria, returns the books that meet the supplied criteria.
      *
@@ -62,7 +60,7 @@ public class FlatFileBookCatalog implements BookCatalog
         for (int step = 1; step <= 5; step++)
         {
             searchBooks = searchStep(step, title, authors, isbn, publisher, searchBooks);
-            lastsearch = searchBooks;
+            lastSearch = searchBooks;
         }
         return searchBooks;
     }

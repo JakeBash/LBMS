@@ -3,7 +3,6 @@ package Books;
 import Library.Library;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -100,7 +99,12 @@ public class BookStorage implements java.io.Serializable
         }
     }
 
-    public void removeBooks(ArrayList<Book> books, int quantity, Calendar date)
+    /**
+     * This method removes books from the book storage. This is for undo purposes
+     * @param books - arraylist of book ISBNs
+     * @param quantity - quantity of each book to remove
+     */
+    public void removeBooks(ArrayList<Book> books, int quantity)
     {
         for(Purchase p : this.purchases)
         {

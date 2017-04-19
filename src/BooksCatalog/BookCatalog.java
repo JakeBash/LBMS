@@ -2,7 +2,6 @@ package BooksCatalog;
 
 import Books.Book;
 import java.util.ArrayList;
-import Client.Client;
 
 /**
  * This interface lays out a base structure for a BookCatalog. We will later add an implementation of this interface to
@@ -22,6 +21,4 @@ public interface BookCatalog
      * @return An ArrayList representing the the book(s) that meet the search criteria.
      */
     ArrayList<Book> bookSearch(String title, ArrayList<String> authors, String isbn, String publisher);
-
-
 }

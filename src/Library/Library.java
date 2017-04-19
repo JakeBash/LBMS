@@ -1,9 +1,6 @@
 package Library;
 
 import Books.*;
-import BooksCatalog.BookCatalog;
-import BooksCatalog.FlatFileBookCatalog;
-import BooksCatalog.GoogleBooks;
 import Client.Client;
 import Sort.*;
 import Visitors.CheckOut;
@@ -70,7 +67,6 @@ public class Library extends Observable implements LibrarySubject
         this.timer = new Timer("Task Timer");
         this.checkTimeTask = new CheckTimeTask(this);
         timer.schedule(checkTimeTask, 0, 15000);
-
     }
 
     /**
@@ -96,14 +92,12 @@ public class Library extends Observable implements LibrarySubject
             }
 
             updateClientStatus(clientID, response);
-
         }
-        else {
+        else
+        {
             response += "invalid-sort-order;";
             updateClientStatus(clientID, response);
-
         }
-
     }
 
     /**
@@ -130,12 +124,11 @@ public class Library extends Observable implements LibrarySubject
             this.getClient(clientID).setLastStoreSearch(searchRes);
 
             updateClientStatus(clientID, response);
-
         }
-        else {
+        else
+        {
             response += "invalid-sort-order;";
             updateClientStatus(clientID, response);
-
         }
     }
 
@@ -152,6 +145,13 @@ public class Library extends Observable implements LibrarySubject
         updateClientStatus(clientID, str);
     }
 
+    /**
+     * Description
+     *
+     * @param clientID -
+     * @param bookID -
+     * @param visitorID -
+     */
     public void undoBorrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
     {
         String str = clientID + ",undo borrow,success";
@@ -187,6 +187,12 @@ public class Library extends Observable implements LibrarySubject
         updateClientStatus(clientID, response);
     }
 
+    /**
+     * This is the library method that undos the purchasing of books
+     * @param clientID - the clientID of the client undoing
+     * @param quantity - the quantities of the books being returned
+     * @param ids - the book ids being returned
+     */
     public void undoPurchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
     {
         ArrayList<Book> booksToRemove = this.getClient(clientID).getLastStoreSearch();
@@ -246,12 +252,12 @@ public class Library extends Observable implements LibrarySubject
     public void endVisit(Long clientID, Long visitorID)
     {
         Visit visit = this.visitorStorage.endVisit(visitorID);
-
         String response = clientID + ",depart,";
 
         if(visitorStorage.getVisitor(visitorID) == null)
         {
-            updateStatus(response + "invalid-id;");
+            response += "invalid-id;";
+            updateClientStatus(clientID, response);
             return;
         }
         else if (visit != null)
@@ -305,15 +311,19 @@ public class Library extends Observable implements LibrarySubject
      */
     public void payFine(Long clientID, Long visitorID, int amount)
     {
-        // Todo this needs to make responses
         this.visitorStorage.payFine(visitorID, amount);
-
 
         String response = clientID + ",success" + "," + amount + ";";
         updateClientStatus(clientID, response);
-
     }
 
+    /**
+     * Description
+     *
+     * @param clientID -
+     * @param visitorID -
+     * @param amount -
+     */
     public void undoPayFine(Long clientID, Long visitorID, int amount)
     {
         this.visitorStorage.undoPayFine(visitorID, amount);
@@ -322,18 +332,16 @@ public class Library extends Observable implements LibrarySubject
     /**
      * Generates a statistical report of the library
      *
+     * @param clientID -
+     * @param days -
      */
     public void generateReport(Long clientID, int days)
     {
-        //TODO: Add in the rest of the report data needed
         LocalDate localDate = LocalDate.now();
         String response = clientID + "," + DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate) + "\n"
                 + this.bookStorage.generateReport(days) + "\n"
                 + this.visitorStorage.generateReport(days) + "\n";
-
-
         updateClientStatus(clientID, response);
-
     }
 
     /**
@@ -394,7 +402,6 @@ public class Library extends Observable implements LibrarySubject
      */
     public void advanceTime(Long clientID, int days, int hours)
     {
-
         if ((days >= 0 && days <= 7) && (hours >= 0 && hours <= 23))
         {
             timeClock.advanceTime(days, hours);
@@ -405,18 +412,19 @@ public class Library extends Observable implements LibrarySubject
         else if (days < 0 || days > 7)
         {
             updateClientStatus(clientID, clientID + ",advance,invalid-number-of-days," + days +";" );
-
         }
         else if (hours < 0 || hours > 23)
         {
             updateClientStatus(clientID, clientID + ",advance,invalid-number-of-days," + hours +";" );
-
         }
-
-
     }
 
-
+    /**
+     * This method returns books back to the library
+     * @param clientID - the clientID who is returning the books
+     * @param visitorID - the visitoryID of the visitor returning books
+     * @param isbns - the ISBNs of the books
+     */
     public void returnBooks(Long clientID, Long visitorID, ArrayList<String> isbns)
     {
         ArrayList<Book> books = new ArrayList<>();
@@ -430,22 +438,22 @@ public class Library extends Observable implements LibrarySubject
 
         double fines = this.visitorStorage.returnBooks(visitorID, books);
 
-        if (fines > 0) {
+        if (fines > 0)
+        {
             updateClientStatus(clientID, clientID + ",return,overdue,$" + Double.toString(fines) + isbns + ";");
-        } else {
+        }
+        else
+        {
             updateClientStatus(clientID, clientID + ",return,success;");
         }
     }
 
-
     /**
-     * Returns the current status for use with command responses.
+     * Description
+     *
+     * @param clientID -
+     * @return
      */
-    public String getStatus()
-    {
-       return this.status;
-    }
-
     public String getClientStatus(Long clientID)
     {
         if (clientList.get(clientID) != null)
@@ -469,7 +477,6 @@ public class Library extends Observable implements LibrarySubject
      */
     public void shutdown(Long clientID)
     {
-        //TODO: Serialize all other entities to be persisted
         this.timeClock.serialize();
         this.visitorStorage.serialize();
         this.bookStorage.serialize();
@@ -492,19 +499,26 @@ public class Library extends Observable implements LibrarySubject
     public void clientDisconnect(Long clientID)
     {
         this.clientList.remove(clientID);
-        // Todo client should be notified somehow... probably at proxy or cmd parser level
     }
 
     /**
      * Helper method for getting client
      */
-    public Client getClient(Long clientID){
+    public Client getClient(Long clientID)
+    {
         return this.clientList.get(clientID);
     }
 
-
     ///////////////////////// R2 Requirements /////////////////////////
 
+    /**
+     * This method creates a new account in the system
+     * @param clientID - clientID of the new account
+     * @param username - the username of the new account
+     * @param password - the password of the new account
+     * @param role - the role of the new account
+     * @param visitorID - the new visitorID that is being associated with the account
+     */
     public void createAccount(Long clientID, String username, String password, String role, Long visitorID)
     {
         String response;
@@ -536,6 +550,13 @@ public class Library extends Observable implements LibrarySubject
         }
     }
 
+    /**
+     * The method that logs a account into the system
+     *
+     * @param clientID - the ClientID that is logging in
+     * @param username - the username that is logging in
+     * @param password - the password of the username
+     */
     public void login(Long clientID, String username, String password)
     {
         boolean login = visitorStorage.login(username, password);
@@ -550,10 +571,14 @@ public class Library extends Observable implements LibrarySubject
         {
             response = clientID + ",login,bad-username-or-password;";
         }
-
         this.updateClientStatus(clientID, response);
     }
 
+    /**
+     * Description
+     *
+     * @param clientID -
+     */
     public void logout(Long clientID)
     {
         this.getClient(clientID).setVisitor(null);
@@ -564,22 +589,28 @@ public class Library extends Observable implements LibrarySubject
 
     /**
      * Sets the client service state to google or flat file otherwise
-     * @param clientID
-     * @param service
+     *
+     * @param clientID -
+     * @param service -
      */
     public void setService(Long clientID, String service)
     {
         String response;
 
-        if (this.getClient(clientID).switchCatalogState(service)) {
+        if (this.getClient(clientID).switchCatalogState(service))
             response = clientID + "service,success;";
-        }
         else
-            response = clientID + "service,incorrect-info-service;" ;
+            response = clientID + "service,incorrect-info-service;";
 
         this.updateClientStatus(clientID, response);
     }
 
+    /**
+     * Description
+     *
+     * @param clientID -
+     * @param response -
+     */
     public void forwardResponse(Long clientID, String response)
     {
         updateClientStatus(clientID, response);
@@ -588,16 +619,11 @@ public class Library extends Observable implements LibrarySubject
     ///////////////////////// Helper Methods for Updating Status ////////////////////////////
 
     /**
-     * Updates the status string of the model and notifies any observers.
+     * Description
+     *
+     * @param clientID -
+     * @param status -
      */
-    public void updateStatus(String status)
-    {
-        this.status = status;
-        this.setChanged();
-        this.notifyObservers();
-    }
-
-    // Todo implement me!!!!!
     public void updateClientStatus(Long clientID, String status)
     {
         if (clientList.get(clientID) != null)
@@ -608,11 +634,15 @@ public class Library extends Observable implements LibrarySubject
         this.notifyObservers();
     }
 
-
-
-
     ///////////////////////// Helper Methods for Sorting Lists of Books ////////////////////////////
 
+    /**
+     * Description
+     *
+     * @param searchRes -
+     * @param sortOrder -
+     * @return
+     */
     private boolean sortBookList(ArrayList<Book> searchRes, String sortOrder)
     {
         if (sortOrder.equals("title"))

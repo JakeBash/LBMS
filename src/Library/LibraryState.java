@@ -2,7 +2,6 @@ package Library;
 
 import Books.BookStorage;
 import Visitors.VisitorStorage;
-
 import java.util.ArrayList;
 
 /**
@@ -13,7 +12,7 @@ import java.util.ArrayList;
  */
 public interface LibraryState
 {
-    public String stateBeginVisit(Long visitorID, VisitorStorage visitorStorage);
-    public String stateCheckOutBook(ArrayList<String> bkID, Long vID, VisitorStorage visitorStorage, TimeClock timeClock,
+    String stateBeginVisit(Long visitorID, VisitorStorage visitorStorage);
+    String stateCheckOutBook(ArrayList<String> bkID, Long vID, VisitorStorage visitorStorage, TimeClock timeClock,
                                     BookStorage bookStorage);
 }
