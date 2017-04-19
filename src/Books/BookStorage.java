@@ -104,11 +104,12 @@ public class BookStorage implements java.io.Serializable
     {
         for(Purchase p : this.purchases)
         {
-            if(p.getPurchaseDate().compareTo(date) == 0)
+            if(p.getPurchasedBooks().equals(books))
             {
-                if(p.getPurchasedBooks().equals(books))
+                this.purchases.remove(p);
+                for(Book b : p.getPurchasedBooks())
                 {
-                    this.purchases.remove(p);
+                    this.books.get(b).removeCopies(quantity);
                 }
             }
         }

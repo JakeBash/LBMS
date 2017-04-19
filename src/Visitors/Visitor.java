@@ -216,14 +216,7 @@ public class Visitor implements java.io.Serializable
     {
         this.balance += amount;
 
-        for(PaidFine f : this.paidFines)
-        {
-            if(f.getDatePaid().equals(datePaid))
-            {
-                this.paidFines.remove(f);
-                break;
-            }
-        }
+        this.paidFines.remove(this.paidFines.size() - 1);
     }
 
     /**
