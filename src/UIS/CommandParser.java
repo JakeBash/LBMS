@@ -121,7 +121,7 @@ public class CommandParser
                 }
                 else
                 {
-                    proxy.forwardResponse(clientID, clientID + ",invalid-parameters;");
+                    proxy.forwardResponse(clientID, clientID + "advance,invalid-parameters,{days[,hours]};");
                     break;
                 }
                 this.addCommand(command);
@@ -148,7 +148,7 @@ public class CommandParser
                 }
                 else
                 {
-                    proxy.forwardResponse(clientID, clientID + ",invalid-parameters;");
+                    proxy.forwardResponse(clientID, clientID + "arrive,invalid-parameters,[visitorID];");
                 }
                 break;
 
@@ -172,7 +172,7 @@ public class CommandParser
                 }
                 else
                 {
-                    proxy.forwardResponse(clientID, clientID + ",invalid-parameters;");
+                    proxy.forwardResponse(clientID, clientID + "borrow,invalid-parameters,{{id}[,visitor ID]};");
                 }
                 break;
 
@@ -194,7 +194,7 @@ public class CommandParser
                 }
                 else
                 {
-                    proxy.forwardResponse(clientID, clientID + ",invalid-parameters;");
+                    proxy.forwardResponse(clientID, clientID + "borrowed,invalid-parameters,{[visitor ID]};");
                 }
                 break;
 
@@ -213,7 +213,7 @@ public class CommandParser
                 }
                 else
                 {
-                    proxy.forwardResponse(clientID, clientID + ",invalid-parameters;");
+                    proxy.forwardResponse(clientID, clientID + "buy,invalid-parameters,{quantity,id[,ids]};");
                 }
                 break;
 
@@ -226,7 +226,7 @@ public class CommandParser
                 }
                 else
                 {
-                    proxy.forwardResponse(clientID, clientID + ",invalid-parameters;");
+                    proxy.forwardResponse(clientID, clientID + "connect,invalid-parameters;");
                 }
                 break;
 
@@ -243,7 +243,7 @@ public class CommandParser
                 }
                 else
                 {
-                    proxy.forwardResponse(clientID, clientID + ",invalid-parameters;");
+                    proxy.forwardResponse(clientID, clientID + "create,invalid-parameters,{username,password,role,visitor ID};");
                 }
                 break;
 
@@ -256,7 +256,7 @@ public class CommandParser
                     }
                     else
                     {
-                        proxy.forwardResponse(clientID, clientID + ",invalid-parameters;");
+                        proxy.forwardResponse(clientID, clientID + "datetime,invalid-parameters;");
                     }
                 break;
 
@@ -280,7 +280,7 @@ public class CommandParser
                 }
                 else
                 {
-                    proxy.forwardResponse(clientID, clientID + ",invalid-parameters;");
+                    proxy.forwardResponse(clientID, clientID + "depart,invalid-parameters,{[visitor ID]};");
                 }
                 break;
 
@@ -292,7 +292,7 @@ public class CommandParser
                 }
                 else
                 {
-                    proxy.forwardResponse(clientID, clientID + ",invalid-parameters;");
+                    proxy.forwardResponse(clientID, clientID + "disconnect,invalid-parameters;");
                 }
                 break;
 
@@ -337,7 +337,7 @@ public class CommandParser
                 }
                 else
                 {
-                    proxy.forwardResponse(clientID, clientID + ",invalid-parameters;");
+                    proxy.forwardResponse(clientID, clientID + "info,invalid-parameters,{title,{authors},[isbn,[publisher,[sort order]]]};");
                 }
                 break;
 
@@ -353,7 +353,7 @@ public class CommandParser
                 }
                 else
                 {
-                    proxy.forwardResponse(clientID, clientID + ",invalid-parameters;");
+                    proxy.forwardResponse(clientID, clientID + "login,invalid-parameters,{username,password};");
                 }
                 break;
 
@@ -366,7 +366,7 @@ public class CommandParser
                 }
                 else
                 {
-                    proxy.forwardResponse(clientID, clientID + ",invalid-parameters;");
+                    proxy.forwardResponse(clientID, clientID + "logout,invalid-parameters;");
                 }
                 break;
 
@@ -391,7 +391,7 @@ public class CommandParser
                 }
                 else
                 {
-                    proxy.forwardResponse(clientID, clientID + ",invalid-parameters;");
+                    proxy.forwardResponse(clientID, clientID + "pay,invalid-parameters,{amount[,visitor ID]};");
                 }
                 break;
 
@@ -410,7 +410,7 @@ public class CommandParser
                 }
                 else
                 {
-                    proxy.forwardResponse(clientID, clientID + ",invalid-parameters;");
+                    proxy.forwardResponse(clientID, clientID + "register,invalid-parameters,{first name,last name,address,phone-number};");
                 }
                 break;
 
@@ -430,7 +430,7 @@ public class CommandParser
                 }
                 else
                 {
-                    proxy.forwardResponse(clientID, clientID + ",invalid-parameters;");
+                    proxy.forwardResponse(clientID, clientID + "report,invalid-parameters,{[days]};");
                 }
                 break;
 
@@ -451,7 +451,7 @@ public class CommandParser
                 }
                 else
                 {
-                    proxy.forwardResponse(clientID, clientID + ",invalid-parameters;");
+                    proxy.forwardResponse(clientID, clientID + "return,invalid-parameters,{[visitor ID,]{id}};");
                 }
                 break;
 
@@ -496,7 +496,7 @@ public class CommandParser
                 }
                 else
                 {
-                    proxy.forwardResponse(clientID, clientID + ",invalid-parameters;");
+                    proxy.forwardResponse(clientID, clientID + "search,invalid-parameters,{title,{authors},[isbn,[publisher,[sort order]]]};");
                 }
                 break;
 
@@ -508,7 +508,7 @@ public class CommandParser
                 }
                 else
                 {
-                    proxy.forwardResponse(clientID, clientID + ",invalid-parameters;");
+                    proxy.forwardResponse(clientID, clientID + "shutdown,invalid-parameters;");
                 }
                 break;
 
@@ -522,7 +522,7 @@ public class CommandParser
                 }
                 else
                 {
-                    proxy.forwardResponse(clientID, clientID + ",invalid-parameters;");
+                    proxy.forwardResponse(clientID, clientID + "service,invalid-parameters,{info-service};");
                 }
                 break;
             case "undo":
