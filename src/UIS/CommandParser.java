@@ -1,5 +1,4 @@
 package UIS;
-
 import LBMSCommands.*;
 import LibraryProtectionProxy.LibraryProtectionProxy;
 import java.util.Arrays;
@@ -14,7 +13,8 @@ import java.util.ArrayList;
 public class CommandParser
 {
     private ArrayList<LBMSCommand> commandQueue;
-    private ArrayList<LBMSCommand> undoQueue;
+    private ArrayList<LBMSCommand> undoStack;
+    private ArrayList<LBMSCommand> redoStack;
     private LibraryProtectionProxy proxy;
     private boolean execute;
 
@@ -26,8 +26,11 @@ public class CommandParser
     public CommandParser(LibraryProtectionProxy proxy)
     {
         commandQueue = new ArrayList<>();
+        undoStack = new ArrayList<>();
+        redoStack = new ArrayList<>();
         this.proxy = proxy;
         execute = false;
+
     }
 
     /**
@@ -70,13 +73,15 @@ public class CommandParser
                 arg += c;
         }
 
-        // The client technically will not be able to enter anything less than length 1... or 2 if we have a dropdown box for commands
+
         if (args.size() >= 2)
         {
             String cmd = args.get(1);
             this.createCommand(cmd,args);
             if (s.endsWith(";"))
+            {
                 this.executeAllCommands();
+            }
             else
                 proxy.forwardResponse(Long.parseLong(args.get(0)), args.get(0) + ",partial-request;");//Partial Request Error
         }
@@ -121,6 +126,8 @@ public class CommandParser
                     break;
                 }
                 this.addCommand(command);
+                this.undoStack.clear();
+                this.redoStack.clear();
                 break;
 
             case "arrive":
@@ -501,6 +508,13 @@ public class CommandParser
                     proxy.forwardResponse(clientID, clientID + ",invalid-parameters;");
                 }
                 break;
+            case "undo":
+                this.executeUndoCommand();
+                break;
+
+            case "redo":
+                this.executeRedoCommand();
+                break;
 
             default:
                 proxy.forwardResponse(clientID, clientID + ",invalid-command;");
@@ -527,6 +541,8 @@ public class CommandParser
         {
             LBMSCommand command = commandQueue.remove(0);
             command.execute();
+            this.addUndoCommand(command);
+            this.redoStack.clear();
         }
     }
 
@@ -537,6 +553,47 @@ public class CommandParser
     {
         while (!commandQueue.isEmpty())
             executeCommand();
+    }
+
+    /**
+     * Adds a command to the undoStack
+     * @param command - the LBMSCommand to be added
+     */
+    public void addUndoCommand(LBMSCommand command)
+    {
+        this.undoStack.add(command);
+
+        //If the undo stack gets to be bigger than twenty, it will remove the oldest command
+        if(this.undoStack.size() > 20)
+        {
+            this.undoStack.remove(0);
+        }
+    }
+
+    /**
+     * Method that executes an undoCommand by calling the undo method of an LBMSCommand
+     */
+    public void executeUndoCommand()
+    {
+        if(!this.undoStack.isEmpty())
+        {
+            LBMSCommand command = this.undoStack.remove(this.undoStack.size() - 1);
+            command.undo();
+            this.redoStack.add(command);
+        }
+    }
+
+    /**
+     * Method that executes an redoCommand by calling the execute method of an LBMSCommand in the redo stack
+     */
+    public void executeRedoCommand()
+    {
+        if(!this.redoStack.isEmpty())
+        {
+            LBMSCommand command = this.redoStack.remove(this.redoStack.size() - 1);
+            command.execute();
+            this.undoStack.add(command);
+        }
     }
 }
 

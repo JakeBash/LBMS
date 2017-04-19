@@ -187,6 +187,12 @@ public class Library extends Observable implements LibrarySubject
         updateClientStatus(clientID, response);
     }
 
+    /**
+     * This is the library method that undos the purchasing of books
+     * @param clientID - the clientID of the client undoing
+     * @param quantity - the quantities of the books being returned
+     * @param ids - the book ids being returned
+     */
     public void undoPurchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
     {
         ArrayList<Book> booksToRemove = this.getClient(clientID).getLastStoreSearch();
@@ -256,7 +262,8 @@ public class Library extends Observable implements LibrarySubject
         }
         else if (visit != null)
         {
-            response += visitorID + "," + visit.getFormattedDate(visit.getEndDateTime()) + "," + visit.getFormattedTime(visit.getEndDateTime()) + ";";
+            int duration = visit.getEndDateTime().get(Calendar.HOUR_OF_DAY) - visit.getStartDateTime().get(Calendar.HOUR_OF_DAY);
+            response += visitorID + "," + duration + "," + visit.getFormattedTime(visit.getEndDateTime()) + ";";
         }
         else
         {
@@ -415,7 +422,12 @@ public class Library extends Observable implements LibrarySubject
 
     }
 
-
+    /**
+     * This method returns books back to the library
+     * @param clientID - the clientID who is returning the books
+     * @param visitorID - the visitoryID of the visitor returning books
+     * @param isbns - the ISBNs of the books
+     */
     public void returnBooks(Long clientID, Long visitorID, ArrayList<String> isbns)
     {
         ArrayList<Book> books = new ArrayList<>();
@@ -504,6 +516,15 @@ public class Library extends Observable implements LibrarySubject
 
     ///////////////////////// R2 Requirements /////////////////////////
 
+    /**
+     * This method creates a new account in the system
+     * @param clientID - clientID of the new account
+     * @param username - the username of the new account
+     * @param password - the password of the new account
+     * @param role - the role of the new account
+     * @param visitorID - the new visitorID that is being associated with the account
+     */
+
     public void createAccount(Long clientID, String username, String password, String role, Long visitorID)
     {
         String response;
@@ -535,6 +556,12 @@ public class Library extends Observable implements LibrarySubject
         }
     }
 
+    /**
+     * The method that logs a account into the system
+     * @param clientID - the ClientID that is logging in
+     * @param username - the username that is logging in
+     * @param password - the password of the username
+     */
     public void login(Long clientID, String username, String password)
     {
         boolean login = visitorStorage.login(username, password);
@@ -596,7 +623,6 @@ public class Library extends Observable implements LibrarySubject
         this.notifyObservers();
     }
 
-    // Todo implement me!!!!!
     public void updateClientStatus(Long clientID, String status)
     {
         if (clientList.get(clientID) != null)

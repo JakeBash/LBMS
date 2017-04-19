@@ -130,7 +130,6 @@ public class LibraryProtectionProxy implements LibrarySubject
         activeState.undoPayFine(clientID, visitorID, amount);
     }
 
-    // Todo supply argument signature
     // report,
     // Library Statistic Report
     public void generateReport(Long clientID, int days)
@@ -229,27 +228,6 @@ public class LibraryProtectionProxy implements LibrarySubject
     }
 
 
-    ////////////////////////// maybe not in proxy ? ///////////////////////////
-
-    // Todo supply argument signature
-    // undo,
-    // Undo
-    public void undo()
-    {
-        activeState.undo();
-    }
-
-    // Todo supply argument signature
-    // redo,
-    // Redo
-    public void redo()
-    {
-        activeState.redo();
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-
-    // Todo supply argument signature
     // service,
     // Set book information service
     public void setService(Long clientID, String service)
@@ -258,11 +236,7 @@ public class LibraryProtectionProxy implements LibrarySubject
     }
 
 
-
-
-
     // NOT GOING TO BE IN STATE
-    // todo Should always work... unless disconnected?!?!?!? MB
     public void forwardResponse(Long clientID, String response)
     {
         if (!(activeState instanceof DisconnectedState))

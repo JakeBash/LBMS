@@ -177,26 +177,6 @@ public class EmployeeLoggedInState implements LibraryProtectionProxyState
     }
 
 
-    ////////////////////////// maybe not in proxy ? ///////////////////////////
-
-    // Todo supply argument signature
-    // undo,
-    // Undo
-    public void undo()
-    {
-
-    }
-
-    // Todo supply argument signature
-    // redo,
-    // Redo
-    public void redo()
-    {
-
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-
     // Todo supply argument signature
     // service,
     // Set book information service

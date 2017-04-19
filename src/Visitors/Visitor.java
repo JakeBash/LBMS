@@ -212,18 +212,16 @@ public class Visitor implements java.io.Serializable
         this.paidFines.add(new PaidFine(amount, datePaid));
     }
 
+    /**
+     * This undos the paying of a fine
+     * @param amount - amount of the fine
+     * @param datePaid - date that the fine was paid
+     */
     public void undoPayFine(int amount, Calendar datePaid)
     {
         this.balance += amount;
 
-        for(PaidFine f : this.paidFines)
-        {
-            if(f.getDatePaid().equals(datePaid))
-            {
-                this.paidFines.remove(f);
-                break;
-            }
-        }
+        this.paidFines.remove(this.paidFines.size() - 1);
     }
 
     /**

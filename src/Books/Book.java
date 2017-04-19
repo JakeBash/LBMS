@@ -191,6 +191,12 @@ public class Book implements java.io.Serializable
         availableCopies += amt;
     }
 
+    public void removeCopies(int amt)
+    {
+        numCopies -= amt;
+        availableCopies -= amt;
+    }
+
     /**
      * Decrements the amount of available book copies when a visitor checks out a copy of the given book.
      *
