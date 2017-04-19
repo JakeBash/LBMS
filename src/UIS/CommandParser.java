@@ -66,13 +66,15 @@ public class CommandParser
                 arg += c;
         }
 
-        // The client technically will not be able to enter anything less than length 1... or 2 if we have a dropdown box for commands
+
         if (args.size() >= 2)
         {
             String cmd = args.get(1);
             this.createCommand(cmd,args);
             if (s.endsWith(";"))
+            {
                 this.executeAllCommands();
+            }
             else
                 proxy.forwardResponse(Long.parseLong(args.get(0)), args.get(0) + ",partial-request;");//Partial Request Error
 
