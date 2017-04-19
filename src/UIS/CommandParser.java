@@ -123,6 +123,8 @@ public class CommandParser
                     break;
                 }
                 this.addCommand(command);
+                this.undoStack.clear();
+                this.redoStack.clear();
                 break;
 
             case "arrive":
