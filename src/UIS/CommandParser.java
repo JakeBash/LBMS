@@ -1,12 +1,7 @@
 package UIS;
 
 import LBMSCommands.*;
-import Library.Library;
 import LibraryProtectionProxy.LibraryProtectionProxy;
-import LibraryProtectionProxy.LibrarySubject;
-
-
-import java.lang.reflect.Proxy;
 import java.util.Arrays;
 import java.util.ArrayList;
 
@@ -23,7 +18,6 @@ public class CommandParser
     private LibraryProtectionProxy proxy;
     private boolean execute;
 
-
     /**
      * Creates a new CommandParser to be used with the parsing of user entered commands.
      *
@@ -31,7 +25,7 @@ public class CommandParser
      */
     public CommandParser(LibraryProtectionProxy proxy)
     {
-        commandQueue = new ArrayList<LBMSCommand>();
+        commandQueue = new ArrayList<>();
         this.proxy = proxy;
         execute = false;
     }
@@ -41,30 +35,38 @@ public class CommandParser
      *
      * @param s - The command that was entered by the user.
      */
-    public void parseCommand(String s) {
-
-        ArrayList<String> args = new ArrayList<String>();
+    public void parseCommand(String s)
+    {
+        ArrayList<String> args = new ArrayList<>();
 
         String arg = "";
 
         boolean parseLiteral = false;
-        for (char c : s.toCharArray()) {
-            if ((c == '{' || c == '\"') && !parseLiteral) {
+        for (char c : s.toCharArray())
+        {
+            if ((c == '{' || c == '\"') && !parseLiteral)
+            {
                 parseLiteral = true;
                 continue; // Skip { and "
-            } else if ((c == '}' || c == '\"') && parseLiteral) {
+            }
+            else if ((c == '}' || c == '\"') && parseLiteral)
+            {
                 parseLiteral = false;
                 continue; // Skip } and "
             }
 
-            if (c == ',' && !parseLiteral) {
+            if (c == ',' && !parseLiteral)
+            {
                 args.add(arg);
                 arg = "";
-            } else if (c == ';' && !parseLiteral) {
+            }
+            else if (c == ';' && !parseLiteral)
+            {
                 args.add(arg);
                 arg = "";
                 break;
-            } else
+            }
+            else
                 arg += c;
         }
 
@@ -77,18 +79,14 @@ public class CommandParser
                 this.executeAllCommands();
             else
                 proxy.forwardResponse(Long.parseLong(args.get(0)), args.get(0) + ",partial-request;");//Partial Request Error
-
         }
-        else {
+        else
+        {
             if (s.endsWith(";"))
                 proxy.forwardResponse(Long.parseLong(args.get(0)), "Invalid argument length;");
             else
                 proxy.forwardResponse(Long.parseLong(args.get(0)), args.get(0) + ",partial-request;");//Partial Request Error
-
         }
-
-
-
     }
 
     /**
@@ -105,8 +103,6 @@ public class CommandParser
 
         switch (cmd)
         {
-
-
             case "advance":
                 if (args.size() == 3)
                 {
@@ -139,7 +135,6 @@ public class CommandParser
                 }
                 else if (args.size() == 3)
                 {
-
                     Long visitorID = Long.parseLong(args.get(2));
                     command = new BeginVisit(proxy, clientID, visitorID);
                     this.addCommand(command);
@@ -156,14 +151,14 @@ public class CommandParser
                     if (proxy.getClientVisitorID(clientID) != null)
                     {
                         Long visitorID = proxy.getClientVisitorID(clientID);
-                        ArrayList<String> bookIDs = new ArrayList<String>(Arrays.asList(args.get(2).split(",")));
+                        ArrayList<String> bookIDs = new ArrayList<>(Arrays.asList(args.get(2).split(",")));
                         command = new BorrowBook(proxy, clientID, visitorID, bookIDs);
                         this.addCommand(command);
                     }
                 }
-                else if(args.size() == 4) {
-
-                    ArrayList<String> bookIDs = new ArrayList<String>(Arrays.asList(args.get(2).split(",")));
+                else if(args.size() == 4)
+                {
+                    ArrayList<String> bookIDs = new ArrayList<>(Arrays.asList(args.get(2).split(",")));
                     Long visitorID = Long.parseLong(args.get(3));
                     command = new BorrowBook(proxy, clientID, visitorID, bookIDs);
                     this.addCommand(command);
@@ -186,7 +181,6 @@ public class CommandParser
                 }
                 else if (args.size() == 3)
                 {
-
                     Long visitorID = Long.parseLong(args.get(2));
                     command = new FindBorrowed(proxy, clientID, visitorID);
                     this.addCommand(command);
@@ -201,7 +195,7 @@ public class CommandParser
                 if (args.size() >= 4)
                 {
                     int amount = Integer.parseInt(args.get(2));
-                    ArrayList<Integer> ids = new ArrayList<Integer>();
+                    ArrayList<Integer> ids = new ArrayList<>();
 
                     for(int i = 3; i < args.size(); i++)
                     {
@@ -219,7 +213,6 @@ public class CommandParser
             case "connect":
                 if (args.size() == 2)
                 {
-
                     command = new Connect(proxy, clientID);
                     this.addCommand(command);
                 }
@@ -249,7 +242,6 @@ public class CommandParser
             case "datetime":
                     if (args.size() == 2)
                     {
-
                         command = new GetTime(proxy, clientID);
                         this.addCommand(command);
                     }
@@ -271,7 +263,6 @@ public class CommandParser
                 }
                 else if (args.size() == 3)
                 {
-
                     Long visitorID = Long.parseLong(args.get(2));
                     command = new EndVisit(proxy, clientID, visitorID);
 
@@ -284,8 +275,8 @@ public class CommandParser
                 break;
 
             case "disconnect":
-                if (args.size() == 2) {
-
+                if (args.size() == 2)
+                {
                     command = new Disconnect(proxy, clientID);
                     this.addCommand(command);
                 }
@@ -298,35 +289,34 @@ public class CommandParser
             case "info":
                 if (args.size() == 4)
                 {
-
                     String title = args.get(2);
-                    ArrayList<String> authors = new ArrayList<String>(Arrays.asList(args.get(3).split(",")));
+                    ArrayList<String> authors = new ArrayList<>(Arrays.asList(args.get(3).split(",")));
                     command = new BookSearch(proxy, clientID, title, authors);
                     this.addCommand(command);
                 }
-                else if (args.size() == 5){
-
+                else if (args.size() == 5)
+                {
                     String title = args.get(2);
-                    ArrayList<String> authors = new ArrayList<String>(Arrays.asList(args.get(3).split(",")));
+                    ArrayList<String> authors = new ArrayList<>(Arrays.asList(args.get(3).split(",")));
                     String isbn = args.get(4);
                     command = new BookSearch(proxy, clientID, title, authors, isbn);
 
                     this.addCommand(command);
                 }
-                else if(args.size() == 6){
-
+                else if(args.size() == 6)
+                {
                     String title = args.get(2);
-                    ArrayList<String> authors = new ArrayList<String>(Arrays.asList(args.get(3).split(",")));
+                    ArrayList<String> authors = new ArrayList<>(Arrays.asList(args.get(3).split(",")));
                     String isbn = args.get(4);
                     String publisher = args.get(5);
                     command = new BookSearch(proxy, clientID, title, authors, isbn, publisher);
 
                     this.addCommand(command);
                 }
-                else if(args.size() == 7){
-
+                else if(args.size() == 7)
+                {
                     String title = args.get(2);
-                    ArrayList<String> authors = new ArrayList<String>(Arrays.asList(args.get(3).split(",")));
+                    ArrayList<String> authors = new ArrayList<>(Arrays.asList(args.get(3).split(",")));
                     String isbn = args.get(4);
                     String publisher = args.get(5);
                     String sortOrder = args.get(6);
@@ -343,7 +333,6 @@ public class CommandParser
             case "login":
                 if (args.size() == 4)
                 {
-
                     String username = args.get(2);
                     String password = args.get(3);
 
@@ -359,7 +348,6 @@ public class CommandParser
             case "logout":
                 if (args.size() == 2)
                 {
-
                     command = new Logout(proxy, clientID);
                     this.addCommand(command);
                 }
@@ -382,7 +370,6 @@ public class CommandParser
                 }
                 else if (args.size() == 4)
                 {
-
                     int amount = Integer.parseInt(args.get(2));
                     Long visitorID = Long.parseLong(args.get(3));
                     command = new PayFine(proxy, clientID, visitorID, amount);
@@ -397,14 +384,12 @@ public class CommandParser
             case "register":
                 if(args.size() == 6)
                 {
-
                     String firstName = args.get(2);
                     String lastName = args.get(3);
                     String address = args.get(4);
                     String phoneNumber = args.get(5);
 
                     command = new RegisterVisitor(proxy, clientID, firstName, lastName, address, phoneNumber);
-
                     this.addCommand(command);
                 }
                 else
@@ -416,13 +401,11 @@ public class CommandParser
             case "report":
                 if(args.size() == 2)
                 {
-
                     command = new GenerateReport(proxy, clientID);
                     this.addCommand(command);
                 }
                 else if(args.size() == 3)
                 {
-
                     int days = Integer.parseInt(args.get(2));
                     command = new GenerateReport(proxy, clientID, days);
                     this.addCommand(command);
@@ -436,9 +419,8 @@ public class CommandParser
             case "return":
                 if(args.size() >= 4)
                 {
-
                     Long visitorID = Long.parseLong(args.get(2));
-                    ArrayList<String> ids = new ArrayList<String>();
+                    ArrayList<String> ids = new ArrayList<>();
 
                     for(int i = 3; i < args.size(); i++)
                     {
@@ -455,19 +437,16 @@ public class CommandParser
                 break;
 
             case "search":
-
                 if(args.size() == 3)
                 {
-
                     String title = args.get(2);
                     command = new BookStoreSearch(proxy, clientID, title);
                     this.addCommand(command);
                 }
                 else if (args.size() == 5)
                 {
-
                     String title = args.get(2);
-                    ArrayList<String> authors = new ArrayList<String>(Arrays.asList(args.get(3).split(",")));
+                    ArrayList<String> authors = new ArrayList<>(Arrays.asList(args.get(3).split(",")));
                     String isbn = args.get(4);
                     command = new BookStoreSearch(proxy, clientID, title, authors, isbn);
                     this.addCommand(command);
@@ -475,7 +454,7 @@ public class CommandParser
                 else if (args.size() == 6)
                 {
                     String title = args.get(2);
-                    ArrayList<String> authors = new ArrayList<String>(Arrays.asList(args.get(3).split(",")));
+                    ArrayList<String> authors = new ArrayList<>(Arrays.asList(args.get(3).split(",")));
                     String isbn = args.get(4);
                     String publisher = args.get(5);
                     command = new BookStoreSearch(proxy, clientID, title, authors, isbn, publisher);
@@ -483,9 +462,8 @@ public class CommandParser
                 }
                 else if(args.size() == 7)
                 {
-
                     String title = args.get(2);
-                    ArrayList<String> authors = new ArrayList<String>(Arrays.asList(args.get(3).split(",")));
+                    ArrayList<String> authors = new ArrayList<>(Arrays.asList(args.get(3).split(",")));
                     String isbn = args.get(4);
                     String publisher = args.get(5);
                     String sortOrder = args.get(6);
@@ -514,7 +492,6 @@ public class CommandParser
             case "service":
                 if (args.size() == 3)
                 {
-
                     String service = args.get(2);
                     command = new SetService(proxy, clientID, service);
                     this.addCommand(command);

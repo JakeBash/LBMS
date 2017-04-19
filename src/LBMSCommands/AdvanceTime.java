@@ -1,9 +1,6 @@
 package LBMSCommands;
 
-import Library.Library;
 import LibraryProtectionProxy.LibrarySubject;
-
-import java.util.ArrayList;
 
 /**
  * Advances the library forward in Time. The number of days can be between 0 and 7, and the number of hours can be
@@ -51,8 +48,6 @@ public class AdvanceTime implements LBMSCommand
         this.days = days;
         this.hours = hours;
     }
-
-
 
     /**
      * Executes the AdvanceTime command on the library.

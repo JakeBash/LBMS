@@ -33,9 +33,7 @@ public class PTUI implements Observer
         this.reader = new BufferedReader(new InputStreamReader(System.in));
         this.lib = new Library();
         this.lib.addObserver(this);
-
         this.clientID = Long.valueOf(657584);
-
         this.proxy = new LibraryProtectionProxy(lib);
         this.commandparser = new CommandParser(proxy);
     }
@@ -50,7 +48,6 @@ public class PTUI implements Observer
         System.out.println("Enter Command");
         try
         {
-
             String command = reader.readLine();
 
             // Hacky way to deal with not being able to update UI if not connected
@@ -62,7 +59,6 @@ public class PTUI implements Observer
 
             if(!proxy.isConnected() && wasConnected)
                 System.out.println(clientID + ",disconnect;" + "\n");
-
         }
         catch(IOException io)
         {
@@ -87,9 +83,12 @@ public class PTUI implements Observer
         PTUI test = new PTUI();
         while(true)
         {
-            try {
+            try
+            {
                 test.getCommand();
-            } catch (IOException e) {
+            }
+            catch (IOException e)
+            {
                 e.printStackTrace();
             }
         }
