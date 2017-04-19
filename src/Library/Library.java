@@ -146,11 +146,11 @@ public class Library extends Observable implements LibrarySubject
     }
 
     /**
-     * Description
+     * This method undoes the borrowing of books.
      *
-     * @param clientID -
-     * @param bookID -
-     * @param visitorID -
+     * @param clientID - the clientID of the client to undo
+     * @param bookID - the book ISBNS that are being returned
+     * @param visitorID - the visitorID associated with the client
      */
     public void undoBorrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
     {
@@ -449,9 +449,9 @@ public class Library extends Observable implements LibrarySubject
     }
 
     /**
-     * Description
+     * the method that gets the current client status
      *
-     * @param clientID -
+     * @param clientID - the ID of the client that is in question
      * @return
      */
     public String getClientStatus(Long clientID)
@@ -463,7 +463,7 @@ public class Library extends Observable implements LibrarySubject
     }
 
     /**
-     * Description
+     * the method that gets the current visitor storage being used
      *
      * @return
      */
@@ -575,9 +575,9 @@ public class Library extends Observable implements LibrarySubject
     }
 
     /**
-     * Description
+     * Method that logs out a client from the LBMS system
      *
-     * @param clientID -
+     * @param clientID - the clientID associated with the client
      */
     public void logout(Long clientID)
     {
@@ -606,10 +606,10 @@ public class Library extends Observable implements LibrarySubject
     }
 
     /**
-     * Description
+     * This method just forwards the response to the client
      *
-     * @param clientID -
-     * @param response -
+     * @param clientID - the clientID who is being updated
+     * @param response - the response
      */
     public void forwardResponse(Long clientID, String response)
     {
@@ -619,10 +619,10 @@ public class Library extends Observable implements LibrarySubject
     ///////////////////////// Helper Methods for Updating Status ////////////////////////////
 
     /**
-     * Description
+     * This method updates the status of whichever client called the current command
      *
-     * @param clientID -
-     * @param status -
+     * @param clientID - the ClientID of the command
+     * @param status - the status
      */
     public void updateClientStatus(Long clientID, String status)
     {
@@ -637,7 +637,7 @@ public class Library extends Observable implements LibrarySubject
     ///////////////////////// Helper Methods for Sorting Lists of Books ////////////////////////////
 
     /**
-     * Description
+     * the sorting method of the BookList
      *
      * @param searchRes -
      * @param sortOrder -

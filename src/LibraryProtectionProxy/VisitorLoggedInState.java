@@ -68,6 +68,12 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
         }
     }
 
+    /**
+     * The method that undoes the borrowing of a book for a client/visitor
+     * @param clientID - the clientID of the person who tried to borrow the books
+     * @param bookID - the book ISBN
+     * @param visitorID - the visitorID associated with the borrow
+     */
     public void undoBorrowBook(Long clientID, ArrayList<String> bookID,Long visitorID)
     {
         library.borrowBook(clientID,bookID,visitorID);
@@ -81,6 +87,12 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
         library.updateClientStatus(clientID, response);
     }
 
+    /**
+     * The method that undoes a purchasing of books to the LBMS internal library
+     * @param clientID - the clientID who purchased the books
+     * @param quantity - the quantity of the books to be purchased
+     * @param ids - the ids of the books to be purchased
+     */
     public void undoPurchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
     {
         library.updateClientStatus(clientID,",undo buy, not-authorized;");
@@ -181,6 +193,12 @@ public class VisitorLoggedInState implements LibraryProtectionProxyState
         }
     }
 
+    /**
+     * This method undos a paying of fines
+     * @param clientID - the ClientID that is associated with the fine
+     * @param visitorID - the visitorID that is associated with the clientID
+     * @param amount - the amount of the fine
+     */
     public void undoPayFine(Long clientID, Long visitorID, int amount)
     {
 

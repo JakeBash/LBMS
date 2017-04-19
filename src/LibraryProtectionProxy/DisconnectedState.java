@@ -64,6 +64,12 @@ public class DisconnectedState implements LibraryProtectionProxyState
         System.out.println("invalid-client-id,client-not-connected;\n");
     }
 
+    /**
+     * The method that undoes a purchasing of books to the LBMS internal library
+     * @param clientID - the clientID who purchased the books
+     * @param quantity - the quantity of the books to be purchased
+     * @param ids - the ids of the books to be purchased
+     */
     public void undoPurchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids)
     {
         //library.undoPurchaseBooks(clientID,quantity,ids);

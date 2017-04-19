@@ -40,12 +40,12 @@ public class GUI extends JPanel
     }
 
     /**
-     * Description
+     * The new Client Class that creates a new client when it is clicked
      */
     private class NewClient extends JButton implements ActionListener
     {
         /**
-         * Description
+         * the constructor that creates the new button
          */
         public NewClient()
         {
@@ -57,9 +57,10 @@ public class GUI extends JPanel
         }
 
         /**
-         * Description
+         * Whenever the newClient Button is pushed, this method is performed. It just creates all of the tabbedpanes and
+         * such
          *
-         * @param e - 
+         * @param e - the click event
          */
         public void actionPerformed(ActionEvent e)
         {

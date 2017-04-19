@@ -53,11 +53,11 @@ public class LibraryOpen implements LibraryState
     /**
      * Checks out a book for a registered visitor at the library.
      *
-     * @param bkID -
-     * @param vID -
-     * @param visitorStorage -
-     * @param timeClock -
-     * @param bookStorage -
+     * @param bkID - the bookID that is beign checked out
+     * @param vID - the visitorID
+     * @param visitorStorage - the visitor storage that is being manipulated
+     * @param timeClock - the timeclock
+     * @param bookStorage - the book storage
      * @return A String representing the output that will displayed to the user.
      */
     public String stateCheckOutBook(ArrayList<String> bkID, Long vID, VisitorStorage visitorStorage, TimeClock timeClock, BookStorage bookStorage)
@@ -88,14 +88,14 @@ public class LibraryOpen implements LibraryState
     }
 
     /**
-     * Description
+     * The method that undoes the checkout of books based on the state that it is currently in
      *
-     * @param bkID -
-     * @param vID -
-     * @param visitorStorage -
-     * @param timeClock -
-     * @param bookStorage -
-     * @return
+     * @param bkID - the BookID that is currently being undone
+     * @param vID - the visitorID associated with this
+     * @param visitorStorage - the visitorStorage that contains the visitor
+     * @param timeClock - the TimeClock of the library
+     * @param bookStorage - the book storage being manipulated
+     * @return - the status string with pass/fail
      */
     public String stateUndoCheckout(ArrayList<String> bkID,Long vID, VisitorStorage visitorStorage, TimeClock timeClock, BookStorage bookStorage)
     {

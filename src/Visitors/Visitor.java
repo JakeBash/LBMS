@@ -64,12 +64,12 @@ public class Visitor implements java.io.Serializable
     }
 
     /**
-     * Description
+     * Method that creates the account associated with this user
      *
-     * @param username -
-     * @param password -
-     * @param role -
-     * @return
+     * @param username - the username that logs into the system
+     * @param password - the password that logs into the system for the associated username
+     * @param role - admin or nah?
+     *
      */
     public void createAccount(String username, String password, String role)
     {
@@ -136,7 +136,7 @@ public class Visitor implements java.io.Serializable
     }
 
     /**
-     * Description
+     * Getter methods for the accounts
      *
      * @return
      */

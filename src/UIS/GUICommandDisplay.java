@@ -28,11 +28,11 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
     private boolean checkChange;
 
     /**
-     * Description
+     * The class that holds all of the GUI elements that are needed to display LBMS to a client
      *
-     * @param library -
-     * @param tabbedPane -
-     * @param clientID -
+     * @param library - the library they are interacting with
+     * @param tabbedPane - the tabbedPane that shows all of the open, active clients
+     * @param clientID - the clientID associated with this GUICommandDisplay
      */
     public GUICommandDisplay(Library library, JTabbedPane tabbedPane, Long clientID)
     {
@@ -62,7 +62,8 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
     }
 
     /**
-     * Description
+     * When an action is performed on the GUICommandDisplay, this method is run. It parses the command that was entered
+     * and sends it to the command parser
      *
      * @param evt -
      */
@@ -90,12 +91,12 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
     }
 
     /**
-     * Description
+     * This is the tab that is used to add clients to the library.
      */
     private class RemoveClient extends JButton implements ActionListener
     {
         /**
-         * Description
+         * the constructor for the RemoveClient Tab
          */
         public RemoveClient()
         {
@@ -108,9 +109,9 @@ public class GUICommandDisplay extends Component implements ActionListener, Obse
         }
 
         /**
-         * Description
+         * Whenever someone clicks on the tab, it opens a new client tab and creates all of the associated things
          *
-         * @param e  -
+         * @param e  - the action, normally a click
          */
         public void actionPerformed(ActionEvent e)
         {

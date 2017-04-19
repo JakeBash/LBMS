@@ -36,11 +36,6 @@ public class BeginVisit implements LBMSCommand
 
     ////////////////////////////// NEW R2 COMMAND FORMAT //////////////////////////////
 
-
-
-
-
-
     /**
      * Executes the BeginVisit command on the library.
      */

@@ -33,12 +33,25 @@ public interface LibraryProtectionProxyState
     // Borrow book
     void borrowBook(Long clientID, ArrayList<String> bookID,Long visitorID);
 
+
+    /**
+     * The method that undoes the borrowing of a book for a client/visitor
+     * @param clientID - the clientID of the person who tried to borrow the books
+     * @param bookID - the book ISBN
+     * @param visitorID - the visitorID associated with the borrow
+     */
     void undoBorrowBook(Long clientID, ArrayList<String> bookID,Long visitorID);
 
     // buy,
     // Book Purchase
     void purchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids);
 
+    /**
+     * The method that undoes a purchasing of books to the LBMS internal library
+     * @param clientID - the clientID who purchased the books
+     * @param quantity - the quantity of the books to be purchased
+     * @param ids - the ids of the books to be purchased
+     */
     void undoPurchaseBooks(Long clientID, int quantity, ArrayList<Integer> ids);
 
     // register,
@@ -61,6 +74,12 @@ public interface LibraryProtectionProxyState
     // Pay fine
     void payFine(Long clientID, Long visitorID, int amount);
 
+    /**
+     * This method undos a paying of fines
+     * @param clientID - the ClientID that is associated with the fine
+     * @param visitorID - the visitorID that is associated with the clientID
+     * @param amount - the amount of the fine
+     */
     void undoPayFine(Long clientID, Long visitorID, int amount);
 
     // report,

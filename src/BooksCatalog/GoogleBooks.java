@@ -9,12 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Description
+ * the class that handles the GoogleBooks API
  */
 public class GoogleBooks implements BookCatalog
 {
     private final String USER_AGENT = "Mozilla/5.0";
 
+    /**
+     * This method overrides the regular book search method and get the books from Google
+     * @param title - The title of the book(s) that is being searched for.
+     * @param authors - The author of the books(s) that is being searched for.
+     * @param isbn - The ISBN of the book(s) being searched for.
+     * @param publisher - The publisher of the book(s) that is being searched for.
+     * @return
+     */
     @Override
     public ArrayList<Book> bookSearch(String title, ArrayList<String> authors, String isbn, String publisher)
     {

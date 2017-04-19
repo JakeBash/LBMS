@@ -172,9 +172,9 @@ public class Book implements java.io.Serializable
     }
 
     /**
-     * Description
+     *The method that removes the copies of the books from the available copies
      *
-     * @param amt -
+     * @param amt - the amount to remove
      */
     public void removeCopies(int amt)
     {

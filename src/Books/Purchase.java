@@ -30,16 +30,28 @@ public class Purchase implements java.io.Serializable
         this.purchaseDate = purchaseDate;
     }
 
+    /**
+     * Get the purchased books for this purchase
+     * @return the book objects
+     */
     public ArrayList<Book> getPurchasedBooks()
     {
         return this.purchasedBooks;
     }
 
+    /**
+     * Get the quantity of the books being purchased
+     * @return the #
+     */
     public int getQuantity()
     {
         return this.quantity;
     }
 
+    /**
+     * Get the date of this purchase
+     * @return a calendar object
+     */
     public Calendar getPurchaseDate() {
         return this.purchaseDate;
     }

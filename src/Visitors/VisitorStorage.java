@@ -213,7 +213,6 @@ public class VisitorStorage implements java.io.Serializable
      */
     private int getTotalUnpaidFines(int days)
     {
-        //TODO: Take into account number of days to include in report. Currently returning total since beginning of time
         int totalBalance = 0;
         for (Visitor visitor: this.getFilteredVisitors(days))
         {
@@ -230,7 +229,6 @@ public class VisitorStorage implements java.io.Serializable
      */
     private int getTotalPaidFines(int days)
     {
-        //TODO: Take into account number of days to include in report. Currently returning total since beginning of time
         int totalBalance = 0;
         for (Visitor visitor: this.getFilteredVisitors(days))
         {
@@ -401,7 +399,6 @@ public class VisitorStorage implements java.io.Serializable
      */
     public String generateReport(int days)
     {
-        //TODO: Take into account number of days to include in report. Currently returning total since beginning of time
         // String to hold the report data
         String reportString;
 
