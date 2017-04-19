@@ -27,8 +27,11 @@ public class CommandParser
     public CommandParser(LibraryProtectionProxy proxy)
     {
         commandQueue = new ArrayList<LBMSCommand>();
+        undoStack = new ArrayList<LBMSCommand>();
+        redoStack = new ArrayList<LBMSCommand>();
         this.proxy = proxy;
         execute = false;
+
     }
 
     /**
