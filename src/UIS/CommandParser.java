@@ -521,6 +521,13 @@ public class CommandParser
                     proxy.forwardResponse(clientID, clientID + ",invalid-parameters;");
                 }
                 break;
+            case "undo":
+                this.executeUndoCommand();
+                break;
+
+            case "redo":
+                this.executeRedoCommand();
+                break;
 
             default:
                 proxy.forwardResponse(clientID, clientID + ",invalid-command;");
