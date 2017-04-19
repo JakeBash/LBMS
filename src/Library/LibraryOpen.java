@@ -5,7 +5,6 @@ import Books.BookStorage;
 import Visitors.Visit;
 import Visitors.Visitor;
 import Visitors.VisitorStorage;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -54,6 +53,11 @@ public class LibraryOpen implements LibraryState
     /**
      * Checks out a book for a registered visitor at the library.
      *
+     * @param bkID -
+     * @param vID -
+     * @param visitorStorage -
+     * @param timeClock -
+     * @param bookStorage -
      * @return A String representing the output that will displayed to the user.
      */
     public String stateCheckOutBook(ArrayList<String> bkID, Long vID, VisitorStorage visitorStorage, TimeClock timeClock, BookStorage bookStorage)
@@ -83,6 +87,16 @@ public class LibraryOpen implements LibraryState
                 + ";" ;
     }
 
+    /**
+     * Description
+     *
+     * @param bkID -
+     * @param vID -
+     * @param visitorStorage -
+     * @param timeClock -
+     * @param bookStorage -
+     * @return
+     */
     public String stateUndoCheckout(ArrayList<String> bkID,Long vID, VisitorStorage visitorStorage, TimeClock timeClock, BookStorage bookStorage)
     {
         Visitor currentv = visitorStorage.getVisitor(vID);

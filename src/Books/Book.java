@@ -111,26 +111,6 @@ public class Book implements java.io.Serializable
     }
 
     /**
-     * Simple getter method for retrieving the page count of a book.
-     *
-     * @return An integer representing the page count of the given book.
-     */
-    public int getPageCount()
-    {
-        return pageCount;
-    }
-
-    /**
-     * Simple getter method for retrieving the number of owned copies of a book.
-     *
-     * @return An integer representing the number of owned copies of the given book.
-     */
-    public int getNumCopies()
-    {
-        return numCopies;
-    }
-
-    /**
      * Simple getter method for retrieving the number available copies of a book.
      *
      * @return An integer representing the number of available copies of the given book.
@@ -191,6 +171,11 @@ public class Book implements java.io.Serializable
         availableCopies += amt;
     }
 
+    /**
+     * Description
+     *
+     * @param amt -
+     */
     public void removeCopies(int amt)
     {
         numCopies -= amt;

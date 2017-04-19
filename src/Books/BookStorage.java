@@ -103,9 +103,8 @@ public class BookStorage implements java.io.Serializable
      * This method removes books from the book storage. This is for undo purposes
      * @param books - arraylist of book ISBNs
      * @param quantity - quantity of each book to remove
-     * @param date - date
      */
-    public void removeBooks(ArrayList<Book> books, int quantity, Calendar date)
+    public void removeBooks(ArrayList<Book> books, int quantity)
     {
         for(Purchase p : this.purchases)
         {
