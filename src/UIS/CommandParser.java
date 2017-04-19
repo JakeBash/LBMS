@@ -572,6 +572,10 @@ public class CommandParser
             executeCommand();
     }
 
+    /**
+     * Adds a command to the undoStack
+     * @param command - the LBMSCommand to be added
+     */
     public void addUndoCommand(LBMSCommand command)
     {
         this.undoStack.add(command);
@@ -583,6 +587,9 @@ public class CommandParser
         }
     }
 
+    /**
+     * Method that executes an undoCommand by calling the undo method of an LBMSCommand
+     */
     public void executeUndoCommand()
     {
         if(!this.undoStack.isEmpty())
@@ -593,6 +600,9 @@ public class CommandParser
         }
     }
 
+    /**
+     * Method that executes an redoCommand by calling the execute method of an LBMSCommand in the redo stack
+     */
     public void executeRedoCommand()
     {
         if(!this.redoStack.isEmpty())

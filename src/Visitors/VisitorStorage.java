@@ -125,11 +125,22 @@ public class VisitorStorage implements java.io.Serializable
             return "success";
     }
 
+    /**
+     * This adds a username to the system so that someone else cant take it
+     * @param username - the username
+     * @param visitorID - the visitorID
+     */
     public void addTakenUsername(String username, Long visitorID)
     {
         this.usernames.put(username, this.getVisitor(visitorID));
     }
 
+    /**
+     * The login method for the library
+     * @param username - the username of the visitor
+     * @param password - the password of the visitor
+     * @return
+     */
     public boolean login(String username, String password)
     {
         if (this.usernames.containsKey(username))
@@ -247,6 +258,12 @@ public class VisitorStorage implements java.io.Serializable
 
         visitor.payFine(amount, this.library.getTime());
     }
+
+    /**
+     * Undos the paying of a fine
+     * @param visitorID - the visitor ID
+     * @param amount - the amount of the fine
+     */
 
     public void undoPayFine(Long visitorID, int amount)
     {
