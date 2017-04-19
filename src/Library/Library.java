@@ -256,7 +256,8 @@ public class Library extends Observable implements LibrarySubject
         }
         else if (visit != null)
         {
-            response += visitorID + "," + visit.getFormattedDate(visit.getEndDateTime()) + "," + visit.getFormattedTime(visit.getEndDateTime()) + ";";
+            int duration = visit.getEndDateTime().get(Calendar.HOUR_OF_DAY) - visit.getStartDateTime().get(Calendar.HOUR_OF_DAY);
+            response += visitorID + "," + duration + "," + visit.getFormattedTime(visit.getEndDateTime()) + ";";
         }
         else
         {
