@@ -204,7 +204,7 @@ public class Library extends Observable implements LibrarySubject
                 removeBooks.add(book);
             }
         }
-        this.bookStorage.removeBooks(removeBooks,quantity,this.getTime());
+        this.bookStorage.removeBooks(removeBooks,quantity);
     }
 
     /**
